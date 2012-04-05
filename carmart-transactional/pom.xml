@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jboss.datagrid.quickstart</groupId>
-    <artifactId>carmart-quickstart</artifactId>
+    <artifactId>carmart-quickstart-tx</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>CarMart Single Node (No Cluster)</name>
+    <name>Transactional CarMart</name>
 
     <properties>
         <datagrid.dist>/path/to/library/datagrid/distribution</datagrid.dist>
@@ -114,6 +114,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>1.6.2</version>
@@ -144,7 +150,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>carmart-quickstart-tx</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -304,55 +310,6 @@
             </build>
         </profile>
         <profile>
-            <id>remote</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-client-hotrod</artifactId>
-                    <version>${datagrid.version}</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>commons-pool</groupId>
-                    <artifactId>commons-pool</artifactId>
-                    <version>1.5.6</version>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.7</version>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/remote/java</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.1.0.CR1b</version>
-                        <configuration>
-                            <port>${jboss-as-management-port}</port>
-                            <hostname>${jboss-as-management-host}</hostname>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>library-jbossas</id>
             <dependencies>
                 <dependency>
@@ -380,7 +337,7 @@
                                 </goals>
                                 <configuration>
                                     <sources>
-                                        <source>src/local/java</source>
+                                        <source>src/jbossas/java</source>
                                     </sources>
                                 </configuration>
                             </execution>
@@ -433,6 +390,74 @@
                     <version>1.1.4.Final</version>
                     <scope>compile</scope>
                 </dependency>
+                <!-- JBoss Transactions dependencies -->
+                <dependency>
+                    <groupId>org.jboss.jbossts</groupId>
+                    <artifactId>jbossjta</artifactId>
+                    <version>4.14.0.Final</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.jboss.ws.native</groupId>
+                            <artifactId>jbossws-native-core</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>emma</artifactId>
+                            <groupId>emma</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>emma_ant</artifactId>
+                            <groupId>emma</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>hornetq-core</artifactId>
+                            <groupId>org.hornetq</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>netty</artifactId>
+                            <groupId>org.jboss.netty</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>wrapper</artifactId>
+                            <groupId>tanukisoft</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jacorb</artifactId>
+                            <groupId>jacorb</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jfreechart</artifactId>
+                            <groupId>jfree</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jboss-corba-ots-spi</artifactId>
+                            <groupId>org.jboss.integration</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jboss-server-manager</artifactId>
+                            <groupId>org.jboss.jbossas</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+                            <groupId>org.jboss.spec.javax.ejb</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jnp-client</artifactId>
+                            <groupId>org.jboss.naming</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                            <groupId>org.jboss.spec.javax.servlet</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jbossws-common</artifactId>
+                            <groupId>org.jboss.ws</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <groupId>org.slf4j</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
                 <dependency>
                     <groupId>javax.validation</groupId>
                     <artifactId>validation-api</artifactId>
@@ -443,12 +468,6 @@
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
                     <version>4.2.0.Final</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.5.6</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -467,7 +486,7 @@
                                 </goals>
                                 <configuration>
                                     <sources>
-                                        <source>src/local/java</source>
+                                        <source>src/tomcat/java</source>
                                     </sources>
                                 </configuration>
                             </execution>
