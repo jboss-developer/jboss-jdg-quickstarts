@@ -137,6 +137,7 @@
             <outputDirectory>.</outputDirectory>
             <includes>
                 <include>README.md</include>
+                <include>README-endpoints.md</include>
             </includes>
         </fileSet>
     </fileSets>

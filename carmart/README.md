@@ -19,7 +19,7 @@ Building and deploying to JBoss AS 7
 
 1) Install libraries from the bundle into your local maven repository
 
-    `mvn initialize -Pinit-repo -Ddatagrid.dist=/home/anyuser/jboss-datagrid-library-6.0.0.ER4-redhat-1`
+    `mvn initialize -Pinit-repo -Ddatagrid.dist=/home/anyuser/jboss-datagrid-library-$VERSION`
     
 2) Start JBoss AS 7 where your application will run
 
@@ -47,7 +47,7 @@ Building and deploying to Tomcat 7
 
 1) Install libraries from the bundle into your local maven repository
 
-    `mvn initialize -Pinit-repo -Ddatagrid.dist=/home/anyuser/jboss-datagrid-library-6.0.0.ER4-redhat-1`
+    `mvn initialize -Pinit-repo -Ddatagrid.dist=/home/anyuser/jboss-datagrid-library-$VERSION`
 
 2) This build assumes you will be running Tomcat 7 in its default
    configuration, with a hostname of localhost and port 8080. Before starting
@@ -114,7 +114,7 @@ Building and starting the application in client-server mode (using HotRod client
 
     `$JBOSS_HOME/bin/standalone.sh`
 
-4) Edit src/main/resources/META-INF/JDG.properties file and specify address of the JDG server
+4) Edit src/main/resources/META-INF/jdg.properties file and specify address of the JDG server
 
     datagrid.address=test1
 
@@ -133,3 +133,4 @@ Building and starting the application in client-server mode (using HotRod client
     `mvn jboss-as:undeploy -Premote`
 
 NOTE: The application must be deployed into JBoss AS7, not JDG, since JDG does not support deploying applications. 
+
