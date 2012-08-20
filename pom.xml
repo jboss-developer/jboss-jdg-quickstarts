@@ -15,9 +15,9 @@
             <activeByDefault>false</activeByDefault>
          </activation>
          <modules>
-            <module>endpoints/hotrod-endpoint</module>
-            <module>endpoints/rest-endpoint</module>
-            <module>endpoints/memcached-endpoint</module>
+            <module>hotrod-endpoint</module>
+            <module>rest-endpoint</module>
+            <module>memcached-endpoint</module>
          </modules>
       </profile>
       
