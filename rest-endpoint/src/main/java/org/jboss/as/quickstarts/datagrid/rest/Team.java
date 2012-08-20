@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301 USA
  */
-package com.jboss.datagrid.rest;
+package org.jboss.as.quickstarts.datagrid.rest;
 
 import java.io.Serializable;
 import java.util.ArrayList;

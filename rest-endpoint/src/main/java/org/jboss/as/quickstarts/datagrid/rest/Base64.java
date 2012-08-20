@@ -21,7 +21,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package com.jboss.datagrid.rest;
+package org.jboss.as.quickstarts.datagrid.rest;
 
 import java.io.Closeable;
 
