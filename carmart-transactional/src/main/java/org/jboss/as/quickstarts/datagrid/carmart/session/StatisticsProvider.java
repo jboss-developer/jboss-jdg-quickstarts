@@ -19,23 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
-
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
-import com.jboss.datagrid.carmart.model.Car.Country;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
 
 /**
- * Produces an array of supported countries
+ * 
+ * Provides cache statistics.
  * 
  * @author Martin Gencur
  * 
  */
-public class CountryManager {
-    @Produces
-    @Named
-    public Country[] getCountries() {
-        return Country.values();
-    }
+public interface StatisticsProvider {
+
+    public void getStatsObject();
+
+    public String getRetrievals();
+
+    public String getStores();
+
+    public String getCurrentEntries();
+
+    public String getHits();
+
+    public String getMisses();
+
+    public String getRemoveHits();
+
 }

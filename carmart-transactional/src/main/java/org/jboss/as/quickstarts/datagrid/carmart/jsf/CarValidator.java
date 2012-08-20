@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.jsf;
+package org.jboss.as.quickstarts.datagrid.carmart.jsf;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,8 +30,9 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
+
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car.Country;
 import org.jboss.seam.faces.validation.InputField;
-import com.jboss.datagrid.carmart.model.Car.Country;
 
 /**
  * Validates correct format of a registration number. Uses Seam Faces' validation to validate the 

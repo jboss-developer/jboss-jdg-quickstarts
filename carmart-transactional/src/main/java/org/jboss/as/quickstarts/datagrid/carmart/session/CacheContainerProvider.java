@@ -19,29 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
+
+import org.infinispan.api.BasicCacheContainer;
 
 /**
  * 
- * Provides cache statistics.
+ * Subclasses should create an instance of a cache manager (DefaultCacheManager, RemoteCacheManager, etc.)
  * 
  * @author Martin Gencur
  * 
  */
-public interface StatisticsProvider {
+public interface CacheContainerProvider {
 
-    public void getStatsObject();
-
-    public String getRetrievals();
-
-    public String getStores();
-
-    public String getCurrentEntries();
-
-    public String getHits();
-
-    public String getMisses();
-
-    public String getRemoveHits();
+    public BasicCacheContainer getCacheContainer();
 
 }
