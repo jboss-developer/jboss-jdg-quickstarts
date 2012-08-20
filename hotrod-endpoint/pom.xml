@@ -8,7 +8,7 @@
    <name>HotRod Endpoint Example</name>
 
    <properties>
-      <main.class>com.jboss.datagrid.hotrod.FootballManager</main.class>
+      <main.class>org.jboss.as.quickstarts.datagrid.hotrod.FootballManager</main.class>
       <datagrid.dist>/path/to/library/datagrid/distribution</datagrid.dist>
       <datagrid.version>5.1.5.FINAL-redhat-1</datagrid.version>
       <jboss.logging.version>3.1.1.GA-redhat-1</jboss.logging.version>

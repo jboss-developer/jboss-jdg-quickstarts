@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301 USA
  */
-package com.jboss.datagrid.hotrod;
+package org.jboss.as.quickstarts.datagrid.hotrod;
 
 import java.io.Serializable;
 import java.util.ArrayList;
