@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301 USA
  */
-package com.jboss.datagrid.memcached;
+package org.jboss.as.quickstarts.datagrid.memcached;
 
 import java.io.Console;
 import java.io.IOException;

@@ -21,7 +21,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package com.jboss.datagrid.memcached;
+package org.jboss.as.quickstarts.datagrid.memcached;
 
 import java.io.Closeable;
 
