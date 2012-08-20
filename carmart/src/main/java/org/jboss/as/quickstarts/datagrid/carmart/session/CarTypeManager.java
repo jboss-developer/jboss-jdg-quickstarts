@@ -19,29 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
+
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
+
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car.CarType;
+
 
 /**
- * 
- * Provides cache statistics.
+ * Produces an array of supported car types
  * 
  * @author Martin Gencur
  * 
  */
-public interface StatisticsProvider {
-
-    public void getStatsObject();
-
-    public String getRetrievals();
-
-    public String getStores();
-
-    public String getCurrentEntries();
-
-    public String getHits();
-
-    public String getMisses();
-
-    public String getRemoveHits();
-
+public class CarTypeManager {
+    @Produces
+    @Named
+    public CarType[] getCarTypes() {
+        return CarType.values();
+    }
 }

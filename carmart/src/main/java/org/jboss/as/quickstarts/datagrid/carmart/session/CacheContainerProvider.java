@@ -19,23 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
-import com.jboss.datagrid.carmart.model.Car.CarType;
+import org.infinispan.api.BasicCacheContainer;
 
 /**
- * Produces an array of supported car types
+ * 
+ * Subclasses should create an instance of a cache manager (DefaultCacheManager, 
+ * RemoteCacheManager, etc.)
  * 
  * @author Martin Gencur
  * 
  */
-public class CarTypeManager {
-    @Produces
-    @Named
-    public CarType[] getCarTypes() {
-        return CarType.values();
-    }
+public abstract class CacheContainerProvider {
+
+   public static final String DATAGRID_HOST = "datagrid.host"; 
+   public static final String HOTROD_PORT = "datagrid.hotrod.port"; 
+   public static final String PROPERTIES_FILE = "META-INF" + File.separator + "datagrid.properties";
+   
+   abstract public BasicCacheContainer getCacheContainer();
+   
+   protected String jdgProperty(String name) {
+       Properties props = new Properties();
+       try { 
+           props.load(this.getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE));
+       } catch (IOException ioe) {
+           throw new RuntimeException(ioe);
+       }
+       return props.getProperty(name);
+   }
 }
