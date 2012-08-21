@@ -1,5 +1,5 @@
-Hotrod Endpoint: Use JDG remotely through Hotrod
-================================================
+MemCached Endpoint: Use JDG remotely through MemCached
+======================================================
 Author: Tristan Tarrent and Martin Gencur
 Level: Intermediate
 Technologies: Infinispan
@@ -135,11 +135,11 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package 
                 
-4. This will create a file at `target/hotrod-endpoint-quickstart.jar` 
+4. This will create a file at `target/memcached-endpoint-quickstart.jar` 
 
 5. Run the example application in its directory:
 
-    java -jar target/hotrod-endpoint-quickstart.jar
+    java -jar target/memcached-endpoint-quickstart.jar
  
 
 Using the application
