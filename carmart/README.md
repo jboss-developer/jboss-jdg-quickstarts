@@ -30,8 +30,6 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
-
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven-) before testing the quickstarts.
 
 
