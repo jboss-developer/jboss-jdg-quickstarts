@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
 
 import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
@@ -36,7 +36,7 @@ import org.infinispan.transaction.LockingMode;
 import org.infinispan.transaction.TransactionMode;
 import org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup;
 import org.infinispan.util.concurrent.IsolationLevel;
-import com.jboss.datagrid.carmart.session.CacheContainerProvider;
+import org.jboss.as.quickstarts.datagrid.carmart.session.CacheContainerProvider;
 
 /**
  * {@link CacheContainerProvider}'s implementation creating a DefaultCacheManager 
