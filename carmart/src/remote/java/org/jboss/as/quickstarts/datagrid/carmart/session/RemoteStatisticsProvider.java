@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
 
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -30,10 +30,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.ServerStatistics;
+import org.jboss.as.quickstarts.datagrid.carmart.session.CacheContainerProvider;
+import org.jboss.as.quickstarts.datagrid.carmart.session.CarManager;
+import org.jboss.as.quickstarts.datagrid.carmart.session.StatisticsProvider;
 
-import com.jboss.datagrid.carmart.session.CacheContainerProvider;
-import com.jboss.datagrid.carmart.session.CarManager;
-import com.jboss.datagrid.carmart.session.StatisticsProvider;
 
 @Named("stats")
 @RequestScoped

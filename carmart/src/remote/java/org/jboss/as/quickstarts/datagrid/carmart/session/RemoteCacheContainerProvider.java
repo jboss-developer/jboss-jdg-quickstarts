@@ -19,15 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.jboss.datagrid.carmart.session;
+package org.jboss.as.quickstarts.datagrid.carmart.session;
 
 import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import org.infinispan.api.BasicCacheContainer;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.jboss.as.quickstarts.datagrid.carmart.session.CacheContainerProvider;
 
-import com.jboss.datagrid.carmart.session.CacheContainerProvider;
 
 /**
  * 
