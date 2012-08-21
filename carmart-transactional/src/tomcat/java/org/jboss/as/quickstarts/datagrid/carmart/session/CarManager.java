@@ -21,18 +21,20 @@
  */
 package org.jboss.as.quickstarts.datagrid.carmart.session;
 
-import org.infinispan.CacheImpl;
-import org.infinispan.api.BasicCache;
-import com.jboss.datagrid.carmart.model.Car;
-import javax.enterprise.inject.Model;
-import javax.inject.Inject;
-import javax.transaction.TransactionManager;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.enterprise.inject.Model;
+import javax.inject.Inject;
+import javax.transaction.TransactionManager;
+
+import org.infinispan.CacheImpl;
+import org.infinispan.api.BasicCache;
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car;
 
 /**
  * Adds, retrieves, removes new cars from the cache. Also returns a list of cars 

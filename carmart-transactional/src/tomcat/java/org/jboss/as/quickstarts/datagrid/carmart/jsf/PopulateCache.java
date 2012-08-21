@@ -24,6 +24,10 @@ package org.jboss.as.quickstarts.datagrid.carmart.jsf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.application.Application;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
@@ -31,17 +35,14 @@ import javax.faces.event.SystemEventListener;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.TransactionManager;
+
 import org.infinispan.CacheImpl;
 import org.infinispan.api.BasicCache;
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car;
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car.CarType;
+import org.jboss.as.quickstarts.datagrid.carmart.model.Car.Country;
 import org.jboss.as.quickstarts.datagrid.carmart.session.CacheContainerProvider;
 import org.jboss.as.quickstarts.datagrid.carmart.session.CarManager;
-
-import com.jboss.datagrid.carmart.model.Car;
-import com.jboss.datagrid.carmart.model.Car.CarType;
-import com.jboss.datagrid.carmart.model.Car.Country;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
 
 /**
  * Populates a cache with initial data. We need to obtain BeanManager from
