@@ -37,7 +37,6 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -90,13 +89,6 @@
                 <dependency>
                     <groupId>org.infinispan</groupId>
                     <artifactId>infinispan-client-hotrod</artifactId>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>commons-pool</groupId>
-                    <artifactId>commons-pool</artifactId>
-                    <version>1.5.6</version>
-                    <scope>compile</scope>
                 </dependency>
             </dependencies>
             <build>
@@ -182,16 +174,8 @@
             <id>library-tomcat</id>
             <dependencies>
                 <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>2.0</version>
-                    <scope>compile</scope>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
@@ -202,13 +186,6 @@
                     <groupId>org.jboss.weld.servlet</groupId>
                     <artifactId>weld-servlet</artifactId>
                     <version>1.1.8.Final</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                    <version>1.0.0.GA</version>
-                    <scope>runtime</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.slf4j</groupId>
