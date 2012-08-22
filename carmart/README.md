@@ -1,8 +1,8 @@
 CarMart: Basic infinispan example
 =================================
-Author: Tristan Tarrent and Martin Gencur
+Author: Tristan Tarrent, Martin Gencur
 Level: Intermediate
-Technologies: Infinispan, CDI,
+Technologies: Infinispan, CDI
 Summary: Show how to use Infinispan instead of a relational database.
 
 What is it?

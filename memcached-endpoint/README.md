@@ -1,6 +1,6 @@
 MemCached Endpoint: Use JDG remotely through MemCached
 ======================================================
-Author: Tristan Tarrent and Martin Gencur
+Author: Tristan Tarrent, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan
 Summary: Show how to use Infinispan remotely.

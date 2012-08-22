@@ -1,8 +1,8 @@
 Transactional CarMart: Basic infinispan example with transactions
 =================================================================
-Author: Tristan Tarrent and Martin Gencur
+Author: Tristan Tarrent, Martin Gencur
 Level: Intermediate
-Technologies: Infinispan, CDI,
+Technologies: Infinispan, CDI
 Summary: Show how to use Infinispan instead of a relational database with transactions enabled.
 
 What is it?

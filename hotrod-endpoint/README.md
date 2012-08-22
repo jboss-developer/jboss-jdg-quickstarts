@@ -1,6 +1,6 @@
 Hotrod Endpoint: Use JDG remotely through Hotrod
 ================================================
-Author: Tristan Tarrent and Martin Gencur
+Author: Tristan Tarrent, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan
 Summary: Show how to use Infinispan remotely.
