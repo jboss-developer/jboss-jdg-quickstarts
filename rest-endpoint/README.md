@@ -8,9 +8,7 @@ Summary: Show how to use Infinispan remotely.
 What is it?
 -----------
 
-This examples shows connecting to JBoss Data Grid (JDG) remotely and storing, 
-retrieving and removing data from caches. All of the apps are variations of a simple Football Manager which is a console 
-application. It is possible to add a team, players, remove all the entities and show the listing of all teams/players. 
+This examples shows connecting to JBoss Data Grid (JDG) remotely and storing, retrieving and removing data from caches. All of the apps are variations of a simple Football Manager which is a console application. It is possible to add a team, players, remove all the entities and show the listing of all teams/players. 
 
 Nothing complex, just showing basic operations with the cache.
 
@@ -26,27 +24,25 @@ The application this project produces is designed to be run on JBoss Datagrid Se
 Configure Maven
 ---------------
 
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
-
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven-) before testing the quickstarts.
 
 
 Configure JDG
 -------------
 
+0) Obtain JDG server distribution
 
-0) Install a JDBC driver into JDG. More information can be found at 
-   https://community.jboss.org/wiki/DataSourceConfigurationInAS7, topic "Installing a JDBC driver as a module"
+1) Install a JDBC driver into JDG. More information can be found at https://community.jboss.org/wiki/DataSourceConfigurationInAS7, topic "Installing a JDBC driver as a module"
 
 NOTE: JDG does not support deploying applications so one cannot install it as a deployment.
 
-1) Alter JDG configuration file (`${JDG_HOME}/standalone/configuration/standalone.xml`) to contain
-   the following definitions:
+2) Alter JDG configuration file (`${JDG_HOME}/standalone/configuration/standalone.xml`) to contain the following definitions:
    
 * Datasource subsystem definition:
 
     ```
     <subsystem xmlns="urn:jboss:domain:datasources:1.0">
+       <!-- DEFINE THIS DATASOURCE -->
         <datasources>
             <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
                 <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
@@ -68,49 +64,43 @@ NOTE: JDG does not support deploying applications so one cannot install it as a 
 * Infinispan subsystem definition:
 
     ```
-    <subsystem xmlns="urn:jboss:domain:infinispan:1.2" default-cache-container="default">
-        <cache-container name="default" default-cache="memcachedCache" listener-executor="infinispan-listener" start="EAGER">
-            <local-cache 
-                name="memcachedCache"
-                start="EAGER"
-                batching="false"
-                indexing="NONE">
-                <locking
-                    isolation="REPEATABLE_READ"
-                    acquire-timeout="20000"
-                    concurrency-level="500"
-                    striping="false" />
-                <transaction mode="NONE" />
-                <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
-                    <property name="databaseType">H2</property>
-                    <string-keyed-table prefix="JDG">
-                        <id-column name="id" type="VARCHAR"/>
-                        <data-column name="datum" type="BINARY"/>
-                        <timestamp-column name="version" type="BIGINT"/>
-                    </string-keyed-table>
-                </string-keyed-jdbc-store>
-            </local-cache>
-            <local-cache 
-                name="teams"
-                start="EAGER"
-                batching="false"
-                indexing="NONE">
-                <locking
-                    isolation="REPEATABLE_READ"
-                    acquire-timeout="20000"
-                    concurrency-level="500"
-                    striping="false" />
-                <transaction mode="NONE" />
-                <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
-                    <property name="databaseType">H2</property>
-                    <string-keyed-table prefix="JDG">
-                        <id-column name="id" type="VARCHAR"/>
-                        <data-column name="datum" type="BINARY"/>
-                        <timestamp-column name="version" type="BIGINT"/>
-                    </string-keyed-table>
-                </string-keyed-jdbc-store>
-            </local-cache>
-        </cache-container>
+    <subsystem xmlns="urn:jboss:domain:infinispan:1.3" default-cache-container="local">
+            <cache-container name="local" default-cache="default">
+                <local-cache name="default" start="EAGER">
+                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <transaction mode="NONE"/>
+                </local-cache>
+                <local-cache name="memcachedCache" start="EAGER">
+                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <transaction mode="NONE"/>
+                </local-cache>
+                <local-cache name="namedCache" start="EAGER"/>
+                
+                <!-- ADD THIS TWO CACHES START --->
+                <local-cache name="carcache" start="EAGER"/>
+                
+                <local-cache 
+                    name="teams"
+                    start="EAGER"
+                    batching="false"
+                    indexing="NONE">
+                    <locking
+                        isolation="REPEATABLE_READ"
+                        acquire-timeout="20000"
+                        concurrency-level="500"
+                        striping="false" />
+                    <transaction mode="NONE" />
+                    <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
+                        <property name="databaseType">H2</property>
+                        <string-keyed-table prefix="JDG">
+                            <id-column name="id" type="VARCHAR"/>
+                            <data-column name="datum" type="BINARY"/>
+                            <timestamp-column name="version" type="BIGINT"/>
+                        </string-keyed-table>
+                    </string-keyed-jdbc-store>
+                </local-cache>
+                <!-- ADD THIS TWO CACHES END -->
+            </cache-container>
     </subsystem>
     ```
 
@@ -157,8 +147,6 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
 
 Debug the Application
 ------------------------------------
-
-Contributor: For example: 
 
 If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 

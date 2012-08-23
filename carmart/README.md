@@ -9,13 +9,11 @@ What is it?
 -----------
 
 CarMart is a simple web application that uses Infinispan instead of a relational database.
-Users can list cars, add new cars or remove them from the CarMart. Information about each car
-is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
 
-The CarMart quickstart can work in two modes: "library" and "client-server". In library mode, 
-all libraries (jar files) are bundled with the application and deployed into the server. Caches are
-configured programatically and run in the same JVM as the web application. In client-server mode, 
-the web application bundles only HotRod client and communicates with a remote JBoss Data Grid (JDG) server. 
+Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
+
+The CarMart quickstart can work in two modes: "library" and "client-server". In library mode, all libraries (jar files) are bundled with the application and deployed into the server. Caches are configured programatically and run in the same JVM as the web application. In client-server mode, the web application bundles only HotRod client and communicates with a remote JBoss Data Grid (JDG) server. 
+
 The JDG server is configured via standalone.xml configuration file.
 
 
@@ -90,7 +88,7 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
 
 
-Building and starting the application in client-server mode (using HotRod client)
+Build and start the application in client-server mode (using HotRod client)
 ---------------------------------------------------------------------------------
 
 NOTE: The application must be deployed into JBoss AS7, not JDG, since JDG does not support deploying applications. 
@@ -100,17 +98,21 @@ NOTE: The application must be deployed into JBoss AS7, not JDG, since JDG does n
 1) Add the following configuration to your `$JDG_HOME/standalone/configuration/standalone.xml` to configure
    remote datagrid
 
-    `<paths>
+   ```
+     <paths>
         <path name="temp" path="/tmp"/>
-     </paths>`
+     </paths>
+   ```
     
     ...right after `</system-properties>` tag
 
-    `<local-cache name="carcache" start="EAGER" batching="false" indexing="NONE">
+    ```
+    <local-cache name="carcache" start="EAGER" batching="false" indexing="NONE">
         <locking isolation="REPEATABLE_READ" striping="false" acquire-timeout="20000" concurrency-level="500"/>
         <eviction strategy="LIRS" max-entries="4"/>
         <file-store relative-to="temp" path="carstore" passivation="false"/>
-     </local-cache>`
+    </local-cache>
+    ``` 
     
     ...into infinispan sybsystem
    

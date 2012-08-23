@@ -9,13 +9,11 @@ What is it?
 -----------
 
 CarMart is a simple web application that uses Infinispan instead of a relational database.
-Users can list cars, add new cars or remove them from the CarMart. Information about each car
-is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
 
-The CarMart quickstart can work in two modes: "library" and "client-server". In library mode, 
-all libraries (jar files) are bundled with the application and deployed into the server. Caches are
-configured programatically and run in the same JVM as the web application. In client-server mode, 
-the web application bundles only HotRod client and communicates with a remote JBoss Data Grid (JDG) server. 
+Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
+
+The CarMart quickstart can work in two modes: "library" and "client-server". In library mode, all libraries (jar files) are bundled with the application and deployed into the server. Caches are configured programatically and run in the same JVM as the web application. In client-server mode, the web application bundles only HotRod client and communicates with a remote JBoss Data Grid (JDG) server.
+ 
 The JDG server is configured via standalone.xml configuration file.
 
 
@@ -30,18 +28,13 @@ The application this project produces is designed to be run on JBoss Enterprise 
 Configure Maven
 ---------------
 
-Contributor: You can copy or link to the Maven configuration information in the README file in the root folder of the quickstarts. For example:
-
 If you have not yet done so, you must [Configure Maven](../README.md#configure-maven-) before testing the quickstarts.
 
 
-Building and deploying to Tomcat 7
+Build and Deploy to Tomcat 7
 ----------------------------------
 
-1) This build assumes you will be running Tomcat 7 in its default
-   configuration, with a hostname of localhost and port 8080. Before starting
-   Tomcat, add the following lines to `conf/tomcat-users.xml` to allow the Maven
-   Tomcat plugin to access the manager application:
+1) This build assumes you will be running Tomcat 7 in its default configuration, with a hostname of localhost and port 8080. Before starting Tomcat, add the following lines to `conf/tomcat-users.xml` to allow the Maven Tomcat plugin to access the manager application:
 
     <role rolename="manager-script"/>
     <user username="admin" password="SOMEPASSWD" roles="manager-script"/>
@@ -56,11 +49,13 @@ Building and deploying to Tomcat 7
 
 4) Add a `<server>` element into your Maven settings.xml with `<id>` equal to `tomcat` and correct credentials:
 
-    `<server>
+    ```
+    <server>
          <id>tomcat</id>
          <username>admin</username>
          <password>SOMEPASSWD</password>
-     </server>`
+     </server>
+    ```
 
 5) Deploy the application via tomcat Maven plugin
 
