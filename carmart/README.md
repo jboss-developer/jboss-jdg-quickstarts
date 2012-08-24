@@ -58,7 +58,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-        Access the running application in a browser at the following URL:  http://localhost:8080/carmart-quickstart/
+        Access the running application in a browser at the following URL:  http://localhost:8080/jboss-as-carmart/
 
 
         Users can list cars, add new cars or remove them from the CarMart. Information about each car

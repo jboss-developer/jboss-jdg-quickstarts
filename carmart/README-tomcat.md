@@ -61,7 +61,7 @@ Build and Deploy to Tomcat 7
 
     `mvn tomcat:deploy -Plibrary-tomcat`
 
-6) Go to http://localhost:8080/carmart-quickstart
+6) Go to http://localhost:8080/jboss-as-carmart
 
 7) Undeploy the application
 

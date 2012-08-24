@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jboss.datagrid.quickstart</groupId>
-    <artifactId>carmart-quickstart-tx</artifactId>
+    <artifactId>jboss-as-carmart-tx</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Transactional CarMart</name>
@@ -56,7 +56,7 @@
     </dependencies>
 
     <build>
-        <finalName>carmart-quickstart-tx</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
