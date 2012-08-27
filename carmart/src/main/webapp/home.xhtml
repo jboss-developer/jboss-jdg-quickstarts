@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:s="http://jboss.org/seam/faces">
+    xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="template.xhtml">
 
@@ -11,7 +10,6 @@
         <h:outputText value="List of available cars" styleClass="carsTitle"/>
 		<h:dataTable value="#{carManager.carList}" var="car" styleClass="innerContent" columnClasses="numberPlate,link,link">
 			<h:column>
-<!--				<f:facet name="header">Car ID</f:facet>-->
                 #{car} &nbsp;
             </h:column>
 			<h:column>
