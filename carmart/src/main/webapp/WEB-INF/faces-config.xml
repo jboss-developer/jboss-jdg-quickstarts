@@ -8,7 +8,7 @@
    <application>
         <system-event-listener>
             <system-event-listener-class>
-                com.jboss.datagrid.carmart.jsf.PopulateCache
+                org.jboss.as.quickstarts.datagrid.carmart.jsf.PopulateCache
             </system-event-listener-class>
             <system-event-class>
                 javax.faces.event.PostConstructApplicationEvent
