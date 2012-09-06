@@ -13,3 +13,6 @@ test-output
 
 #eclipse output
 bin
+
+#preview output
+README*.html
