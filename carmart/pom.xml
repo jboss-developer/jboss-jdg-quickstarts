@@ -1,404 +1,163 @@
 <?xml version="1.0"?>
+<!-- JBoss, Home of Professional Open Source Copyright 2012, Red Hat, Inc. 
+    and/or its affiliates, and individual contributors by the @authors tag. See 
+    the copyright.txt in the distribution for a full listing of individual contributors. 
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not 
+    use this file except in compliance with the License. You may obtain a copy 
+    of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+    by applicable law or agreed to in writing, software distributed under the 
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+    OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jboss.datagrid.quickstart</groupId>
-    <artifactId>carmart-quickstart</artifactId>
+    <artifactId>jboss-as-carmart</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>CarMart Single Node (No Cluster)</name>
 
     <properties>
-        <datagrid.dist>/path/to/library/datagrid/distribution</datagrid.dist>
-        <datagrid.version>5.1.3.ER6-redhat-1</datagrid.version>
-        <jgroups.version>3.0.8.Final-redhat-1</jgroups.version>
-        <jboss.marshalling.version>1.3.11.GA-redhat-1</jboss.marshalling.version>
-        <jboss.logging.version>3.1.0.GA-redhat-1</jboss.logging.version>
-        <woodstox.core.asl.version>4.1.1-redhat-1</woodstox.core.asl.version>
-        <stax2.api.version>3.1.1-redhat-1</stax2.api.version>
-        <seam.version>3.1.0.Final</seam.version>
-        <jsf.version>2.0.2-FCS</jsf.version>
+        <!-- Explicitly declaring the source encoding eliminates the following 
+            message: -->
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+            resources, i.e. build is platform dependent! -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- JBoss dependency versions -->
+        <jboss.as.plugin.version>7.1.1.Final</jboss.as.plugin.version>
+
+        <!-- This is the JBoss management port, so jboss-as-maven-plugin 
+            can deploy this quickstart on it -->
         <jboss-as-management-port>9999</jboss-as-management-port>
+
+        <!-- This is the host where JBoss is running, so jboss-as-maven-plugin 
+            can deploy this quickstart on it -->
         <jboss-as-management-host>localhost</jboss-as-management-host>
+
+        <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
+            can deploy this quickstart on EWS/Tomcat through this URL -->
         <tomcat.management.url>http://localhost:8080/manager/text</tomcat.management.url>
+
+        <!-- Define the version of the JBoss BOMs we want to import. The 
+            JBoss BOMs specify tested stacks. -->
+        <jboss.bom.version>1.0.1.CR4</jboss.bom.version>
+
+
+        <!-- other plugin versions -->
+        <compiler.plugin.version>2.3.2</compiler.plugin.version>
+        <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
+        <war.plugin.version>2.2</war.plugin.version>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
-    <repositories>
-        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
-        <repository>
-            <id>jboss-public-repository</id>
-            <name>JBoss Repository</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <releases>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jboss-public-repository</id>
-            <name>JBoss Repository</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <releases>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
+        <!-- JBoss distributes a complete set of Java EE 6 APIs including 
+            a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+            a collection) of artifacts. We use this here so that we always get the correct 
+            versions of artifacts. Here we use the jboss-javaee-6.0-with-infinispan stack 
+            and the jboss-javaee-6.0-with-transactions stack (you can read this as the 
+            JBoss stack of the Java EE 6 APIs, with Infinispan and Transactions) -->
         <dependencies>
             <dependency>
-                <groupId>org.jboss.seam</groupId>
-                <artifactId>seam-bom</artifactId>
-                <version>${seam.version}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-infinispan</artifactId>
+                <version>${jboss.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
+
+        <!-- First declare the APIs we depend on and need for compilation. 
+            The dependencies with provided scope are provided by JBoss AS 7, The other 
+            compile scoped dependencies will be add to the application libraries -->
+
+        <!-- Import the JSF API, we use provided scope as the API is included 
+            in JBoss AS 7 -->
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <version>${datagrid.version}</version>
-            <scope>compile</scope>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
-        <!-- infinispan-core dependencies - need to specify them manually 
-            as we install infinispan-core into local maven repo manually without transitive 
-            dependencies -->
-        <dependency>
-            <groupId>org.jgroups</groupId>
-            <artifactId>jgroups</artifactId>
-            <version>${jgroups.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.marshalling</groupId>
-            <artifactId>jboss-marshalling-river</artifactId>
-            <version>${jboss.marshalling.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.marshalling</groupId>
-            <artifactId>jboss-marshalling</artifactId>
-            <version>${jboss.marshalling.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>${jboss.logging.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>woodstox-core-asl</artifactId>
-            <version>${woodstox.core.asl.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.xml.stream</groupId>
-                    <artifactId>stax-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>stax2-api</artifactId>
-            <version>${stax2.api.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.xml.stream</groupId>
-                    <artifactId>stax-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>staxmapper</artifactId>
-            <version>1.0.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.rhq.helpers</groupId>
-            <artifactId>rhq-pluginAnnotations</artifactId>
-            <version>3.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.faces</groupId>
-            <artifactId>seam-faces</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.international</groupId>
-            <artifactId>seam-international</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
+        <!-- Import the CDI API, we use provided scope as the API is included 
+            in JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>1.0-SP4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Import the infinispan core -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>1.6.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.security</groupId>
-            <artifactId>seam-security-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.transaction</groupId>
-            <artifactId>seam-transaction-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.persistence</groupId>
-            <artifactId>seam-persistence-api</artifactId>
-        </dependency>
+
+        <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
         <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
             <version>3.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.0.0.CR5</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <!-- Maven will append the version to the finalName (which is the 
+            name given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
+                annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>${compiler.plugin.version}</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <compilerArgument>-proc:none</compilerArgument>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <configuration>
-                            <compilerArgument>-proc:none</compilerArgument>
-                        </configuration>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${war.plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <!-- Java EE 6 doesn't require web.xml, Maven needs to 
+                        catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <profile>
-            <id>init-repo</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-install-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>install-infinispan-core</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/infinispan-core-${datagrid.version}.jar</file>
-                                    <artifactId>infinispan-core</artifactId>
-                                    <groupId>org.infinispan</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${datagrid.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-jgroups</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/jgroups-${jgroups.version}.jar</file>
-                                    <artifactId>jgroups</artifactId>
-                                    <groupId>org.jgroups</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${jgroups.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-jboss-marshalling-river</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/jboss-marshalling-river-${jboss.marshalling.version}.jar</file>
-                                    <artifactId>jboss-marshalling-river</artifactId>
-                                    <groupId>org.jboss.marshalling</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${jboss.marshalling.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-jboss-marshalling</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/jboss-marshalling-${jboss.marshalling.version}.jar</file>
-                                    <artifactId>jboss-marshalling</artifactId>
-                                    <groupId>org.jboss.marshalling</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${jboss.marshalling.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-jboss-logging</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/jboss-logging-${jboss.logging.version}.jar</file>
-                                    <artifactId>jboss-logging</artifactId>
-                                    <groupId>org.jboss.logging</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${jboss.logging.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-woodstox-core-asl</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/woodstox-core-asl-${woodstox.core.asl.version}.jar</file>
-                                    <artifactId>woodstox-core-asl</artifactId>
-                                    <groupId>org.codehaus.woodstox</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${woodstox.core.asl.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-stax2-api</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/lib/stax2-api-${stax2.api.version}.jar</file>
-                                    <artifactId>stax2-api</artifactId>
-                                    <groupId>org.codehaus.woodstox</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${stax2.api.version}</version>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>install-hotrod-client</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <configuration>
-                                    <file>${datagrid.dist}/modules/cachestores/remote/lib/infinispan-client-hotrod-${datagrid.version}.jar</file>
-                                    <artifactId>infinispan-client-hotrod</artifactId>
-                                    <groupId>org.infinispan</groupId>
-                                    <packaging>jar</packaging>
-                                    <version>${datagrid.version}</version>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>remote</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-client-hotrod</artifactId>
-                    <version>${datagrid.version}</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>commons-pool</groupId>
-                    <artifactId>commons-pool</artifactId>
-                    <version>1.5.6</version>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.7</version>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/remote/java</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.1.0.CR1b</version>
-                        <configuration>
-                            <port>${jboss-as-management-port}</port>
-                            <hostname>${jboss-as-management-host}</hostname>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+
+        <!-- This is the default profile (active by default) that uses the 
+            src/local/java folder which provided local access to the cache (library mode) -->
         <profile>
             <id>library-jbossas</id>
-            <dependencies>
-                <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>${jsf.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
+                        <!-- This plugin will add the src/local/java source 
+                            folder -->
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.7</version>
+                        <version>${buildhelper.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>add-source</id>
@@ -415,9 +174,12 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <!-- The JBoss AS plugin deploys your war to a local 
+                            JBoss AS container -->
+                        <!-- To use, run: mvn package jboss-as:deploy -->
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.1.0.CR1b</version>
+                        <version>${jboss.as.plugin.version}</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
@@ -434,58 +196,101 @@
                 </plugins>
             </build>
         </profile>
+
+
+        <!-- This profile enable the client/server mode. The code from src/remote/java 
+            will be used instead and them all connections to the cache will be made in 
+            a remote JDG running instance -->
         <profile>
-            <id>library-tomcat</id>
+            <id>remote</id>
+            <!-- To connect to remote JDG, it is necessary to add the Hot 
+                Rod client -->
             <dependencies>
                 <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>${jsf.version}</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <version>${jsf.version}</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.weld.servlet</groupId>
-                    <artifactId>weld-servlet</artifactId>
-                    <version>1.1.4.Final</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                    <version>1.0.0.GA</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-validator</artifactId>
-                    <version>4.2.0.Final</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.5.6</version>
-                    <scope>runtime</scope>
+                    <groupId>org.infinispan</groupId>
+                    <artifactId>infinispan-client-hotrod</artifactId>
                 </dependency>
             </dependencies>
             <build>
                 <plugins>
+                    <!-- This plugin will add the src/remote/java source 
+                        folder -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>1.7</version>
+                        <version>${buildhelper.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/remote/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- The JBoss AS plugin deploys your war to a local 
+                            JBoss AS container -->
+                        <!-- To use, run: mvn package jboss-as:deploy -->
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <version>${jboss.as.plugin.version}</version>
+                        <configuration>
+                            <port>${jboss-as-management-port}</port>
+                            <hostname>${jboss-as-management-host}</hostname>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <profile>
+            <!-- This profile is intended to run this quickstart on ews/tomcat. 
+                It has to embed some libraries that aren't available on ews/tomcat. -->
+            <id>library-tomcat</id>
+            <dependencies>
+
+                <!-- Import the JSF 2.1 API -->
+                <dependency>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <scope>compile</scope>
+                </dependency>
+
+                <!-- Import the WELD "uber-jar", meaning it bundles all the 
+                    bits of Weld and CDI required for running in a Servlet container, for your 
+                    convenience -->
+                <dependency>
+                    <groupId>org.jboss.weld.servlet</groupId>
+                    <artifactId>weld-servlet</artifactId>
+                    <version>1.1.8.Final</version>
+                </dependency>
+
+                <!-- Import the Mojarra JSF Impl, we use runtime scope as 
+                    the Impl is not included in ews/tomcat -->
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <version>2.0.2</version>
+                    <scope>runtime</scope>
+                </dependency>
+
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- This plugin will add the src/tomcat/java source 
+                            folder -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>${buildhelper.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>add-source</id>
@@ -502,9 +307,11 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <!-- This plugin will add the src/main/webapp-tomcat7 
+                            as webapp folder -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.2</version>
+                        <version>${war.plugin.version}</version>
                         <configuration>
                             <webResources>
                                 <resource>
@@ -515,6 +322,9 @@
                         </configuration>
                     </plugin>
                     <plugin>
+                        <!-- The Tomcat Maven plugin deploys your war to 
+                            a local ews/tomcat container -->
+                        <!-- To use, run: mvn package tomcat:deploy -->
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>tomcat-maven-plugin</artifactId>
                         <version>1.1</version>
