@@ -33,7 +33,7 @@ Configure JDG
 
 1. Obtain JDG server distribution on Red Hat's Customer Portal at https://access.redhat.com/jbossnetwork/restricted/listSoftware.html
 
-2. Install a JDBC driver into JDG. More information can be found at https://access.redhat.com/knowledge/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/chap-Managing_Datasources.html . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
+2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found at https://access.redhat.com/knowledge/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/chap-Datasource_Management.html . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
 3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
    
@@ -65,7 +65,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:jboss:domain:infinispan:1.3" default-cache-container="local">
+        <subsystem xmlns="urn:jboss:datagrid:infinispan:6.1" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -77,7 +77,7 @@ Configure JDG
                 </local-cache>
                 <local-cache name="namedCache" start="EAGER"/>
                 
-                <!-- ADD a local cache called 'teams' --->
+                <!-- ADD a local cache called 'teams' -->
                
                 <local-cache 
                     name="teams"
@@ -113,6 +113,9 @@ Configure JDG
             </cache-container>
         </subsystem>
 
+4. Disable REST endpoint security: by default the standalone.xml configuration protects the REST endpoint with BASIC authentication. Since this quickstart cannot perform authentication, the REST connector should be configured without it:
+
+        <rest-connector virtual-server="default-host" cache-container="local" />
 
 Start JBoss Data Grid 6
 -----------------------
