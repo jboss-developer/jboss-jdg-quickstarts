@@ -25,6 +25,7 @@ This distribution contains the following quickstarts:
 |:-----------|:-----------|:-----------|
 | [carmart](carmart/README.md) | Infinispan, CDI | Shows how to use Infinispan instead of a relational database. |
 | [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
+| [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
 | [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
 | [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
