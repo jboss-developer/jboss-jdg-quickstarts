@@ -35,6 +35,7 @@
         <!-- other plugin versions -->
         <compiler.plugin.version>2.3.2</compiler.plugin.version>
         <shade.plugin.version>1.5</shade.plugin.version>
+        <exec.plugin.version>1.2.1</exec.plugin.version>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -75,7 +76,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>${exec.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

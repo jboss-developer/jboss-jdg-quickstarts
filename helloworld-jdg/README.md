@@ -71,7 +71,7 @@ for complete instructions and additional options._
 4. This will deploy `target/jboss-as-helloworld-jdg.war` to the first running instance of the server.
 5. Type this command to build and deploy the archive to the second server (running on different ports):
 
-        mvn clean package jboss-as:deploy -Ddeploy.port=10099
+        mvn clean package jboss-as:deploy -Djboss-as.port=10099
 
 6. This will deploy `target/jboss-as-helloworld-jdg.war` to the second running instance of the server.
 
