@@ -36,6 +36,7 @@
     <modules>
         <module>carmart</module>
         <module>carmart-tx</module>
+        <module>cdi-jdg</module>
         <module>helloworld-jdg</module>
         <module>hotrod-endpoint</module>
         <module>memcached-endpoint</module>
@@ -51,4 +52,3 @@
     </properties>
 
 </project>
-
