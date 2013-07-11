@@ -38,7 +38,7 @@ Before starting EWS/Tomcat, add the following lines to `conf/tomcat-users.xml` t
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven-) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
 
 
 Add a `<server>` element into your Maven settings.xml with `<id>` equal to tomcat and correct credentials:
