@@ -57,12 +57,12 @@
         <tomcat.management.url>http://localhost:8080/manager/text</tomcat.management.url>
 
         <!-- other plugin versions -->
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         <version.tomcat.maven.plugin>1.1</version.tomcat.maven.plugin>
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>2.3.2</version.compiler.plugin>
+        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.2</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
