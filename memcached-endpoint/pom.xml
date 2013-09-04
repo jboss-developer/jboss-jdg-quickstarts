@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jboss.datagrid.quickstart</groupId>
+    <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>memcached-endpoint-quickstart</artifactId>
     <version>6.2.0-SNAPSHOT</version>
     <name>Memcached Endpoint Example</name>
