@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
-    <artifactId>jboss-as-helloworld-jdg</artifactId>
+    <artifactId>jboss-helloworld-jdg</artifactId>
     <version>6.2.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss AS Quickstarts: JBoss Data Grid HelloWorld</name>
+    <name>JBoss JDG Quickstart: helloworld-jdg</name>
 
     <licenses>
         <license>
@@ -44,15 +44,14 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>1.0.7.CR8</version.jboss.bom>
+        <version.jboss.bom.jdg>6.2.0-redhat-1</version.jboss.bom.jdg>
         <!-- Alternatively, comment out the above line, and un-comment the 
             line below to use version 1.0.4.Final-redhat-4 which is a release certified 
             to work with JBoss EAP 6. It requires you have access to the JBoss EAP 6 
             maven repository. -->
-        <!-- <version.jboss.bom>1.0.4.Final-redhat-4</version.jboss.bom> -->
+        <!-- <version.jboss.bom.jdg>1.0.4.Final-redhat-4</version.jboss.bom.jdg> -->
 
         <!-- other plugin versions -->
-        <compiler.plugin.version>2.3.2</compiler.plugin.version>
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
         <war.plugin.version>2.2</war.plugin.version>
 
@@ -70,9 +69,9 @@
             and the jboss-javaee-6.0-with-transactions stack (you can read this as the
             JBoss stack of the Java EE 6 APIs, with Infinispan and Transactions) -->
             <dependency>
-                <groupId>org.jboss.bom</groupId>
+                <groupId>org.jboss.bom.jdg</groupId>
                 <artifactId>jboss-javaee-6.0-with-infinispan</artifactId>
-                <version>${version.jboss.bom}</version>
+                <version>${version.jboss.bom.jdg}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -118,14 +117,6 @@
         is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler.plugin.version}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

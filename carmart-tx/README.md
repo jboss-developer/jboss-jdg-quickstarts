@@ -62,13 +62,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package jboss-as:deploy
         
-4. This will deploy `target/jboss-as-carmart-tx.war` to the running instance of the server.
+4. This will deploy `target/jboss-carmart-tx.war` to the running instance of the server.
  
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-as-carmart-tx/>
+Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-carmart-tx/>
 
 
 Undeploy the Archive
