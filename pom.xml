@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
-    <artifactId>jdg-quickstarts</artifactId>
+    <artifactId>jboss-jdg-quickstarts</artifactId>
     <version>6.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss Data Grid Quickstart Parent</name>
+    <name>JBoss JDG Quickstart: parent</name>
 
     <licenses>
         <license>
@@ -41,5 +41,12 @@
         <module>memcached-endpoint</module>
         <module>rest-endpoint</module>
     </modules>
+
+    <properties>
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <maven.compiler.source>1.6</maven.compiler.source>
+    </properties>
+
 </project>
 

@@ -69,12 +69,12 @@ for complete instructions and additional options._
 
         mvn clean package jboss-as:deploy
 
-4. This will deploy `target/jboss-as-helloworld-jdg.war` to the first running instance of the server.
+4. This will deploy `target/jboss-helloworld-jdg.war` to the first running instance of the server.
 5. Type this command to build and deploy the archive to the second server (running on different ports):
 
         mvn clean package jboss-as:deploy -Djboss-as.port=10099
 
-6. This will deploy `target/jboss-as-helloworld-jdg.war` to the second running instance of the server.
+6. This will deploy `target/jboss-helloworld-jdg.war` to the second running instance of the server.
 
 
 Access the application 
@@ -82,18 +82,18 @@ Access the application
 
 The application will be running at the following URLs:
 
-   <http://localhost:8080/jboss-as-helloworld-jdg>  (first server instance)
-   <http://localhost:8180/jboss-as-helloworld-jdg>  (second server instance)
+   <http://localhost:8080/jboss-helloworld-jdg>  (first server instance)
+   <http://localhost:8180/jboss-helloworld-jdg>  (second server instance)
 
 You can test replication of entries in the following way:
 
-1. Access first server at <http://localhost:8080/jboss-as-helloworld-jdg> and insert key "foo" with value "bar"
-2. Access second server at <http://localhost:8180/jboss-as-helloworld-jdg> and do the following:
+1. Access first server at <http://localhost:8080/jboss-helloworld-jdg> and insert key "foo" with value "bar"
+2. Access second server at <http://localhost:8180/jboss-helloworld-jdg> and do the following:
    * Click on "Get Some"
    * Get the value for key "foo"
    * Click "Put Some More"
    * Insert key "mykey" with value "myvalue"
-3. Access the first server at <http://localhost:8080/jboss-as-helloworld-jdg> and do the following:
+3. Access the first server at <http://localhost:8080/jboss-helloworld-jdg> and do the following:
    * Click on "Get Some"
    * Get all mappings by clicking on "Get All"
 4. All data entered on each server was replicated to the other server
@@ -102,8 +102,8 @@ NOTE: Entries expire and simply disappear after 60 seconds from last update.
 
 To access predefined servlets and directly store/retrieve a key in the cache, access the following URLs:
 
-<http://localhost:8080/jboss-as-helloworld-jdg/TestServletPut>
-<http://localhost:8180/jboss-as-helloworld-jdg/TestServletGet>  (note the different port 8180)
+<http://localhost:8080/jboss-helloworld-jdg/TestServletPut>
+<http://localhost:8180/jboss-helloworld-jdg/TestServletGet>  (note the different port 8180)
 
 
 Undeploy the Archive
