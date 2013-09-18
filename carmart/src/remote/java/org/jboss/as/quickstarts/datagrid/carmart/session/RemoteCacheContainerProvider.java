@@ -19,9 +19,11 @@ package org.jboss.as.quickstarts.datagrid.carmart.session;
 import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import org.infinispan.api.BasicCacheContainer;
+import org.infinispan.commons.api.BasicCacheContainer;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.jboss.as.quickstarts.datagrid.carmart.session.CacheContainerProvider;
+
 
 
 /**
@@ -42,7 +44,11 @@ public class RemoteCacheContainerProvider extends CacheContainerProvider {
 
     public BasicCacheContainer getCacheContainer() {
         if (manager == null) {
-            manager = new RemoteCacheManager(jdgProperty(DATAGRID_HOST) + ":" + jdgProperty(HOTROD_PORT), true);
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.addServer()
+                 .host(jdgProperty(DATAGRID_HOST))
+                 .port(Integer.parseInt(jdgProperty(HOTROD_PORT)));
+            manager = new RemoteCacheManager(builder.build());
             log.info("=== Using RemoteCacheManager (Hot Rod) ===");
         }
         return manager;

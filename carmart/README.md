@@ -93,8 +93,7 @@ NOTE: The application must be deployed to JBoss Enterprise Application Platform 
 
 2. Configure the remote datagrid in the `$JDG_HOME/standalone/configuration/standalone.xml` file. Copy the following XML into the Infinispan subsystem before the ending </cache-container> tag. If you have an existing `carcache` element, be sure to replace it with this one.
        
-            <local-cache name="carcache" start="EAGER" batching="false" indexing="NONE">
-                <locking isolation="REPEATABLE_READ" striping="false" acquire-timeout="20000" concurrency-level="500"/>
+            <local-cache name="carcache" start="EAGER" batching="false">
                 <eviction strategy="LIRS" max-entries="4"/>
             </local-cache>
    

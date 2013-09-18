@@ -20,7 +20,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.0 
+The application this project produces is designed to be run on JBoss Data Grid 6.2
 
  
 Configure Maven
@@ -41,7 +41,7 @@ Configure JDG
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.0">
+        <subsystem xmlns="urn:jboss:domain:datasources:1.1">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -66,7 +66,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:5.2" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:6.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -83,8 +83,7 @@ Configure JDG
                 <local-cache 
                     name="teams"
                     start="EAGER"
-                    batching="false"
-                    indexing="NONE">
+                    batching="false">
                     
                     <!-- Define the locking isolation of this cache -->
                     <locking
@@ -98,9 +97,7 @@ Configure JDG
                     
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
                     <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
-                        <!-- Define the database dialect -->
-                        <property name="databaseType">H2</property>
-                        
+
                         <!-- specifies information about database table/column names and data types -->
                         <string-keyed-table prefix="JDG">
                             <id-column name="id" type="VARCHAR"/>

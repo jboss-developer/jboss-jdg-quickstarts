@@ -19,7 +19,7 @@ package org.jboss.as.quickstarts.datagrid.carmart.session;
 import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import org.infinispan.api.BasicCacheContainer;
+import org.infinispan.commons.api.BasicCacheContainer;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
@@ -64,7 +64,7 @@ public class TomcatCacheContainerProvider implements CacheContainerProvider {
                 .lockingMode(LockingMode.OPTIMISTIC).transactionManagerLookup(new JBossStandaloneJTAManagerLookup()) //uses JBossStandaloneJTAManagerLookup - If you're running Infinispan in a standalone environment, this should be your default choice for transaction manager. It's a fully fledged transaction manager based on JBoss Transactions which overcomes all the deficiencies of the dummy transaction manager.
                 .locking().isolationLevel(IsolationLevel.REPEATABLE_READ) //Sets the isolation level of locking
                 .eviction().maxEntries(4).strategy(EvictionStrategy.LIRS) //Sets  4 as maximum number of entries in a cache instance and uses the LIRS strategy - an efficient low inter-reference recency set replacement policy to improve buffer cache performance
-                .loaders().passivation(false).addFileCacheStore().purgeOnStartup(true) //Disable passivation and adds a FileCacheStore that is purged on Startup
+                .persistence().passivation(false).addSingleFileStore().purgeOnStartup(true) //Disable passivation and adds a SingleFileStore that is purged on Startup
                 .build(); //Builds the Configuration object
             manager = new DefaultCacheManager(glob, loc, true);
             log.info("=== Using DefaultCacheManager (library mode) ===");
