@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.datagrid;
+package org.jboss.as.quickstarts.datagrid.helloworld;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;

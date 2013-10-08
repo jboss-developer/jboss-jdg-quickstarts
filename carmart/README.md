@@ -83,6 +83,22 @@ If you want to debug the source code or look at the Javadocs of any library in t
         mvn dependency:sources
         mvn dependency:resolve -Dclassifier=javadoc
 
+Test the Application in Library mode
+------------------------------------
+
+If you want to test the application, there are simple Arquillian Selenium tests prepared.
+To run these tests on JBoss AS:
+
+1. Stop JBoss Server (if you have one running)
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Build the quickstart using:
+
+        mvn clean package
+
+4. Type this command to run the tests:
+
+        mvn test -Puitests-jbossas -Das7home=/path/to/server
+
 
 Build and Start the Application in Client-server Mode (using the HotRod client)
 ---------------------------------------------------------------------------------
@@ -123,5 +139,20 @@ NOTE: The application must be deployed to JBoss Enterprise Application Platform 
 9. Undeploy the application
 
         mvn jboss-as:undeploy -Premote
+
+
+Test the Application in Client-Server mode (using Hot-Rod client)
+------------------------------------
+
+1. Obtain and configure JDG Server (steps 1 and 2 show above)
+2. Make sure that none of JBoss AS or JDG Server is running
+3. Open a command line and navigate to the root directory of this quickstart.
+4. Build the quickstart using:
+
+        mvn clean package -Premote
+
+5. Type this command to run the tests:
+
+        mvn test -Puitests-remote -Das7home=/path/to/as/server -DjdgServer=/path/to/jdg/server
 
 

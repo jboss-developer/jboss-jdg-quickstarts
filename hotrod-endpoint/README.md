@@ -87,7 +87,7 @@ Configure JDG
                     
                     <!-- Define the locking isolation of this cache -->
                     <locking
-                        isolation="REPEATABLE_READ"
+                        isolation="READ_COMMITTED"
                         acquire-timeout="20000"
                         concurrency-level="500"
                         striping="false" />

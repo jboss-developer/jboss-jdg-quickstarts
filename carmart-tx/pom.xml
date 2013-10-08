@@ -1,20 +1,4 @@
 <?xml version="1.0"?>
-<!--
-    JBoss, Home of Professional Open Source
-    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
-    contributors by the @authors tag. See the copyright.txt in the
-    distribution for a full listing of individual contributors.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -62,10 +46,22 @@
 
         <!-- other plugin versions -->
         <version.war.plugin>2.2</version.war.plugin>
+        <version.maven.surefire>2.14</version.maven.surefire>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+
+        <!-- test dependencies versions -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>4.8.2</junit.version>
+        <arquillian.bom.version>1.1.1.Final</arquillian.bom.version>
+        <arquillian.drone.bom.version>1.2.0.Beta1</arquillian.drone.bom.version>
+        <jboss.as7.version>7.1.3.Final</jboss.as7.version>
+        <arquillian.selenium.version>2.35.0</arquillian.selenium.version>
+        <arquillian.graphene.version>2.0.0.Beta1</arquillian.graphene.version>
+        <browser>phantomjs</browser>
+
     </properties>
 
     <dependencyManagement>
@@ -172,6 +168,31 @@
                 <version>${com.ocpsoft.prettyfaces.version}</version>
                 <scope>compile</scope>
             </dependency>
+
+            <!-- added to run arquillian -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>${arquillian.drone.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${arquillian.selenium.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -210,9 +231,40 @@
             <artifactId>prettyfaces-jsf2</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+            <version>${arquillian.bom.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <version>${arquillian.graphene.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <!-- export browser property to arquillian.xml -->
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
         <!-- Maven will append the version to the finalName (which is the 
             name given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
@@ -267,6 +319,15 @@
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
                         <version>${version.jboss.maven.plugin}</version>
+                    </plugin>
+                    <!-- Maven Surefire Plugin to skip tests on build -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.maven.surefire}</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -370,6 +431,87 @@
                             <server>tomcat</server>
                             <path>/${project.artifactId}</path>
                             <url>${tomcat.management.url}</url>
+                        </configuration>
+                    </plugin>
+                    <!-- Maven Surefire Plugin to skip tests on build -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.maven.surefire}</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- This profile is for running tests on JBoss AS -->
+        <profile>
+            <id>uitests-jbossas</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>${jboss.as7.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.maven.surefire}</version>
+                        <configuration>
+                            <reportNameSuffix>uitests-jbossas</reportNameSuffix>
+                            <systemPropertyVariables>
+                                <carmart-tx.war.directory>${basedir}/target</carmart-tx.war.directory>
+                                <carmart-tx.war.file>${project.artifactId}.war</carmart-tx.war.file>
+                            </systemPropertyVariables>
+                            <systemProperties>
+                                <arquillian.launch>jbossas-managed</arquillian.launch>
+                            </systemProperties>
+                            <!-- Added so selenium doesn't print it's INFO logs to console (there's a LOT of them -
+                                 like 5000 lines for each run) - they are instead appended (important when
+                                 there are multiple profiles) to <module>/target/jul-info.log (warnings are printed in console) -->
+                            <argLine>-Djava.util.logging.config.file=${basedir}/src/test/resources/logging.properties</argLine>
+                        </configuration>
+
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- This profile is for running tests on Tomcat -->
+        <profile>
+            <id>uitests-tomcat</id>
+            <dependencies>
+                <!-- container adapter for Tomcat7 managed -->
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <version>1.0.0.CR4</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${version.maven.surefire}</version>
+                        <configuration>
+                            <reportNameSuffix>uitests-tomcat</reportNameSuffix>
+                            <systemPropertyVariables>
+                                <carmart-tx.war.directory>${basedir}/target</carmart-tx.war.directory>
+                                <carmart-tx.war.file>${project.artifactId}.war</carmart-tx.war.file>
+                            </systemPropertyVariables>
+                            <systemProperties>
+                                <arquillian.launch>tomcat-managed-7</arquillian.launch>
+                            </systemProperties>
+                            <!-- Added so selenium doesn't print it's INFO logs to console (there's a LOT of them -
+                                 like 5000 lines for each run) - they are instead appended (important when
+                                 there are multiple profiles) to <module>/target/jul-info.log (warnings are printed in console) -->
+                            <argLine>-Djava.util.logging.config.file=${basedir}/src/test/resources/logging.properties</argLine>
                         </configuration>
                     </plugin>
                 </plugins>

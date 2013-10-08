@@ -14,24 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.datagrid;
+package org.jboss.as.quickstarts.datagrid.helloworld;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
+
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.Cache;
 
 /**
- * Stores entries into the cache.
+ * A simple servlet requesting the cache for key "hello".
  * 
- * @author Burr Sutter
+ * @author Pete Muir
  * 
  */
-@Named
-@RequestScoped
-public class PutController {
+@SuppressWarnings("serial")
+@WebServlet("/TestServletGet")
+public class TestServletGet extends HttpServlet {
+
+    private static final String PAGE_HEADER = "<html><head /><body>";
+
+    private static final String PAGE_FOOTER = "</body></html>";
 
     @Inject
     private Logger log;
@@ -39,41 +50,18 @@ public class PutController {
     @Inject
     DefaultCacheManager m;
 
-    private String key;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    private String value;
-
-    private String message;
-
-    public void putSomething() {
+        log.info("putting hello");
         Cache<String, String> c = m.getCache();
-        c.put(key, value);
-        log.info("put: " + key + " " + value);
-        this.setMessage(key + "=" + value + " added");
-    }
+        String x = (String) c.get("hello");
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+        PrintWriter writer = resp.getWriter();
+        writer.println(PAGE_HEADER);
+        writer.println("<h1>" + "Get Infinispan: " + x + "</h1>");
+        writer.println(PAGE_FOOTER);
+        writer.close();
     }
 
 }
