@@ -56,7 +56,7 @@ public class CarManager {
         if (carNumbers == null)
             carNumbers = new LinkedList<String>();
         carNumbers.add(car.getNumberPlate());
-        carCache.replace(CAR_NUMBERS_KEY, carNumbers);
+        carCache.put(CAR_NUMBERS_KEY, carNumbers);
         return "home";
     }
 

@@ -132,3 +132,20 @@ commands to pull them into your local repository. The IDE should then detect the
         mvn dependency:sources
         mvn dependency:resolve -Dclassifier=javadoc
 
+
+Test the Application
+------------------------------------
+
+If you want to test the application, there are simple Arquillian Selenium tests prepared.
+To run these tests on JBoss AS:
+
+1. Stop JBoss Servers (if you have some running)
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Build the quickstart using:
+
+        mvn clean package
+
+4. Type this command to run the tests (server paths can be the same):
+
+        mvn test -Puitests-clustered -Das7home=/path/to/first/server -Das7home2=/path/to/second/server
+

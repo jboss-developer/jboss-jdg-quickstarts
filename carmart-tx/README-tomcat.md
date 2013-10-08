@@ -33,7 +33,7 @@ Configure  JBoss Enterprise Web Server 2 or Tomcat 7
 Before starting EWS/Tomcat, add the following lines to `conf/tomcat-users.xml` to allow the Maven Tomcat plugin to access the manager application:
 
         <role rolename="manager-script"/>
-        <user username="admin" password="SOMEPASSWD" roles="manager-script"/>
+        <user username="admin" password="admin" roles="manager-script"/>
         
 Configure Maven
 ---------------
@@ -46,7 +46,7 @@ Add a `<server>` element into your Maven settings.xml with `<id>` equal to tomca
         <server>
             <id>tomcat</id>
             <username>admin</username>
-            <password>SOMEPASSWD</password>
+            <password>admin</password>
         </server>
 
         
@@ -86,4 +86,22 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
     `mvn -Plibrary-tomcat tomcat:undeploy `
+
+
+Test the Application
+------------------------------------
+
+If you want to test the application, there are simple Arquillian Selenium tests prepared.
+To run these tests on Tomcat:
+
+1. Undeploy the archive as described above
+2. Stop Tomcat Server
+3. Open a command line and navigate to the root directory of this quickstart.
+4. Build the quickstart using:
+
+        mvn clean package -Plibrary-tomcat
+
+5. Type this command to run the tests:
+
+        mvn test -Puitests-tomcat -Dtomcat7home=/path/to/server
 

@@ -89,3 +89,20 @@ If you want to debug the source code or look at the Javadocs of any library in t
     mvn dependency:sources
     mvn dependency:resolve -Dclassifier=javadoc
 
+
+Test the Application
+------------------------------------
+
+If you want to test the application, there are simple Arquillian Selenium tests prepared.
+To run these tests on JBoss AS:
+
+1. Stop JBoss Server (if you have one running)
+2. Open a command line and navigate to the root directory of this quickstart.
+3. Build the quickstart using:
+
+        mvn clean package
+
+4. Type this command to run the tests:
+
+        mvn test -Puitests-jbossas -Das7home=/path/to/server
+

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.datagrid;
+package org.jboss.as.quickstarts.datagrid.helloworld;
 
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -22,17 +22,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.Cache;
-import java.util.Set;
 
 /**
- * Retrieves entries from the cache.
+ * Stores entries into the cache.
  * 
  * @author Burr Sutter
  * 
  */
 @Named
 @RequestScoped
-public class GetController {
+public class PutController {
 
     @Inject
     private Logger log;
@@ -42,37 +41,15 @@ public class GetController {
 
     private String key;
 
+    private String value;
+
     private String message;
 
-    private StringBuffer allKeyValues = new StringBuffer();
-
-    // Called by the get.xhtml - get button
-    public void getOne() {
+    public void putSomething() {
         Cache<String, String> c = m.getCache();
-        message = c.get(key);
-        log.info("get: " + key + " " + message);
-    }
-
-    // Called by the get.xhtml - get all button
-    public void getAll() {
-        Cache<String, String> c = m.getCache();
-
-        Set<String> keySet = c.keySet();
-        for (String key : keySet) {
-
-            String value = c.get(key);
-            log.info("k: " + key + " v: " + value);
-
-            allKeyValues.append(key + "=" + value + ", ");
-        } // for
-
-        if (allKeyValues == null || allKeyValues.length() == 0) {
-            message = "Nothing in the Cache";
-        } else {
-            // remote trailing comma
-            allKeyValues.delete(allKeyValues.length() - 2, allKeyValues.length());
-            message = allKeyValues.toString();
-        }
+        c.put(key, value);
+        log.info("put: " + key + " " + value);
+        this.setMessage(key + "=" + value + " added");
     }
 
     public String getKey() {
@@ -83,8 +60,20 @@ public class GetController {
         this.key = key;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
