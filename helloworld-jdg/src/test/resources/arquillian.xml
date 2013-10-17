@@ -14,6 +14,7 @@
                 <property name="jbossHome">${as7home}</property>
                 <!-- For some reason, EAP tries to use ipv6 when started by arquillian (why, eap, why?!) -->
                 <property name="javaVmArguments">-Djava.net.preferIPv4Stack=true</property>
+                <property name="serverConfig">${test.server.config}</property>
             </configuration>
         </container>
         <container qualifier="container2">
@@ -21,6 +22,7 @@
                 <property name="jbossHome">${as7home2}</property>
                 <property name="javaVmArguments">-Djava.net.preferIPv4Stack=true -Djboss.socket.binding.port-offset=100</property>
                 <property name="managementPort">10099</property>
+                <property name="serverConfig">${test.server.config}</property>
             </configuration>
         </container>
     </group>
