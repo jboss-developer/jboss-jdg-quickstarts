@@ -49,6 +49,7 @@
         <arquillian.selenium.version>2.35.0</arquillian.selenium.version>
         <arquillian.graphene.version>2.0.0.Beta1</arquillian.graphene.version>
         <browser>phantomjs</browser>
+        <test.server.config>standalone.xml</test.server.config>
     </properties>
 
     <dependencyManagement>
