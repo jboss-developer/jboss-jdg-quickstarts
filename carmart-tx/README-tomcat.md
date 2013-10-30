@@ -4,6 +4,7 @@ Author: Tristan Tarrant, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
 Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
+Product Versions: EWS 2, JDG 6.2
 
 What is it?
 -----------
@@ -14,7 +15,7 @@ Users can list cars, add new cars or remove them from the CarMart. Information a
 
 The Transactional CarMart quickstart works in a library mode. All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programatically and run in the same JVM as the web application.
 
-All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 or Tomcat 7, the standalone transaction manager from JBoss Transactions is used. _NOTE: Using the JBoss Transactions on Tomcat is an unsupported use case_
+All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used. _NOTE: Using the JBoss Transactions on Tomcat is an unsupported use case_
 
 When running this quickstart on  JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile. This profile only enables "library" mode.
 
@@ -24,11 +25,11 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on Tomcat. 
+The application this project produces is designed to be run on JBoss Enterprise Web Server 2 or Tomcat 7.
 
  
-Configure  JBoss Enterprise Web Server 2 or Tomcat 7
----------------------------------------------------
+Configure EWS or Tomcat
+-----------------------
 
 Before starting EWS/Tomcat, add the following lines to `conf/tomcat-users.xml` to allow the Maven Tomcat plugin to access the manager application:
 
@@ -50,14 +51,14 @@ Add a `<server>` element into your Maven settings.xml with `<id>` equal to tomca
         </server>
 
         
-Start JBoss Enterprise Web Server 2 or Tomcat 7
------------------------------------------------
+Start EWS or Tomcat
+-------------------
 
 1. Open a command line and navigate to the root of the EWS/Tomcat server directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   TOMCAT_HOME/bin/catalina.sh run
-        For Windows: TOMCAT_HOME\bin\catalina.bat run
+        For Linux:   $TOMCAT_HOME/bin/catalina.sh run
+        For Windows: %TOMCAT_HOME%\bin\catalina.bat run
 
 
 Build and Deploy the Application in Library Mode

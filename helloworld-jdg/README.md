@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI
 Summary: Shows how to use Infinispan in clustered mode, with expiration enabled.
 Target Product: JDG
+Product Versions: EAP 6.1, EAP 6.2, JDG 6.2
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -17,8 +18,8 @@ Infinispan is configured in clustered distributed mode with synchronous replicat
 and are removed from the cache after 60 seconds since last update.
 
 HelloWorld-JDG example works in _Library mode_. In this mode, the application and the data grid are running in the same
-JVM. All libraries (JAR files) are bundled with the application and deployed to JBoss Enterprise Application Platform 6
-or JBoss AS 7.  The library usage mode only allows local access to a single node in a distributed cluster. This usage
+JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform.
+The library usage mode only allows local access to a single node in a distributed cluster. This usage
 mode gives the application access to data grid functionality within a virtual machine in the container being used.
 
 
@@ -27,7 +28,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
 
  
 Configure Maven
@@ -36,24 +37,24 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
 
 
-Start first instance of JBoss Enterprise Application Platform 6 or JBoss AS 7
------------------------------------------------------------------------------
+Start first instance of EAP
+---------------------------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command line and navigate to the root of the EAP directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   $JBOSS_HOME/bin/standalone.sh
+        For Windows: %JBOSS_HOME%\bin\standalone.bat
 
-Start second instance of JBoss Enterprise Application Platform 6 or JBoss AS 7
-------------------------------------------------------------------------------
+Start second instance of EAP
+----------------------------
 
-1. Make a second copy of the JBoss Server
-2. Open a command line and navigate to the root of the second JBoss server directory.
+1. Make a second copy of EAP
+2. Open a command line and navigate to the root of the second EAP directory.
 3. Start the server with pre-configured port offset so that the server can run on the same host
 
-        For Linux:   JBOSS_HOME2/bin/standalone.sh -Djboss.socket.binding.port-offset=100
-        For Windows: JBOSS_HOME2\bin\standalone.bat -Djboss.socket.binding.port-offset=100
+        For Linux:   $JBOSS_HOME2/bin/standalone.sh -Djboss.socket.binding.port-offset=100
+        For Windows: %JBOSS_HOME2%\bin\standalone.bat -Djboss.socket.binding.port-offset=100
 
  
 Build and Deploy the Quickstart
@@ -63,7 +64,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts)
 for complete instructions and additional options._
 
-1. Make sure you have started both instances of the JBoss Server as described above.
+1. Make sure you have started both instances of EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive to the first server:
 
@@ -109,7 +110,7 @@ To access predefined servlets and directly store/retrieve a key in the cache, ac
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from both running servers:
 
@@ -137,9 +138,9 @@ Test the Application
 ------------------------------------
 
 If you want to test the application, there are simple Arquillian Selenium tests prepared.
-To run these tests on JBoss AS:
+To run these tests on EAP:
 
-1. Stop JBoss Servers (if you have some running)
+1. Stop EAP (if you have some running)
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Build the quickstart using:
 

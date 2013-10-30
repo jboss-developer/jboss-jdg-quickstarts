@@ -5,6 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
 Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
 Target Product: JDG
+Product Versions: EAP 6.1, EAP 6.2, JDG 6.2
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -32,7 +33,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Application Platform 6 or JBoss AS 7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
 
  
 Configure Maven
@@ -41,14 +42,14 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
 
 
-Start JBoss Enterprise Application Platform 6 or JBoss AS 7
------------------------------------------------------------
+Start EAP
+---------
 
-1. Open a command line and navigate to the root of the JBoss server directory.
+1. Open a command line and navigate to the root of the EAP server directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   $JBOSS_HOME/bin/standalone.sh
+        For Windows: %JBOSS_HOME%\bin\standalone.bat
 
 
 Build and Deploy the Application in Library Mode
@@ -56,7 +57,7 @@ Build and Deploy the Application in Library Mode
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -74,7 +75,7 @@ Access the running application in a browser at the following URL:  <http://local
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -94,9 +95,9 @@ Test the Application
 ------------------------------------
 
 If you want to test the application, there are simple Arquillian Selenium tests prepared.
-To run these tests on JBoss AS:
+To run these tests on EAP:
 
-1. Stop JBoss Server (if you have one running)
+1. Stop EAP (if you have one running)
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Build the quickstart using:
 
