@@ -150,7 +150,20 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
         p   -  print all teams and players
         q   -  quit
         
-Type `q` one more time to exit the application.        
+Type `q` one more time to exit the application.
+
+Run application with different classpath
+----------------------------------------
+It's possible to run this quickstart with different classpath (other than default created by mvn exec:java),
+for instance with ${infinispan-server}/client/hotrod/java classpath.
+To do this, compile quickstart with:
+
+        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath
+
+This will create a file at `target/hotrod-endpoint-quickstart.jar`.
+Then you can run it with:
+
+        java -jar target/hotrod-endpoint-quickstart.jar
 
 Debug the Application
 ------------------------------------

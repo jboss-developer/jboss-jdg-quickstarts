@@ -73,30 +73,6 @@
                     <mainClass>${main.class.rest-endpoint}</mainClass>
                 </configuration>
             </plugin>
-            
-            <!-- This plugin will create a new jar's with all dependencies 
-                packages added. It also changes the MANIFEST.MF to include the information 
-                about which is the main class -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>${shade.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>${main.class.rest-endpoint}</mainClass>
-                        </transformer>
-                    </transformers>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
