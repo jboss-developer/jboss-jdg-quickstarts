@@ -133,7 +133,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package 
                 
-4. This will create a file at `target/hotrod-endpoint-quickstart.jar` 
+4. This will create a file at `target/jboss-hotrod-endpoint-quickstart.jar`
 
 5. Run the example application in its directory:
 
@@ -161,10 +161,10 @@ To do this, compile quickstart with:
 
         mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath
 
-This will create a file at `target/hotrod-endpoint-quickstart.jar`.
+This will create a file at `target/jboss-hotrod-endpoint-quickstart.jar`.
 Then you can run it with:
 
-        java -jar target/hotrod-endpoint-quickstart.jar
+        java -jar target/jboss-hotrod-endpoint-quickstart.jar
 
 Debug the Application
 ------------------------------------

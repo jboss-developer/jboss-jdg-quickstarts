@@ -136,7 +136,7 @@ public class FootballManager {
 
     public static void main(String[] args) {
         Console con = System.console();
-        FootballManager manager = new FootballManager(System.console());
+        FootballManager manager = new FootballManager(con);
         con.printf(initialPrompt);
 
         while (true) {
