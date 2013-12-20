@@ -1,0 +1,61 @@
+package quickstart.primitive;
+
+message Double {
+   required double value = 1;
+}
+
+message Float {
+   required float value = 1;
+}
+
+message Int64 {
+   required int64 value = 1;
+}
+
+message UInt64 {
+   required uint64 value = 1;
+}
+
+message Int32 {
+   required int32 value = 1;
+}
+
+message Fixed64 {
+   required fixed64 value = 1;
+}
+
+message Fixed32 {
+   required fixed32 value = 1;
+}
+
+message Bool {
+   required bool value = 1;
+}
+
+message String {
+   required string value = 1;
+}
+
+message Bytes {
+   required bytes value = 1;
+}
+
+message UInt32 {
+   required uint32 value = 1;
+}
+
+message SFixed32 {
+   required sfixed32 value = 1;
+}
+
+message SFixed64 {
+   required sfixed64 value = 1;
+}
+
+message SInt32 {
+   required sint32 value = 1;
+}
+
+message SInt64 {
+   required sint64 value = 1;
+}

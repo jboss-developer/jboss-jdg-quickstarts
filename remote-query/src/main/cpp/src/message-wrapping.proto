@@ -1,0 +1,53 @@
+package org.infinispan.protostream;
+
+/*
+   Protobuf messages do not indicate their message type or structure. Readers of protobuf data streams are expected to
+   know what message type to expect next in the stream.
+   WrappedMessage is intended to solve this problem of self-describing messages by allowing the stream reader to detect
+   the type of the message. Still, message structure is not provided as it would not be efficient. The user is expected
+   to have knowledge of the structure once it knows the type.
+*/
+message WrappedMessage {
+   // only one of these fields is used if the wrapped value is a scalar type
+   optional double wrappedDouble = 1;
+   optional float wrappedFloat = 2;
+   optional int64 wrappedInt64 = 3;
+   optional uint64 wrappedUInt64 = 4;
+   optional int32 wrappedInt32 = 5;
+   optional fixed64 wrappedFixed64 = 6;
+   optional fixed32 wrappedFixed32 = 7;
+   optional bool wrappedBool = 8;
+   optional string wrappedString = 9;
+   optional bytes wrappedBytes = 10;
+   optional uint32 wrappedUInt32 = 11;
+   optional sfixed32 wrappedSFixed32 = 12;
+   optional sfixed64 wrappedSFixed64 = 13;
+   optional sint32 wrappedSInt32 = 14;
+   optional sint64 wrappedSInt64 = 15;
+
+   // this field is used only if the wrapped value is a message or an enum
+   optional string wrappedDescriptorFullName = 16;
+
+   // this is used if the wrapped value is a message
+   optional bytes wrappedMessageBytes = 17;
+
+   // this is used if the wrapped value is an enum
+   optional int32 wrappedEnum = 18;
+
+/*
+   // this is used if the wrapped value is an enum
+   optional group wrappedEnum = 16 {
+      required string descriptorName = 1;
+      required int32 value = 2;
+   }
+
+   // this is used if the wrapped value is a message
+   optional group wrappedMessage = 17 {
+      required string descriptorName = 1;
+      required bytes value = 2;
+   }
+*/
+}
+
+
+//todo [anistor] how do we handle arrays?
