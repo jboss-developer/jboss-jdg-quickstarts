@@ -183,3 +183,18 @@ If you want to debug the source code or look at the Javadocs of any library in t
     mvn dependency:resolve -Dclassifier=javadoc
 
 
+Build and Run the C++ Quickstart
+--------------------------------
+
+Install the C++ HotRod client from source or one of the pre-built packages.
+
+Compile and run the quickstart:
+    
+    $ cd src/main/cpp
+    $ mkdir build_linux
+    $ cd build_linux
+    $ cmake ..
+    $ cmake --build .
+    $ ./quickstart [<host>] [<port>]
+
+A menu similar to the Java quickstart will be displayed.
