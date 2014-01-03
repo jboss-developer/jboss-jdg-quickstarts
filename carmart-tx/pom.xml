@@ -33,7 +33,7 @@
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
 
-        <version.org.jboss.jbossts.jbossjts>4.16.4.Final</version.org.jboss.jbossts.jbossjts>
+        <version.org.jboss.jbossts.jta.narayana-jta>4.17.7.Final</version.org.jboss.jbossts.jta.narayana-jta>
 
         <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
             can deploy this quickstart on EWS/Tomcat through this URL -->
@@ -93,70 +93,42 @@
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.jbossts</groupId>
-                <artifactId>jbossjta</artifactId>
-                <version>${version.org.jboss.jbossts.jbossjts}</version>
+                <groupId>org.jboss.jbossts.jta</groupId>
+                <artifactId>narayana-jta</artifactId>
+                <version>${version.org.jboss.jbossts.jta.narayana-jta}</version>
                 <scope>provided</scope>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.jboss.ws.native</groupId>
-                        <artifactId>jbossws-native-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>emma</artifactId>
-                        <groupId>emma</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>emma_ant</artifactId>
-                        <groupId>emma</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>hornetq-core</artifactId>
-                        <groupId>org.hornetq</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>netty</artifactId>
-                        <groupId>org.jboss.netty</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>wrapper</artifactId>
-                        <groupId>tanukisoft</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jacorb</artifactId>
-                        <groupId>jacorb</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jfreechart</artifactId>
                         <groupId>jfree</groupId>
+                        <artifactId>jfreechart</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jboss-corba-ots-spi</artifactId>
-                        <groupId>org.jboss.integration</groupId>
+                        <groupId>jfree</groupId>
+                        <artifactId>jcommon</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jboss-server-manager</artifactId>
-                        <groupId>org.jboss.jbossas</groupId>
+                        <groupId>org.jboss.byteman</groupId>
+                        <artifactId>byteman</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-                        <groupId>org.jboss.spec.javax.ejb</groupId>
+                        <groupId>org.jboss.byteman</groupId>
+                        <artifactId>byteman-submit</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jnp-client</artifactId>
-                        <groupId>org.jboss.naming</groupId>
+                        <groupId>org.hornetq</groupId>
+                        <artifactId>hornetq-journal</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-                        <groupId>org.jboss.spec.javax.servlet</groupId>
+                        <groupId>org.hornetq</groupId>
+                        <artifactId>hornetq-commons</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jbossws-common</artifactId>
-                        <groupId>org.jboss.ws</groupId>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty</artifactId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>jcl-over-slf4j</artifactId>
-                        <groupId>org.slf4j</groupId>
+                        <groupId>org.jboss.logmanager</groupId>
+                        <artifactId>jboss-logmanager</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -357,8 +329,8 @@
                 <!-- Import JBoss Transactions dependencies. Using the JBoss 
                     Transactions on Tomcat is an unsupported use case -->
                 <dependency>
-                    <groupId>org.jboss.jbossts</groupId>
-                    <artifactId>jbossjta</artifactId>
+                    <groupId>org.jboss.jbossts.jta</groupId>
+                    <artifactId>narayana-jta</artifactId>
                     <scope>compile</scope>
                 </dependency>
 
