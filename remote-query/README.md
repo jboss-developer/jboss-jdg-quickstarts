@@ -33,8 +33,6 @@ If you have not yet done so, you must [Configure Maven](../../README.md#configur
 Configure JDG
 -------------
 
-<!-- TODO JBOSS_HOME vs. JDG_HOME. which one do we need to set? -->
-
 1. Obtain JDG server distribution on Red Hat's Customer Portal at https://access.redhat.com/jbossnetwork/restricted/listSoftware.html
 
 2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
@@ -177,7 +175,7 @@ Then you can run it with:
         java -jar target/jboss-remote-query-quickstart.jar
 
 Debug the Application
-------------------------------------
+---------------------
 
 If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
 
