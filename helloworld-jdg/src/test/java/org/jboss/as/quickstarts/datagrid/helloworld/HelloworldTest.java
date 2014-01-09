@@ -206,7 +206,6 @@ public class HelloworldTest {
         browser.get(path.toExternalForm());
         waitModel().until().element(put_getSomeLink).is().present();
 
-        System.out.println("===== Page source code: \n" + browser.getPageSource());
         assertTrue("Get Some link is not present.", put_getSomeLink.isDisplayed());
 
         put_getSomeLink.click();
