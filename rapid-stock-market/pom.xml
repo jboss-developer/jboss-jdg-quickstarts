@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.jboss.quickstarts.jdg</groupId>
+   <artifactId>rapid-stock-market</artifactId>
+   <version>6.2.0-SNAPSHOT</version>
+
+   <name>JBoss JDG Quickstart: rapid-stock-market</name>
+   <description>This quickstart demonstrates the compatibility mode functionality</description>
+
+   <url>http://jboss.org/infinispan</url>
+
+   <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+
+   <properties>
+      <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
+         resources, i.e. build is platform dependent! -->
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+      <!-- Defines the main class to be execute when running java -jar 
+           command -->
+      <main.class.market>org.infinispan.quickstart.compatibility.market.StockMarket</main.class.market>
+      <main.class.client>org.infinispan.quickstart.compatibility.client.Client</main.class.client>
+
+      <compat.module.path>${project.build.directory}/modules/system/layers/base/org/infinispan/quickstart/compatibility/common/main</compat.module.path>
+
+      <!-- other plugin versions -->
+      <compiler.plugin.version>2.3.2</compiler.plugin.version>
+      <shade.plugin.version>1.5</shade.plugin.version>
+      <exec.plugin.version>1.2.1</exec.plugin.version>
+      <jar.plugin.version>2.4</jar.plugin.version>
+
+      <!-- maven-compiler-plugin -->
+      <maven.compiler.target>1.6</maven.compiler.target>
+      <maven.compiler.source>1.6</maven.compiler.source>
+
+      <infinispan.version>6.0.0.Final</infinispan.version>
+      <commons.httpclient.version>3.1</commons.httpclient.version>
+   </properties>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-core</artifactId>
+         <version>${infinispan.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-client-hotrod</artifactId>
+         <version>${infinispan.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>commons-httpclient</groupId>
+         <artifactId>commons-httpclient</artifactId>
+         <version>${commons.httpclient.version}</version>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+         <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
+            annotation processors -->
+         <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${compiler.plugin.version}</version>
+            <configuration>
+               <source>${maven.compiler.source}</source>
+               <target>${maven.compiler.target}</target>
+            </configuration>
+         </plugin>
+         <!-- This plugin permits the execution of this quickstart through
+                mvn exec:java command -->
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec.plugin.version}</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <mainClass>${main.class.market}</mainClass>
+            </configuration>
+         </plugin>
+         <!-- This plugin will create a new jar's with all dependencies
+             packages added. It also changes the MANIFEST.MF to include the information
+             about which is the main class -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>${shade.plugin.version}</version>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>shade</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <transformers>
+                  <transformer
+                          implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                     <mainClass>${main.class.market}</mainClass>
+                  </transformer>
+               </transformers>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <profiles>
+      <profile>
+         <id>client</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>exec-maven-plugin</artifactId>
+                  <version>${exec.plugin.version}</version>
+                  <executions>
+                     <execution>
+                        <goals>
+                           <goal>java</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+                  <configuration>
+                     <mainClass>${main.class.client}</mainClass>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>prepare-server-module</id>
+         <build>
+            <plugins>
+               <!-- this disables the shade plugin for this profile. the problem is the dependencies are put it
+               in the jar and the JBossAS crashes with them (not sure why). Disabling this plugin solves the problem
+               and the quickstart works fine.-->
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-shade-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <phase>none</phase>
+                     </execution>
+                  </executions>
+               </plugin>
+               <plugin>
+                  <artifactId>maven-compiler-plugin</artifactId>
+                  <version>${compiler.plugin.version}</version>
+                  <configuration>
+                     <source>${maven.compiler.source}</source>
+                     <target>${maven.compiler.target}</target>
+                     <includes>
+                        <include>org/infinispan/quickstart/compatibility/common/SharesUpdate.java</include>
+                     </includes>
+                  </configuration>
+               </plugin>
+               <plugin>
+                  <artifactId>maven-jar-plugin</artifactId>
+                  <version>${jar.plugin.version}</version>
+                  <configuration>
+                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                     <finalName>${project.build.finalName}-common</finalName>
+                     <outputDirectory>${compat.module.path}</outputDirectory>
+                  </configuration>
+               </plugin>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>create-server-module</id>
+                        <phase>package</phase>
+                        <goals>
+                           <goal>run</goal>
+                        </goals>
+                        <configuration>
+                           <tasks>
+                              <copy file="${basedir}/src/main/compatibility-module/module.xml" todir="${compat.module.path}" overwrite="true"/>
+                           </tasks>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+
+</project>
