@@ -38,8 +38,9 @@
         <module>carmart-tx</module>
         <module>helloworld-jdg</module>
         <module>hotrod-endpoint</module>
-        <module>remote-query</module>
         <module>memcached-endpoint</module>
+        <module>rapid-stock-market</module>
+        <module>remote-query</module>
         <module>rest-endpoint</module>
     </modules>
 
