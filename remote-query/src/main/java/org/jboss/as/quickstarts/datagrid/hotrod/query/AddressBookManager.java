@@ -38,9 +38,12 @@ import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,14 +70,10 @@ public class AddressBookManager {
          "7. Query persons by phone\n" +
          "8. Quit\n";
 
-   private final Console con;
-
    private RemoteCacheManager cacheManager;
    private RemoteCache<Integer, Person> cache;
 
-   public AddressBookManager(Console con) throws Exception {
-      this.con = con;
-
+   public AddressBookManager() throws Exception {
       final String host = jdgProperty(JDG_HOST);
       final int hotrodPort = Integer.parseInt(jdgProperty(HOTROD_PORT));
       final int jmxPort = Integer.parseInt(jdgProperty(JMX_PORT));
@@ -123,7 +122,7 @@ public class AddressBookManager {
    }
 
    private void queryByName() {
-      String namePattern = con.readLine("Enter person name pattern: ");
+      String namePattern = readConsole("Enter person name pattern: ");
 
       QueryFactory qf = Search.getQueryFactory(cache);
       Query query = qf.from(Person.class)
@@ -138,7 +137,7 @@ public class AddressBookManager {
    }
 
    private void queryByPhone() {
-      String phoneNumber = con.readLine("Enter phone number: ");
+      String phoneNumber = readConsole("Enter phone number: ");
 
       QueryFactory qf = Search.getQueryFactory(cache);
       Query query = qf.from(Person.class)
@@ -153,9 +152,9 @@ public class AddressBookManager {
    }
 
    private void addPerson() {
-      int id = Integer.parseInt(con.readLine("Enter person id: "));
-      String name = con.readLine("Enter person name: ");
-      String email = con.readLine("Enter person email: ");
+      int id = Integer.parseInt(readConsole("Enter person id: "));
+      String name = readConsole("Enter person name: ");
+      String email = readConsole("Enter person email: ");
       Person person = new Person();
       person.setId(id);
       person.setName(name);
@@ -165,12 +164,12 @@ public class AddressBookManager {
    }
 
    private void removePerson() {
-      int id = Integer.parseInt(con.readLine("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id: "));
       cache.remove(id);
    }
 
    private void addPhone() {
-      int id = Integer.parseInt(con.readLine("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id: "));
       Person person = cache.get(id);
       if (person == null) {
          System.out.println("Person not found");
@@ -178,8 +177,8 @@ public class AddressBookManager {
       }
       System.out.println("> " + person);
 
-      String number = con.readLine("Enter phone number: ");
-      PhoneType type = PhoneType.valueOf(con.readLine("Enter phone type [MOBILE, HOME, WORK]: ").toUpperCase());
+      String number = readConsole("Enter phone number: ");
+      PhoneType type = PhoneType.valueOf(readConsole("Enter phone type [MOBILE, HOME, WORK]: ").toUpperCase());
       List<PhoneNumber> phones = person.getPhones();
       if (phones == null) {
          phones = new ArrayList<PhoneNumber>();
@@ -194,7 +193,7 @@ public class AddressBookManager {
    }
 
    private void removePhone() {
-      int id = Integer.parseInt(con.readLine("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id: "));
       Person person = cache.get(id);
       if (person == null) {
          System.out.println("Person not found");
@@ -202,7 +201,7 @@ public class AddressBookManager {
       }
       System.out.println("> " + person);
 
-      int idx = Integer.parseInt(con.readLine("Enter phone index: "));
+      int idx = Integer.parseInt(readConsole("Enter phone index: "));
       if (person.getPhones() == null || idx < 0 || idx >= person.getPhones().size()) {
          System.out.println("Index out of range");
          return;
@@ -224,13 +223,20 @@ public class AddressBookManager {
    }
 
    public static void main(String[] args) throws Exception {
-      Console con = System.console();
-      AddressBookManager manager = new AddressBookManager(con);
+      AddressBookManager manager = new AddressBookManager();
       System.out.println(menu);
 
       while (true) {
          try {
-            String action = con.readLine("> ").trim();
+            String action = readConsole("> ");
+            if (action == null) {
+               continue;
+            }
+            action = action.trim();
+            if (action.length() == 0) {
+               continue;
+            }
+
             if ("0".equals(action)) {
                System.out.println(menu);
             } else if ("1".equals(action)) {
@@ -259,6 +265,24 @@ public class AddressBookManager {
       }
 
       manager.stop();
+   }
+
+   private static String readConsole(String prompt) {
+      // this method is intended to be as simple as possible rather than
+      // being efficient by caching a reference to the console/buffered reader
+
+      Console con = System.console();
+      if (con != null) {
+         return con.readLine(prompt);
+      }
+
+      System.out.print(prompt);
+      try {
+         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+         return reader.readLine();
+      } catch (IOException ex) {
+         throw new IOError(ex);
+      }
    }
 
    private String jdgProperty(String name) {

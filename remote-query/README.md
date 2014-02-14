@@ -79,7 +79,7 @@ Configure JDG
                 </local-cache>
                 <local-cache name="namedCache" start="EAGER"/>
                 
-                <!-- ADD a local cache called 'addressbook' -->
+                <!-- Add a local cache named 'addressbook' -->
                
                 <local-cache name="addressbook" start="EAGER" batching="false">
                     
@@ -110,7 +110,7 @@ Configure JDG
                         </string-keyed-table>
                     </string-keyed-jdbc-store>
                 </local-cache>
-                <!-- End of local cache called 'addressbook' definition -->
+                <!-- End of 'addressbook' local cache definition -->
 
             </cache-container>
         </subsystem>

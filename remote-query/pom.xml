@@ -71,33 +71,28 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Import the Infinispan client hotrod -->
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-client-hotrod</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-query-dsl</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-remote-query-client</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
            <groupId>org.jboss.remotingjmx</groupId>
            <artifactId>remoting-jmx</artifactId>
            <version>${version.remoting.jmx}</version>
-           <scope>compile</scope>
         </dependency>
     </dependencies>
 
