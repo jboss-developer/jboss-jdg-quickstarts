@@ -45,7 +45,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,6 +57,9 @@ public class AddressBookManager {
    private static final String HOTROD_PORT = "jdg.hotrod.port";
    private static final String JMX_PORT = "jdg.jmx.port";
    private static final String PROPERTIES_FILE = "jdg.properties";
+   private static final String CACHE_CONTAINER_NAME = "local";
+   private static final String CACHE_NAME = "addressbook";
+   private static final String PROTOBUF_DESCRIPTOR_RESOURCE = "/quickstart/addressbook.protobin";
 
    private static final String menu = "\nAvailable actions:\n" +
          "0. Display available actions\n" +
@@ -65,7 +67,7 @@ public class AddressBookManager {
          "2. Remove person\n" +
          "3. Add phone\n" +
          "4. Remove phone\n" +
-         "5. Print all\n" +
+         "5. Display all persons\n" +
          "6. Query persons by name\n" +
          "7. Query persons by phone\n" +
          "8. Quit\n";
@@ -85,23 +87,27 @@ public class AddressBookManager {
             .marshaller(new ProtoStreamMarshaller());
       cacheManager = new RemoteCacheManager(builder.build());
 
-      registerProtofile(host, jmxPort);
+      cache = cacheManager.getCache(CACHE_NAME);
 
-      registerMarshallers();
+      registerProtofile(host, jmxPort, CACHE_CONTAINER_NAME);
 
-      cache = cacheManager.getCache("addressbook");
+      registerMarshallers(cacheManager);
    }
 
-   private void registerProtofile(String host, int jmxPort) throws Exception {
-      JMXConnector jmxConnector = JMXConnectorFactory.connect(new JMXServiceURL("service:jmx:remoting-jmx://" + host + ":" + jmxPort));
+   /**
+    * Register the Protobuf descriptors file on the server via JMX.
+    */
+   private void registerProtofile(String jmxHost, int jmxPort, String cacheContainerName) throws Exception {
+      JMXConnector jmxConnector = JMXConnectorFactory.connect(new JMXServiceURL("service:jmx:remoting-jmx://" + jmxHost + ":" + jmxPort));
       MBeanServerConnection jmxConnection = jmxConnector.getMBeanServerConnection();
 
-      ObjectName objName = new ObjectName("jboss.infinispan:type=RemoteQuery,name="
-                                                + ObjectName.quote("local") + ",component=ProtobufMetadataManager");
+      ObjectName protobufMetadataManagerObjName = new ObjectName("jboss.infinispan:type=RemoteQuery,name="
+                                                + ObjectName.quote(cacheContainerName) + ",component=ProtobufMetadataManager");
 
       //initialize client-side serialization context via JMX
-      byte[] descriptor = readClasspathResource("/addressbook.protobin");
-      jmxConnection.invoke(objName, "registerProtofile", new Object[]{descriptor}, new String[]{byte[].class.getName()});
+      byte[] descriptor = readClasspathResource(PROTOBUF_DESCRIPTOR_RESOURCE);
+      jmxConnection.invoke(protobufMetadataManagerObjName, "registerProtofile", new Object[]{descriptor}, new String[]{byte[].class.getName()});
+      jmxConnector.close();
    }
 
    private byte[] readClasspathResource(String c) throws IOException {
@@ -109,13 +115,18 @@ public class AddressBookManager {
       try {
          return Util.readStream(is);
       } finally {
-         is.close();
+         if (is != null) {
+            is.close();
+         }
       }
    }
 
-   private void registerMarshallers() throws IOException, Descriptors.DescriptorValidationException {
+   /**
+    * Register entity marshallers on the client side ProtoStreamMarshaller instance associated with the remote cache manager.
+    */
+   private void registerMarshallers(RemoteCacheManager cacheManager) throws IOException, Descriptors.DescriptorValidationException {
       SerializationContext ctx = ProtoStreamMarshaller.getSerializationContext(cacheManager);
-      ctx.registerProtofile("/addressbook.protobin");
+      ctx.registerProtofile(PROTOBUF_DESCRIPTOR_RESOURCE);
       ctx.registerMarshaller(Person.class, new PersonMarshaller());
       ctx.registerMarshaller(PhoneNumber.class, new PhoneNumberMarshaller());
       ctx.registerMarshaller(PhoneType.class, new PhoneTypeMarshaller());
@@ -132,7 +143,7 @@ public class AddressBookManager {
       List<Person> results = query.list();
       System.out.println("Found " + results.size() + " matches:");
       for (Person p : results) {
-         System.out.println(">> " + Arrays.asList(p));
+         System.out.println(">> " + p);
       }
    }
 
@@ -147,7 +158,7 @@ public class AddressBookManager {
       List<Person> results = query.list();
       System.out.println("Found " + results.size() + " matches:");
       for (Person p : results) {
-         System.out.println(">> " + Arrays.asList(p));
+         System.out.println(">> " + p);
       }
    }
 
@@ -160,15 +171,19 @@ public class AddressBookManager {
       person.setName(name);
       person.setEmail(email);
 
+      // put the Person in cache
       cache.put(person.getId(), person);
    }
 
    private void removePerson() {
       int id = Integer.parseInt(readConsole("Enter person id: "));
+
+      // remove from cache
       cache.remove(id);
    }
 
    private void addPhone() {
+      System.out.println("Adding a phone number to a person");
       int id = Integer.parseInt(readConsole("Enter person id: "));
       Person person = cache.get(id);
       if (person == null) {
@@ -189,10 +204,12 @@ public class AddressBookManager {
       phones.add(phoneNumber);
       person.setPhones(phones);
 
+      // update the Person in cache
       cache.put(person.getId(), person);
    }
 
    private void removePhone() {
+      System.out.println("Removing a phone number from a person");
       int id = Integer.parseInt(readConsole("Enter person id: "));
       Person person = cache.get(id);
       if (person == null) {
@@ -201,14 +218,19 @@ public class AddressBookManager {
       }
       System.out.println("> " + person);
 
-      int idx = Integer.parseInt(readConsole("Enter phone index: "));
-      if (person.getPhones() == null || idx < 0 || idx >= person.getPhones().size()) {
-         System.out.println("Index out of range");
-         return;
-      }
-      person.getPhones().remove(idx);
+      if (person.getPhones() != null && !person.getPhones().isEmpty()) {
+         int idx = Integer.parseInt(readConsole("Enter phone index [0.." + (person.getPhones().size() - 1) + "]: "));
+         if (idx < 0 || idx >= person.getPhones().size()) {
+            System.out.println("Index out of range");
+            return;
+         }
+         person.getPhones().remove(idx);
 
-      cache.put(person.getId(), person);
+         // update the Person in cache
+         cache.put(person.getId(), person);
+      } else {
+         System.out.println("The person does not have any phones");
+      }
    }
 
    private void printAll() {
@@ -254,6 +276,7 @@ public class AddressBookManager {
             } else if ("7".equals(action)) {
                manager.queryByPhone();
             } else if ("8".equals(action)) {
+               System.out.println("Bye!");
                break;
             } else {
                System.out.println("\nUnrecognized action!");

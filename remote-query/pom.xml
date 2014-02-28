@@ -99,7 +99,50 @@
     <build>
         <!-- Maven will append the version to the finalName (which is the name given to the generated jar) -->
         <finalName>${project.artifactId}</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.proto</exclude>
+                </excludes>
+            </resource>
+
+            <resource>
+                <directory>${project.build.directory}/protobuf-descriptors</directory>
+            </resource>
+        </resources>
+
         <plugins>
+            <!--
+                Execute protoc tool to parse our proto definitions and generate the serialized descriptor set (protobin).
+                You must have the protoc tool installed.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${ant.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile-protoc</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/protobuf-descriptors/quickstart"/>
+                                <exec executable="protoc" failonerror="true">
+                                    <arg value="--proto_path=${project.basedir}/src/main/resources"/>
+                                    <arg value="--descriptor_set_out=${project.build.directory}/protobuf-descriptors/quickstart/addressbook.protobin"/>
+                                    <arg value="${project.basedir}/src/main/resources/quickstart/addressbook.proto"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- This plugin permits the execution of this quickstart through mvn exec:java command -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -118,8 +161,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <!--todo add protoc based build step to generate protobin-->
 
     <profiles>
         <profile>
