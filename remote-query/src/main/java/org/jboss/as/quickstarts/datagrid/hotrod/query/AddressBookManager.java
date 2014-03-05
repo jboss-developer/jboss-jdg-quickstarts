@@ -17,6 +17,7 @@
 package org.jboss.as.quickstarts.datagrid.hotrod.query;
 
 import com.google.protobuf.Descriptors;
+import org.infinispan.client.hotrod.Flag;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.Search;
@@ -57,9 +58,18 @@ public class AddressBookManager {
    private static final String HOTROD_PORT = "jdg.hotrod.port";
    private static final String JMX_PORT = "jdg.jmx.port";
    private static final String PROPERTIES_FILE = "jdg.properties";
-   private static final String CACHE_CONTAINER_NAME = "local";
-   private static final String CACHE_NAME = "addressbook";
    private static final String PROTOBUF_DESCRIPTOR_RESOURCE = "/quickstart/addressbook.protobin";
+
+
+   /**
+    * The name of yor cache container, as defined in your server config.
+    */
+   private static final String CACHE_CONTAINER_NAME = "local";
+
+   /**
+    * The name of your cache, as defined in your server config.
+    */
+   private static final String CACHE_NAME = "addressbook";
 
    private static final String menu = "\nAvailable actions:\n" +
          "0. Display available actions\n" +
@@ -88,6 +98,10 @@ public class AddressBookManager {
       cacheManager = new RemoteCacheManager(builder.build());
 
       cache = cacheManager.getCache(CACHE_NAME);
+
+      if (cache == null) {
+         throw new RuntimeException("Cache '" + CACHE_NAME + "' not found. Please make sure the server is properly configured");
+      }
 
       registerProtofile(host, jmxPort, CACHE_CONTAINER_NAME);
 
@@ -176,10 +190,11 @@ public class AddressBookManager {
    }
 
    private void removePerson() {
-      int id = Integer.parseInt(readConsole("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id to remove: "));
 
       // remove from cache
-      cache.remove(id);
+      Person prevValue = cache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
+      System.out.println("Removed: " + prevValue);
    }
 
    private void addPhone() {
