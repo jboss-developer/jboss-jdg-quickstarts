@@ -153,7 +153,7 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
     2. Remove person
     3. Add phone
     4. Remove phone
-    5. Print all
+    5. Display all persons
     6. Query persons by name
     7. Query persons by phone
     8. Quit
