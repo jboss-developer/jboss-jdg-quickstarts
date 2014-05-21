@@ -23,6 +23,11 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3
 
 The application this project produces is designed to be run on JBoss Data Grid 6.2
 
+
+Install Protocol Buffers
+------------------------
+Download and install Protocol Buffers. (https://developers.google.com/protocol-buffers/)
+
  
 Configure Maven
 ---------------
