@@ -43,7 +43,7 @@
         <main.class.remote-query>org.jboss.as.quickstarts.datagrid.hotrod.query.AddressBookManager</main.class.remote-query>
 
         <version.org.infinispan>6.0.0.Final</version.org.infinispan>
-        <version.remoting.jmx>1.1.0.Final</version.remoting.jmx>
+        <version.remoting.jmx>1.1.2.Final-redhat-1</version.remoting.jmx>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
