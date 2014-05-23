@@ -32,4 +32,71 @@ This distribution contains the following quickstarts:
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
 
+[TOC-quickstart]
+
+Suggested Approach to the Quickstarts
+-------------------------------------
+
+We suggest you approach the quickstarts as follows:
+
+* Regardless of your level of expertise, we suggest you start with the **helloworld** quickstart. It is the simplest example and is an easy way to prove your server is configured and started correctly.
+* If you are a beginner or new to JBoss, start with the quickstarts labeled **Beginner**, then try those marked as **Intermediate**. When you are comfortable with those, move on to the **Advanced** quickstarts.
+* Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, be sure to deploy and test it before looking at the expanded version.
+
+
+System Requirements
+-------------------
+
+To run these quickstarts with the provided build scripts, you need the following:
+
+1. Java 1.6, to run JBoss Data Grid, JBoss EAP and Maven. You can choose from the following:
+    * OpenJDK
+    * Oracle Java SE
+    * Oracle JRockit
+
+2. Maven 3.0.0 or newer, to build and deploy the examples
+    * If you have not yet installed Maven, see the [Maven Getting Started Guide](http://maven.apache.org/guides/getting-started/index.html) for details.
+    * If you have installed Maven, you can check the version by typing the following in a command prompt:
+
+            mvn --version 
+
+3. The JBoss Data Grid server distribution ZIP.
+    * For information on how to install and run JBoss Data Grid, refer to the product documentation located on the Customer Portal here: <https://access.redhat.com/site/documentation/en-US/JBoss_Data_Grid/>.
+
+
+4. The JBoss EAP distribution ZIP.
+    * For information on how to install and run JBoss, refer to the product documentation located on the Customer Portal here: <https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/>.
+
+4. You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
+
+
+Run the Quickstarts
+-------------------
+
+The root folder of each individual quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:
+
+* [Start the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.md#start-the-jboss-eap-server)
+* [Build and deploy the quickstarts](#build-and-deploy-the-quickstarts)
+
+Quickstarts demonstrating the remote protocols will also need a running JBoss Data Grid Server.
+
+### Build and Deploy the Quickstarts
+
+See the README file in each individual quickstart folder for specific details and information on how to run and access the example. 
+
+_Note:_ If you do not configure the Maven settings as described here, [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts), you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml`
+
+
+#### Build the Quickstart Archive
+
+In most cases, you can use the following steps to build the application to test for compile errors or to view the contents of the archive. See the specific quickstart README file for complete details.
+
+1. Open a command prompt and navigate to the root directory of the quickstart you want to build.
+2. Use this command if you only want to build the archive, but not deploy it:
+   * If you have configured the Maven settings :
+
+            mvn clean install
+   * If you have NOT configured settings Maven settings:
+
+            mvn clean install -s QUICKSTART_HOME/settings.xml
 
