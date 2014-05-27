@@ -1,0 +1,5 @@
+batch
+deploy adminApp/ear/target/jboss-eap-application-adminApp.ear --server-groups=quickstart-eap-admin
+deploy appOne/ear/target/jboss-eap-application-AppOne.ear --server-groups=quickstart-eap-appone
+deploy appTwo/ear/target/jboss-eap-application-AppTwo.ear --server-groups=quickstart-eap-apptwo
+run-batch

@@ -1,0 +1,3 @@
+undeploy jboss-eap-application-adminApp.ear --all-relevant-server-groups
+undeploy jboss-eap-application-AppOne.ear --all-relevant-server-groups
+undeploy jboss-eap-application-AppTwo.ear --all-relevant-server-groups
