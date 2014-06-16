@@ -1,4 +1,4 @@
-package org.infinispan.quickstart.securecache.rest;
+package org.jboss.as.quickstarts.datagrid.securecache.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

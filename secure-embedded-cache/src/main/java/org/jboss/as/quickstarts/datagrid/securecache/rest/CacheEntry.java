@@ -1,4 +1,4 @@
-package org.infinispan.quickstart.securecache.rest;
+package org.jboss.as.quickstarts.datagrid.securecache.rest;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 

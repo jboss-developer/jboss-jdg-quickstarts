@@ -1,4 +1,4 @@
-package org.infinispan.quickstart.securecache.cdi;
+package org.jboss.as.quickstarts.datagrid.securecache.cdi;
 
 import java.io.IOException;
 

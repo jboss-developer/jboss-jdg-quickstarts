@@ -1,4 +1,4 @@
-package org.infinispan.quickstart.securecache;
+package org.jboss.as.quickstarts.datagrid.securecache;
 
 import java.security.Principal;
 
