@@ -28,7 +28,7 @@ Setup
 		$JBOSS_HOME/bin> ./add-user.sh -a -u adminUser -p adminUserPass9! -r ApplicationRealm -g admin
 6. Restart the application server to ensure that additions to the files containing the users/roles will be picked up
 7. Considering a very basic setup of the server, the application should now be accessible at the URL: http://127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/
-8. To run the JUnit tests, that test the authentication and authorization of the cache thru the secured webapp, run the command `mvn clean package -DskipTests` while the JBoss EAP server is still running
+8. To run the JUnit tests, that test the authentication and authorization of the cache thru the secured webapp, run the command `mvn test` while the JBoss EAP server is still running
 
 Testing
 -------
