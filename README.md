@@ -31,6 +31,7 @@ This distribution contains the following quickstarts:
 | [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
+| [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
 
 [TOC-quickstart]
 

@@ -42,6 +42,7 @@
         <module>rapid-stock-market</module>
         <module>remote-query</module>
         <module>rest-endpoint</module>
+        <module>secure-embedded-cache</module>
     </modules>
 
     <properties>

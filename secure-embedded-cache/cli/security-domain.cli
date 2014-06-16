@@ -1,0 +1,5 @@
+batch
+/subsystem=security/security-domain=file-based-auth:add
+/subsystem=security/security-domain=file-based-auth/authentication=classic:add(login-modules=[{"code" => "org.jboss.security.auth.spi.UsersRolesLoginModule", "flag" => "required", "module-options" => { "usersProperties" => "${jboss.server.config.dir}/application-users.properties","rolesProperties" => "${jboss.server.config.dir}/application-roles.properties","hashAlgorithm" => "MD5", "hashEncoding" => "RFC2617","hashUserPassword" => "false", "hashStorePassword" => "true","passwordIsA1Hash" => "true", "storeDigestCallback" => "org.jboss.security.auth.callback.RFC2617Digest" }}])
+run-batch
+:reload
