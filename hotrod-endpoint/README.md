@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod
 Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol.
 Target Product: JDG
-Product Versions: JDG 6.2
+Product Versions: JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -21,7 +21,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.2
+The application this project produces is designed to be run on JBoss Data Grid 6.x
 
  
 Configure Maven

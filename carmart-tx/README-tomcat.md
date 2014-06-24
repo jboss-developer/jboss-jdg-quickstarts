@@ -4,7 +4,7 @@ Author: Tristan Tarrant, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
 Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
-Product Versions: EWS 2, JDG 6.2
+Product Versions: EWS 2, JDG 6.x
 
 What is it?
 -----------
@@ -17,7 +17,7 @@ The Transactional CarMart quickstart works in a library mode. All libraries (jar
 
 All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used. _NOTE: Using the JBoss Transactions on Tomcat is an unsupported use case_
 
-When running this quickstart on  JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile. This profile only enables "library" mode.
+When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile.
 
 
 System requirements
