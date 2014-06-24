@@ -101,8 +101,8 @@ To run these tests on EAP:
         mvn test -Puitests-jbossas -Das7home=/path/to/server
 
 
-Build and Start the Application in Client-server Mode (using the HotRod client)
----------------------------------------------------------------------------------
+Build and Start the Application in Client-Server Mode (using HotRod Client)
+---------------------------------------------------------------------------
 
 NOTE: The application must be deployed to JBoss Enterprise Application Platform (EAP). It can not be deployed to JDG since it does not support deployment of applications.
 
@@ -114,7 +114,7 @@ NOTE: The application must be deployed to JBoss Enterprise Application Platform 
                 <eviction strategy="LIRS" max-entries="4"/>
             </local-cache>
    
-3. Start the JDG server using on localhost 100 on port offset: 
+3. Start the JDG server on localhost using port offset: 
     
         $JDG_HOME/bin/standalone.sh -Djboss.socket.binding.port-offset=100
 
@@ -122,35 +122,35 @@ NOTE: The application must be deployed to JBoss Enterprise Application Platform 
 
         $JBOSS_HOME/bin/standalone.sh
 
-5. The application finds the JDG server using the values in the src/main/resources/META-INF/JDG.properties file. If you are not running the JDG server on the default host and port, you must modify this file to contain the correct values. If you need to change the JDG address:port information, edit src/main/resources/META-INF/JDG.properties file and specify address and port of the JDG server
+5. The application finds the JDG server using the values in the src/main/resources/META-INF/datagrid.properties file. If you are not running the JDG server on the default host and port, you must modify this file to contain the correct values. If you need to change the JDG address:port information, edit src/main/resources/META-INF/datagrid.properties file and specify address and port of the JDG server
 
         datagrid.host=localhost
         datagrid.hotrod.port=11322
 
 6. Build the application in the example's directory:
 
-        mvn clean package -Premote
+        mvn clean package -Premote-jbossas
 
 7. Deploy the application
 
-        mvn jboss-as:deploy -Premote
+        mvn jboss-as:deploy -Premote-jbossas
 
 8. The application will be running at the following URL: <http://localhost:8080/jboss-carmart/>
 
 9. Undeploy the application
 
-        mvn jboss-as:undeploy -Premote
+        mvn jboss-as:undeploy -Premote-jbossas
 
 
-Test the Application in Client-Server mode (using Hot-Rod client)
------------------------------------------------------------------
+Test the Application in Client-Server mode (using HotRod client)
+----------------------------------------------------------------
 
 1. Obtain and configure JDG Server (steps 1 and 2 show above)
 2. Make sure that none of EAP or JDG Server is running
 3. Open a command line and navigate to the root directory of this quickstart.
 4. Build the quickstart using:
 
-        mvn clean package -Premote
+        mvn clean package -Premote-jbossas
 
 5. Type this command to run the tests:
 
