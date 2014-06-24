@@ -4,7 +4,7 @@ Author: Tristan Tarrant, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan, CDI
 Summary: Shows how to use Infinispan instead of a relational database.
-Product Versions: EWS 2, JDG 6.2
+Product Versions: EWS 2, JDG 6.x
 
 What is it?
 -----------
@@ -12,10 +12,8 @@ What is it?
 CarMart is a simple web application that uses Infinispan instead of a relational database.
 
 Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
-
-The CarMart quickstart can work in two modes: "library" and "client-server", however only "library" mode is supported in JBoss Enterprise Web Server (EWS) or Tomcat. In library mode, all libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programmatically and run in the same JVM as the web application. In client-server mode, the web application bundles only HotRod client and communicates with a remote JBoss Data Grid (JDG) server.
  
-When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile. This profile only enables "library" mode.
+When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use the "library-tomcat" maven profile.
 
 
 System requirements

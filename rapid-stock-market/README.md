@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, HotRod, REST
 Summary: Shows how to enable Infinispan compatibility mode so that data can be read/written over different protocols.
 Target Product: JDG
-Product Versions: EAP 6.1, EAP 6.2, JDG 6.2
+Product Versions: EAP 6.x, JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 This quickstart demonstrates the behaviour of a compatibility mode. Updates of shares are
