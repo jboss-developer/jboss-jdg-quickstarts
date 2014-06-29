@@ -85,9 +85,10 @@ Configure JDG
 		    <subsystem xmlns="urn:infinispan:server:core:6.1">
 			    <cache-container name="local" default-cache="teams">
 				    <security>
-					    <authorization mapper="org.infinispan.security.impl.IdentityRoleMapper">
-						    <role name="coach" permissions="READ WRITE"/>
-						    <role name="player" permissions="READ"/>
+					    <authorization>
+					        <identity-role-mapper/>
+					        <role name="coach" permissions="READ WRITE"/>
+					        <role name="player" permissions="READ"/>
 					    </authorization>
 				    </security>
 				    <local-cache name="teams" start="EAGER" batching="false">
