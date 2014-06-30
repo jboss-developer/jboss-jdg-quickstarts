@@ -19,8 +19,8 @@ and are removed from the cache after 60 seconds since last update.
 
 HelloWorld-JDG example works in _Library mode_. In this mode, the application and the data grid are running in the same
 JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform.
-The library usage mode only allows local access to a single node in a distributed cluster. This usage
-mode gives the application access to data grid functionality within a virtual machine in the container being used.
+The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also 
+enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.
 
 
 System requirements
