@@ -19,7 +19,8 @@
 
 	<global>
 		<security>
-			<authorization mapper="org.infinispan.quickstart.securecache.JAASPrincipalRoleMapper">
+			<authorization>
+				<custom-role-mapper class="org.jboss.as.quickstarts.datagrid.securecache.JAASPrincipalRoleMapper"/>
 				<role name="admin" permissions="ALL" />
 				<role name="reader" permissions="READ BULK_READ"/>
 				<role name="writer" permissions="WRITE" />

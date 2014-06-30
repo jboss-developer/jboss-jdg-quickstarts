@@ -1,6 +1,7 @@
 package org.jboss.as.quickstarts.datagrid.securecache.rest;
 
 import java.security.Principal;
+
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.infinispan.Cache;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.infinispan.security.Security;
 import org.jboss.security.SecurityContextAssociation;
 import org.jboss.security.SimpleGroup;
 import org.jboss.security.SimplePrincipal;
@@ -40,13 +42,14 @@ public class CacheRestService {
 	@Path("/get")
 	@Produces("application/json")
 	public CacheOperationResult<CacheEntry<String,String>> get(final @QueryParam("key") String key) {
-		final Cache<String, String> cache;
 		final CacheOperationResult<CacheEntry<String,String>> cor = new CacheOperationResult<CacheEntry<String,String>>();
 		Subject subject = SecurityContextAssociation.getSubject();
 		try {
-			cache = cm.getCache("secured");
-			Subject.doAs(subject, new PrivilegedAction<Void>() {
+			Security.doAs(subject, new PrivilegedAction<Void>() {
 				public Void run() {	
+					Cache<String, String> cache;
+					cache = cm.getCache("secured");
+
 					ArrayList<CacheEntry<String, String>> cacheEntries = new ArrayList<CacheEntry<String, String>>();
 					/* 
 					 * If key is provided, extract the value associated with the key in the
@@ -83,13 +86,13 @@ public class CacheRestService {
 	@Produces("application/json")
 	public CacheOperationResult<String> put(final @QueryParam("key") String key, 
 			final @QueryParam("value") String value) {
-		final Cache<String, String> cache;
 		final CacheOperationResult<String> cor = new CacheOperationResult<String>();
 		Subject subject = SecurityContextAssociation.getSubject();
 		try {
-			cache = cm.getCache("secured");
-			String returnValue = Subject.doAs(subject, new PrivilegedAction<String>() {
-				public String run() {	
+			String returnValue = Security.doAs(subject, new PrivilegedAction<String>() {
+				public String run() {
+					Cache<String, String> cache;
+					cache = cm.getCache("secured");
 					return cache.putIfAbsent(key, value);
 				}
 			});	
@@ -141,13 +144,13 @@ public class CacheRestService {
 	@Produces("application/json")
 	public CacheOperationResult<Boolean> remove(final @QueryParam("key") String key,
 			final @QueryParam("value") String value) {
-		final Cache<String, String> cache;
 		final CacheOperationResult<Boolean> cor = new CacheOperationResult<Boolean>();
 		Subject subject = SecurityContextAssociation.getSubject();
 		try {		
-			cache = cm.getCache("secured");
-			Boolean returnValue = Subject.doAs(subject, new PrivilegedAction<Boolean>() {
-				public Boolean run() {	
+			Boolean returnValue = Security.doAs(subject, new PrivilegedAction<Boolean>() {
+				public Boolean run() {
+					Cache<String, String> cache;
+					cache = cm.getCache("secured");
 					return cache.remove(key, value);
 				}
 			});
