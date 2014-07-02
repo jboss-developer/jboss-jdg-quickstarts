@@ -50,7 +50,41 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+        <product.version>6.3.0</product.version>
+        <product.milestone>Final-SNAPSHOT</product.milestone>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>distribution</id>
+		    <activation>
+		       <activeByDefault>false</activeByDefault>
+		    </activation>
+		    <build>
+		       <plugins>
+		          <plugin>
+		             <groupId>org.apache.maven.plugins</groupId>
+		             <artifactId>maven-assembly-plugin</artifactId>
+		             <executions>
+		                <execution>
+		                   <id>assemble</id>
+		                   <phase>validate</phase>
+		                   <goals>
+		                      <goal>single</goal>
+		                   </goals>
+		                </execution>
+		             </executions>
+		             <configuration>
+		                 <descriptors>
+		                   <descriptor>src/main/assemblies/sources.xml</descriptor>
+		                </descriptors>
+		                <finalName>jboss-datagrid-${product.version}.${product.milestone}-quickstarts</finalName>
+		                <appendAssemblyId>false</appendAssemblyId>
+		             </configuration>
+		          </plugin>
+		       </plugins>
+		    </build>
+		</profile>
+    </profiles>
 </project>
 
