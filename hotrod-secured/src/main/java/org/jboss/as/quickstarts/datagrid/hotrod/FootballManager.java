@@ -215,6 +215,8 @@ public class FootballManager {
     }
 
     public static boolean isCause(Class<? extends Throwable> expected, Throwable ex) {
-        return ex.getCause().getMessage().contains(expected.getName());
+        if (ex.getCause() != null)
+            return ex.getCause().getMessage().contains(expected.getName());
+        return false;
     }
 }
