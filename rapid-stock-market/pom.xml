@@ -40,7 +40,7 @@
       <maven.compiler.target>1.6</maven.compiler.target>
       <maven.compiler.source>1.6</maven.compiler.source>
 
-      <infinispan.version>6.1.0.Final-redhat-1</infinispan.version>
+      <infinispan.version>6.1.0.Final-redhat-4</infinispan.version>
       <commons.httpclient.version>3.1</commons.httpclient.version>
    </properties>
 
