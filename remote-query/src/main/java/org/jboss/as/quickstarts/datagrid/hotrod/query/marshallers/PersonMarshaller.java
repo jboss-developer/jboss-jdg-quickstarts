@@ -35,7 +35,7 @@ public class PersonMarshaller implements MessageMarshaller<Person> {
    }
 
    @Override
-   public Class<? extends Person> getJavaClass() {
+   public Class<Person> getJavaClass() {
       return Person.class;
    }
 

@@ -25,7 +25,7 @@ import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneType;
 public class PhoneTypeMarshaller implements EnumMarshaller<PhoneType> {
 
    @Override
-   public Class<? extends PhoneType> getJavaClass() {
+   public Class<PhoneType> getJavaClass() {
       return PhoneType.class;
    }
 

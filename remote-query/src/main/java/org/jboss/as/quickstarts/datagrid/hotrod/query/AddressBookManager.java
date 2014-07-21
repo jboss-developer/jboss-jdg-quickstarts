@@ -141,9 +141,9 @@ public class AddressBookManager {
    private void registerMarshallers(RemoteCacheManager cacheManager) throws IOException, Descriptors.DescriptorValidationException {
       SerializationContext ctx = ProtoStreamMarshaller.getSerializationContext(cacheManager);
       ctx.registerProtofile(PROTOBUF_DESCRIPTOR_RESOURCE);
-      ctx.registerMarshaller(Person.class, new PersonMarshaller());
-      ctx.registerMarshaller(PhoneNumber.class, new PhoneNumberMarshaller());
-      ctx.registerMarshaller(PhoneType.class, new PhoneTypeMarshaller());
+      ctx.registerMarshaller(new PersonMarshaller());
+      ctx.registerMarshaller(new PhoneNumberMarshaller());
+      ctx.registerMarshaller(new PhoneTypeMarshaller());
    }
 
    private void queryByName() {
