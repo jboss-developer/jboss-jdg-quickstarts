@@ -70,12 +70,10 @@ Configure JDG
         <subsystem xmlns="urn:infinispan:server:core:6.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
-                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
-                    <transaction mode="NONE"/>
+                    <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
                 </local-cache>
                 <local-cache name="memcachedCache" start="EAGER">
-                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
-                    <transaction mode="NONE"/>
+                    <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
                 </local-cache>
                 <local-cache name="namedCache" start="EAGER"/>
                 
@@ -88,14 +86,10 @@ Configure JDG
                     
                     <!-- Define the locking isolation of this cache -->
                     <locking
-                        isolation="READ_COMMITTED"
                         acquire-timeout="20000"
                         concurrency-level="500"
                         striping="false" />
                         
-                    <!-- Disable transactions for this cache -->
-                    <transaction mode="NONE" />
-                    
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
                     <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
 
