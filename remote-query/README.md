@@ -162,11 +162,10 @@ Type `8` to exit the application.
 
 Run application with different classpath
 ----------------------------------------
-It's possible to run this quickstart with different classpath (other than default created by mvn exec:java),
-for instance with ${infinispan-server}/client/hotrod/java classpath.
+It's possible to run this quickstart with different classpath (other than default created by mvn exec:java).
 To do this, compile quickstart with:
 
-        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath
+        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath/directory
 
 This will create a file at `target/jboss-remote-query-quickstart.jar`.
 Then you can run it with:

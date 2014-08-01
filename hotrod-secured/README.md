@@ -47,58 +47,59 @@ Configure JDG
 * Security Realm configuration
   Security Realms are used by the server to provide authentication and authorization information for both the management and application interfaces
 
-       <management>
+        <management>
             ...
             <security-realm name="ApplicationRealm">
-               <authentication>
-                  <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
-               </authentication>
-               <authorization>
-                  <properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
-               </authorization>
+                <authentication>
+                    <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
+                </authentication>
+                <authorization>
+                    <properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
+                </authorization>
             </security-realm>
             ...
         </management>
    
 * Enpoint subsystem definition:
   The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
-    
-		    <subsystem xmlns="urn:infinispan:server:endpoint:6.1">
-			    <hotrod-connector socket-binding="hotrod" cache-container="local">
-				    <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
-					    <authentication security-realm="ApplicationRealm">
-					    <sasl server-name="football" mechanisms="DIGEST-MD5" qop="auth">
-						    <policy>
-							    <no-anonymous value="true"/>
-						    </policy>
-					    <property name="com.sun.security.sasl.digest.utf8">true</property>
-					    </sasl>
-				    </authentication>
-			    </hotrod-connector>
-                ...
-		    </subsystem>
+
+        <subsystem xmlns="urn:infinispan:server:endpoint:6.1">
+            <hotrod-connector socket-binding="hotrod" cache-container="local">
+                <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
+                <authentication security-realm="ApplicationRealm">
+                    <sasl server-name="football" mechanisms="DIGEST-MD5" qop="auth">
+                        <policy>
+                            <no-anonymous value="true"/>
+                        </policy>
+                        <property name="com.sun.security.sasl.digest.utf8">true</property>
+                    </sasl>
+                </authentication>
+            </hotrod-connector>
+            ...
+        </subsystem>
+          
   Notice! The server-name attribute: it is the name that the server declares to incoming clients and therefore the client configuration must match.
 
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-		    <subsystem xmlns="urn:infinispan:server:core:6.1">
-			    <cache-container name="local" default-cache="teams">
-				    <security>
-					    <authorization>
-					        <identity-role-mapper/>
-					        <role name="coach" permissions="READ WRITE"/>
-					        <role name="player" permissions="READ"/>
-					    </authorization>
-				    </security>
-				    <local-cache name="teams" start="EAGER" batching="false">
-					    <transaction mode="NONE"/>
-					    <security>
-						    <authorization roles="coach player"/>
-					    </security>
-				    </local-cache>
+        <subsystem xmlns="urn:infinispan:server:core:6.1">
+            <cache-container name="local" default-cache="teams">
+                <security>
+                    <authorization>
+                        <identity-role-mapper/>
+                        <role name="coach" permissions="READ WRITE"/>
+                        <role name="player" permissions="READ"/>
+                    </authorization>
+                </security>
+                <local-cache name="teams" start="EAGER" batching="false">
+                    <security>
+                        <authorization roles="coach player"/>
+                    </security>
+                </local-cache>
                 ...
-		    </subsystem>
+            </cache-container>
+        </subsystem>
 
 Start JDG
 ---------
@@ -192,11 +193,10 @@ Type `q` one more time to exit the application.
 
 Run application with different classpath
 ----------------------------------------
-It's possible to run this quickstart with different classpath (other than default created by mvn exec:java),
-for instance with ${infinispan-server}/client/hotrod/java classpath.
+It's possible to run this quickstart with different classpath (other than default created by mvn exec:java).
 To do this, compile quickstart with:
 
-        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath
+        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath/directory
 
 This will create a file at `target/jboss-hotrod-secured-quickstart.jar`.
 Then you can run it with:
