@@ -15,7 +15,7 @@ Users can list cars, add new cars or remove them from the CarMart. Information a
 
 The Transactional CarMart quickstart works in a library mode. All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programatically and run in the same JVM as the web application.
 
-All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used. _NOTE: Using the JBoss Transactions on Tomcat is an unsupported use case_
+All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used.
 
 When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile.
 
