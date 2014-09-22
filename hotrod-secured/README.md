@@ -112,8 +112,9 @@ Start JDG
 
 Add new users to ApplicationRealm
 ---------------------------------
-<JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'qwerty110!' -ro coach
-<JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'qwerty111!' -ro player
+
+        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'qwerty110!' -ro coach
+        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'qwerty111!' -ro player
 
 Hot Rod client configuration
 ----------------------------
