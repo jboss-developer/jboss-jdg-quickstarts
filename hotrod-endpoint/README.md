@@ -67,7 +67,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.0" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:6.1" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
