@@ -27,7 +27,6 @@ import org.junit.runners.MethodSorters;
 import org.junit.Test;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class HttpDigestAuthTest {
 
 	private static HttpHost target;
