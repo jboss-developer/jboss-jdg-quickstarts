@@ -1,0 +1,73 @@
+# stop the preconfigured server for the domain
+batch
+# first stop the default servers, block until the server is down
+/host=master/server-config=server-one:stop(blocking=true)
+/host=master/server-config=server-two:stop(blocking=true)
+
+# remove the default server configuration and server-groups
+/host=master/server-config=server-one:remove
+/host=master/server-config=server-two:remove
+/host=master/server-config=server-three:remove
+/server-group=main-server-group:remove
+/server-group=other-server-group:remove
+
+
+# ----  configure the domain for the JDG quickstart ieap-cluster-app
+
+# disable the local authentication for applications
+#/host=master/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
+
+# Configure the connection from AppOne server to AppTwo server
+#
+
+# add the security realms with the secret (password base64) values for the server communication
+/host=master/core-service=management/security-realm=ejb-security-realm:add()
+/host=master/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value=cXVpY2stMTIz)
+
+# add the socket binding to the full-sockets, used by the AppOne server
+/socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=4647)
+
+# add the outbound connections to the remoting subsystem of the full-profile used by AppOne server
+/profile=full/subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, security-realm=ejb-security-realm, username=quickuser)
+/profile=full/subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SASL_POLICY_NOANONYMOUS:add(value=false)
+/profile=full/subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SSL_ENABLED:add(value=false)
+
+
+
+
+# adjust the default JVM configuration to minimum
+/host=master/jvm=default:write-attribute(name=permgen-size, value=64m)
+/host=master/jvm=default:write-attribute(name=max-permgen-size, value=128m)
+
+#add the group and the server which handle the AdminApp
+/server-group=quickstart-eap-admin:add(profile=full,socket-binding-group=full-sockets)
+/server-group=quickstart-eap-admin/jvm=default:add()
+/host=master/server-config=AppAdminServer:add(auto-start=true, group=quickstart-eap-admin)
+
+#add the group and the servers for the AppOne
+# AppOne is not a clustered application, so use full profile
+
+# remove the not wanted messaging subsystem
+/profile=full/subsystem=messaging:remove
+
+/server-group=quickstart-eap-appone:add(profile=full,socket-binding-group=full-sockets)
+/server-group=quickstart-eap-appone/jvm=default:add()
+/host=master/server-config=AppOneServer:add(auto-start=true, group=quickstart-eap-appone, socket-binding-port-offset=100)
+
+#add the group and the servers for the AppTwo
+# AppTwo will be a clustered application, so use HA and add two servers
+/server-group=quickstart-eap-apptwo:add(profile=ha,socket-binding-group=ha-sockets)
+/server-group=quickstart-eap-apptwo/jvm=default:add()
+/host=master/server-config=AppTwoServer1:add(auto-start=true, group=quickstart-eap-apptwo, socket-binding-port-offset=200)
+/host=master/server-config=AppTwoServer2:add(auto-start=true, group=quickstart-eap-apptwo, socket-binding-port-offset=300)
+
+run-batch
+
+# without restart, outside the batch, there are different problems
+:restart-servers
+
+# finally start the configured servers
+/host=master/server-config=AppAdminServer:start
+/host=master/server-config=AppOneServer:start
+/host=master/server-config=AppTwoServer1:start
+/host=master/server-config=AppTwoServer2:start
