@@ -1,9 +1,5 @@
 package org.infinispan.quickstart.securecache;
 
-import java.io.IOException;
-
-import static org.junit.Assert.*;
-
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -23,10 +19,15 @@ import org.apache.http.util.EntityUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
-import org.junit.runners.MethodSorters;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore(value = "This test assumes that JBoss AS/EAP is already running. Not always true. BZ1150949")
 public class HttpDigestAuthTest {
 
 	private static HttpHost target;
@@ -43,53 +44,33 @@ public class HttpDigestAuthTest {
 	}
 
 	@Test
-	public void test1AdminPut() {
-		try {
-			String response = getReponseString(adminClient, "/rest/cache/put?key=K1&value=V1", HTTP_METHOD.PUT, HTTP_RESPONSE.TEXT);
-			assertTrue(!response.contains("Unauthorized access"));
-		} catch(IOException e) {
-			fail("The test failed due to an "+IOException.class.getName());
-		}
+	public void test1AdminPut() throws Exception {
+		String response = getReponseString(adminClient, "/rest/cache/put?key=K1&value=V1", HTTP_METHOD.PUT, HTTP_RESPONSE.TEXT);
+		assertTrue(!response.contains("Unauthorized access"));
 	}
 
 	@Test
-	public void test2ReaderPut() {
-		try {
-			String response = getReponseString(readerClient, "/rest/cache/put?key=K1&value=V1", HTTP_METHOD.PUT, HTTP_RESPONSE.TEXT);
-			assertTrue(response.contains("Unauthorized access"));
-		} catch(IOException e) {
-			fail("The test failed due to an "+e.getClass().getName());
-		}
+	public void test2ReaderPut() throws Exception {
+      String response = getReponseString(readerClient, "/rest/cache/put?key=K1&value=V1", HTTP_METHOD.PUT, HTTP_RESPONSE.TEXT);
+      assertTrue(response.contains("Unauthorized access"));
 	}
 
 	@Test
-	public void test3ReaderGet() {
-		try {
-			String response = getReponseString(readerClient, "/rest/cache/get?key=K1", HTTP_METHOD.GET, HTTP_RESPONSE.TEXT);
-			assertTrue(!response.contains("Unauthorized access"));
-		} catch(IOException e) {
-			fail("The test failed due to an "+e.getClass().getName());
-		}
+	public void test3ReaderGet() throws Exception {
+      String response = getReponseString(readerClient, "/rest/cache/get?key=K1", HTTP_METHOD.GET, HTTP_RESPONSE.TEXT);
+      assertTrue(!response.contains("Unauthorized access"));
 	}
 
 	@Test
-	public void test4ReaderDelete() {
-		try {
-			String response = getReponseString(readerClient, "/rest/cache/remove?key=K1&value=V1", HTTP_METHOD.DELETE, HTTP_RESPONSE.TEXT);
-			assertTrue(response.contains("Unauthorized access"));
-		} catch(IOException e) {
-			fail("The test failed due to an "+e.getClass().getName());
-		}
+	public void test4ReaderDelete() throws Exception {
+      String response = getReponseString(readerClient, "/rest/cache/remove?key=K1&value=V1", HTTP_METHOD.DELETE, HTTP_RESPONSE.TEXT);
+      assertTrue(response.contains("Unauthorized access"));
 	}
 
 	@Test
-	public void test5AdminDelete() {
-		try {
-			String response = getReponseString(adminClient, "/rest/cache/remove?key=K1&value=V1", HTTP_METHOD.DELETE, HTTP_RESPONSE.TEXT);
-			assertTrue(!response.contains("Unauthorized access"));
-		} catch(IOException e) {
-			fail("The test failed due to an "+e.getClass().getName());
-		}
+	public void test5AdminDelete() throws Exception {
+      String response = getReponseString(adminClient, "/rest/cache/remove?key=K1&value=V1", HTTP_METHOD.DELETE, HTTP_RESPONSE.TEXT);
+      assertTrue(!response.contains("Unauthorized access"));
 	}
 	
 	
