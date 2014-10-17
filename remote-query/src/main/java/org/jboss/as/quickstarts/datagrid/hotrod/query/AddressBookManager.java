@@ -140,7 +140,7 @@ public class AddressBookManager {
     */
    private void registerMarshallers(RemoteCacheManager cacheManager) throws IOException, Descriptors.DescriptorValidationException {
       SerializationContext ctx = ProtoStreamMarshaller.getSerializationContext(cacheManager);
-      ctx.registerProtofile(PROTOBUF_DESCRIPTOR_RESOURCE);
+      ctx.registerProtoFiles(PROTOBUF_DESCRIPTOR_RESOURCE);
       ctx.registerMarshaller(new PersonMarshaller());
       ctx.registerMarshaller(new PhoneNumberMarshaller());
       ctx.registerMarshaller(new PhoneTypeMarshaller());

@@ -195,7 +195,7 @@ public class FootballManager {
         // add server host and server port we are connecting to
         config.addServer().host(jdgProperty(JDG_HOST)).port(Integer.parseInt(jdgProperty(HOTROD_PORT)));
         // add configuration for authentication
-        config.security().authentication()
+       config.security().authentication()
                 .serverName(SERVER_NAME) //define server name, should be specified in XML configuration
                 .saslMechanism("DIGEST-MD5") // define SASL mechanism, in this example we use DIGEST with MD5 hash
                 .callbackHandler(new LoginHandler(login, password, REALM)) // define login handler, implementation defined

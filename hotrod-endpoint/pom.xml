@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-hotrod-endpoint-quickstart</artifactId>
-    <version>6.3.0-redhat-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: hotrod-endpoint</name>
 
     <licenses>
@@ -33,25 +33,19 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
-            message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
-            resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
 
         <!-- Defines the main class to be execute when running java -jar 
             command -->
         <main.class.hotrod-endpoint>org.jboss.as.quickstarts.datagrid.hotrod.FootballManager</main.class.hotrod-endpoint>
 
-        <version.org.infinispan>6.1.0.Final-redhat-4</version.org.infinispan>
+        <version.org.infinispan>7.0.0.CR1</version.org.infinispan>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
         <ant.plugin.version>1.7</ant.plugin.version>
-
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
