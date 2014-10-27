@@ -14,23 +14,26 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, 
 	or see the FSF site: http://www.fsf.org. -->
 <infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:infinispan:config:6.1 http://www.infinispan.org/schemas/infinispan-config-6.1.xsd"
-	xmlns="urn:infinispan:config:6.1">
+	xsi:schemaLocation="urn:infinispan:config:7.0 http://www.infinispan.org/schemas/infinispan-config-7.0.xsd"
+	xmlns="urn:infinispan:config:7.0">
+   <cache-container default-cache="secured">
+      <security>
+         <authorization>
+            <custom-role-mapper class="org.jboss.as.quickstarts.datagrid.securecache.JAASPrincipalRoleMapper"/>
+            <role name="admin" permissions="ALL" />
+            <role name="reader" permissions="READ BULK_READ"/>
+            <role name="writer" permissions="WRITE" />
+            <role name="supervisor" permissions="READ WRITE EXEC" />
+         </authorization>
+      </security>
 
-	<global>
-		<security>
-			<authorization>
-				<custom-role-mapper class="org.jboss.as.quickstarts.datagrid.securecache.JAASPrincipalRoleMapper"/>
-				<role name="admin" permissions="ALL" />
-				<role name="reader" permissions="READ BULK_READ"/>
-				<role name="writer" permissions="WRITE" />
-				<role name="supervisor" permissions="READ WRITE EXEC" />
-			</authorization>
-		</security>
-	</global>
-	<namedCache  name="secured">
-			<security>
-				<authorization enabled="true" roles="admin reader writer" />
-			</security>
-	</namedCache>
+      <jmx duplicate-domains="true" />
+
+      <local-cache name="secured">
+         <security>
+            <authorization enabled="true" roles="admin reader writer" />
+         </security>
+      </local-cache>
+   </cache-container>
+
 </infinispan>
