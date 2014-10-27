@@ -1,145 +1,206 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>org.jboss.quickstarts.jdg</groupId>
-	<artifactId>jboss-secure-embedded-cache-quickstart</artifactId>
-	<packaging>war</packaging>
-	<version>7.0.0-SNAPSHOT</version>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-	<name>JBoss JDG Quickstart: secure-embedded-cache</name>
-	<description>This quickstart demonstrates security in an embedded cache running within a webapp</description>
+   <groupId>org.jboss.quickstarts.jdg</groupId>
+   <artifactId>jboss-secure-embedded-cache-quickstart</artifactId>
+   <packaging>war</packaging>
+   <version>7.0.0-SNAPSHOT</version>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-        </license>
-    </licenses>
+   <name>JBoss JDG Quickstart: secure-embedded-cache</name>
+   <description>This quickstart demonstrates security in an embedded cache running within a webapp</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+   <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+   </licenses>
 
-		<version.jboss.javaee.web>1.0.0.Final</version.jboss.javaee.web>
-		<version.org.infinispan>7.0.0.CR1</version.org.infinispan>
-	</properties>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-	<dependencyManagement>
-		<dependencies>
-            <!-- Picketbox contains dependency for 1.0.1B, 1.1 is more convinient -->
-            <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>jta</artifactId>
-                <version>1.1</version>
-            </dependency>
-			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-web-7.0</artifactId>
-				<version>${version.jboss.javaee.web}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
-                <version>${version.org.infinispan}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-		</dependencies>
-	</dependencyManagement>
+      <maven.compiler.source>1.7</maven.compiler.source>
+      <maven.compiler.target>1.7</maven.compiler.target>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-cdi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>jaxrs-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.servlet</groupId>
-			<artifactId>jboss-servlet-api_3.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.picketbox</groupId>
-			<artifactId>picketbox-spi-bare</artifactId>
-			<version>4.0.20.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.9</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.picketbox</groupId>
-			<artifactId>jbosssx-bare</artifactId>
-			<version>4.0.20.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.3</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+      <version.maven.surefire>2.14</version.maven.surefire>
 
-	<build>
-		<!-- Set the name of the war, used as the context root when the app is deployed -->
-		<finalName>${project.artifactId}</finalName>
-		<plugins>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<archive>
-						<manifestEntries>
-							<Dependencies>org.codehaus.jackson.jackson-mapper-asl,org.picketbox</Dependencies>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
+      <arquillian.bom.version>1.1.1.Final</arquillian.bom.version>
+      <version.jboss.javaee.web>1.0.0.Final</version.jboss.javaee.web>
+      <version.org.infinispan>7.0.0.CR1</version.org.infinispan>
+      <jboss.as7.version>7.2.0.Final</jboss.as7.version>
+   </properties>
 
-			<!-- JBoss AS plugin to deploy war -->
-			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.5.Final</version>
-				<configuration>
-					<execute-commands>
-						<scripts>
-							<script>cli/security-domain.cli</script>
-						</scripts>
-					</execute-commands>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+   <dependencyManagement>
+      <dependencies>
+         <!-- Picketbox contains dependency for 1.0.1B, 1.1 is more convinient -->
+         <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-web-7.0</artifactId>
+            <version>${version.jboss.javaee.web}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-bom</artifactId>
+            <version>${version.org.infinispan}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-bom</artifactId>
+            <version>${arquillian.bom.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-core</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-cdi</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.resteasy</groupId>
+         <artifactId>jaxrs-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.picketbox</groupId>
+         <artifactId>picketbox-spi-bare</artifactId>
+         <version>4.0.20.Final</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.codehaus.jackson</groupId>
+         <artifactId>jackson-mapper-asl</artifactId>
+         <version>1.9.9</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.picketbox</groupId>
+         <artifactId>jbosssx-bare</artifactId>
+         <version>4.0.20.Final</version>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.as</groupId>
+         <artifactId>jboss-as-arquillian-container-managed</artifactId>
+         <version>${jboss.as7.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.jboss.arquillian.junit</groupId>
+         <artifactId>arquillian-junit-container</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.11</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+         <version>4.3.3</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <!-- Set the name of the war, used as the context root when the app is deployed -->
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+         <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+               <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+               <failOnMissingWebXml>false</failOnMissingWebXml>
+               <archive>
+                  <manifestEntries>
+                     <Dependencies>org.codehaus.jackson.jackson-mapper-asl,org.picketbox</Dependencies>
+                  </manifestEntries>
+               </archive>
+            </configuration>
+         </plugin>
+
+         <!-- JBoss AS plugin to deploy war -->
+         <plugin>
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <version>7.5.Final</version>
+            <configuration>
+               <execute-commands>
+                  <scripts>
+                     <script>cli/security-domain.cli</script>
+                  </scripts>
+               </execute-commands>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${version.maven.surefire}</version>
+            <configuration>
+               <reportNameSuffix>uitests-jbossas</reportNameSuffix>
+               <systemPropertyVariables>
+                  <quickstart.war.directory>${basedir}/target</quickstart.war.directory>
+                  <quickstart.war.file>${project.artifactId}.war</quickstart.war.file>
+               </systemPropertyVariables>
+               <systemProperties>
+                  <arquillian.launch>jbossas-managed</arquillian.launch>
+               </systemProperties>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+   <profiles>
+      <profile>
+         <id>ci</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+         </activation>
+         <build>
+            <plugins>
+               <!-- Maven Surefire Plugin to skip tests on build -->
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <version>${version.maven.surefire}</version>
+                  <configuration>
+                     <skipTests>true</skipTests>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+
 </project>
 

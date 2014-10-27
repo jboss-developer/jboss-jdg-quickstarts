@@ -16,18 +16,26 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore(value = "This test assumes that JBoss AS/EAP is already running. Not always true. BZ1150949")
+@RunWith(Arquillian.class)
 public class HttpDigestAuthTest {
 
    private static HttpHost target;
@@ -39,8 +47,21 @@ public class HttpDigestAuthTest {
    private enum HTTP_RESPONSE {CODE, TEXT}
 
    ;
+
    private CloseableHttpClient adminClient;
    private CloseableHttpClient readerClient;
+
+   //properties defined in pom.xml
+   private static final String ARCHIVE_NAME = System.getProperty("quickstart.war.file");
+   private static final String BUILD_DIRECTORY = System.getProperty("quickstart.war.directory");
+
+   @Deployment(testable = false)
+   public static WebArchive createDeployment() {
+      WebArchive archive = ShrinkWrap.create(ZipImporter.class, ARCHIVE_NAME).importFrom(new File(BUILD_DIRECTORY + '/' + ARCHIVE_NAME))
+            .as(WebArchive.class);
+
+      return archive;
+   }
 
    @Before
    public void setUp() {
@@ -59,6 +80,7 @@ public class HttpDigestAuthTest {
    public void test2ReaderPut() throws Exception {
       String response = getReponseString(readerClient, "/rest/cache/put?key=K1&value=V1", HTTP_METHOD.PUT, HTTP_RESPONSE.TEXT);
       assertTrue(response.contains("Unauthorized access"));
+
    }
 
    @Test
@@ -78,7 +100,6 @@ public class HttpDigestAuthTest {
       String response = getReponseString(adminClient, "/rest/cache/remove?key=K1&value=V1", HTTP_METHOD.DELETE, HTTP_RESPONSE.TEXT);
       assertTrue(!response.contains("Unauthorized access"));
    }
-
 
    private static CloseableHttpClient getHttpClient(String username, String password) {
       CredentialsProvider credsProvider = new BasicCredentialsProvider();
