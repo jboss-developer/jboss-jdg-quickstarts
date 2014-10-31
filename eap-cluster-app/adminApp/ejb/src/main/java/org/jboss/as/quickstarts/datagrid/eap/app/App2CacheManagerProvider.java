@@ -47,7 +47,7 @@ public class App2CacheManagerProvider {
 
          GlobalConfiguration glob = new GlobalConfigurationBuilder().clusteredDefault() // Builds a default clustered
                // notice the file MUST NOT named jgroups-udp.xml as this is provided by the infinispan module and prefered !
-               .transport().addProperty("configurationFile", "jgroups-admin.xml") // provide a specific JGroups configuration
+               .transport().addProperty("configurationFile", "jgroups-admin2.xml") // provide a specific JGroups configuration
                .clusterName("ClusterTwo").globalJmxStatistics().allowDuplicateDomains(true).enable() // This method enables the jmx statistics of
                // the global configuration and allows for duplicate JMX domains
                .build(); // Builds the GlobalConfiguration object

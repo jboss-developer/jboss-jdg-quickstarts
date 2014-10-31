@@ -52,12 +52,12 @@ Configure and Start the Servers in standalone mode
    - copy the modules to the server modules directory
 
         For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
-        For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME1\modules
+        For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
 
    - Add a user to each server for EJB access
 
-        For Linux:   EAP_HOME#/bin/add-user.sh -a -u quickuser -p quick-123
-        For Windows: EAP_HOME#\bin\add-user.bat -a -u quickuser -p quick-123
+        For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+        For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
 
 2. Copy the prepared JBoss EAP server to 4 different directories EAP_HOME[1-4].
 3. Open a command line for each of the 4 nodes and navigate to the root of the JBoss EAP server directory.
@@ -76,13 +76,19 @@ Configure and Start the Servers in standalone mode
 
 4. Add the configuration for node2 (AppOne) to use EJB server-to-server invocation:
 
-        For Linux:   EAP_HOME2/bin/jboss-cli.sh -c --file=QUICKSTART_HOME/install-appOne-standalone.cli
-        For Windows: EAP_HOME2\bin\jboss-cli.bat -c --file=QUICKSTART_HOME/install-appOne-standalone.cli
+        For Linux:   EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10099 --file=QUICKSTART_HOME/install-appOne-standalone.cli
+        For Windows: EAP_HOME2\bin\jboss-cli.bat -c --controller=localhost:10099 --file=QUICKSTART_HOME/install-appOne-standalone.cli
 
 Configure and Start the Servers in domain mode
 ----------------------------------------------
 
 1. Copy a fresh JBoss EAP installation to EAP_HOME
+   - unzip jboss-datagrid-${version}-eap-modules-library.zip where ${version} is 6.3.1 or better
+   - copy the modules to the server modules directory
+
+        For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
+        For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
+
 2. Open a command line and navigate to the root of JBoss EAP.
 3. Add a user:
 
