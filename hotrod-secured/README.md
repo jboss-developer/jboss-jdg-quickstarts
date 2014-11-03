@@ -83,7 +83,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:6.1">
+        <subsystem xmlns="urn:infinispan:server:core:6.2">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>
@@ -113,8 +113,8 @@ Start JDG
 Add new users to ApplicationRealm
 ---------------------------------
 
-        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'qwerty110!' -ro coach
-        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'qwerty111!' -ro player
+        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'coachPass9!' -ro coach
+        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'playerPass9!' -ro player
 
 Hot Rod client configuration
 ----------------------------
