@@ -63,7 +63,7 @@ Configure JDG
 * Enpoint subsystem definition:
   The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
 
-        <subsystem xmlns="urn:infinispan:server:endpoint:6.1">
+        <subsystem xmlns="urn:infinispan:server:endpoint:7.0">
             <hotrod-connector socket-binding="hotrod" cache-container="local">
                 <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
                 <authentication security-realm="ApplicationRealm">
@@ -83,7 +83,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:6.1">
+        <subsystem xmlns="urn:infinispan:server:core:7.0">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>
@@ -113,8 +113,8 @@ Start JDG
 Add new users to ApplicationRealm
 ---------------------------------
 
-        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'qwerty110!' -ro coach
-        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'qwerty111!' -ro player
+        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'coachPass9!' -ro coach
+        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'playerPass9!' -ro player
 
 Hot Rod client configuration
 ----------------------------
