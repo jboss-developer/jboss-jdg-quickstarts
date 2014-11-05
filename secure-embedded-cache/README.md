@@ -20,7 +20,7 @@ Setup
 5. To deploy the packaged webapp, run the command `mvn jboss-as:deploy`
 6. Since we will be using __application-user.properties__ and __application-roles.properties__ files that come with a standard JBoss server installation at path: __$JBOSS_HOME/standalone/configuration__, run the following commands from the bin folder of the server installation
 		
-		# Add a user who will be a reader. A reader can only read from the cache and cannot 
+   	# Add a user who will be a reader. A reader can only read from the cache and cannot
 		# perform any operation that changes the state of the cache or its contents
 		$JBOSS_HOME/bin> ./add-user.sh -a -u readerUser -p readerUserPass9! -r ApplicationRealm -g reader
 		
@@ -41,6 +41,12 @@ Testing
 6. Repeat testing step #2. If you see the writes being permitted, go ahead and add 5 new entries and delete 2 of them as part of testing
 7. Now logout as __adminUser__ using the URL provided in testing step #3 and in the same manner as described above
 8. Log back in as __readerUser__ and verify that you see 3 entires in the cache. If Yes, the testing was a SUCCESS. While still logged in as __readerUser__, see if you could delete any entries from the cache and note any messages displayed
+
+Unit tests
+----------
+There are prepared unit tests for this quickstart. To run them, run following command:
+
+      mvn test -DserverHome=/path/to/server
 
 References
 ----------
