@@ -47,7 +47,7 @@ Configure JDG
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.1">
+        <subsystem xmlns="urn:jboss:domain:datasources:1.2">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -72,7 +72,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.1" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:6.2" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
