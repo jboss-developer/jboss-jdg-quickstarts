@@ -1,4 +1,4 @@
-remote-query: Use JDG remotely through Hotrod
+remote-query: Query JDG remotely through Hotrod
 ================================================
 Author: Adrian Nistor
 Level: Intermediate
@@ -19,14 +19,9 @@ This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 6.0 (Java SDK 1.6) or newer, Maven 3.0 or newer.
 
 The application this project produces is designed to be run on JBoss Data Grid 6.x
-
-
-Install Protocol Buffers
-------------------------
-Download and install Protocol Buffers. (https://developers.google.com/protocol-buffers/)
 
  
 Configure Maven
@@ -73,19 +68,20 @@ Configure JDG
 * Infinispan subsystem definition:
 
         <subsystem xmlns="urn:infinispan:server:core:6.2" default-cache-container="local">
-            <cache-container name="local" default-cache="default">
+            <cache-container name="local" default-cache="default" statistics="true">
                 <local-cache name="default" start="EAGER">
-                    <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <transaction mode="NONE"/>
                 </local-cache>
                 <local-cache name="memcachedCache" start="EAGER">
-                    <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
+                    <transaction mode="NONE"/>
                 </local-cache>
                 <local-cache name="namedCache" start="EAGER"/>
                 
-                <!-- Add a local cache named 'addressbook' -->
-               
-                <local-cache name="addressbook" start="EAGER" batching="false">
-                    
+                <!-- Add a local cache named 'addressbook_indexed' -->
+                <local-cache name="addressbook_indexed" start="EAGER">
+
                     <!-- Define the locking isolation of this cache -->
                     <locking
                         acquire-timeout="20000"
@@ -95,7 +91,6 @@ Configure JDG
                     <!-- Enable indexing using the RAM Lucene directory provider -->
                     <indexing index="ALL">
                         <property name="default.directory_provider">ram</property>
-                        <property name="lucene_version">LUCENE_36</property>
                     </indexing>
                     
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
@@ -109,7 +104,29 @@ Configure JDG
                         </string-keyed-table>
                     </string-keyed-jdbc-store>
                 </local-cache>
-                <!-- End of 'addressbook' local cache definition -->
+                <!-- End of 'addressbook_indexed' cache definition -->
+
+                <!-- Add a local cache named 'addressbook' which is not indexed -->
+                <local-cache name="addressbook" start="EAGER">
+
+                    <!-- Define the locking isolation of this cache -->
+                    <locking
+                        acquire-timeout="20000"
+                        concurrency-level="500"
+                        striping="false" />
+
+                    <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
+                    <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
+
+                        <!-- specifies information about database table/column names and data types -->
+                        <string-keyed-table prefix="JDG">
+                            <id-column name="id" type="VARCHAR"/>
+                            <data-column name="datum" type="BINARY"/>
+                            <timestamp-column name="version" type="BIGINT"/>
+                        </string-keyed-table>
+                    </string-keyed-jdbc-store>
+                </local-cache>
+                <!-- End of 'addressbook' cache definition -->
 
             </cache-container>
         </subsystem>
@@ -150,8 +167,8 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
     0. Display available actions
     1. Add person
     2. Remove person
-    3. Add phone
-    4. Remove phone
+    3. Add phone to person
+    4. Remove phone from person
     5. Display all persons
     6. Query persons by name
     7. Query persons by phone

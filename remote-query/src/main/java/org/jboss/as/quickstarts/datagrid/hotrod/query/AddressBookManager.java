@@ -23,7 +23,7 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.Search;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
-import org.infinispan.commons.util.Util;
+import org.infinispan.protostream.FileDescriptorSource;
 import org.infinispan.protostream.SerializationContext;
 import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryFactory;
@@ -34,17 +34,14 @@ import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PersonMarshall
 import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PhoneNumberMarshaller;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PhoneTypeMarshaller;
 
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -54,29 +51,29 @@ import java.util.Properties;
  */
 public class AddressBookManager {
 
-   private static final String JDG_HOST = "jdg.host";
+   private static final String SERVER_HOST = "jdg.host";
    private static final String HOTROD_PORT = "jdg.hotrod.port";
-   private static final String JMX_PORT = "jdg.jmx.port";
+   private static final String CACHE_NAME = "jdg.cache";
    private static final String PROPERTIES_FILE = "jdg.properties";
-   private static final String PROTOBUF_DESCRIPTOR_RESOURCE = "/quickstart/addressbook.protobin";
 
+   private static final String PROTOBUF_DEFINITION_RESOURCE = "/quickstart/addressbook.proto";
 
    /**
-    * The name of yor cache container, as defined in your server config.
+    * The name of the Protobuf metadata cache.
     */
-   private static final String CACHE_CONTAINER_NAME = "local";
+   private static final String PROTOBUF_METADATA_CACHE_NAME = "___protobuf_metadata";
 
    /**
     * The name of your cache, as defined in your server config.
     */
-   private static final String CACHE_NAME = "addressbook";
+   private String cacheName;
 
-   private static final String menu = "\nAvailable actions:\n" +
+   private static final String APP_MENU = "\nAvailable actions:\n" +
          "0. Display available actions\n" +
          "1. Add person\n" +
          "2. Remove person\n" +
-         "3. Add phone\n" +
-         "4. Remove phone\n" +
+         "3. Add phone to person\n" +
+         "4. Remove phone from person\n" +
          "5. Display all persons\n" +
          "6. Query persons by name\n" +
          "7. Query persons by phone\n" +
@@ -86,9 +83,9 @@ public class AddressBookManager {
    private RemoteCache<Integer, Person> cache;
 
    public AddressBookManager() throws Exception {
-      final String host = jdgProperty(JDG_HOST);
+      final String host = jdgProperty(SERVER_HOST);
       final int hotrodPort = Integer.parseInt(jdgProperty(HOTROD_PORT));
-      final int jmxPort = Integer.parseInt(jdgProperty(JMX_PORT));
+      cacheName = jdgProperty(CACHE_NAME);
 
       ConfigurationBuilder builder = new ConfigurationBuilder();
       builder.addServer()
@@ -97,50 +94,36 @@ public class AddressBookManager {
             .marshaller(new ProtoStreamMarshaller());
       cacheManager = new RemoteCacheManager(builder.build());
 
-      cache = cacheManager.getCache(CACHE_NAME);
+      cache = cacheManager.getCache(cacheName);
 
       if (cache == null) {
-         throw new RuntimeException("Cache '" + CACHE_NAME + "' not found. Please make sure the server is properly configured");
+         throw new RuntimeException("Cache '" + cacheName + "' not found. Please make sure the server is properly configured");
       }
 
-      registerProtofile(host, jmxPort, CACHE_CONTAINER_NAME);
+      registerProtofile();
 
       registerMarshallers(cacheManager);
    }
 
    /**
-    * Register the Protobuf descriptors file on the server via JMX.
+    * Register the Protobuf descriptors file on the server.
     */
-   private void registerProtofile(String jmxHost, int jmxPort, String cacheContainerName) throws Exception {
-      JMXConnector jmxConnector = JMXConnectorFactory.connect(new JMXServiceURL("service:jmx:remoting-jmx://" + jmxHost + ":" + jmxPort));
-      MBeanServerConnection jmxConnection = jmxConnector.getMBeanServerConnection();
-
-      ObjectName protobufMetadataManagerObjName = new ObjectName("jboss.infinispan:type=RemoteQuery,name="
-                                                + ObjectName.quote(cacheContainerName) + ",component=ProtobufMetadataManager");
-
-      //initialize client-side serialization context via JMX
-      byte[] descriptor = readClasspathResource(PROTOBUF_DESCRIPTOR_RESOURCE);
-      jmxConnection.invoke(protobufMetadataManagerObjName, "registerProtofile", new Object[]{descriptor}, new String[]{byte[].class.getName()});
-      jmxConnector.close();
-   }
-
-   private byte[] readClasspathResource(String c) throws IOException {
-      InputStream is = getClass().getResourceAsStream(c);
-      try {
-         return Util.readStream(is);
-      } finally {
-         if (is != null) {
-            is.close();
-         }
+   private void registerProtofile() throws IOException {
+      RemoteCache<String, String> metadataCache = cacheManager.getCache(PROTOBUF_METADATA_CACHE_NAME);
+      metadataCache.put(PROTOBUF_DEFINITION_RESOURCE, readResource(PROTOBUF_DEFINITION_RESOURCE));
+      String errors = metadataCache.get(".errors");
+      if (errors != null) {
+         throw new IllegalStateException("Some files contain errors:\n" + errors);
       }
    }
 
    /**
-    * Register entity marshallers on the client side ProtoStreamMarshaller instance associated with the remote cache manager.
+    * Register entity marshallers on the client side ProtoStreamMarshaller instance associated with the remote cache
+    * manager.
     */
    private void registerMarshallers(RemoteCacheManager cacheManager) throws IOException, Descriptors.DescriptorValidationException {
       SerializationContext ctx = ProtoStreamMarshaller.getSerializationContext(cacheManager);
-      ctx.registerProtoFiles(PROTOBUF_DESCRIPTOR_RESOURCE);
+      ctx.registerProtoFiles(FileDescriptorSource.fromResources(PROTOBUF_DEFINITION_RESOURCE));
       ctx.registerMarshaller(new PersonMarshaller());
       ctx.registerMarshaller(new PhoneNumberMarshaller());
       ctx.registerMarshaller(new PhoneTypeMarshaller());
@@ -177,9 +160,9 @@ public class AddressBookManager {
    }
 
    private void addPerson() {
-      int id = Integer.parseInt(readConsole("Enter person id: "));
-      String name = readConsole("Enter person name: ");
-      String email = readConsole("Enter person email: ");
+      int id = Integer.parseInt(readConsole("Enter person id (int): "));
+      String name = readConsole("Enter person name (string): ");
+      String email = readConsole("Enter person email (string): ");
       Person person = new Person();
       person.setId(id);
       person.setName(name);
@@ -190,7 +173,7 @@ public class AddressBookManager {
    }
 
    private void removePerson() {
-      int id = Integer.parseInt(readConsole("Enter person id to remove: "));
+      int id = Integer.parseInt(readConsole("Enter person id to remove (int): "));
 
       // remove from cache
       Person prevValue = cache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
@@ -199,7 +182,7 @@ public class AddressBookManager {
 
    private void addPhone() {
       System.out.println("Adding a phone number to a person");
-      int id = Integer.parseInt(readConsole("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id (int): "));
       Person person = cache.get(id);
       if (person == null) {
          System.out.println("Person not found");
@@ -207,7 +190,7 @@ public class AddressBookManager {
       }
       System.out.println("> " + person);
 
-      String number = readConsole("Enter phone number: ");
+      String number = readConsole("Enter phone number (string): ");
       PhoneType type = PhoneType.valueOf(readConsole("Enter phone type [MOBILE, HOME, WORK]: ").toUpperCase());
       List<PhoneNumber> phones = person.getPhones();
       if (phones == null) {
@@ -225,7 +208,7 @@ public class AddressBookManager {
 
    private void removePhone() {
       System.out.println("Removing a phone number from a person");
-      int id = Integer.parseInt(readConsole("Enter person id: "));
+      int id = Integer.parseInt(readConsole("Enter person id (int): "));
       Person person = cache.get(id);
       if (person == null) {
          System.out.println("Person not found");
@@ -261,7 +244,7 @@ public class AddressBookManager {
 
    public static void main(String[] args) throws Exception {
       AddressBookManager manager = new AddressBookManager();
-      System.out.println(menu);
+      System.out.println(APP_MENU);
 
       while (true) {
          try {
@@ -275,7 +258,7 @@ public class AddressBookManager {
             }
 
             if ("0".equals(action)) {
-               System.out.println(menu);
+               System.out.println(APP_MENU);
             } else if ("1".equals(action)) {
                manager.addPerson();
             } else if ("2".equals(action)) {
@@ -295,7 +278,7 @@ public class AddressBookManager {
                break;
             } else {
                System.out.println("\nUnrecognized action!");
-               System.out.println(menu);
+               System.out.println(APP_MENU);
             }
          } catch (Exception e) {
             e.printStackTrace();
@@ -324,12 +307,38 @@ public class AddressBookManager {
    }
 
    private String jdgProperty(String name) {
-      Properties props = new Properties();
+      InputStream res = null;
       try {
-         props.load(AddressBookManager.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE));
+         res = getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE);
+         Properties props = new Properties();
+         props.load(res);
+         return props.getProperty(name);
       } catch (IOException ioe) {
          throw new RuntimeException(ioe);
+      } finally {
+         if (res != null) {
+            try {
+               res.close();
+            } catch (IOException e) {
+               // ignore
+            }
+         }
       }
-      return props.getProperty(name);
+   }
+
+   private String readResource(String resourcePath) throws IOException {
+      InputStream is = getClass().getResourceAsStream(resourcePath);
+      try {
+         final Reader reader = new InputStreamReader(is, "UTF-8");
+         StringWriter writer = new StringWriter();
+         char[] buf = new char[1024];
+         int len;
+         while ((len = reader.read(buf)) != -1) {
+            writer.write(buf, 0, len);
+         }
+         return writer.toString();
+      } finally {
+         is.close();
+      }
    }
 }
