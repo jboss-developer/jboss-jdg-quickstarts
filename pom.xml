@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-jdg-quickstarts</artifactId>
-    <version>6.4.0.ER3-redhat-1</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: parent</name>
 
@@ -52,7 +52,7 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
         <product.version>6.4.0</product.version>
-        <product.milestone>ER3</product.milestone>
+        <product.milestone>Final-SNAPSHOT</product.milestone>
     </properties>
 
     <profiles>
