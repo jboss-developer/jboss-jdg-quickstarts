@@ -23,15 +23,15 @@ This distribution contains the following quickstarts:
 
 | **Quickstart Name** | **Demonstrated Technologies** | **Description** |
 |:-----------|:-----------|:-----------|
-| [carmart](carmart/README.md) | Infinispan, CDI | Shows how to use Infinispan instead of a relational database. |
-| [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
-| [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
-| [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
-| [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
-| [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
-| [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
-| [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
-| [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
+| [carmart](carmart) | Infinispan, CDI | Shows how to use Infinispan instead of a relational database. |
+| [carmart-tx](carmart-tx) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
+| [helloworld-jdg](helloworld-jdg) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
+| [hotrod-endpoint](hotrod-endpoint) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
+| [memcached-endpoint](memcached-endpoint) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
+| [rapid-stock-market](rapid-stock-market) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
+| [remote-query](remote-query) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
+| [rest-endpoint](rest-endpoint) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
+| [secure-embedded-cache](secure-embedded-cache) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
 
 [TOC-quickstart]
 
