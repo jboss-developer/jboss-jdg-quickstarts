@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart-tx</artifactId>
-    <version>6.4.0.ER6-redhat-1</version>
+    <version>6.4.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart-tx</name>
     <description>Transactional CarMart</description>
