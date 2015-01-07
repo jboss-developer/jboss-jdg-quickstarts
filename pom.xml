@@ -36,6 +36,7 @@
     <modules>
         <module>carmart</module>
         <module>carmart-tx</module>
+        <module>cdi-jdg</module>
         <module>helloworld-jdg</module>
         <module>hotrod-endpoint</module>
         <module>hotrod-secured</module>
@@ -84,4 +85,3 @@
 		</profile>
     </profiles>
 </project>
-
