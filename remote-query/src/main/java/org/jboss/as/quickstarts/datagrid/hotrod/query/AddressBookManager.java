@@ -16,7 +16,6 @@
  */
 package org.jboss.as.quickstarts.datagrid.hotrod.query;
 
-import com.google.protobuf.Descriptors;
 import org.infinispan.client.hotrod.Flag;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -25,8 +24,11 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
 import org.infinispan.protostream.FileDescriptorSource;
 import org.infinispan.protostream.SerializationContext;
+import org.infinispan.protostream.annotations.ProtoSchemaBuilder;
 import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryFactory;
+import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
+import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Memo;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Person;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneNumber;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneType;
@@ -43,6 +45,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,81 +61,79 @@ public class AddressBookManager {
 
    private static final String PROTOBUF_DEFINITION_RESOURCE = "/quickstart/addressbook.proto";
 
-   /**
-    * The name of the Protobuf metadata cache.
-    */
-   private static final String PROTOBUF_METADATA_CACHE_NAME = "___protobuf_metadata";
-
-   /**
-    * The name of your cache, as defined in your server config.
-    */
-   private String cacheName;
-
    private static final String APP_MENU = "\nAvailable actions:\n" +
          "0. Display available actions\n" +
          "1. Add person\n" +
          "2. Remove person\n" +
          "3. Add phone to person\n" +
          "4. Remove phone from person\n" +
-         "5. Display all persons\n" +
-         "6. Query persons by name\n" +
-         "7. Query persons by phone\n" +
-         "8. Quit\n";
+         "5. Query persons by name\n" +
+         "6. Query persons by phone\n" +
+         "7. Add memo\n" +
+         "8. Query memo by author\n" +
+         "9. Display all cache entries\n" +
+         "10. Quit\n";
 
    private RemoteCacheManager cacheManager;
-   private RemoteCache<Integer, Person> cache;
+
+   /**
+    * A cache that hold both Person and Memo objects.
+    */
+   private RemoteCache<Integer, Object> addressbookCache;
 
    public AddressBookManager() throws Exception {
       final String host = jdgProperty(SERVER_HOST);
       final int hotrodPort = Integer.parseInt(jdgProperty(HOTROD_PORT));
-      cacheName = jdgProperty(CACHE_NAME);
+      final String cacheName = jdgProperty(CACHE_NAME);  // The name of the address book  cache, as defined in your server config.
 
       ConfigurationBuilder builder = new ConfigurationBuilder();
       builder.addServer()
             .host(host)
             .port(hotrodPort)
-            .marshaller(new ProtoStreamMarshaller());
+            .marshaller(new ProtoStreamMarshaller());  // The Protobuf based marshaller is required for query capabilities
       cacheManager = new RemoteCacheManager(builder.build());
 
-      cache = cacheManager.getCache(cacheName);
-
-      if (cache == null) {
+      addressbookCache = cacheManager.getCache(cacheName);
+      if (addressbookCache == null) {
          throw new RuntimeException("Cache '" + cacheName + "' not found. Please make sure the server is properly configured");
       }
 
-      registerProtofile();
-
-      registerMarshallers(cacheManager);
+      registerSchemasAndMarshallers();
    }
 
    /**
-    * Register the Protobuf descriptors file on the server.
+    * Register the Protobuf schemas and marshallers with the client and then register the schemas with the server too.
     */
-   private void registerProtofile() throws IOException {
-      RemoteCache<String, String> metadataCache = cacheManager.getCache(PROTOBUF_METADATA_CACHE_NAME);
-      metadataCache.put(PROTOBUF_DEFINITION_RESOURCE, readResource(PROTOBUF_DEFINITION_RESOURCE));
-      String errors = metadataCache.get(".errors");
-      if (errors != null) {
-         throw new IllegalStateException("Some files contain errors:\n" + errors);
-      }
-   }
-
-   /**
-    * Register entity marshallers on the client side ProtoStreamMarshaller instance associated with the remote cache
-    * manager.
-    */
-   private void registerMarshallers(RemoteCacheManager cacheManager) throws IOException, Descriptors.DescriptorValidationException {
+   private void registerSchemasAndMarshallers() throws IOException {
+      // Register entity marshallers on the client side ProtoStreamMarshaller instance associated with the remote cache manager.
       SerializationContext ctx = ProtoStreamMarshaller.getSerializationContext(cacheManager);
       ctx.registerProtoFiles(FileDescriptorSource.fromResources(PROTOBUF_DEFINITION_RESOURCE));
       ctx.registerMarshaller(new PersonMarshaller());
       ctx.registerMarshaller(new PhoneNumberMarshaller());
       ctx.registerMarshaller(new PhoneTypeMarshaller());
+
+      // generate the 'memo.proto' schema file based on the annotations on Memo class and register it with the SerializationContext of the client
+      ProtoSchemaBuilder protoSchemaBuilder = new ProtoSchemaBuilder();
+      String memoSchemaFile = protoSchemaBuilder
+            .fileName("memo.proto")
+            .packageName("quickstart")
+            .addClass(Memo.class)
+            .build(ctx);
+
+      // register the schemas with the server too
+      RemoteCache<String, String> metadataCache = cacheManager.getCache(ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME);
+      metadataCache.put(PROTOBUF_DEFINITION_RESOURCE, readResource(PROTOBUF_DEFINITION_RESOURCE));
+      metadataCache.put("memo.proto", memoSchemaFile);
+      String errors = metadataCache.get(".errors");
+      if (errors != null) {
+         throw new IllegalStateException("Some Protobuf schema files contain errors:\n" + errors);
+      }
    }
 
-   private void queryByName() {
+   private void queryPersonByName() {
       String namePattern = readConsole("Enter person name pattern: ");
 
-      QueryFactory qf = Search.getQueryFactory(cache);
+      QueryFactory qf = Search.getQueryFactory(addressbookCache);
       Query query = qf.from(Person.class)
             .having("name").like(namePattern).toBuilder()
             .build();
@@ -144,10 +145,10 @@ public class AddressBookManager {
       }
    }
 
-   private void queryByPhone() {
+   private void queryPersonByPhone() {
       String phoneNumber = readConsole("Enter phone number: ");
 
-      QueryFactory qf = Search.getQueryFactory(cache);
+      QueryFactory qf = Search.getQueryFactory(addressbookCache);
       Query query = qf.from(Person.class)
             .having("phone.number").eq(phoneNumber).toBuilder()
             .build();
@@ -169,21 +170,21 @@ public class AddressBookManager {
       person.setEmail(email);
 
       // put the Person in cache
-      cache.put(person.getId(), person);
+      addressbookCache.put(person.getId(), person);
    }
 
    private void removePerson() {
       int id = Integer.parseInt(readConsole("Enter person id to remove (int): "));
 
       // remove from cache
-      Person prevValue = cache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
+      Person prevValue = (Person) addressbookCache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
       System.out.println("Removed: " + prevValue);
    }
 
    private void addPhone() {
       System.out.println("Adding a phone number to a person");
       int id = Integer.parseInt(readConsole("Enter person id (int): "));
-      Person person = cache.get(id);
+      Person person = (Person) addressbookCache.get(id);
       if (person == null) {
          System.out.println("Person not found");
          return;
@@ -191,7 +192,7 @@ public class AddressBookManager {
       System.out.println("> " + person);
 
       String number = readConsole("Enter phone number (string): ");
-      PhoneType type = PhoneType.valueOf(readConsole("Enter phone type [MOBILE, HOME, WORK]: ").toUpperCase());
+      PhoneType type = PhoneType.valueOf(readConsole("Enter phone type " + EnumSet.allOf(PhoneType.class) + ": ").toUpperCase());
       List<PhoneNumber> phones = person.getPhones();
       if (phones == null) {
          phones = new ArrayList<PhoneNumber>();
@@ -203,13 +204,13 @@ public class AddressBookManager {
       person.setPhones(phones);
 
       // update the Person in cache
-      cache.put(person.getId(), person);
+      addressbookCache.put(person.getId(), person);
    }
 
    private void removePhone() {
       System.out.println("Removing a phone number from a person");
       int id = Integer.parseInt(readConsole("Enter person id (int): "));
-      Person person = cache.get(id);
+      Person person = (Person) addressbookCache.get(id);
       if (person == null) {
          System.out.println("Person not found");
          return;
@@ -225,16 +226,54 @@ public class AddressBookManager {
          person.getPhones().remove(idx);
 
          // update the Person in cache
-         cache.put(person.getId(), person);
+         addressbookCache.put(person.getId(), person);
       } else {
          System.out.println("The person does not have any phones");
       }
    }
 
-   private void printAll() {
-      for (int id : cache.keySet()) {
-         Person person = cache.get(id);
-         System.out.println(person);
+   private void printAllEntries() {
+      for (int id : addressbookCache.keySet()) {
+         Object entry = addressbookCache.get(id);
+         System.out.println(entry);
+      }
+   }
+
+   private void addMemo() {
+      int id = Integer.parseInt(readConsole("Enter memo id (int): "));
+      String text = readConsole("Enter memo text (string): ");
+      Memo.Priority priority = Memo.Priority.valueOf(readConsole("Enter priority " + EnumSet.allOf(Memo.Priority.class) + ": ").toUpperCase());
+
+      int authorId = Integer.parseInt(readConsole("Enter author id (int): "));
+      Person author = (Person) addressbookCache.get(authorId);
+      if (author == null) {
+         System.out.println("Person not found");
+         return;
+      }
+      System.out.println("> " + author);
+
+      Memo memo = new Memo();
+      memo.setId(id);
+      memo.setText(text);
+      memo.setPriority(priority);
+      memo.setAuthor(author);
+
+      // put the Memo in cache
+      addressbookCache.put(memo.getId(), memo);
+   }
+
+   private void queryMemoByAuthor() {
+      String namePattern = readConsole("Enter person name pattern: ");
+
+      QueryFactory qf = Search.getQueryFactory(addressbookCache);
+      Query query = qf.from(Memo.class)
+            .having("author.name").like(namePattern).toBuilder()
+            .build();
+
+      List<Person> results = query.list();
+      System.out.println("Found " + results.size() + " matches:");
+      for (Person p : results) {
+         System.out.println(">> " + p);
       }
    }
 
@@ -268,12 +307,16 @@ public class AddressBookManager {
             } else if ("4".equals(action)) {
                manager.removePhone();
             } else if ("5".equals(action)) {
-               manager.printAll();
+               manager.queryPersonByName();
             } else if ("6".equals(action)) {
-               manager.queryByName();
+               manager.queryPersonByPhone();
             } else if ("7".equals(action)) {
-               manager.queryByPhone();
+               manager.addMemo();
             } else if ("8".equals(action)) {
+               manager.queryMemoByAuthor();
+            } else if ("9".equals(action)) {
+               manager.printAllEntries();
+            } else if ("10".equals(action)) {
                System.out.println("Bye!");
                break;
             } else {
