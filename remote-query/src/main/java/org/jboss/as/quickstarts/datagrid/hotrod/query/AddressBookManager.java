@@ -124,7 +124,7 @@ public class AddressBookManager {
       RemoteCache<String, String> metadataCache = cacheManager.getCache(ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME);
       metadataCache.put(PROTOBUF_DEFINITION_RESOURCE, readResource(PROTOBUF_DEFINITION_RESOURCE));
       metadataCache.put("memo.proto", memoSchemaFile);
-      String errors = metadataCache.get(".errors");
+      String errors = metadataCache.get(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX);
       if (errors != null) {
          throw new IllegalStateException("Some Protobuf schema files contain errors:\n" + errors);
       }
