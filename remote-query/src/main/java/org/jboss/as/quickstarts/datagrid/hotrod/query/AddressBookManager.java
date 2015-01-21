@@ -270,9 +270,9 @@ public class AddressBookManager {
             .having("author.name").like(namePattern).toBuilder()
             .build();
 
-      List<Person> results = query.list();
+      List<Memo> results = query.list();
       System.out.println("Found " + results.size() + " matches:");
-      for (Person p : results) {
+      for (Memo p : results) {
          System.out.println(">> " + p);
       }
    }
