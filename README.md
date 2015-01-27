@@ -33,6 +33,7 @@ This distribution contains the following quickstarts:
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
+| [secure-embedded-cache](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
 
 [TOC-quickstart]
 

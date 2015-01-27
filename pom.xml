@@ -45,6 +45,7 @@
         <module>rest-endpoint</module>
         <module>secure-embedded-cache</module>
         <module>spring</module>
+        <module>cdi</module>
     </modules>
 
     <properties>
