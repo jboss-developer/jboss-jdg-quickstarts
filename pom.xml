@@ -44,6 +44,7 @@
         <module>remote-query</module>
         <module>rest-endpoint</module>
         <module>secure-embedded-cache</module>
+        <module>spring</module>
     </modules>
 
     <properties>
