@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ 
+   <display-name>My Web Application</display-name>
+ 
+  <!-- you can configure any of the properties on CamelContext, eg setName will be configured as below -->
+  <context-param>
+    <param-name>name</param-name>
+    <param-value>MyCamel</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>CamelContextLifecycle</param-name>
+    <param-value>org.jboss.as.quickstarts.camel_infinispan.listener.InfinispanCamelContextLifecycle</param-value>
+  </context-param>
+ 
+  <!-- location of Camel route xml files -->
+  <context-param>
+    <param-name>routeBuilder-MyRoute</param-name>
+    <!-- define the routes as a resource from the classpath by prefixing the value with classpath: -->
+    <!-- note: instead of using a XML file we can also define the routes in Java code in a RouteBuilder class -->
+    <param-value>classpath:camel-config.xml</param-value>
+  </context-param>
+   
+  <!-- the listener that kick-starts Camel -->
+  <listener>
+    <listener-class>org.apache.camel.component.servletlistener.JndiCamelServletContextListener</listener-class>
+  </listener>
+ 
+ </web-app>
