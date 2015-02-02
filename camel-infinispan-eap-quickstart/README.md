@@ -24,7 +24,7 @@ Once successfully deployed the application will:
 Setup
 -----
 1. Ensure that JDG 6.4 and EAP 6.3 Maven repositories are locally installed and correctly referred to in the settings.xml under ~/.m2/. Refer to [official documentation] (https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Data_Grid/6.4/html-single/Getting_Started_Guide/index.html#chap-Install_and_Use_the_Maven_Repositories) on how to accomplish this
-2. To build the project run `mvn clean package -Dpath=<file path>`. `<file path>` here should point to a read/write folder where the files will be watched for
+2. To build the project run `mvn clean package -Dpath=<file path>`. `<file path>` here should point to a read/write folder where the files will be watched for. ***Provide full path to the folder***, for example: `mvn clean package -Dpath=/Users/vchintal/data/inbox` 
 3. To deploy it on JBoss EAP (preferably running with a variation of standalone.xml file and no port-offset applied), run `mvn jboss-as:deploy` at command line 
 
 Testing
