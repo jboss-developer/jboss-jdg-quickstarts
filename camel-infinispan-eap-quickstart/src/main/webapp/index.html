@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Memory &ldquo;Person&rdquo; Database</title>
+
+    <link rel="stylesheet" media="all" href="css/bootstrap.css" />
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+    
+        function fetchCacheEntries() {
+
+            var rowcount = jQuery("#cacheTable tr").length;
+            
+            jQuery.getJSON('rest/cache/getEveryone', null, function(cacheEntries) {
+                if (cacheEntries) {
+                    if (cacheEntries.length == 0) {
+                        $("#cacheTable > tbody").html("");
+                    } else if (cacheEntries.length != (rowcount -1) && cacheEntries.length !=0) {
+                        //$("#cacheTable > tbody").html("");
+                        var $cacheTable = jQuery("#cacheTable tbody");
+                        for (var i in cacheEntries) {
+                            person = cacheEntries[i];
+
+                            if(!$("#"+person.id).length) {
+                                var $row = jQuery("<tr>");
+                                $row.attr("id",person.id);
+                                var $col1 = jQuery("<td style=\"border: 1px solid green\">");
+                                var $col2 = jQuery("<td style=\"border: 1px solid green\">");
+                                var $col3 = jQuery("<td style=\"border: 1px solid green\">");
+                                $col1.html(person.id);
+                                $col2.html(person.firstName);
+                                $col3.html(person.lastName);
+                                $row.append($col1);
+                                $row.append($col2);
+                                $row.append($col3);
+                                $cacheTable.append($row);
+                            }
+                        }
+                    }
+                }
+                
+                setTimeout('fetchCacheEntries()', 2000);
+            });
+        }
+
+        $(document).ready(function() {
+            fetchCacheEntries();
+        });
+    </script>
+    
+    <style type="text/css">
+
+      body {
+        background-color: #eee;
+      }
+      
+    </style>
+
+  </head>
+  <body>
+    <div class="container" style="width:700px">
+        <h1>Camel Infinispan Demo</h1>
+        <p>&nbsp;</p>
+        <h3>In-Memory &ldquo;Person&rdquo; Database</h3>
+        <table id="cacheTable" class="table table-striped">
+            <thead>
+            <tr style="background-color: green; color: white;">
+                <th style="width:10%; border: 1px solid green;">ID</th>
+                <th style="width:45%; border: 1px solid green;">First Name</th>
+                <th style="width:45%; border: 1px solid green;">Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div> <!-- /container -->
+    </body>
+</html>
