@@ -20,27 +20,27 @@ import javax.inject.Named;
 @Path("/cache")
 public class CacheRestService {
 
-	@Inject
-	@Named("cacheManager")
-	private EmbeddedCacheManager cm;
-	
-	@GET
-	@Path("/getPersonById")
-	@Produces("application/json")
-	public PersonPojo getPersonById(@QueryParam(value = "id") String id) {
-		Cache<String, PersonPojo> cache = cm.getCache("camel-cache");
-		return cache.get(id);
-	}
+    @Inject
+    @Named("cacheManager")
+    private EmbeddedCacheManager cm;
+    
+    @GET
+    @Path("/getPersonById")
+    @Produces("application/json")
+    public PersonPojo getPersonById(@QueryParam(value = "id") String id) {
+        Cache<String, PersonPojo> cache = cm.getCache("camel-cache");
+        return cache.get(id);
+    }
 
-	@GET
-	@Path("/getEveryone")
-	@Produces("application/json")
-	public List<PersonPojo> getEveryone() {
-		Cache<String, PersonPojo> cache = cm.getCache("camel-cache");
-		
-		// Call to cache.values() is strongly *NOT* recommended. It is done 
-		// here for convenience as this project is meant to be a demo
-		return new ArrayList<PersonPojo>(cache.values());
-	}
+    @GET
+    @Path("/getEveryone")
+    @Produces("application/json")
+    public List<PersonPojo> getEveryone() {
+        Cache<String, PersonPojo> cache = cm.getCache("camel-cache");
+        
+        // Call to cache.values() is strongly *NOT* recommended. It is done 
+        // here for convenience as this project is meant to be a demo
+        return new ArrayList<PersonPojo>(cache.values());
+    }
 
 }
