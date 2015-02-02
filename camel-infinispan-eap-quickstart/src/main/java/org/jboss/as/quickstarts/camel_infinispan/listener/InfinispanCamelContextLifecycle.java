@@ -1,6 +1,6 @@
 package org.jboss.as.quickstarts.camel_infinispan.listener;
 
-import org.apache.camel.component.gson.GsonDataFormat;
+import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.servletlistener.CamelContextLifecycle;
 import org.apache.camel.component.servletlistener.ServletCamelContext;
 import org.apache.camel.impl.JndiRegistry;
@@ -37,7 +37,9 @@ public class InfinispanCamelContextLifecycle implements CamelContextLifecycle<Jn
         
         // Couldn't find any better place to instantiate and bind this data format  
         // to the registry
-        GsonDataFormat json = new GsonDataFormat(PersonPojo.class);
+        JacksonDataFormat json = new JacksonDataFormat();
+        json.useList();
+        json.setUnmarshalType(PersonPojo.class);
         registry.bind("json", json);
         
     }

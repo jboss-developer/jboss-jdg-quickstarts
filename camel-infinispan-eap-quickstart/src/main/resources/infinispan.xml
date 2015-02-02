@@ -14,15 +14,19 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, 
     or see the FSF site: http://www.fsf.org. -->
 <infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:infinispan:config:7.0 http://www.infinispan.org/schemas/infinispan-config-7.0.xsd"
-    xmlns="urn:infinispan:config:7.0">
-    <jgroups>
-        <stack-file name="udp" path="jgroups.xml" />
-    </jgroups>
-    <cache-container default-cache="camel-cache">
-        <transport stack="udp" />
-        <jmx domain="org.infinispan" duplicate-domains="true"/>
-        <replicated-cache name="camel-cache">
-        </replicated-cache>
-    </cache-container>
+    xsi:schemaLocation="urn:infinispan:config:6.2 http://www.infinispan.org/schemas/infinispan-config-6.2.xsd"
+    xmlns="urn:infinispan:config:6.2">
+    <global>
+        <transport>
+            <properties>
+                <property name="configurationFile" value="jgroups.xml" />
+            </properties>
+        </transport>
+        <globalJmxStatistics allowDuplicateDomains="true"/>
+    </global>
+    <namedCache name="camel-cache">
+        <clustering mode="repl">
+            <sync/>
+        </clustering>
+    </namedCache>
 </infinispan>

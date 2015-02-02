@@ -17,8 +17,8 @@ Runtime Behavior
 Once successfully deployed the application will:
 
 1. Periodically monitor a file-system path for any files to be processed
-2. Processes text files filled with `Person` objects serialized in JSON format (one entity per every line) when dropped in to the monitored folder path
-3. Unmarshal each line into a Person object and load it into Infinispan cache. Person object's Id property will be used as the key for caching
+2. Processes text files filled with `Person` objects serialized in JSON format when dropped in to the monitored folder path
+3. Unmarshal the file into a list of `Person` objects and load it into Infinispan cache. Person object's Id property will be used as the key for caching
 4. Work directly with the Infinispan cache for any business logic/workflow
 
 Setup
@@ -30,8 +30,8 @@ Setup
 Testing
 -------
 1. Access the web application's context path. If using the localhost and JBoss EAP started with no port-offsets, the application can be accessed [here] (http://127.0.0.1:8080/jboss-camel-infinispan-eap-quickstart/)
-2. Create a text file with entries such as `{ "id":"1", "firstName":"Vijay", "lastName":"Chintalapati" }`, one entry per `Person` entity per line and drop it in to the monitored folder 
+2. Use the ***sample-input-file.txt*** in the root folder of the quickstart and drop it in to the monitored folder 
 
 Criteria for Successful Testing
 -------------------------------
-The web page at the application's context path should start displaying the loaded entries in the form of a HTML table.
+The web page at the application's context path should start displaying the loaded entries in the form of a HTML table read directly from the cache.

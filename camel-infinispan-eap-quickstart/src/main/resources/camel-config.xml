@@ -3,23 +3,23 @@
     <route>
         <!-- incoming requests from the servlet is routed -->
         <from uri="file://${path}?delay=500" />
-        <split>
-            <tokenize token="\n" />
             <unmarshal ref="json" />
-            <setHeader headerName="CamelInfinispanKey">
-                <simple>${body.id}</simple>
-            </setHeader>
-            <setHeader headerName="CamelInfinispanValue">
+            <split>
                 <simple>${body}</simple>
-            </setHeader>
-            <setHeader headerName="CamelInfinispanOperation">
-                <simple>CamelInfinispanOperationPut</simple>
-            </setHeader>
-            <setHeader headerName="CamelInfinispanCacheName">
-                <simple>camel-cache</simple>
-            </setHeader>
-            <to uri="infinispan://localhost?cacheContainer=#cacheManager" />
-        </split>
+	            <setHeader headerName="CamelInfinispanKey">
+	                <simple>${body.id}</simple>
+	            </setHeader>
+	            <setHeader headerName="CamelInfinispanValue">
+	                <simple>${body}</simple>
+	            </setHeader>
+	            <setHeader headerName="CamelInfinispanOperation">
+	                <simple>CamelInfinispanOperationPut</simple>
+	            </setHeader>
+	            <setHeader headerName="CamelInfinispanCacheName">
+	                <simple>camel-cache</simple>
+	            </setHeader>
+	            <to uri="infinispan://localhost?cacheContainer=#cacheManager" />
+            </split>
     </route>
 
 </routes>
