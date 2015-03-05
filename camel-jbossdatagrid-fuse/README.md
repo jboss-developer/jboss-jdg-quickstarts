@@ -1,4 +1,4 @@
-Using for __camel_jbossdatagrid__ component
+Using __camel_jbossdatagrid__ component
 ===========================================================
 This quickstart shows how to use the __camel_jbossdatagrid__ component in Fuse 6.1.0
 * Author: Vijay Chintalapati
@@ -8,6 +8,8 @@ This quickstart will deploy two bundles __local_camel_producer__ and __local_cam
 * __local_camel_producer__ : Scans a folder (/tmp/incoming) for incoming CSV files of the format "id, firstName, lastName, age". If a file is dropped with entries in the given format, each entry is read and transformed into a Person POJO and stored in the data grid
 
 * __local_camel_consumer__ : Lets you query for a POJO using a RESTful interface and get back  a JSON representation of the Person POJO stored in the data grid for the given key
+ 
+_The bundles reside in two different containers and the reason why the consumer is able to extract what the producer has put in, is because of the use of same configuration in files: infinispan.xml and jgroups.xml on both sides. The infinispan.xml file has a **REPL (replicated)** cache definition by the name **camel-cache** and this is the cache with which the producer and consume interact_
 
 Prerequisites
 -------------
