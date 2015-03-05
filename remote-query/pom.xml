@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-remote-query-quickstart</artifactId>
-    <version>6.5.0-redhat-SNAPSHOT</version>
+    <version>6.5.0.DR3-redhat-1</version>
     <name>JBoss JDG Quickstart: remote-query</name>
 
     <licenses>
@@ -41,7 +41,7 @@
 
         <!-- Defines the main class to be execute when running java -jar command -->
         <main.class.remote-query>org.jboss.as.quickstarts.datagrid.hotrod.query.AddressBookManager</main.class.remote-query>
-        <version.org.infinispan>6.3.0.DR1-redhat-1</version.org.infinispan>
+        <version.org.infinispan>6.3.0.DR3-redhat-1</version.org.infinispan>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
