@@ -9,22 +9,9 @@
         <artifactId>jboss-camel-datagrid-fuse</artifactId>
         <version>1.0.0</version>
    </parent>
-    <artifactId>local-camel-producer</artifactId>
-    <packaging>bundle</packaging>
-    <dependencies>
-      <dependency>
-         <groupId>org.apache.camel</groupId>
-         <artifactId>camel-bindy</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.quickstarts.jdg</groupId>
-         <artifactId>pojos</artifactId>
-         <version>1.0.0</version>
-         <scope>runtime</scope>
-      </dependency>
-    </dependencies>
-    <build>
+   <artifactId>local-camel-producer</artifactId>
+   <packaging>bundle</packaging>
+   <build>
        <plugins>
           <plugin>
             <groupId>org.apache.felix</groupId>

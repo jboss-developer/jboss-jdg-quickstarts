@@ -11,34 +11,7 @@
    </parent>
    <artifactId>local-camel-consumer</artifactId>
    <packaging>bundle</packaging>
-   <dependencies>
-      <dependency>
-         <groupId>org.apache.camel</groupId>
-         <artifactId>camel-gson</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      <dependency>
-         <groupId>org.jboss.quickstarts.jdg</groupId>
-         <artifactId>pojos</artifactId>
-         <version>1.0.0</version>
-      </dependency>
-      <dependency>
-         <groupId>org.apache.camel</groupId>
-         <artifactId>camel-blueprint</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.apache.camel</groupId>
-         <artifactId>camel-jbossdatagrid</artifactId>
-         <version>6.4.0.Final-redhat-4</version>
-         <exclusions>
-            <exclusion>
-               <artifactId>camel-core</artifactId>
-               <groupId>org.apache.camel</groupId>
-            </exclusion>
-         </exclusions>
-      </dependency>
-   </dependencies>
-    <build>
+   <build>
        <plugins>
           <plugin>
             <groupId>org.apache.felix</groupId>
@@ -52,5 +25,5 @@
             </configuration>
          </plugin>
        </plugins>
-    </build>
+   </build>
 </project>
