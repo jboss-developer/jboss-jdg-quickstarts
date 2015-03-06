@@ -9,7 +9,7 @@
    <packaging>pom</packaging>
    <version>1.0.0</version>
 
-   <name>JBoss JDG Quickstart : jboss-camel-datagrid-fuse</name>
+   <name>JBoss JDG Quickstart: jboss-camel-datagrid-fuse</name>
     <description>This quickstart shows how to use camel-jbossdatagrid component in Fuse</description>
 
     <licenses>

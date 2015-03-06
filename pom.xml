@@ -46,6 +46,7 @@
         <module>secure-embedded-cache</module>
         <module>spring</module>
         <module>cdi</module>
+        <module>camel-jbossdatagrid-fuse</module>
     </modules>
 
     <properties>

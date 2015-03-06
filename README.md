@@ -23,17 +23,18 @@ This distribution contains the following quickstarts:
 
 | **Quickstart Name** | **Demonstrated Technologies** | **Description** |
 |:-----------|:-----------|:-----------|
+| [camel-jbossdatagrid-fuse](camel-jbossdatagrid-fuse/README.md) | Camel, Infinispan, REST | Demonstrates how to use camel-jbossdatagrid component in JBoss Fuse. |
 | [carmart](carmart/README.md) | Infinispan, CDI | Shows how to use Infinispan instead of a relational database. |
 | [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
+| [cdi](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
 | [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
 | [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
 | [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
 | [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
-| [spring](spring/README.md) | Infinispan, Spring | Demonstrates the use of Spring integration modules. |
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
-| [secure-embedded-cache](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
+| [spring](spring/README.md) | Infinispan, Spring | Demonstrates the use of Spring integration modules. |
 
 [TOC-quickstart]
 
