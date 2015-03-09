@@ -45,6 +45,7 @@
         <module>rest-endpoint</module>
         <module>secure-embedded-cache</module>
         <module>eap-cluster-app</module>
+        <module>camel-jbossdatagrid-fuse</module>
     </modules>
 
     <properties>

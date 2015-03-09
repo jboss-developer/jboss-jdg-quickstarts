@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="org.jboss.quickstarts.jdg">
+   <feature name="pojos" resolver="(obr)" version="${project.version}">
+      <feature>camel-bindy</feature>
+      <bundle>mvn:org.jboss.quickstarts.jdg/pojos/${project.version}
+      </bundle>
+   </feature>
+   <feature name="local-camel-consumer" resolver="(obr)"
+      version="${project.version}">
+      <feature>camel-gson</feature>
+      <feature>camel-restlet</feature>
+      <feature dependency="true">pojos</feature>
+      <feature dependency="true">camel-jbossdatagrid</feature>
+      <bundle>mvn:org.jboss.quickstarts.jdg/local-camel-consumer/${project.version}
+      </bundle>
+   </feature>
+   <feature name="local-camel-producer" resolver="(obr)"
+      version="${project.version}">
+      <feature dependency="true">pojos</feature>
+      <feature dependency="true">camel-jbossdatagrid</feature>
+      <bundle>mvn:org.jboss.quickstarts.jdg/local-camel-producer/${project.version}
+      </bundle>
+   </feature>
+</features>
