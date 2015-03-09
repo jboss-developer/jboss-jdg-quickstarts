@@ -16,7 +16,7 @@ Prerequisites
 1. JDK 1.7 
 2. Maven 3.0
 3. JBoss Fuse 6.1.0
-4. _Optional_: JBoss Data Grid 6.4.0 Maven repository
+4. JBoss Data Grid 6.4.0 Maven repository
 
 Setup
 -----

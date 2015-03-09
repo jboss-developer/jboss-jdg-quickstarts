@@ -40,8 +40,6 @@
             internal_thread_pool.rejection_policy="Discard"
             />
 
-    <!-- Ergonomics, new in JGroups 2.11, are disabled by default in TCPPING until JGRP-1253 is resolved -->
-
     <TCPPING timeout="3000"
              initial_hosts="${jgroups.remote_addr:127.0.0.1[7800]}"
              port_range="5"
@@ -49,13 +47,6 @@
              ergonomics="false"
             />
 
-    <!--<FILE_PING location="/tmp/jgroups" />-->
-
-    <!--<MPING bind_addr="${jgroups.bind_addr:127.0.0.1}" break_on_coord_rsp="true"-->
-    <!--mcast_addr="${jgroups.mping.mcast_addr:228.2.4.6}"-->
-    <!--mcast_port="${jgroups.mping.mcast_port:43366}"-->
-    <!--ip_ttl="${jgroups.udp.ip_ttl:2}"-->
-    <!--num_initial_members="3"/>-->
     <MERGE2 max_interval="30000" min_interval="10000"/>
 
     <FD_SOCK/>
