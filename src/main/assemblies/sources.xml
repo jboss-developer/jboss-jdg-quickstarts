@@ -40,19 +40,20 @@
 
     <fileSets>
         <fileSet>
-        	<includes>
-        	    <include>carmart/**</include>
-        	    <include>carmart-tx/**</include>
-        	    <include>hotrod-endpoint/**</include>
-        	    <include>hotrod-secured/**</include>
-        	    <include>memcached-endpoint/**</include>
-        	    <include>rapid-stock-market/**</include>
-        	    <include>rest-endpoint/**</include>
-        	    <include>secure-embedded-cache/**</include>
-        	    <include>helloworld-jdg/**</include>
-        	    <include>remote-query/**</include>
-        	    <include>README.md</include>
-        	</includes>
+            <includes>
+                <include>carmart/**</include>
+                <include>eap-cluster-app/**</include>
+                <include>carmart-tx/**</include>
+                <include>hotrod-endpoint/**</include>
+                <include>hotrod-secured/**</include>
+                <include>memcached-endpoint/**</include>
+                <include>rapid-stock-market/**</include>
+                <include>rest-endpoint/**</include>
+                <include>secure-embedded-cache/**</include>
+                <include>helloworld-jdg/**</include>
+                <include>remote-query/**</include>
+                <include>README.md</include>
+            </includes>
             <excludes>
                 <exclude>**/target/**</exclude>
                 <exclude>**/output/**</exclude>
@@ -67,7 +68,7 @@
                 <exclude>**/*.ipr</exclude>
                 <exclude>**/*.iws</exclude>
                 <exclude>**/*.log</exclude>
-                <exclude>**/*.lck</exclude>                
+                <exclude>**/*.lck</exclude>
                 <exclude>**/coretarget/**</exclude>
                 <exclude>**/.git/**</exclude>
             </excludes>
