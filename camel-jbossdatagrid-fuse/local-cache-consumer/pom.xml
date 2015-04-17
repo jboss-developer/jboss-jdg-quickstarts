@@ -7,7 +7,7 @@
    <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>camel-jbossdatagrid-fuse</artifactId>
-        <version>6.5.0-redhat-SNAPSHOT</version>
+        <version>6.5.0.ER2-redhat-1</version>
    </parent>
    <artifactId>local-cache-consumer</artifactId>
    <packaging>bundle</packaging>
