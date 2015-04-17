@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>org.jboss.quickstarts.jdg</groupId>
+   <artifactId>camel-jbossdatagrid-fuse</artifactId>
+   <packaging>pom</packaging>
+   <version>6.5.0-redhat-SNAPSHOT</version>
+
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse</name>
+    <description>This quickstart shows how to use camel-jbossdatagrid component in Fuse</description>
+
+    <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+    </licenses>
+
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <version.camel.components>2.12.0.redhat-611412</version.camel.components>
+      <version.org.infinispan>6.2.0.Final-redhat-4</version.org.infinispan>
+      <version.camel-jbossdatagrid>6.4.0.Final-redhat-4</version.camel-jbossdatagrid>
+   </properties>
+    
+    <modules>
+        <module>features</module>
+        <module>pojos</module>
+        <module>local-cache-consumer</module>
+        <module>local-cache-producer</module>
+    </modules>
+
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-bom</artifactId>
+            <version>${version.org.infinispan}</version>
+            <scope>import</scope>
+            <type>pom</type>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-parent</artifactId>
+            <version>${version.camel.components}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.apache.camel</groupId>
+         <artifactId>camel-jbossdatagrid</artifactId>
+         <version>${version.camel-jbossdatagrid}</version>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+               <encoding>UTF-8</encoding>
+            </configuration>
+         </plugin>
+         <!-- to generate the MANIFEST-FILE of the bundle -->
+         <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <version>2.3.7</version>
+            <extensions>true</extensions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.5.1</version>
+            <configuration>
+               <source>1.7</source>
+               <target>1.7</target>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+   <repositories>
+      <repository>
+         <id>fuse-release</id>
+         <name>jboss Release Repository</name>
+         <releases>
+            <updatePolicy>never</updatePolicy>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+         <url>http://repo.fusesource.com/nexus/content/groups/public/</url>
+      </repository>
+   </repositories>
+</project>
