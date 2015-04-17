@@ -4,8 +4,8 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <groupId>org.jboss.quickstarts.jdg</groupId>
-      <artifactId>jboss-camel-datagrid-fuse</artifactId>
-      <version>1.0.0</version>
+      <artifactId>camel-jbossdatagrid-fuse</artifactId>
+      <version>6.5.0-redhat-SNAPSHOT</version>
    </parent>
    <artifactId>pojos</artifactId>
    <packaging>bundle</packaging>

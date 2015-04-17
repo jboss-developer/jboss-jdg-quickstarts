@@ -5,11 +5,11 @@
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.quickstarts.jdg</groupId>
-   <artifactId>jboss-camel-datagrid-fuse</artifactId>
+   <artifactId>camel-jbossdatagrid-fuse</artifactId>
    <packaging>pom</packaging>
-   <version>1.0.0</version>
+   <version>6.5.0-redhat-SNAPSHOT</version>
 
-   <name>JBoss JDG Quickstart: jboss-camel-datagrid-fuse</name>
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse</name>
     <description>This quickstart shows how to use camel-jbossdatagrid component in Fuse</description>
 
     <licenses>
@@ -25,13 +25,14 @@
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <version.camel.components>2.12.0.redhat-611412</version.camel.components>
       <version.org.infinispan>6.2.0.Final-redhat-4</version.org.infinispan>
+      <version.camel-jbossdatagrid>6.4.0.Final-redhat-4</version.camel-jbossdatagrid>
    </properties>
     
     <modules>
         <module>features</module>
         <module>pojos</module>
-        <module>local-camel-consumer</module>
-        <module>local-camel-producer</module>
+        <module>local-cache-consumer</module>
+        <module>local-cache-producer</module>
     </modules>
 
    <dependencyManagement>
@@ -57,7 +58,7 @@
       <dependency>
          <groupId>org.apache.camel</groupId>
          <artifactId>camel-jbossdatagrid</artifactId>
-         <version>6.4.0.Final-redhat-4</version>
+         <version>${version.camel-jbossdatagrid}</version>
          <scope>provided</scope>
       </dependency>
    </dependencies>
