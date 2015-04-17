@@ -12,7 +12,7 @@
    <camelContext id="blueprintContext" trace="false"
       xmlns="http://camel.apache.org/schema/blueprint">
       <route id="populateCache">
-         <from uri="file:///tmp/incoming?delay=500" />
+         <from uri="file://${incomingFolderPath}?delay=500" />
          <split streaming="true">
             <tokenize token="\n"></tokenize>
             <unmarshal>
