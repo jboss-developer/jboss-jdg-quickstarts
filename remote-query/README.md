@@ -35,7 +35,7 @@ Configure Infinispan Server
 
 1. Obtain Infinispan server distribution from the Infinispan community website at http://infinispan.org/download/
 
-2. Install a JDBC driver into Infinispan server (since Infinispan includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Infinispan Server Guide at <http://infinispan.org/docs/7.0.x/infinispan_server_guide/infinispan_server_guide.html/> . _NOTE: Infinispan server does not support deploying applications so one cannot install it as a deployment._
+2. Install a JDBC driver into Infinispan server (since Infinispan includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the [Infinispan Server Guide](http://infinispan.org/docs/7.0.x/infinispan_server_guide/infinispan_server_guide.html). _NOTE: Infinispan server does not support deploying applications so one cannot install it as a deployment._
 
 3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter Infinispan server configuration file (`JBOSS_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
    
