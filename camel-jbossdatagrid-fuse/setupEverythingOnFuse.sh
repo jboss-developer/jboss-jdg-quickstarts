@@ -84,14 +84,14 @@ sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.u
 echo "- Containers child1 and child2 created"
 sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/6.4.0.Final-redhat-4/xml/features default" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/1.0.0/xml/features default" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/6.5.0-redhat-SNAPSHOT/xml/features default" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_producer" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_consumer" > /dev/null 2>&1
 
 sh client -r 2 -d 10 "fabric:version-create --parent 1.0 --default 1.1" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-edit --features local-camel-producer demo-local_producer 1.1" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features local-camel-consumer demo-local_consumer 1.1" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-producer demo-local_producer 1.1" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-consumer demo-local_consumer 1.1" > /dev/null 2>&1
 
 echo "- Applying local_producer profile to child1 and local_consumer profile to child2"
 echo

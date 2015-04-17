@@ -28,6 +28,10 @@ Setup
   2. export __FUSE_BINARY_PATH__ = _[Full path to the Fuse binary file]_ 
 5. While in the root folder of the quickstart, run `./setEverythingOnFuse.sh`
 
+Setup Verification 
+------------------
+
+
 Testing
 -------
 
