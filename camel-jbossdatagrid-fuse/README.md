@@ -22,18 +22,21 @@ Setup
 -----
 1. Download the Fuse binary __jboss-fuse-full-6.1.0.redhat-379.zip__ from either http://www.jboss.org/products or from Red Hat's Customer portal
 2. Ensure that you have correctly setup JDG repos in your .m2/settings.xml. See the [official documentation] (https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Data_Grid/6.4/html-single/Getting_Started_Guide/index.html#chap-Install_and_Use_the_Maven_Repositories) on how to accomplish that.
-3. Run `mvn clean install` in the root folder of the quickstart
-4. Set the following two environment variables in the same shell: 
+3. Export the path to the folder where the CSV files will be placed by running the command of the form `export incomingFolderPath=[Full path to the CSV folder]`
+4. Run `mvn clean install -DincomingFolderPath=$incomingFolderPath` in the root folder of the quickstart
+5. Set the following two environment variables in the same shell: 
   1. export __FUSE_INSTALL_PATH__ = _[Full path to the folder into where Fuse will be installed]_ 
   2. export __FUSE_BINARY_PATH__ = _[Full path to the Fuse binary file]_ 
-5. While in the root folder of the quickstart, run `./setEverythingOnFuse.sh`
+6. While in the root folder of the quickstart, run `./setEverythingOnFuse.sh`
 
 Setup Verification 
 ------------------
-
+1. Verify your access to the [Fuse Hawtio Console] (http://127.0.0.1:8181/hawtio/index.html#/login). The __username/password__ is __admin/admin__.
+2. If the __Fuse Fabric__ is created right, you should be able to access the containers [here](http://127.0.0.1:8181/hawtio/index.html#/fabric/containers)
+3. Verify if you see two containers created by the names __child1__ and __child2__. Also note if root/child1/child2 are all in __green__, if they are not click on their names andcapture the logs displayed.  
 
 Testing
 -------
 
-* Testing the __local_cache_producer__: Run a command `echo "1,Bill,Gates,59" > /tmp/incoming/sample.csv`. If the file disappears in a second or two then the producer worked correctly and you can proceed to testing the consumer
+* Testing the __local_cache_producer__: Run a command `echo "1,Bill,Gates,59" > $incomingFolderPath/sample.csv`. If the file disappears in a second or two then the producer worked correctly and you can proceed to testing the consumer
 * Testing the __local_cache_consumer__: Open up a browser and hit the url http://127.0.0.1:8282/cache/get/1 (where 1 is the Id with which the Person instance was stored in the grid). If you get a JSON represetation back of the corresponding POJO, the testing was successful
