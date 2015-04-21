@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: Infinispan, CDI, Red Hat JBoss Enterprise Application Platform (JBoss EAP)
 Summary: Shows how to use Infinispan from a JBoss EAP application in embedded mode, using JDG modules for EAP
 Target Product: JDG
-Product Versions: JBoss EAP 6.x, JDG 6.3
+Product Versions: JBoss EAP 6.x, JDG 6.4+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -27,7 +27,7 @@ The AdminApp is able to access both caches and change the entries.
 AppOne can only read the App1Cache and use a clustered EJB invocation to AppTwo to read from App2Cache.
 AppTwo is deployed as a clustered EJB application and only read App2Cache.
 
-All applications need to have an installed JDG 6.3.x module extention for the JBoss EAP server which can be downloaded from the Red Hat portal.
+All applications need to have an installed JDG 6.4+ module extention for the JBoss EAP server which can be downloaded from the Red Hat portal.
 
 
 System requirements
@@ -48,16 +48,16 @@ Configure and Start the Servers in standalone mode
 --------------------------------------------------
 
 1. Prepare a copy of the JBoss EAP
-   - unzip jboss-datagrid-${version}-eap-modules-library.zip where ${version} is 6.3.1 or better
+   - unzip `jboss-datagrid-${version}-eap-modules-library.zip` where `${version}` is 6.4+
    - copy the modules to the server modules directory
 
-        For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
-        For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
+            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
+            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
 
    - Add a user to each server for EJB access
 
-        For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
-        For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
 
 2. Copy the prepared JBoss EAP server to 4 different directories EAP_HOME[1-4].
 3. Open a command line for each of the 4 nodes and navigate to the root of the JBoss EAP server directory.
@@ -83,11 +83,11 @@ Configure and Start the Servers in domain mode
 ----------------------------------------------
 
 1. Copy a fresh JBoss EAP installation to EAP_HOME
-   - unzip jboss-datagrid-${version}-eap-modules-library.zip where ${version} is 6.3.1 or better
+   - unzip `jboss-datagrid-${version}-eap-modules-library.zip` where ${version} is 6.4+
    - copy the modules to the server modules directory
 
-        For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
-        For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
+            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
+            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
 
 2. Open a command line and navigate to the root of JBoss EAP.
 3. Add a user:
@@ -153,27 +153,27 @@ To add more instances it is possible to overwrite the used connections by adding
 
 The defaults are "locahost 4447 localhost 4547"
 
-  The console output show the actions and results, any unexpected result will show an Exception 
-         Add a value to App1Cache with the AdminApp and check on the same instance that the value is correct added
-           success
-         Check the previous added value of App1Cache by accessing the AppOne Server
-           success
-         Add a value to App2Cache and check on the same instance that the value is correct added
-           success
-         Check whether changes to a cache are rollbacked if the transaction fail
-           The cache App2 work as expected on rollback
+The console output shows the actions and results (example below), any unexpected result will show an Exception.
 
-Step 2: Add values to App2 cache with the AdminApp and acess AppOne to show that the EJB invocation is clustered and both AppTwo instances are used.
-        Show that the JBoss EAP and Infinispan clusters are not related and the Infinispan cluster is able to use a different JGroups implementation
-        as the JBoss EAP server.
+    Add a value to App1Cache with the AdminApp and check on the same instance that the value is correct added
+        success
+    Check the previous added value of App1Cache by accessing the AppOne Server
+        success
+    Add a value to App2Cache and check on the same instance that the value is correct added
+        success
+    Check whether changes to a cache are rollbacked if the transaction fail
+        The cache App2 work as expected on rollback
+
+Step 2: Add values to App2 cache with the AdminApp and access AppOne to show that the EJB invocation is clustered and both AppTwo instances are used.
+Show that the JBoss EAP and Infinispan clusters are not related and the Infinispan cluster is able to use a different JGroups implementation as the JBoss EAP server.
 
         mvn -Dexec.mainClass=org.jboss.as.quickstarts.datagrid.eap.app.AppOneClient exec:java
 
-  The console output shows the actions and results, any unexpected result will show an Exception 
-        Add a value to App2Cache with the AdminApp
-        Access the App2Cache from the AppOneServer by using the clustered EJB@AppTwoServer
-          success : received the following node names for EJB invocation : [node3, node4]
+  The console output shows the actions and results, any unexpected result will show an Exception
 
+    Add a value to App2Cache with the AdminApp
+    Access the App2Cache from the AppOneServer by using the clustered EJB@AppTwoServer
+        success : received the following node names for EJB invocation : [node3, node4]
 
 Debug the Application
 ---------------------
