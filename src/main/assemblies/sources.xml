@@ -41,6 +41,7 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>camel-jbossdatagrid-fuse/**</include>
                 <include>carmart/**</include>
                 <include>eap-cluster-app/**</include>
                 <include>carmart-tx/**</include>
