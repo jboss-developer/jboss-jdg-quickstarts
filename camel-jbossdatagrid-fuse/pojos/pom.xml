@@ -9,6 +9,7 @@
    </parent>
    <artifactId>pojos</artifactId>
    <packaging>bundle</packaging>
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: pojos</name>
    <dependencies>
       <dependency>
          <groupId>org.apache.camel</groupId>
