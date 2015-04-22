@@ -10,6 +10,7 @@
       <version>6.5.0-redhat-SNAPSHOT</version>
    </parent>
    <artifactId>features</artifactId>
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: features</name>
    <build>
       <resources>
          <resource>

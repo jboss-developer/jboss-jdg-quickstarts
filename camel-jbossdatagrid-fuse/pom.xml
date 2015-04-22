@@ -9,7 +9,7 @@
    <packaging>pom</packaging>
    <version>6.5.0-redhat-SNAPSHOT</version>
 
-   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse</name>
+    <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse</name>
     <description>This quickstart shows how to use camel-jbossdatagrid component in Fuse</description>
 
     <licenses>

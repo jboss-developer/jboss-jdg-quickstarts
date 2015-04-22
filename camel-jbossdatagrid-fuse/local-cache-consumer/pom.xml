@@ -11,6 +11,7 @@
    </parent>
    <artifactId>local-cache-consumer</artifactId>
    <packaging>bundle</packaging>
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: local-cache-consumer</name>
    <build>
        <plugins>
           <plugin>

@@ -11,6 +11,7 @@
    </parent>
    <artifactId>local-cache-producer</artifactId>
    <packaging>bundle</packaging>
+   <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: local-cache-producer</name>
    <build>
         <resources>
             <resource>
