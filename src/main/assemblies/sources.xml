@@ -53,6 +53,7 @@
                 <include>secure-embedded-cache/**</include>
                 <include>helloworld-jdg/**</include>
                 <include>remote-query/**</include>
+                <include>cdi/**</include>
                 <include>README.md</include>
             </includes>
             <excludes>
