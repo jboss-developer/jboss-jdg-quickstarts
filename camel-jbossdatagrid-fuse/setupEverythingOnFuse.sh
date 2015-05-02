@@ -82,9 +82,9 @@ sh client -r 2 -d 10 "fabric:container-create-child --profile=fabric root child 
 sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/techpreview/all@id=techpreview-all-repository' default" > /dev/null 2>&1 
 
 echo "- Containers child1 and child2 created"
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/6.4.0.Final-redhat-4/xml/features default" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/6.5.0.ER3-redhat-1/xml/features default" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/6.5.0-redhat-SNAPSHOT/xml/features default" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/6.5.0.ER3-redhat-1/xml/features default" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_producer" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_consumer" > /dev/null 2>&1
 
