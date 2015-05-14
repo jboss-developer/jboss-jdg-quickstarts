@@ -7,7 +7,7 @@
    <groupId>org.jboss.quickstarts.jdg</groupId>
    <artifactId>camel-jbossdatagrid-fuse</artifactId>
    <packaging>pom</packaging>
-   <version>6.5.0-redhat-SNAPSHOT</version>
+   <version>6.5.0.ER4-redhat-1</version>
 
     <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse</name>
     <description>This quickstart shows how to use camel-jbossdatagrid component in Fuse</description>
@@ -24,7 +24,7 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <version.camel.components>2.12.0.redhat-611412</version.camel.components>
-      <version.org.infinispan>6.3.0.ER2-redhat-1</version.org.infinispan>
+      <version.org.infinispan>6.3.0.ER4-redhat-1</version.org.infinispan>
       <version.camel-jbossdatagrid>6.4.0.Final-redhat-4</version.camel-jbossdatagrid>
    </properties>
     
