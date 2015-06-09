@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-cdi-quickstart</artifactId>
-    <version>6.5.0-redhat-SNAPSHOT</version>
+    <version>6.5.0.Final-redhat-3</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: CDI</name>
@@ -37,7 +37,7 @@
         <version.jboss.javaee.web>3.0.3.Final</version.jboss.javaee.web>
         <version.arquillian>1.1.5.Final</version.arquillian>
         <version.junit>4.12</version.junit>
-        <version.org.infinispan>6.3.0.ER2-redhat-1</version.org.infinispan>
+        <version.org.infinispan>6.3.0.Final-redhat-3</version.org.infinispan>
         <version.eap-arquillian>7.2.0.Final</version.eap-arquillian>
     </properties>
 

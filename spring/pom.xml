@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring-jdg</artifactId>
-    <version>6.5.0-redhat-SNAPSHOT</version>
+    <version>6.5.0.Final-redhat-3</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring-jdg</name>
@@ -17,7 +17,7 @@
         <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
         <java.version>1.7</java.version>
 
-        <version.org.infinispan>6.3.0.ER2-redhat-1</version.org.infinispan>
+        <version.org.infinispan>6.3.0.Final-redhat-3</version.org.infinispan>
         <version.spring-boot-starter-parent>1.2.3.RELEASE</version.spring-boot-starter-parent>
     </properties>
 
