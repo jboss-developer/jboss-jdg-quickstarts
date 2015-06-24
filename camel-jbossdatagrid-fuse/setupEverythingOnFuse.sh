@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export FUSE_VERSION=jboss-fuse-6.1.0.redhat-379
-export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
 
 if [ -z "$FUSE_INSTALL_PATH" ]; then
     echo "The variable FUSE_INSTALL_PATH is not set. Exiting..."
