@@ -2,6 +2,7 @@
 
 export FUSE_VERSION=jboss-fuse-6.1.0.redhat-379
 export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
+export CAMEL_JBOSSDATAGRID_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=version.camel-jbossdatagrid | grep -v '\[' | grep -v 'Download'`
 
 if [ -z "$FUSE_INSTALL_PATH" ]; then
     echo "The variable FUSE_INSTALL_PATH is not set. Exiting..."
@@ -23,6 +24,7 @@ echo "FUSE_INSTALL_PATH=$FUSE_INSTALL_PATH"
 echo "FUSE_BINARY_PATH=$FUSE_BINARY_PATH"
 echo "FUSE_VERSION=$FUSE_VERSION"
 echo "JDG_VERSION=$JDG_VERSION"
+echo "CAMEL_JBOSSDATAGRID_VERSION=$CAMEL_JBOSSDATAGRID_VERSION"
 echo
 
 ####################################################################
@@ -79,13 +81,13 @@ pushd $EXISTING_INSTALL/bin > /dev/null
 sh client -r 2 -d 10 "wait-for-service -t 300000 io.fabric8.api.BootstrapComplete" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:create --clean --wait-for-provisioning --global-resolver=manualip --manual-ip=127.0.0.1 --profile fabric" > /dev/null 2>&1
 
-echo "- Fabric created"
+echo "- Fabric created" 
 echo
 sh client -r 2 -d 10 "fabric:container-create-child --profile=fabric root child 2" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/techpreview/all@id=techpreview-all-repository' default" > /dev/null 2>&1 
 
 echo "- Containers child1 and child2 created"
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/${JDG_VERSION}/xml/features default" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/${CAMEL_JBOSSDATAGRID_VERSION}/xml/features default" > /dev/null 2>&1
 
 sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/${JDG_VERSION}/xml/features default" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_producer" > /dev/null 2>&1
