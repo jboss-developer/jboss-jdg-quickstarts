@@ -4,7 +4,7 @@
     <sub-deployment name="ejb.jar">
         <!-- use the provided JDG modules -->
         <dependencies>
-            <module name="org.infinispan" slot="jdg-6.5" services="export"/>
+            <module name="org.infinispan" slot="jdg-6.6" services="export"/>
         </dependencies>
     </sub-deployment>
 
