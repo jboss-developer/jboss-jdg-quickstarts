@@ -7,7 +7,7 @@
 
    <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager"
       init-method="start" destroy-method="stop">
-      <argument value="infinispan.xml" />
+      <argument value="infinispan-camel.xml" />
    </bean>
 
    <bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat" />
