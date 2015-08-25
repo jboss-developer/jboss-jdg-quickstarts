@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring-jdg</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>8.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring-jdg</name>
@@ -17,7 +17,7 @@
         <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
         <java.version>1.7</java.version>
 
-        <version.org.infinispan>7.0.0.CR1</version.org.infinispan>
+        <version.org.infinispan>8.0.1.Final</version.org.infinispan>
         <version.spring-boot-starter-parent>1.1.9.RELEASE</version.spring-boot-starter-parent>
     </properties>
 

@@ -1,19 +1,25 @@
 hotrod-secured: Use JDG remotely through Hotrod with Secured authentication/authorization
 =========================================================================================
 Author: Tristan Tarrant, Martin Gencur, Vitalii Chepeliuk
+
 Level: Intermediate
+
 Technologies: Infinispan, Hot Rod
+
 Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol and secured authentication/authorization.
-Target Product: JDG
-Product Versions: JDG 6.3
+
+Target Product: Infinispan
+
+Product Versions: Infinispan 8.0.1.Final
+
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
 What is it?
 -----------
 
-Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols(Memcached, REST) and allows clients to make decisions about load balancing, failover and data location operations.
+Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid/Infinispan. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols (Memcached, REST) and allows clients to make decisions about load balancing, failover and data location operations.
 
-This quickstart demonstrates how to connect securely to remote JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows:
+This quickstart demonstrates how to connect securely to remote JBoss Data Grid (JDG)/Infinispan server to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows:
   coach can add or remove players from teams, or print a list of the all players
   player to see information about other players
   in the team using the Hot Rod based connector.
@@ -22,7 +28,7 @@ System requirements
 -------------------
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or higher, Maven 3.0 or higher.
-The application this project produces is designed to be run on JBoss Data Grid 6.3
+The application this project produces is designed to be run on Infinispan 8.0.1.Final
 
 Configure Maven
 ---------------
@@ -38,12 +44,12 @@ The Hot Rod protocol supports authentication since version 2.0 (Infinispan 7.0) 
 * GSSAPI - This mech uses Kerberos tickets, and therefore requires the presence of a properly configured Kerberos Domain Controller (such as Microsoft Active Directory)
 * EXTERNAL - This mech obtains credentials from the underlying transport (i.e. from a X.509 client certificate) and therefore requires encryption using client-certificates to be enabled.
 
-Configure JDG
+Configure Infinispan/JDG
 -------------
 
-1. Obtain JDG server distribution on Red Hat's Customer Portal at https://access.redhat.com/jbossnetwork/restricted/listSoftware.html
+1. Obtain the Infinispan/JDG server distribution. See the following for more information: <http://infinispan.org/download/>
 
-2. This Quickstart uses new HotRod Security features to configure the cache. To use it, it's necessary to change JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
+2. This Quickstart uses new HotRod Security features to configure the cache. To use it, it's necessary to change Infinispan/JDG server configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
 * Security Realm configuration
   Security Realms are used by the server to provide authentication and authorization information for both the management and application interfaces
 
@@ -63,7 +69,7 @@ Configure JDG
 * Enpoint subsystem definition:
   The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
 
-        <subsystem xmlns="urn:infinispan:server:endpoint:7.0">
+        <subsystem xmlns="urn:infinispan:server:endpoint:8.0">
             <hotrod-connector socket-binding="hotrod" cache-container="local">
                 <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
                 <authentication security-realm="ApplicationRealm">
@@ -83,7 +89,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:7.0">
+        <subsystem xmlns="urn:infinispan:server:core:8.0">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>
@@ -101,10 +107,10 @@ Configure JDG
             </cache-container>
         </subsystem>
 
-Start JDG
+Start Infinispan/JDG
 ---------
 
-1. Open a command line and navigate to the root of the JDG directory.
+1. Open a command line and navigate to the root of the Infinispan/JDG server directory.
 2. The following shows the command line to start the server with the web profile:
 
         For Linux:   $JDG_HOME/bin/standalone.sh

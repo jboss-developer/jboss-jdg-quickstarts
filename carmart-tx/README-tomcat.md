@@ -1,10 +1,14 @@
 carmart-tx: Basic Infinispan example with transactions
 =================================================================
 Author: Tristan Tarrant, Martin Gencur
+
 Level: Intermediate
+
 Technologies: Infinispan, CDI, Transactions
+
 Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
-Product Versions: EWS 2, JDG 6.x
+
+Product Versions: Infinispan 8.0.1.Final, Tomcat 7
 
 What is it?
 -----------
@@ -15,17 +19,17 @@ Users can list cars, add new cars or remove them from the CarMart. Information a
 
 The Transactional CarMart quickstart works in a library mode. All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programatically and run in the same JVM as the web application.
 
-All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used.
+All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 3 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used.
 
-When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile.
+When running this quickstart on JBoss Enterprise Web Server 3 or Tomcat 7, you must use only the "library-tomcat" maven profile.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Web Server 2 or Tomcat 7.
+The application this project produces is designed to be run on JBoss Enterprise Web Server 3 or Tomcat 7.
 
  
 Configure EWS or Tomcat
@@ -72,6 +76,9 @@ Build and Deploy the Application in Library Mode
         
 4. This will deploy `target/jboss-carmart-tx.war` to the running instance of Tomcat/EWS.
 
+Note: `tomcat:deploy` doesn't automatically undeploy the current deployed WAR if present, hence when
+trying to deploy the quickstart repeatedly, it will fail. For repeating deployment use `tomcat:redeploy`.
+
 
 Access the application
 ---------------------
@@ -92,8 +99,8 @@ Undeploy the Archive
 Test the Application
 ------------------------------------
 
-If you want to test the application, there are simple Arquillian Selenium tests prepared.
-To run these tests on Tomcat:
+If you want to test the application, there are simple Arquillian Selenium tests prepared. Before you try to run the tests,
+you have to undeploy existing WAR from Tomcat, see above. To run these tests on Tomcat:
 
 1. Undeploy the archive as described above
 2. Stop Tomcat Server
@@ -104,5 +111,5 @@ To run these tests on Tomcat:
 
 5. Type this command to run the tests:
 
-        mvn test -Puitests-tomcat -Dtomcat7home=/path/to/server
+        mvn test -Puitests-tomcat -DserverHome=/path/to/server
 

@@ -1,19 +1,25 @@
 hotrod-endpoint: Use JDG remotely through Hotrod
 ================================================
 Author: Tristan Tarrant, Martin Gencur
+
 Level: Intermediate
+
 Technologies: Infinispan, Hot Rod
+
 Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol.
-Target Product: JDG
-Product Versions: JDG 6.x
+
+Target Product: Infinispan
+
+Product Versions: Infinispan 8.0.1.Final
+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
+Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid/Infinispan. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
 
-This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the Hot Rod based connector.
+This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG)/Infinispan to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the Hot Rod based connector.
 
 
 System requirements
@@ -21,7 +27,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.x
+The application this project produces is designed to be run on Infinispan 8.0.1.Final.
 
  
 Configure Maven
@@ -30,19 +36,19 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
 
 
-Configure JDG
+Configure Infinspan/JDG
 -------------
 
-1. Obtain JDG server distribution on Red Hat's Customer Portal at https://access.redhat.com/jbossnetwork/restricted/listSoftware.html
+1. Obtain the Infinispan/JDG server distribution. See the following for more information: <http://infinispan.org/download/>
 
-2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
+2. Install a JDBC driver into Infinispan/JDG (since Infinispan/JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
-3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
+3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter Infinispan/JDG server configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
    
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:2.0">
+        <subsystem xmlns="urn:jboss:domain:datasources:3.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -67,7 +73,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:7.0" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -106,10 +112,10 @@ Configure JDG
             </cache-container>
         </subsystem>
 
-Start JDG
+Start Infinispan/JDG
 ---------
 
-1. Open a command line and navigate to the root of the JDG directory.
+1. Open a command line and navigate to the root of the Infinispan/JDG server directory.
 2. The following shows the command line to start the server with the web profile:
 
         For Linux:   $JDG_HOME/bin/standalone.sh
@@ -121,7 +127,7 @@ Build and Run the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JDG as described above.
+1. Make sure you have started the Infinispan/JDG as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 

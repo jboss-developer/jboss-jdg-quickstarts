@@ -20,10 +20,13 @@
 		</auth-constraint>
 	</security-constraint>
 	<security-role>
-        <role-name>*</role-name>
-    </security-role>
+		<role-name>reader</role-name>
+	</security-role>
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
 	<login-config>
-		<auth-method>DIGEST</auth-method>
+		<auth-method>BASIC</auth-method>
 		<realm-name>ApplicationRealm</realm-name>
 	</login-config>
 </web-app>

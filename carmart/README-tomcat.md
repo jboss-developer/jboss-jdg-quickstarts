@@ -1,10 +1,14 @@
 carmart: Basic Infinispan example
 =================================
 Author: Tristan Tarrant, Martin Gencur
+
 Level: Intermediate
+
 Technologies: Infinispan, CDI
+
 Summary: Shows how to use Infinispan instead of a relational database.
-Product Versions: EWS 2, JDG 6.x
+
+Product Versions: Tomcat 7, Infinispan 8.0.1.Final
 
 What is it?
 -----------
@@ -141,4 +145,4 @@ To run these tests on Tomcat:
 
 5. Type this command to run the tests:
 
-        mvn test -Puitests-tomcat -Dtomcat7home=/path/to/server
+        mvn test -Puitests-tomcat -DserverHome=/path/to/server

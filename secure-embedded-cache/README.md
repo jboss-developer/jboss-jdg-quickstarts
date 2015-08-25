@@ -1,35 +1,50 @@
-Security in Embedded Cache
-========================
+secure-embedded-cache: Security in Embedded Cache
+============================================
+Author: Vijay Chintalapati
 
-This web application demonstrates how security, cache level authentication and authorization, works in embedded mode in JDG 6.3.
+Level: Intermediate
 
-* Author: Vijay Chintalapati
+Technologies: Infinispan
+
+Summary: Demonstrates how security, cache level authentication and authorization, works in embedded mode.
+
+Target Product: Infinispan
+
+Product Versions: Infinispan 8.0.1.Final, WildFly 9.0.1.Final
+
+Source: <https://github.com/infinispan/jdg-quickstart>
 
 Prerequisites
 -------------
 1. JDK 1.6+
 2. Maven 3.0
-3. JBoss EAP 6.2+ 
+3. WildFly 9+
 
 Setup
 -----
 1. Ensure that you have the correct repositories available within the .m2/settings.xml of the incident development system
-2. To build and package the webapp, run the command `mvn clean package -DskipTests` at the command prompt in the root directory of the project
+2. To build and package the webapp, run the command at the command prompt in the root directory of the project:
+
+        mvn clean package -DskipTests
+
 3. To run the install and configuration commands, ensure that the local JBoss server is running in Standalone mode
-4. To deploy the __security-domain__ that will be used for Authentication, run the command `mvn jboss-as:execute-commands`
-5. To deploy the packaged webapp, run the command `mvn jboss-as:deploy`
-6. Since we will be using __application-user.properties__ and __application-roles.properties__ files that come with a standard JBoss server installation at path: __$JBOSS_HOME/standalone/configuration__, run the following commands from the bin folder of the server installation
-		
-   	# Add a user who will be a reader. A reader can only read from the cache and cannot
-		# perform any operation that changes the state of the cache or its contents
-		$JBOSS_HOME/bin> ./add-user.sh -a -u readerUser -p readerUserPass9! -r ApplicationRealm -g reader
-		
-		# Add a user who will be an admin. An admin can perform ALL possible operations on 
-		# the cache
-		$JBOSS_HOME/bin> ./add-user.sh -a -u adminUser -p adminUserPass9! -r ApplicationRealm -g admin
-7. Restart the application server to ensure that additions to the files containing the users/roles will be picked up
-8. Considering a very basic setup of the server, the application should now be accessible at the URL: http://127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/
-9. To run the JUnit tests, that test the authentication and authorization of the cache thru the secured webapp, run the command `mvn test` while the JBoss EAP server is still running
+
+        For Linux:   $JBOSS_HOME/bin/standalone.sh
+        For Windows: $JBOSS_HOME\bin\standalone.bat
+
+4. To deploy the __security-domain__ that will be used for Authentication, run the command
+
+        mvn wildfly:execute-commands
+
+5. To deploy the packaged webapp, run the command
+
+        mvn wildfly:deploy
+
+6. Restart the application server to ensure that additions to the files containing the users/roles will be picked up
+7. Considering a very basic setup of the server, the application should now be accessible at the URL: http://127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/
+8. To run the JUnit tests, that test the authentication and authorization of the cache through the secured webapp, run the following command while the JBoss EAP server is still running
+
+        mvn test
 
 Testing
 -------

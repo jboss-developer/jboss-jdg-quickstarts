@@ -1,11 +1,17 @@
 helloworld-jdg: Basic Infinispan example
 ====================================
 Author: Burr Sutter, Martin Gencur
+
 Level: Intermediate
+
 Technologies: Infinispan, CDI
+
 Summary: Shows how to use Infinispan in clustered mode, with expiration enabled.
-Target Product: JDG
-Product Versions: EAP 6.x, JDG 6.x
+
+Target Product: Infinispan
+
+Product Versions: WildFly 9.0.1.Final, Infinispan 8.0.1.Final
+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -26,7 +32,7 @@ enables access to data stored in remote nodes (JVMs) that comprise the embedded 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
 
@@ -68,12 +74,12 @@ for complete instructions and additional options._
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive to the first server:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 
 4. This will deploy `target/jboss-helloworld-jdg.war` to the first running instance of the server.
 5. Type this command to build and deploy the archive to the second server (running on different ports):
 
-        mvn clean package jboss-as:deploy -Djboss-as.port=10099
+        mvn clean package jboss-as:deploy -Dwildfly.port=10090
 
 6. This will deploy `target/jboss-helloworld-jdg.war` to the second running instance of the server.
 
@@ -114,8 +120,8 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from both running servers:
 
-        mvn jboss-as:undeploy
-        mvn jboss-as:undeploy -Ddeploy.port=10099
+        mvn wildfly:undeploy
+        mvn wildfly:undeploy -Ddeploy.port=10090
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
@@ -148,5 +154,5 @@ To run these tests on EAP:
 
 4. Type this command to run the tests (server paths can be the same):
 
-        mvn test -Puitests-clustered -Das7home=/path/to/first/server -Das7home2=/path/to/second/server
+        mvn test -Puitests-clustered -Dserver1Home=/path/to/first/server -Dserver2Home=/path/to/second/server
 
