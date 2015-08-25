@@ -74,6 +74,10 @@
          <artifactId>infinispan-cdi</artifactId>
       </dependency>
       <dependency>
+         <groupId>javax.cache</groupId>
+         <artifactId>cache-api</artifactId>
+      </dependency>
+      <dependency>
          <groupId>javax.enterprise</groupId>
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
