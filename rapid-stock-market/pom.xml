@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.jboss.quickstarts.jdg</groupId>
    <artifactId>rapid-stock-market</artifactId>
-   <version>6.5.1-redhat-SNAPSHOT</version>
+   <version>6.5.1.Final-redhat-1</version>
 
    <name>JBoss JDG Quickstart: rapid-stock-market</name>
    <description>This quickstart demonstrates the compatibility mode functionality</description>
@@ -40,7 +40,7 @@
       <maven.compiler.target>1.6</maven.compiler.target>
       <maven.compiler.source>1.6</maven.compiler.source>
 
-      <version.org.infinispan>6.3.1.ER1-redhat-1</version.org.infinispan>
+      <version.org.infinispan>6.3.1.Final-redhat-1</version.org.infinispan>
       <commons.httpclient.version>3.1</commons.httpclient.version>
    </properties>
 
