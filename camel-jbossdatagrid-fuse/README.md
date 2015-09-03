@@ -1,6 +1,6 @@
 Using __camel_jbossdatagrid__ component
 ===========================================================
-This quickstart shows how to use the __camel_jbossdatagrid__ component in Fuse 6.1.0
+This quickstart shows how to use the __camel_jbossdatagrid__ component in Fuse 6.2.0
 * Author: Vijay Chintalapati
 
 This quickstart will deploy two bundles __local_cache_producer__ and __local_cache_consumer__ on Fuse, one on each container __child1__ and __child2__ respectivity.
@@ -15,12 +15,12 @@ Prerequisites
 -------------
 1. JDK 1.7 
 2. Maven 3.0
-3. JBoss Fuse 6.1.0
-4. JBoss Data Grid 6.4.0 Maven repository
+3. JBoss Fuse 6.2.0
+4. JBoss Data Grid Maven repository
 
 Setup
 -----
-1. Download the Fuse binary __jboss-fuse-full-6.1.0.redhat-379.zip__ from either http://www.jboss.org/products or from Red Hat's Customer portal
+1. Download the Fuse binary __jboss-fuse-full-6.2.0.redhat-133.zip__ from either http://www.jboss.org/products or from Red Hat's Customer portal
 2. Ensure that you have correctly setup JDG repos in your .m2/settings.xml. See the [official documentation] (https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Data_Grid/6.4/html-single/Getting_Started_Guide/index.html#chap-Install_and_Use_the_Maven_Repositories) on how to accomplish that.
 3. Export the path to the folder where the CSV files will be placed by running the command of the form `export incomingFolderPath=[Full path to the CSV folder]`
 4. Run `mvn clean install -DincomingFolderPath=$incomingFolderPath` in the root folder of the quickstart
