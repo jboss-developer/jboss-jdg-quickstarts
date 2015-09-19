@@ -1,11 +1,17 @@
 remote-query: Query Infinispan remotely through Hotrod
 ================================================
 Author: Adrian Nistor
+
 Level: Intermediate
+
 Technologies: Infinispan, Hot Rod, Remote Query
+
 Summary: Demonstrates how to query Infinispan remotely using the Hot Rod client.
+
 Target Product: Infinispan
-Product Versions: Infinispan 7.x
+
+Product Versions: Infinispan 8.0.1.Final
+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -42,7 +48,7 @@ Configure Infinispan Server
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:2.0">
+        <subsystem xmlns="urn:jboss:domain:datasources:3.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -67,7 +73,7 @@ Configure Infinispan Server
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:7.0" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default" statistics="true">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -169,13 +175,15 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
     2. Remove person
     3. Add phone to person
     4. Remove phone from person
-    5. Display all persons
-    6. Query persons by name
-    7. Query persons by phone
-    8. Quit
+    5. Query persons by name
+    6. Query persons by phone
+    7. Add memo
+    8. Query memo by author
+    9. Display all cache entries
+    10. Quit
 
         
-Type `8` to exit the application.
+Type `10` to exit the application.
 
 Run application with different classpath
 ----------------------------------------

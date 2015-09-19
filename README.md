@@ -1,17 +1,17 @@
-JBoss Data Grid (JDG) Quickstarts
+Infinispan Quickstarts
 ===========================
 
 Introduction
 -------------
 
-JBoss Data Grid (JDG) is an open source data grid platform that offers multiple clustered modes, but its true value is observed while running in distributed mode where caches cluster together and expose a large memory heap. 
+Infinispan is an open source data grid platform that offers multiple clustered modes, but its true value is observed while running in distributed mode where caches cluster together and expose a large memory heap.
 
-JBoss Data Grid offers two usage modes:
+Infinispan offers two usage modes:
 
 * _Library mode_  - This mode provides all the binaries required to build and deploy a custom runtime environment. The library usage mode allows local access to a single node in a distributed cluster. This usage mode gives the application access to data grid functionality within a virtual machine in the container being used. Supported containers include JBoss AS 7, JBoss Enterprise Application Platform 6 and Tomcat 7. 
-* _Client-server mode_ - This mode provides a managed, distributed and clusterable data grid server. Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs., the Cache is stored in  a managed, distributed and clusterable data grid server.  Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs. This web application bundles only the HotRod client and communicates with a remote JBoss Data Grid (JDG) server. The JDG server is configured via the `standalone.xml` configuration file.
+* _Client-server mode_ - This mode provides a managed, distributed and clusterable data grid server. Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs., the Cache is stored in  a managed, distributed and clusterable data grid server.  Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs. This web application bundles only the HotRod client and communicates with a remote Infinispan/JBoss Data Grid (JDG) server. The Infinispan/JDG server is configured via the `standalone.xml` configuration file.
 
-The quickstarts included in this distribution were written to demonstrate JBoss Data Grid functionality and features. They provide small, specific, working examples that can be used as a reference for your own project. 
+The quickstarts included in this distribution were written to demonstrate Infinispan/JBoss Data Grid functionality and features. They provide small, specific, working examples that can be used as a reference for your own project.
 
 
 
@@ -27,13 +27,14 @@ This distribution contains the following quickstarts:
 | [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
 | [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
 | [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
+| [hotrod-secured](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol and secured authentication/authorization. |
 | [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
 | [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
 | [spring](spring/README.md) | Infinispan, Spring | Demonstrates the use of Spring integration modules. |
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
-| [secure-embedded-cache](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
+| [cdi](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
 
 [TOC-quickstart]
 
@@ -99,6 +100,7 @@ In most cases, you can use the following steps to build the application to test 
    * If you have configured the Maven settings :
 
             mvn clean install
+
    * If you have NOT configured settings Maven settings:
 
             mvn clean install -s QUICKSTART_HOME/settings.xml

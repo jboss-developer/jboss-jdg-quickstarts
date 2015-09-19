@@ -1,11 +1,17 @@
 spring-jdg: Spring integration example
 ====================================
 Author: Sebastian Łaskawiec
+
 Level: Intermediate
+
 Technologies: Infinispan, Spring Boot
+
 Summary: Shows how to use Infinispan or JBoss Data Grid with Spring
-Target Product: JDG
-Product Versions: JDG 6.x
+
+Target Product: Infinispan
+
+Product Versions: Infinispan 8.0.1.Final
+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?

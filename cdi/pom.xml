@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-cdi-quickstart</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>8.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: CDI</name>
@@ -33,12 +33,11 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <maven.test.skip>true</maven.test.skip>
+
         <!-- Versions -->
-        <version.jboss.javaee.web>3.0.3.Final</version.jboss.javaee.web>
-        <version.arquillian>1.1.5.Final</version.arquillian>
-        <version.junit>4.12</version.junit>
-        <version.org.infinispan>7.0.0.CR1</version.org.infinispan>
-        <version.wildfly-arquillian>8.1.0.Final</version.wildfly-arquillian>
+        <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
+        <version.org.infinispan>8.0.1.Final</version.org.infinispan>
+        <version.war.plugin>2.6</version.war.plugin>
     </properties>
 
     <developers>
@@ -57,26 +56,27 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss.javaee.web}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Define the versions of Arquillian dependencies we want to use -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${version.arquillian}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-bom</artifactId>
-                <version>7.0.0.CR1</version>
+                <version>${version.org.infinispan}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Define the version of JBoss' Java EE 7 APIs we want to import.
+                Any dependencies from org.jboss.spec will have their version defined by this
+                BOM -->
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-7-with-tools stack (you can
+                read this as the JBoss stack of the Java EE 6 APIs). You can actually
+                use this stack with any version of JBoss AS that implements Java EE 7, not
+                just JBoss AS 7! The -with-tools means also versions of other artifacts like Arquillian. -->
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -89,6 +89,11 @@
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
         </dependency>
 
         <!-- Infinispan dependency -->
@@ -105,7 +110,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -125,7 +129,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>${version.war.plugin}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
@@ -138,14 +142,13 @@
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.0.2.Final</version>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
         <!-- This optional profile executes Arquillian tests in an Wildfly/EAP instance -->
-        <!-- Run with: mvn clean test -Pwildfly8.1-remote -->
+        <!-- Run with: mvn clean test -Pwildfly-remote -->
         <profile>
             <id>wildfly-remote</id>
             <properties>
@@ -153,10 +156,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.wildfly</groupId>
+                    <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-remote</artifactId>
-                    <version>${version.wildfly-arquillian}</version>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>

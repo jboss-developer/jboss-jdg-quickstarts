@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-helloworld-jdg</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>8.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: helloworld-jdg</name>
 
@@ -22,26 +22,17 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <!-- JBoss dependency versions -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.org.infinispan>8.0.1.Final</version.org.infinispan>
 
-        <version.org.infinispan>7.0.0.CR1</version.org.infinispan>
-
-        <version.jboss.spec.javaee.6.0>3.0.2.Final</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.jsf.version>2.2.11</version.jboss.spec.jsf.version>
 
         <!-- other plugin versions -->
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
         <war.plugin.version>2.2</war.plugin.version>
-        <version.maven.surefire>2.14</version.maven.surefire>
 
         <!-- test dependencies versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>4.8.2</junit.version>
-        <arquillian.bom.version>1.1.1.Final</arquillian.bom.version>
-        <arquillian.drone.bom.version>1.2.0.Beta1</arquillian.drone.bom.version>
-        <jboss.as7.version>7.2.0.Final</jboss.as7.version>
-        <arquillian.selenium.version>2.35.0</arquillian.selenium.version>
-        <arquillian.graphene.version>2.0.0.Beta1</arquillian.graphene.version>
         <browser>phantomjs</browser>
         <test.server.config>standalone.xml</test.server.config>
     </properties>
@@ -56,64 +47,37 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+            <!-- Define the version of JBoss' Java EE 7 APIs we want to import.
                 Any dependencies from org.jboss.spec will have their version defined by this
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
+                versions of artifacts. Here we use the jboss-javaee-7-with-tools stack (you can
                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
-                use this stack with any version of JBoss AS that implements Java EE 6, not
-                just JBoss AS 7! -->
+                use this stack with any version of JBoss AS that implements Java EE 7, not
+                just JBoss AS 7! The -with-tools means also versions of other artifacts like Arquillian. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss.spec.javaee.6.0}</version>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- added to run arquillian -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian.bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.arquillian.extension</groupId>
-                <artifactId>arquillian-drone-bom</artifactId>
-                <version>${arquillian.drone.bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.arquillian.selenium</groupId>
-                <artifactId>selenium-bom</artifactId>
-                <version>${arquillian.selenium.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is included
-             in JBoss AS 7 -->
+             in WildFly -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -125,11 +89,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- First declare the APIs we depend on and need for compilation.
+            The dependencies with provided scope are provided by JBoss AS 7, The other
+            compiled scoped dependencies will be add to the application libraries -->
+
         <!-- Import the JSF API, we use provided scope as the API is included
-        in JBoss AS 7 -->
+            in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -138,19 +106,11 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
-            <version>${arquillian.bom.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-arquillian-container-managed</artifactId>
-            <version>${jboss.as7.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.graphene</groupId>
             <artifactId>graphene-webdriver</artifactId>
-            <version>${arquillian.graphene.version}</version>
             <type>pom</type>
             <scope>test</scope>
         </dependency>
@@ -158,7 +118,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -192,19 +151,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${version.maven.surefire}</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
 
+            <!-- The WildFly AS plugin deploys your war to a local container -->
+            <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
-                <!-- The JBoss AS plugin deploys your war to a local
-                JBoss AS container -->
-                <!-- To use, run: mvn package jboss-as:deploy -->
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -215,16 +171,21 @@
             <id>uitests-clustered</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${jboss.as7.version}</version>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>
                 <plugins>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.maven.surefire}</version>
                         <configuration>
                             <skipTests>false</skipTests>
                             <systemPropertyVariables>

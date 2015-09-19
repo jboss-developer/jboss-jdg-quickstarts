@@ -1,11 +1,17 @@
 carmart-tx: Basic Infinispan example with transactions
 =================================================================
 Author: Tristan Tarrant, Martin Gencur
+
 Level: Intermediate
+
 Technologies: Infinispan, CDI, Transactions
+
 Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
-Target Product: JDG
-Product Versions: EAP 6.1, EAP 6.2, JDG 6.2
+
+Target Product: Infinispan
+
+Product Versions: Infinispan 8.0.1.Final, WildFly 9.0.1.Final
+
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -15,7 +21,7 @@ Transactional CarMart is a simple web application that uses Infinispan instead o
 
 Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
 
-The Transactional CarMart quickstart works only in a library mode", so the application has a slightly different architecture". All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programmatically and run in the same JVM as the web application.
+The Transactional CarMart quickstart works only in a library mode, so the application has a slightly different architecture. All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programmatically and run in the same JVM as the web application.
 
 All operations are done in a transactional context that is configured at JBossASCacheContainerProvider/TomcatCacheContainerProvider impl classes for CacheContainerProvider interface.
 
@@ -31,7 +37,7 @@ Infinispan ships with several transaction manager lookup classes:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
 
@@ -61,7 +67,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
         
 4. This will deploy `target/jboss-carmart-tx.war` to the running instance of the server.
  
@@ -79,7 +85,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Debug the Application
@@ -105,5 +111,5 @@ To run these tests on EAP:
 
 4. Type this command to run the tests:
 
-        mvn test -Puitests-jbossas -Das7home=/path/to/server
+        mvn test -Puitests-jbossas -DserverHome=/path/to/server
 
