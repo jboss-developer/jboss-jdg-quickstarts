@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-remote-query-quickstart</artifactId>
-    <version>6.6.0.DR4-redhat-1</version>
+    <version>6.6.0-redhat-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: remote-query</name>
 
     <licenses>
