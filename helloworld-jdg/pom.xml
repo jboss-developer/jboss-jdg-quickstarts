@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-helloworld-jdg</artifactId>
-    <version>6.6.0.DR3-redhat-1</version>
+    <version>6.6.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: helloworld-jdg</name>
 
