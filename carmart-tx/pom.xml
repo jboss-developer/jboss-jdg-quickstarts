@@ -196,6 +196,11 @@
             <artifactId>infinispan-core</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
         <dependency>
