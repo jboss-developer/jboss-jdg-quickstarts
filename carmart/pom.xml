@@ -336,6 +336,12 @@
                     <scope>compile</scope>
                 </dependency>
 
+                <!-- Import the JTA API -->
+                <dependency>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                </dependency>
+
                 <!-- Import the WELD "uber-jar", meaning it bundles all the 
                     bits of Weld and CDI required for running in a Servlet container, for your 
                     convenience -->
@@ -431,6 +437,12 @@
                     <groupId>org.jboss.spec.javax.faces</groupId>
                     <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                     <scope>compile</scope>
+                </dependency>
+
+                <!-- Import the JTA API -->
+                <dependency>
+                    <groupId>org.jboss.spec.javax.transaction</groupId>
+                    <artifactId>jboss-transaction-api_1.1_spec</artifactId>
                 </dependency>
 
                 <!-- Import the WELD "uber-jar", meaning it bundles all the 
