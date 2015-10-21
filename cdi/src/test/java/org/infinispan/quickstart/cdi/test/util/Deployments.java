@@ -40,16 +40,21 @@ public final class Deployments {
     private Deployments() {
     }
 
+
     public static WebArchive baseDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-                .addPackage(Config.class.getPackage())
-                .addPackage(GreetingService.class.getPackage())
-                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
-                .addAsLibraries(getRuntimeLibraries());
-    }
-
-    private static File[] getRuntimeLibraries() {
-        PomEquippedResolveStage mavenResolver = Maven.resolver().loadPomFromFile(new File("pom.xml"));
-        return mavenResolver.importRuntimeDependencies().resolve().withTransitivity().asFile();
+            .addPackage(Config.class.getPackage())
+            .addPackage(GreetingService.class.getPackage())
+            .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
+            .addAsLibraries(new File("target/test-libs/infinispan-cdi.jar"),
+                            new File("target/test-libs/infinispan-core.jar"),
+                            new File("target/test-libs/infinispan-commons.jar"),
+                            new File("target/test-libs/infinispan-jcache.jar"),
+                            new File("target/test-libs/infinispan-jcache-commons.jar"),
+                            new File("target/test-libs/cache-api.jar"),
+                            new File("target/test-libs/jboss-marshalling.jar"),
+                            new File("target/test-libs/jboss-marshalling-river.jar"),
+                            new File("target/test-libs/cdi-api.jar")
+            );
     }
 }
