@@ -1,8 +1,14 @@
 #!/bin/bash
 
 export FUSE_VERSION=jboss-fuse-6.2.0.redhat-133
-export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
-export CAMEL_JBOSSDATAGRID_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=version.camel-jbossdatagrid | grep -v '\[' | grep -v 'Download'`
+
+if [ -z "$MVN_SETTINGS_XML" ]; then
+    export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
+    export CAMEL_JBOSSDATAGRID_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=version.camel-jbossdatagrid | grep -v '\[' | grep -v 'Download'`
+else
+    export JDG_VERSION=`mvn -s $MVN_SETTINGS_XML org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
+    export CAMEL_JBOSSDATAGRID_VERSION=`mvn -s $MVN_SETTINGS_XML org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=version.camel-jbossdatagrid | grep -v '\[' | grep -v 'Download'`
+fi
 
 if [ -z "$FUSE_INSTALL_PATH" ]; then
     echo "The variable FUSE_INSTALL_PATH is not set. Exiting..."
@@ -84,6 +90,9 @@ sh client -r 2 -d 10 "fabric:create --clean --wait-for-provisioning --global-res
 echo "- Fabric created" 
 echo
 sh client -r 2 -d 10 "fabric:container-create-child --profile=fabric root child 2" > /dev/null 2>&1
+if [ ! -z "$MVN_SETTINGS_XML" ]; then
+    sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.settings='${MVN_SETTINGS_XML}' default" > /dev/null 2>&1
+fi
 sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/techpreview/all@id=techpreview-all-repository' default" > /dev/null 2>&1
 
 echo "- Containers child1 and child2 created"
