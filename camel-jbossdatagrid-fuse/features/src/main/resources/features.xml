@@ -7,7 +7,7 @@
    <feature name="local-cache-consumer" resolver="(obr)"
       version="${project.version}">
       <feature>camel-gson</feature>
-      <feature>camel-restlet</feature>
+      <feature>camel-websocket</feature>
       <feature>pojos</feature>
       <bundle>mvn:org.jboss.quickstarts.jdg/local-cache-consumer/${project.version}</bundle>
    </feature>

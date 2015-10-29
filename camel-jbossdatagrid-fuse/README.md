@@ -38,5 +38,23 @@ Setup Verification
 Testing
 -------
 
-* Testing the __local_cache_producer__: Run a command `echo "1,Bill,Gates,59" > $incomingFolderPath/sample.csv`. If the file disappears in a second or two then the producer worked correctly and you can proceed to testing the consumer
-* Testing the __local_cache_consumer__: Open up a browser and hit the url http://127.0.0.1:8282/cache/get/1 (where 1 is the Id with which the Person instance was stored in the grid). If you get a JSON represetation back of the corresponding POJO, the testing was successful
+1. Open the index.html in a browser
+   ![](images/index-html-1.png)
+2. Click on connect
+   ![](images/index-html-2.png)
+2. Add the best fotboll (soccer) players 2015 by executing `$ cp best-fotbollplayers-2015.csv $incomingFolderPath/`
+   ![](images/terminal-1.png)
+3. Check that the players was added to the table in the browser
+   ![](images/index-html-3.png)
+4. Add another player by executing `$ echo "99,Diego,Maradona,75" > $incomingFolderPath/sample.csv`
+5. Verify that another player was added to the table in the browser
+
+It's also possible to open multiple browsers and connect them and verify that all clients get's the same updates!
+
+
+How does it work
+----------------
+1. The local\_cache_producer will listen to incoming files in the folder $incomingFolderPath. It will transform each line in the CSV to Java object and store them in the local datagrid.
+   ![](images/camel-producer.png)
+2. The local\_cache_consumer will react to events that an entry has been added to the datagrid and will retrieve the Java object, transform it to JSON and push it to WebSocket clients that are connected.   
+   ![](images/camel-consumer.png)

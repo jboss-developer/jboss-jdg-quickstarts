@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
-   xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xsi:schemaLocation="
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-   <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager"
-      init-method="start" destroy-method="stop">
-      <argument value="infinispan-camel.xml" />
-   </bean>
+	<bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager"
+		init-method="start" destroy-method="stop">
+		<argument value="infinispan-camel.xml" />
+	</bean>
 
-   <bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat" />
+	<bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat" />
 
-   <camelContext id="blueprintContext" trace="false"
-      xmlns="http://camel.apache.org/schema/blueprint">
-      <route>
-         <from
-            uri="restlet:http://localhost:8282/cache/get/{key}?restletMethod=GET" />
-         <setHeader headerName="CamelInfinispanKey">
-            <simple resultType="java.lang.Integer">${header.key}</simple>
-         </setHeader>
-         <setHeader headerName="CamelInfinispanCacheName">
-            <simple>camel-cache</simple>
-         </setHeader>
-         <setHeader headerName="CamelInfinispanOperation">
-            <simple>CamelInfinispanOperationGet</simple>
-         </setHeader>
-         <to uri="infinispan://localhost?cacheContainer=#cacheManager" />
-         <setBody>
-            <simple resultType="org.jboss.as.quickstarts.datagrid.pojos.Person">
-               ${header.CamelInfinispanOperationResult}
-            </simple>
-         </setBody>
-         <marshal ref="gson" />
-      </route>
-   </camelContext>
+	<camelContext trace="false" id="blueprintContext"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		<route>
+			<from uri="infinispan://localhost?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;sync=true&amp;clustered=true" />
+			<setHeader headerName="CamelInfinispanKey">
+				<simple>${out.header.CamelInfinispanKey}</simple>
+			</setHeader>
+			<to
+				uri="infinispan://localhost?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;command=GET" />
+			<setBody>
+				<simple>${header.CamelInfinispanOperationResult}</simple>
+			</setBody>
+			<marshal ref="gson" />
+			<convertBodyTo type="java.lang.String" />
+			<to uri="websocket://localhost:9292/newPersonEvent?sendToAll=true" />
+		</route>
+	</camelContext>
 
 </blueprint>
