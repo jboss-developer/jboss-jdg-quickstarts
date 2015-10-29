@@ -15,12 +15,12 @@
 	<camelContext trace="false" id="blueprintContext"
 		xmlns="http://camel.apache.org/schema/blueprint">
 		<route>
-			<from uri="infinispan://localhost?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;sync=true&amp;clustered=true" />
+			<from uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;sync=true&amp;clustered=true" />
 			<setHeader headerName="CamelInfinispanKey">
 				<simple>${out.header.CamelInfinispanKey}</simple>
 			</setHeader>
 			<to
-				uri="infinispan://localhost?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;command=GET" />
+				uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;command=GET" />
 			<setBody>
 				<simple>${header.CamelInfinispanOperationResult}</simple>
 			</setBody>
