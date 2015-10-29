@@ -4,16 +4,16 @@
       <feature>camel-bindy</feature>
       <bundle>mvn:org.jboss.quickstarts.jdg/pojos/${project.version}</bundle>
    </feature>
-   <feature name="local-cache-consumer" resolver="(obr)"
+   <feature name="local-datagrid-consumer" resolver="(obr)"
       version="${project.version}">
       <feature>camel-gson</feature>
-      <feature>camel-restlet</feature>
+      <feature>camel-websocket</feature>
       <feature>pojos</feature>
-      <bundle>mvn:org.jboss.quickstarts.jdg/local-cache-consumer/${project.version}</bundle>
+      <bundle>mvn:org.jboss.quickstarts.jdg/local-datagrid-consumer/${project.version}</bundle>
    </feature>
-   <feature name="local-cache-producer" resolver="(obr)"
+   <feature name="local-datagrid-producer" resolver="(obr)"
       version="${project.version}">
       <feature>pojos</feature>
-      <bundle>mvn:org.jboss.quickstarts.jdg/local-cache-producer/${project.version}</bundle>
+      <bundle>mvn:org.jboss.quickstarts.jdg/local-datagrid-producer/${project.version}</bundle>
    </feature>
 </features>
