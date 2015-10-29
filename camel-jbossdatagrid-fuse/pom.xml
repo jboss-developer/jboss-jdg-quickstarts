@@ -27,12 +27,12 @@
       <version.org.infinispan>6.4.0.DR4-redhat-1</version.org.infinispan>
       <version.camel-jbossdatagrid>6.6.0.DR4-redhat-1</version.camel-jbossdatagrid>
    </properties>
-    
+
     <modules>
         <module>features</module>
         <module>pojos</module>
-        <module>local-cache-consumer</module>
-        <module>local-cache-producer</module>
+        <module>local-datagrid-consumer</module>
+        <module>local-datagrid-producer</module>
     </modules>
 
    <dependencyManagement>
@@ -60,6 +60,11 @@
          <artifactId>camel-jbossdatagrid</artifactId>
          <version>${version.camel-jbossdatagrid}</version>
          <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-websocket</artifactId>
+        <scope>provided</scope>
       </dependency>
    </dependencies>
 
