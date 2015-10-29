@@ -9,8 +9,8 @@
 	var wsocket;
 	var isConnected=false;
 
-	function openWebSocket() {    
-		
+	function openWebSocket() {
+
 	    var wsurl = "ws://localhost:9292/newPersonEvent";
 	    wsocket = new WebSocket(wsurl);
 	    isConnected=true;
@@ -81,7 +81,7 @@
 </head>
 <body style="margin: 20px">
 <h1>Camel-jbossdatagrid example</h1>
-<p>This example uses websockets to listen to events from the JBoss Data Grid via JBoss Fuse. When connected a table will be appear below that is populated with events from the Data Grid (via websockets)</p> 
+<p>This example uses websockets to listen to events from the JBoss Data Grid via JBoss Fuse. When connected a table will be appear below that is populated with events from the Data Grid (via websockets)</p>
 
 <p>Persons are added by providing a CSV file that will be processed by JBoss Fuse</p>
 
@@ -98,7 +98,7 @@
 <table id="personTable" class="table table-striped hidden">
 	<thead><tr><th>ID</th><th>NAME</th><th>AGE</th></thead>
 	<tbody>
-					
+
 	</tbody>
 </table>
 

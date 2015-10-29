@@ -8,12 +8,12 @@ This quickstart will deploy two bundles __local_datagrid_producer__ and __local_
 * __local_datagrid_producer__ : Scans a folder (/tmp/incoming) for incoming CSV files of the format "id, firstName, lastName, age". If a file is dropped with entries in the given format, each entry is read and transformed into a Person POJO and stored in the data grid
 
 * __local_datagrid_consumer__ : Lets you query for a POJO using a RESTful interface and get back  a JSON representation of the Person POJO stored in the data grid for the given key
- 
+
 _The bundles reside in two different containers and the reason why the consumer is able to extract what the producer has put in, is because of the use of same configuration in files: infinispan.xml and jgroups.xml on both sides. The infinispan.xml file has a **REPL (replicated)** datagrid definition by the name **camel-datastore** and this is the datagrid with which the producer and consume interact_
 
 Prerequisites
 -------------
-1. JDK 1.7 
+1. JDK 1.7
 2. Maven 3.0
 3. JBoss Fuse 6.2.0
 4. JBoss Data Grid Maven repository
@@ -24,12 +24,12 @@ Setup
 2. Ensure that you have correctly setup JDG repos in your .m2/settings.xml. See the [official documentation] (https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Data_Grid/6.4/html-single/Getting_Started_Guide/index.html#chap-Install_and_Use_the_Maven_Repositories) on how to accomplish that.
 3. Export the path to the folder where the CSV files will be placed by running the command of the form `export incomingFolderPath=[Full path to the CSV folder]`
 4. Run `mvn clean install -DincomingFolderPath=$incomingFolderPath` in the root folder of the quickstart
-5. Set the following two environment variables in the same shell: 
-  1. export __FUSE_INSTALL_PATH__ = _[Full path to the folder into where Fuse will be installed]_ 
-  2. export __FUSE_BINARY_PATH__ = _[Full path to the Fuse binary file]_ 
+5. Set the following two environment variables in the same shell:
+  1. export __FUSE_INSTALL_PATH__ = _[Full path to the folder into where Fuse will be installed]_
+  2. export __FUSE_BINARY_PATH__ = _[Full path to the Fuse binary file]_
 6. While in the root folder of the quickstart, run `./setupEverythingOnFuse.sh`
 
-Setup Verification 
+Setup Verification
 ------------------
 1. Verify your access to the [Fuse Hawtio Console] (http://127.0.0.1:8181/hawtio/index.html#/login). The __username/password__ is __admin/admin__.
 2. If the __Fuse Fabric__ is created right, you should be able to access the containers [here](http://127.0.0.1:8181/hawtio/index.html#/fabric/containers)

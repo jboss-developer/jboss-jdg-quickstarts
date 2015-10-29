@@ -8,11 +8,11 @@
     <bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager" init-method="start" destroy-method="stop">
         <argument value="infinispan-camel.xml" />
     </bean>
-    
+
     <bean id="csvDataFormat" class="org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat">
         <argument value="org.jboss.as.quickstarts.datagrid.pojos.Person"/>
-    </bean> 
-    
+    </bean>
+
    <camelContext trace="false" id="blueprintContext" xmlns="http://camel.apache.org/schema/blueprint">
   <route id="populateCache">
     <from uri="file://${incomingFolderPath}?delay=500"/>
