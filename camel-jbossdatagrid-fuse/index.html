@@ -13,6 +13,7 @@
 		
 	    var wsurl = "ws://localhost:9292/newPersonEvent";
 	    wsocket = new WebSocket(wsurl);
+	    isConnected=true;
 	    wsocket.onmessage = function(evt) {
 	        var person = JSON.parse(evt.data);
 	        console.log("onMessage: " + person);
@@ -20,11 +21,16 @@
 	    }
 	    wsocket.onerror = function(evt) {
 	        console.error(evt);
+	        alert("Failed to connecto to " + wsurl +  ". Are you sure that the server has started yet?");
+	        isConnected=false;
 	    }
 	    waitForSocketConnection(wsocket, function() {
 	    	console.log("WebSocket connected!");
-	        
+	    	$("#connectButton").text("Disconnect");
+        	$("#personTable").removeClass("hidden");
+        	isConnected=true;
 	    });
+	    
 	}
 
 	function toogleConnect() {
@@ -36,9 +42,6 @@
 	        clearPersonTable();
 		} else {
 			openWebSocket();
-			$("#connectButton").text("Disconnect");
-	        $("#personTable").removeClass("hidden");
-	        isConnected=true;
 		}
 	}
 
