@@ -9,7 +9,7 @@
         <artifactId>camel-jbossdatagrid-fuse</artifactId>
         <version>6.6.0-redhat-SNAPSHOT</version>
    </parent>
-   <artifactId>local-cache-consumer</artifactId>
+   <artifactId>local-datagrid-consumer</artifactId>
    <packaging>bundle</packaging>
    <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: local-cache-consumer</name>
    <build>

@@ -100,9 +100,9 @@ sh client -r 2 -d 10 "fabric:profile-create --parents demo-base demo-local_consu
 
 # Add camel-jbossdatagrid and project features to the profile
 sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_producer" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-producer demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-datagrid-producer demo-local_producer" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_consumer" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-consumer demo-local_consumer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-datagrid-consumer demo-local_consumer" > /dev/null 2>&1
 
 #sh client -r 2 -d 10 "fabric:profile-display default"
 

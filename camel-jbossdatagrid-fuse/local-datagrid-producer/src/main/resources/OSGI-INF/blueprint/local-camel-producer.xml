@@ -25,7 +25,7 @@
       <setHeader headerName="CamelInfinispanValue">
         <simple>${body}</simple>
       </setHeader>
-      <to uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-cache&amp;command=PUT"/>
+      <to uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-store&amp;command=PUT"/>
     </split>
   </route>
 </camelContext>
