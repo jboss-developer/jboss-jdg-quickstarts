@@ -3,13 +3,13 @@ Using __camel_jbossdatagrid__ component
 This quickstart shows how to use the __camel_jbossdatagrid__ component in Fuse 6.2.0
 * Author: Vijay Chintalapati
 
-This quickstart will deploy two bundles __local_cache_producer__ and __local_cache_consumer__ on Fuse, one on each container __child1__ and __child2__ respectivity.
+This quickstart will deploy two bundles __local_datagrid_producer__ and __local_datagrid_consumer__ on Fuse, one on each container __child1__ and __child2__ respectivity.
 
-* __local_cache_producer__ : Scans a folder (/tmp/incoming) for incoming CSV files of the format "id, firstName, lastName, age". If a file is dropped with entries in the given format, each entry is read and transformed into a Person POJO and stored in the data grid
+* __local_datagrid_producer__ : Scans a folder (/tmp/incoming) for incoming CSV files of the format "id, firstName, lastName, age". If a file is dropped with entries in the given format, each entry is read and transformed into a Person POJO and stored in the data grid
 
-* __local_cache_consumer__ : Lets you query for a POJO using a RESTful interface and get back  a JSON representation of the Person POJO stored in the data grid for the given key
+* __local_datagrid_consumer__ : Lets you query for a POJO using a RESTful interface and get back  a JSON representation of the Person POJO stored in the data grid for the given key
  
-_The bundles reside in two different containers and the reason why the consumer is able to extract what the producer has put in, is because of the use of same configuration in files: infinispan.xml and jgroups.xml on both sides. The infinispan.xml file has a **REPL (replicated)** cache definition by the name **camel-cache** and this is the cache with which the producer and consume interact_
+_The bundles reside in two different containers and the reason why the consumer is able to extract what the producer has put in, is because of the use of same configuration in files: infinispan.xml and jgroups.xml on both sides. The infinispan.xml file has a **REPL (replicated)** datagrid definition by the name **camel-datastore** and this is the datagrid with which the producer and consume interact_
 
 Prerequisites
 -------------
@@ -54,7 +54,7 @@ It's also possible to open multiple browsers and connect them and verify that al
 
 How does it work
 ----------------
-1. The local\_cache_producer will listen to incoming files in the folder $incomingFolderPath. It will transform each line in the CSV to Java object and store them in the local datagrid.
+1. The local\_datagrid_producer will listen to incoming files in the folder $incomingFolderPath. It will transform each line in the CSV to Java object and store them in the local datagrid.
    ![](images/camel-producer.png)
-2. The local\_cache_consumer will react to events that an entry has been added to the datagrid and will retrieve the Java object, transform it to JSON and push it to WebSocket clients that are connected.   
+2. The local\_datagrid_consumer will react to events that an entry has been added to the datagrid and will retrieve the Java object, transform it to JSON and push it to WebSocket clients that are connected.   
    ![](images/camel-consumer.png)

@@ -31,8 +31,8 @@
     <modules>
         <module>features</module>
         <module>pojos</module>
-        <module>local-cache-consumer</module>
-        <module>local-cache-producer</module>
+        <module>local-datagrid-consumer</module>
+        <module>local-datagrid-producer</module>
     </modules>
 
    <dependencyManagement>
