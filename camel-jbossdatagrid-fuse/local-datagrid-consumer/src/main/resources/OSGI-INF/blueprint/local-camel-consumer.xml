@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/blueprint"
+	xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+	<bean id="cacheManager" class="org.infinispan.manager.DefaultCacheManager"
+		init-method="start" destroy-method="stop">
+		<argument value="infinispan-camel.xml" />
+	</bean>
+
+	<bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat" />
+
+	<camelContext trace="false" id="blueprintContext"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		<route>
+			<from uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-datastore&amp;sync=false&amp;clustered=true&amp;eventTypes=CACHE_ENTRY_CREATED" />
+			<setHeader headerName="CamelInfinispanKey">
+				<simple>${out.header.CamelInfinispanKey}</simple>
+			</setHeader>
+			<to
+				uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-datastore&amp;command=GET" />
+			<setBody>
+				<simple>${header.CamelInfinispanOperationResult}</simple>
+			</setBody>
+			<marshal ref="gson" />
+			<convertBodyTo type="java.lang.String" />
+			<to uri="websocket://localhost:9292/newPersonEvent?sendToAll=true" />
+		</route>
+	</camelContext>
+
+</blueprint>

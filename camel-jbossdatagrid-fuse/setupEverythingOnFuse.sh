@@ -19,7 +19,7 @@ fi
 
 export EXISTING_INSTALL="$FUSE_INSTALL_PATH/$FUSE_VERSION"
 
-echo 
+echo
 echo "FUSE_INSTALL_PATH=$FUSE_INSTALL_PATH"
 echo "FUSE_BINARY_PATH=$FUSE_BINARY_PATH"
 echo "FUSE_VERSION=$FUSE_VERSION"
@@ -35,11 +35,11 @@ echo
 jps -lm | grep karaf | grep -v grep | awk '{print $1}' | xargs kill -KILL
 
 ####################################################################
-# Removing any existing installation, extracting the binary and 
+# Removing any existing installation, extracting the binary and
 # adding an admin user with a default password to Fuse installation
 ####################################################################
 
-if [ -d $EXISTING_INSTALL ]; then 
+if [ -d $EXISTING_INSTALL ]; then
     echo "- Removing existing installation"
     echo
     rm -rf "$FUSE_INSTALL_PATH/$FUSE_VERSION"
@@ -73,7 +73,7 @@ echo
 sleep 20
 
 ####################################################################
-# Starting the client 
+# Starting the client
 ####################################################################
 echo "- Starting the client"
 echo
@@ -81,32 +81,35 @@ pushd $EXISTING_INSTALL/bin > /dev/null
 sh client -r 2 -d 10 "wait-for-service -t 300000 io.fabric8.api.BootstrapComplete" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:create --clean --wait-for-provisioning --global-resolver=manualip --manual-ip=127.0.0.1 --profile fabric" > /dev/null 2>&1
 
-echo "- Fabric created" 
+echo "- Fabric created"
 echo
 sh client -r 2 -d 10 "fabric:container-create-child --profile=fabric root child 2" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/techpreview/all@id=techpreview-all-repository' default" > /dev/null 2>&1
 
-echo "- Containers child1 and child2 created"
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/${CAMEL_JBOSSDATAGRID_VERSION}/xml/features default" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/${JDG_VERSION}/xml/features default" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_producer" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel --version 1.0 demo-local_consumer" > /dev/null 2>&1
+echo "- Containers child and child2 created"
 
-sh client -r 2 -d 10 "fabric:version-create --parent 1.0 --default 1.1" > /dev/null 2>&1
+# Create a base profile and add feature repositories for camel-jbossdatagrid and the project to it
+sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel demo-base" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/ga/@id=jboss-ga-repository' demo-base" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/${CAMEL_JBOSSDATAGRID_VERSION}/xml/features demo-base" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/${JDG_VERSION}/xml/features demo-base" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_producer 1.1" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-producer demo-local_producer 1.1" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_consumer 1.1" > /dev/null 2>&1
-sh client -r 2 -d 10 "fabric:profile-edit --features local-cache-consumer demo-local_consumer 1.1" > /dev/null 2>&1
+# Create profiles for local_producer and local_consumer
+sh client -r 2 -d 10 "fabric:profile-create --parents demo-base demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-create --parents demo-base demo-local_consumer" > /dev/null 2>&1
 
-sh client -r 2 -d 10 "fabric:profile-display default"
+# Add camel-jbossdatagrid and project features to the profile
+sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-datagrid-producer demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features camel-jbossdatagrid demo-local_consumer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:profile-edit --features local-datagrid-consumer demo-local_consumer" > /dev/null 2>&1
 
-echo "- Applying local_producer profile to child1 and local_consumer profile to child2"
+#sh client -r 2 -d 10 "fabric:profile-display default"
+
+echo "- Applying local_producer profile to child and local_consumer profile to child2"
 echo
-sh client -r 2 -d 10 "fabric:container-add-profile child demo-local_producer"
-sh client -r 2 -d 10 "fabric:container-add-profile child2 demo-local_consumer"
-sh client -r 2 -d 10 "container-upgrade --all 1.1"
+sh client -r 2 -d 10 "fabric:container-add-profile child demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:container-add-profile child2 demo-local_consumer" > /dev/null 2>&1
 
 popd > /dev/null
 

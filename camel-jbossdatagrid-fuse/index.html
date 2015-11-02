@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Person Listeners</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+	var wsocket;
+	var isConnected=false;
+
+	function openWebSocket() {
+
+	    var wsurl = "ws://localhost:9292/newPersonEvent";
+	    wsocket = new WebSocket(wsurl);
+	    isConnected=true;
+	    wsocket.onmessage = function(evt) {
+	        var person = JSON.parse(evt.data);
+	        console.log("onMessage: " + person);
+	        addPersonToTable(person);
+	    }
+	    wsocket.onerror = function(evt) {
+	        console.error(evt);
+	        alert("Failed to connecto to " + wsurl +  ". Are you sure that the server has started yet?");
+	        isConnected=false;
+	    }
+	    waitForSocketConnection(wsocket, function() {
+	    	console.log("WebSocket connected!");
+	    	$("#connectButton").text("Disconnect");
+        	$("#personTable").removeClass("hidden");
+        	isConnected=true;
+	    });
+	    
+	}
+
+	function toogleConnect() {
+		if(isConnected) {
+			wsocket.close();
+			$("#connectButton").text("Connect");
+	        $("#personTable").addClass("hidden");
+	        isConnected=false;
+	        clearPersonTable();
+		} else {
+			openWebSocket();
+		}
+	}
+
+	function addPersonToTable(person) {
+		$('#personTable > tbody:last-child')
+	    	.append($("<tr>")
+	    		.append($("<td>")
+	    			.append(person.id)
+	    		)
+	    		.append($("<td>")
+	    			.append(person.firstName + " " + person.lastName)
+	    		)
+	    		.append($("<td>")
+	    			.append(person.age)
+	    	    )
+	    	);
+	}
+
+	function clearPersonTable() {
+		$('#personTable > tbody').empty();
+	}
+
+	function waitForSocketConnection(socket, callback) {
+	    setTimeout(function() {
+	        if (socket.readyState === 1) {
+	            if (callback !== undefined) {
+	                callback();
+	            }
+	            return;
+	        } else {
+	            waitForSocketConnection(socket, callback);
+	        }
+	    }, 5);
+	};
+
+</script>
+</head>
+<body style="margin: 20px">
+<h1>Camel-jbossdatagrid example</h1>
+<p>This example uses websockets to listen to events from the JBoss Data Grid via JBoss Fuse. When connected a table will be appear below that is populated with events from the Data Grid (via websockets)</p>
+
+<p>Persons are added by providing a CSV file that will be processed by JBoss Fuse</p>
+
+<p>How to add persons via command line in a *NIX platform:</p>
+<p><code>$ echo "99,Diego,Maradona,75" > $incomingFolderPath/sample.csv</code></p>
+<p>Or add a list of playes in a CSV file like this:</p>
+<p><code>$ cat best-fotbollplayers-2015.csv > $incomingFolderPath/sample.csv</code></p>
+
+<p><i>Environment varialbe $incomingFolderPath should be set at build time see README.md for more details</i></p>
+
+<button type="button" class="btn btn-default" id="connectButton" onclick="toogleConnect()">Connect</button>
+<p></p>
+
+<table id="personTable" class="table table-striped hidden">
+	<thead><tr><th>ID</th><th>NAME</th><th>AGE</th></thead>
+	<tbody>
+
+	</tbody>
+</table>
+
+
+</form>
+
+</body>
+</html>

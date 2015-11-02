@@ -10,7 +10,7 @@
         </transport>
         <globalJmxStatistics allowDuplicateDomains="true"/>
     </global>
-    <namedCache name="camel-cache">
+    <namedCache name="camel-datastore">
         <clustering mode="repl">
             <sync/>
         </clustering>
