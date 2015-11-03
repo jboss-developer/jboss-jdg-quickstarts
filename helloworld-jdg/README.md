@@ -34,7 +34,7 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
 Start first instance of EAP
@@ -60,9 +60,7 @@ Start second instance of EAP
 Build and Deploy the Quickstart
 -------------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must
-include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts)
-for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. 
 
 1. Make sure you have started both instances of EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.

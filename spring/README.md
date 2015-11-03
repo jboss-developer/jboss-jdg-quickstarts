@@ -26,14 +26,10 @@ All you need to build this project is Java 7.0 (Java SDK 1.7) or better, Maven 3
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 Build the Quickstart
 --------------------
-
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must
-include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts)
-for complete instructions and additional options._
 
 Type this command to build the quickstart:
 
