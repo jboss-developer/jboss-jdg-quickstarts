@@ -46,7 +46,8 @@ public final class Deployments {
             .addPackage(Config.class.getPackage())
             .addPackage(GreetingService.class.getPackage())
             .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
-            .addAsLibraries(new File("target/test-libs/infinispan-cdi.jar"),
+            .addAsLibraries(new File("target/test-libs/infinispan-cdi-embedded.jar"),
+                            new File("target/test-libs/infinispan-cdi-common.jar"),
                             new File("target/test-libs/infinispan-core.jar"),
                             new File("target/test-libs/infinispan-commons.jar"),
                             new File("target/test-libs/infinispan-jcache.jar"),
