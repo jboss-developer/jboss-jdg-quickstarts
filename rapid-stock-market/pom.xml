@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.jboss.quickstarts.jdg</groupId>
    <artifactId>rapid-stock-market</artifactId>
-   <version>6.6.0.ER2-redhat-1</version>
+   <version>6.6.0-redhat-SNAPSHOT</version>
 
    <name>JBoss JDG Quickstart: rapid-stock-market</name>
    <description>This quickstart demonstrates the compatibility mode functionality</description>
