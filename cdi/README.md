@@ -71,4 +71,4 @@ In order to run those test, please do the following steps:
 1. Start EAP/Wildfly
 2. Build the quickstart using:
 
-        mvn clean test -Pwildfly-remote
+        mvn clean test -Peap-remote
