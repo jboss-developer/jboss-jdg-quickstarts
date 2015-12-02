@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart</artifactId>
-    <version>6.6.0.ER3-redhat-1</version>
+    <version>6.6.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart</name>
     <description>CarMart Single Node (No Cluster)</description>
