@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod, Remote Query
 Summary: Demonstrates how to query Infinispan remotely using the Hot Rod client.
 Target Product: JDG
-Product Versions: JDG 6.x
+Product Versions: JDG 6.6
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -13,7 +13,8 @@ What is it?
 
 Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
 
-This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, remove and query data from cache using the Hot Rod protocol. It is a simple address book manager console application that allows you to create, edit and remove Persons, manage a list of phone numbers for each Person, query and print the contents of the data grid, all using the Hot Rod based connector.
+This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, remove and query data from cache using the Hot Rod protocol. It contains two sample applications. One is a simple address book manager console application (AddressBookManager) that allows
+you to create, edit and remove Persons, manage a list of phone numbers for each Person, query and print the contents of the data grid, all using the Hot Rod based connector. The second one (SnowForecast) is similar but it focuses on continuous queries and queries with grouping and aggregation.
 
 
 System requirements
@@ -21,7 +22,7 @@ System requirements
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or newer, Maven 3.0 or newer.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.x
+The application this project produces is designed to be run on JBoss Data Grid 6.6
 
  
 Configure Maven
@@ -67,7 +68,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.3" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:6.4" default-cache-container="local">
             <cache-container name="local" default-cache="default" statistics="true">
                 <local-cache name="default" start="EAGER">
                     <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -157,11 +158,15 @@ _NOTE: The following build command assumes you have configured your Maven user s
 5. Run the example application in its directory:
 
         mvn exec:java
+
+This will execute the AddressBookManager application by default. To run the SnowForecast application you will need to activate the SnowForecast profile.
+    
+        mvn exec:java -PSnowForecast
  
 
 Using the application
 ---------------------
-Basic usage scenarios can look like this (keyboard shortcuts will be shown to you upon start):
+Basic usage scenarios can look like this (keyboard actions will be shown to you upon start):
 
     Available actions:
     0. Display available actions
@@ -169,13 +174,16 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
     2. Remove person
     3. Add phone to person
     4. Remove phone from person
-    5. Display all persons
-    6. Query persons by name
-    7. Query persons by phone
-    8. Quit
+    5. Query persons by name
+    6. Query persons by phone
+    7. Add memo
+    8. Query memo by author
+    9. Display all cache entries
+    10. Clear cache
+    11. Quit    
 
         
-Type `8` to exit the application.
+Type `11` to exit the application.
 
 Run application with different classpath
 ----------------------------------------

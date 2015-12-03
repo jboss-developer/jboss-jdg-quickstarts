@@ -50,6 +50,8 @@ import java.util.List;
 import java.util.Properties;
 
 /**
+ * A simple demo for remote query capabilities.
+ *
  * @author Adrian Nistor
  */
 public class AddressBookManager {
@@ -72,14 +74,15 @@ public class AddressBookManager {
          "7. Add memo\n" +
          "8. Query memo by author\n" +
          "9. Display all cache entries\n" +
-         "10. Quit\n";
+         "10. Clear cache\n" +
+         "11. Quit\n";
 
    private RemoteCacheManager cacheManager;
 
    /**
-    * A cache that hold both Person and Memo objects.
+    * A cache that holds both Person and Memo objects.
     */
-   private RemoteCache<Integer, Object> addressbookCache;
+   private RemoteCache<Integer, Object> remoteCache;
 
    public AddressBookManager() throws Exception {
       final String host = jdgProperty(SERVER_HOST);
@@ -93,8 +96,8 @@ public class AddressBookManager {
             .marshaller(new ProtoStreamMarshaller());  // The Protobuf based marshaller is required for query capabilities
       cacheManager = new RemoteCacheManager(builder.build());
 
-      addressbookCache = cacheManager.getCache(cacheName);
-      if (addressbookCache == null) {
+      remoteCache = cacheManager.getCache(cacheName);
+      if (remoteCache == null) {
          throw new RuntimeException("Cache '" + cacheName + "' not found. Please make sure the server is properly configured");
       }
 
@@ -133,7 +136,7 @@ public class AddressBookManager {
    private void queryPersonByName() {
       String namePattern = readConsole("Enter person name pattern: ");
 
-      QueryFactory qf = Search.getQueryFactory(addressbookCache);
+      QueryFactory qf = Search.getQueryFactory(remoteCache);
       Query query = qf.from(Person.class)
             .having("name").like(namePattern).toBuilder()
             .build();
@@ -148,7 +151,7 @@ public class AddressBookManager {
    private void queryPersonByPhone() {
       String phoneNumber = readConsole("Enter phone number: ");
 
-      QueryFactory qf = Search.getQueryFactory(addressbookCache);
+      QueryFactory qf = Search.getQueryFactory(remoteCache);
       Query query = qf.from(Person.class)
             .having("phone.number").eq(phoneNumber).toBuilder()
             .build();
@@ -169,22 +172,26 @@ public class AddressBookManager {
       person.setName(name);
       person.setEmail(email);
 
+      if (remoteCache.containsKey(person.getId())) {
+         System.out.println("Updating person with id " + person.getId());
+      }
+
       // put the Person in cache
-      addressbookCache.put(person.getId(), person);
+      remoteCache.put(person.getId(), person);
    }
 
    private void removePerson() {
       int id = Integer.parseInt(readConsole("Enter person id to remove (int): "));
 
       // remove from cache
-      Person prevValue = (Person) addressbookCache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
+      Person prevValue = (Person) remoteCache.withFlags(Flag.FORCE_RETURN_VALUE).remove(id);
       System.out.println("Removed: " + prevValue);
    }
 
    private void addPhone() {
       System.out.println("Adding a phone number to a person");
       int id = Integer.parseInt(readConsole("Enter person id (int): "));
-      Person person = (Person) addressbookCache.get(id);
+      Person person = (Person) remoteCache.get(id);
       if (person == null) {
          System.out.println("Person not found");
          return;
@@ -204,13 +211,13 @@ public class AddressBookManager {
       person.setPhones(phones);
 
       // update the Person in cache
-      addressbookCache.put(person.getId(), person);
+      remoteCache.put(person.getId(), person);
    }
 
    private void removePhone() {
       System.out.println("Removing a phone number from a person");
       int id = Integer.parseInt(readConsole("Enter person id (int): "));
-      Person person = (Person) addressbookCache.get(id);
+      Person person = (Person) remoteCache.get(id);
       if (person == null) {
          System.out.println("Person not found");
          return;
@@ -226,17 +233,21 @@ public class AddressBookManager {
          person.getPhones().remove(idx);
 
          // update the Person in cache
-         addressbookCache.put(person.getId(), person);
+         remoteCache.put(person.getId(), person);
       } else {
          System.out.println("The person does not have any phones");
       }
    }
 
    private void printAllEntries() {
-      for (int id : addressbookCache.keySet()) {
-         Object entry = addressbookCache.get(id);
-         System.out.println(entry);
+      for (Integer key : remoteCache.keySet()) {
+         System.out.println(remoteCache.get(key));
       }
+   }
+
+   private void clearCache() {
+      remoteCache.clear();
+      System.out.println("Cache cleared.");
    }
 
    private void addMemo() {
@@ -245,7 +256,7 @@ public class AddressBookManager {
       Memo.Priority priority = Memo.Priority.valueOf(readConsole("Enter priority " + EnumSet.allOf(Memo.Priority.class) + ": ").toUpperCase());
 
       int authorId = Integer.parseInt(readConsole("Enter author id (int): "));
-      Person author = (Person) addressbookCache.get(authorId);
+      Person author = (Person) remoteCache.get(authorId);
       if (author == null) {
          System.out.println("Person not found");
          return;
@@ -259,13 +270,13 @@ public class AddressBookManager {
       memo.setAuthor(author);
 
       // put the Memo in cache
-      addressbookCache.put(memo.getId(), memo);
+      remoteCache.put(memo.getId(), memo);
    }
 
    private void queryMemoByAuthor() {
       String namePattern = readConsole("Enter person name pattern: ");
 
-      QueryFactory qf = Search.getQueryFactory(addressbookCache);
+      QueryFactory qf = Search.getQueryFactory(remoteCache);
       Query query = qf.from(Memo.class)
             .having("author.name").like(namePattern).toBuilder()
             .build();
@@ -292,7 +303,7 @@ public class AddressBookManager {
                continue;
             }
             action = action.trim();
-            if (action.length() == 0) {
+            if (action.isEmpty()) {
                continue;
             }
 
@@ -317,6 +328,8 @@ public class AddressBookManager {
             } else if ("9".equals(action)) {
                manager.printAllEntries();
             } else if ("10".equals(action)) {
+               manager.clearCache();
+            } else if ("11".equals(action)) {
                System.out.println("Bye!");
                break;
             } else {
