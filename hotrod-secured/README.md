@@ -83,7 +83,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:6.2">
+        <subsystem xmlns="urn:infinispan:server:core:6.3">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>

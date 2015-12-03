@@ -70,15 +70,7 @@
         <!-- Import the infinispan core -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Import the Infinispan client hotrod -->
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-client-hotrod</artifactId>
-            <scope>compile</scope>
+            <artifactId>infinispan-remote</artifactId>
         </dependency>
     </dependencies>
 

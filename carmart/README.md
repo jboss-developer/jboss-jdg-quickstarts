@@ -152,6 +152,6 @@ Test the Application in Client-Server mode (using HotRod client)
 
 5. Type this command to run the tests:
 
-        mvn test -Puitests-remote -Das7home=/path/to/as/server -DjdgServer=/path/to/jdg/server
+        mvn test -Puitests-remote -Das7home=/path/to/as/server -DjdgHome=/path/to/jdg/server
 
 

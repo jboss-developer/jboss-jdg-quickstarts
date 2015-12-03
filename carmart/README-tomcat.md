@@ -86,7 +86,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-    mvn -Plibrary-tomcat tomcat:undeploy
+        mvn -Plibrary-tomcat tomcat:undeploy
 
 
 Build and Start the Application in Client-Server Mode (using HotRod client)
@@ -96,7 +96,7 @@ Build and Start the Application in Client-Server Mode (using HotRod client)
 
 2. Configure the remote datagrid in the `$JDG_HOME/standalone/configuration/standalone.xml` file. Copy the following XML into the Infinispan subsystem before the ending </cache-container> tag. If you have an existing `carcache` element, be sure to replace it with this one.
        
-            <local-cache name="carcache" start="EAGER" batching="false"/>
+        <local-cache name="carcache" start="EAGER" batching="false"/>
    
 3. Start the JDG server on localhost using port offset: 
     

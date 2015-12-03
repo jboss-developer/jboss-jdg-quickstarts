@@ -111,8 +111,7 @@
 
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
+            <artifactId>infinispan-embedded</artifactId>
         </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is included
@@ -121,6 +120,11 @@
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
         </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included
