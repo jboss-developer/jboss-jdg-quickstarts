@@ -44,16 +44,22 @@
       <commons.httpclient.version>3.1</commons.httpclient.version>
    </properties>
 
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-bom</artifactId>
+            <version>${version.org.infinispan}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
    <dependencies>
       <dependency>
          <groupId>org.infinispan</groupId>
-         <artifactId>infinispan-core</artifactId>
-         <version>${version.org.infinispan}</version>
-      </dependency>
-      <dependency>
-         <groupId>org.infinispan</groupId>
-         <artifactId>infinispan-client-hotrod</artifactId>
-         <version>${version.org.infinispan}</version>
+         <artifactId>infinispan-remote</artifactId>
       </dependency>
       <dependency>
          <groupId>commons-httpclient</groupId>

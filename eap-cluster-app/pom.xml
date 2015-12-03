@@ -79,6 +79,7 @@
                 <artifactId>infinispan-bom</artifactId>
                 <version>${version.org.infinispan}</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any 
               dependencies from org.jboss.spec will have their version defined by this 

@@ -68,17 +68,7 @@
         <!-- Import the Infinispan client hotrod -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-client-hotrod</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-query-dsl</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-remote-query-client</artifactId>
+            <artifactId>infinispan-remote</artifactId>
         </dependency>
     </dependencies>
 

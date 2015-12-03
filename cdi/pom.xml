@@ -98,11 +98,7 @@
         <!-- Infinispan dependency -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-cdi-embedded</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-jcache</artifactId>
+            <artifactId>infinispan-embedded</artifactId>
         </dependency>
 
         <!-- Test dependencies -->

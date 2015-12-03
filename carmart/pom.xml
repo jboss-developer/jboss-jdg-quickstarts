@@ -27,7 +27,7 @@
 
         <!-- JBoss dependency versions -->
         <com.ocpsoft.prettyfaces.version>3.3.2</com.ocpsoft.prettyfaces.version>
-        <version.jboss.weld>1.1.8.Final</version.jboss.weld>
+        <version.jboss.weld>1.1.31.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.0.2</version.com.sun.faces.jsf.impl>
 
         <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
@@ -37,6 +37,9 @@
         <version.org.infinispan>6.4.0.ER3-redhat-1</version.org.infinispan>
 
         <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+
+        <version.commons.logging>1.1.1</version.commons.logging>
+        <version.commons.codec>1.10</version.commons.codec>
 
         <!-- other plugin versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
@@ -128,6 +131,19 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- this commons-codec dep has to be at the top so as to prevent errors like this one:
+             https://issues.jboss.org/browse/ARQ-1456 -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${version.commons.codec}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${version.commons.logging}</version>
+        </dependency>
 
         <!-- First declare the APIs we depend on and need for compilation. 
             The dependencies with provided scope are provided by JBoss AS 7, The other 
@@ -152,8 +168,12 @@
         <!-- Import the infinispan core -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <scope>compile</scope>
+            <artifactId>infinispan-embedded</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
         </dependency>
 
         <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
@@ -276,7 +296,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-client-hotrod</artifactId>
+                    <artifactId>infinispan-remote</artifactId>
                 </dependency>
             </dependencies>
             <build>
@@ -467,7 +487,7 @@
                 Rod client -->
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-client-hotrod</artifactId>
+                    <artifactId>infinispan-remote</artifactId>
                 </dependency>
 
             </dependencies>
