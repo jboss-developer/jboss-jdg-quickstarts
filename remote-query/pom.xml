@@ -39,8 +39,6 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Defines the main class to be execute when running java -jar command -->
-        <main.class.remote-query>org.jboss.as.quickstarts.datagrid.hotrod.query.AddressBookManager</main.class.remote-query>
         <version.org.infinispan>6.4.0.ER4-redhat-1</version.org.infinispan>
 
         <!-- other plugin versions -->
@@ -75,28 +73,68 @@
     <build>
         <!-- Maven will append the version to the finalName (which is the name given to the generated jar) -->
         <finalName>${project.artifactId}</finalName>
-
-        <plugins>
-            <!-- This plugin permits the execution of this quickstart through mvn exec:java command -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>${main.class.remote-query}</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
     <profiles>
+        <profile>
+            <id>AddressBookManager</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Defines the main class to be execute when running java -jar command -->
+                <main.class.remote-query>org.jboss.as.quickstarts.datagrid.hotrod.query.AddressBookManager</main.class.remote-query>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- This plugin permits the execution of this quickstart through mvn exec:java command -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>${main.class.remote-query}</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>SnowForecast</id>
+            <properties>
+                <!-- Defines the main class to be execute when running java -jar command -->
+                <main.class.remote-query>org.jboss.as.quickstarts.datagrid.hotrod.query.SnowForecast</main.class.remote-query>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- This plugin permits the execution of this quickstart through mvn exec:java command -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>${main.class.remote-query}</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>custom-classpath</id>
             <build>
