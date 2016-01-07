@@ -104,6 +104,7 @@ Configure JDG
                 <!-- End of local cache called 'teams' definition -->
 
             </cache-container>
+            <cache-container name="security"/>
         </subsystem>
 
 4. Disable REST endpoint security: by default the standalone.xml configuration protects the REST endpoint with BASIC authentication. Since this quickstart cannot perform authentication, the REST connector should be configured without it:

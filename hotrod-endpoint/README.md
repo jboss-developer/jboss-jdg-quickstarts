@@ -104,6 +104,7 @@ Configure JDG
                 <!-- End of local cache called 'teams' definition -->
 
             </cache-container>
+            <cache-container name="security"/>
         </subsystem>
 
 Start JDG

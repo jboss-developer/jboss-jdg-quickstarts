@@ -130,6 +130,7 @@ Configure JDG
                 <!-- End of 'addressbook' cache definition -->
 
             </cache-container>
+            <cache-container name="security"/>
         </subsystem>
 
 Start JDG
