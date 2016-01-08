@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-memcached-endpoint-quickstart</artifactId>
-    <version>6.6.0-redhat-SNAPSHOT</version>
+    <version>6.6.0.Final-redhat-1</version>
     <name>JBoss JDG Quickstart: memcached-endpoint</name>
 
     <licenses>
