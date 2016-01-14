@@ -206,11 +206,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-        </dependency>
-
         <!-- Import the infinispan core -->
         <dependency>
             <groupId>org.infinispan</groupId>

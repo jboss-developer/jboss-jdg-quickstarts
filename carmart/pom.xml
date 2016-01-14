@@ -165,17 +165,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the infinispan core -->
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-        </dependency>
-
         <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
         <dependency>
             <groupId>com.ocpsoft</groupId>
@@ -242,6 +231,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.infinispan</groupId>
+                    <artifactId>infinispan-embedded</artifactId>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -291,8 +286,7 @@
             a remote JDG running instance -->
         <profile>
             <id>remote-jbossas</id>
-            <!-- To connect to remote JDG, it is necessary to add the Hot 
-                Rod client -->
+            <!-- To connect to remote JDG, it is necessary to add the Hot Rod client -->
             <dependencies>
                 <dependency>
                     <groupId>org.infinispan</groupId>
@@ -348,6 +342,11 @@
                 It has to embed some libraries that aren't available on ews/tomcat. -->
             <id>library-tomcat</id>
             <dependencies>
+
+                <dependency>
+                    <groupId>org.infinispan</groupId>
+                    <artifactId>infinispan-embedded</artifactId>
+                </dependency>
 
                 <!-- Import the JSF 2.1 API -->
                 <dependency>
@@ -452,6 +451,12 @@
             <id>remote-tomcat</id>
             <dependencies>
 
+                <!-- To connect to remote JDG, it is necessary to add the Hot Rod client -->
+                <dependency>
+                    <groupId>org.infinispan</groupId>
+                    <artifactId>infinispan-remote</artifactId>
+                </dependency>
+
                 <!-- Import the JSF 2.1 API -->
                 <dependency>
                     <groupId>org.jboss.spec.javax.faces</groupId>
@@ -481,13 +486,6 @@
                     <artifactId>jsf-impl</artifactId>
                     <version>${version.com.sun.faces.jsf.impl}</version>
                     <scope>runtime</scope>
-                </dependency>
-                
-                <!-- To connect to remote JDG, it is necessary to add the Hot 
-                Rod client -->
-                <dependency>
-                    <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-remote</artifactId>
                 </dependency>
 
             </dependencies>
