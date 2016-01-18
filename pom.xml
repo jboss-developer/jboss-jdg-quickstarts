@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-jdg-quickstarts</artifactId>
-    <version>6.6.0-redhat-SNAPSHOT</version>
+    <version>6.6.0.Final-redhat-2</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: parent</name>
 
@@ -55,7 +55,7 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
         <product.version>6.6.0</product.version>
-        <product.milestone>Final-SNAPSHOT</product.milestone>
+        <product.milestone>CR2</product.milestone>
     </properties>
 
     <profiles>
