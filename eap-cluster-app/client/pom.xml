@@ -35,7 +35,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application</artifactId>
-        <version>6.6.0-redhat-SNAPSHOT</version>
+        <version>6.6.0.Final-redhat-4</version>
     </parent>
 
     <dependencies>
