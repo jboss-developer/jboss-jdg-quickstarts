@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-cdi-quickstart</artifactId>
-    <version>6.6.0.Final-redhat-4</version>
+    <version>6.6.0-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: CDI</name>
