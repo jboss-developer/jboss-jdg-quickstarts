@@ -1,9 +1,17 @@
-Using __camel_jbossdatagrid__ component
-===========================================================
-This quickstart shows how to use the __camel_jbossdatagrid__ component in Fuse 6.2.0
+camel-jbossdatagrid-fuse: Example Using Infinispan Cache on Camel Routes
+=================================================================
 * Author: Vijay Chintalapati, Thomas Qvarnstrom
+* Level: Intermediate
+* Technologies: Infinispan, Camel
+* Summary: The `camel-jbossdatagrid-fuse` quickstart demonstrates how to use Infinispan cache through camel-jbossdatagrid component on JBoss Fuse.
+* Target Product: JDG
+* Product Versions: JDG 6.6, Fuse 6.2
+* Source: <https://github.com/infinispan/jdg-quickstart>
 
-This quickstart will deploy two bundles __local_datagrid_producer__ and __local_datagrid_consumer__ on Fuse, one on each container __child1__ and __child2__ respectively.
+What is it?
+-----------
+
+The `camel-jbossdatagrid-fuse` quickstart will deploy two bundles __local_datagrid_producer__ and __local_datagrid_consumer__ on Fuse, one on each container __child1__ and __child2__ respectively.
 
 * __local_datagrid_producer__ : Scans a folder (/tmp/incoming) for incoming CSV files of the format "id, firstName, lastName, age". If a file is dropped with entries in the given format, each entry is read and transformed into a Person POJO and stored in the data grid
 * __local_datagrid_consumer__ : Lets you query for a POJO using a RESTful interface and get back  a JSON representation of the Person POJO stored in the data grid for the given key

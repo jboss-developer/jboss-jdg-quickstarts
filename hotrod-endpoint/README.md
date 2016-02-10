@@ -1,9 +1,9 @@
-hotrod-endpoint: Use JDG remotely through Hotrod
-================================================
-Author: Tristan Tarrant, Martin Gencur
+hotrod-endpoint: Example Using Remote Access to Cache via HotRod
+=========================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, Hot Rod
-Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol.
+Summary: The `hotrod-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the Hot Rod protocol.
 Target Product: JDG
 Product Versions: JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>

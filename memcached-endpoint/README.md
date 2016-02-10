@@ -1,9 +1,9 @@
-memcached-endpoint: Use JDG remotely through MemCached
-======================================================
-Author: Tristan Tarrant, Martin Gencur
+memcached-endpoint: Example Using Remote Access to Cache via Memcached
+===============================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
-Technologies: Infinispan, Memcached 
-Summary: Demonstrates how to use Infinispan remotely using the Memcached protocol.
+Technologies: Infinispan, Memcached
+Summary: The `memcached-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the Memcached protocol.
 Target Product: JDG
 Product Versions: JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>

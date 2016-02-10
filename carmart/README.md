@@ -1,9 +1,9 @@
-carmart: Basic Infinispan example
-=================================
-Author: Tristan Tarrant, Martin Gencur
+carmart: Example Using Local and Remote Infinispan Cache 
+===================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, CDI
-Summary: Shows how to use Infinispan instead of a relational database.
+Summary: The `carmart` quickstart demonstrates how to configure and access Infinispan cache in a simple web application.
 Target Product: JDG
 Product Versions: EAP 6.x, JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>

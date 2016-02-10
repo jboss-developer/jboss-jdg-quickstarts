@@ -1,9 +1,9 @@
-remote-query: Query JDG remotely through Hotrod
-================================================
+remote-query: Example Using Remote Query via Hot Rod
+==================================
 Author: Adrian Nistor
 Level: Intermediate
-Technologies: Infinispan, Hot Rod, Remote Query
-Summary: Demonstrates how to query Infinispan remotely using the Hot Rod client.
+Technologies: Infinispan, Hot Rod, Remote Query, Protostream
+Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.
 Target Product: JDG
 Product Versions: JDG 6.6
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -13,7 +13,7 @@ What is it?
 
 Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
 
-This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, remove and query data from cache using the Hot Rod protocol. It contains two sample applications. One is a simple address book manager console application (AddressBookManager) that allows
+The `remote-query` quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, remove and query data from cache using the Hot Rod protocol. It contains two sample applications. One is a simple address book manager console application (AddressBookManager) that allows
 you to create, edit and remove Persons, manage a list of phone numbers for each Person, query and print the contents of the data grid, all using the Hot Rod based connector. The second one (SnowForecast) is similar but it focuses on continuous queries and queries with grouping and aggregation.
 
 

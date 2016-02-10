@@ -1,9 +1,9 @@
-rest-endpoint: Use JDG remotely through REST
+rest-endpoint: Example Using Remote Access to Cache via REST
 ============================================
-Author: Tristan Tarrant, Martin Gencur
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, REST
-Summary: Demonstrates how to use Infinispan remotely using the REST protocol.
+Summary: The `rest-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the REST protocol.
 Target Product: JDG
 Product Versions: JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>

@@ -1,17 +1,17 @@
-carmart-tx: Basic Infinispan example with transactions
-=================================================================
-Author: Tristan Tarrant, Martin Gencur
+carmart-tx: Example Using Local Infinispan Cache and Transactions
+========================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
-Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
+Summary: The `carmart-tx` quickstart demonstrates how to configure and access Infinispan cache within a transaction, in a simple web application.
 Target Product: JDG
-Product Versions: EAP 6.1, EAP 6.2, JDG 6.2
+Product Versions: EAP 6.x, JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-Transactional CarMart is a simple web application that uses Infinispan instead of a relational database.
+The `carmart-tx` is a simple web application that uses Infinispan instead of a relational database.
 
 Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc.
 
@@ -25,8 +25,6 @@ Infinispan ships with several transaction manager lookup classes:
 - **JBossStandaloneJTAManagerLookup** : If you're running Infinispan in a standalone environment, this should be your default choice for transaction manager. It's a fully fledged transaction manager based on JBoss Transactions which overcomes all the deficiencies of the dummy transaction manager.
 - **GenericTransactionManagerLookup** : This is a lookup class that locate transaction managers in the most  popular Java EE application servers _(JBoss, JRun4, Resin, Orion, JOnAS, BEA Weblogic, Websphere, Glassfish)_. If no transaction manager can be found, it defaults on the dummy transaction manager.
 - **JBossTransactionManagerLookup** : This lookup class locates the transaction manager running within a JBoss Application Server instance.
-
-
 
 System requirements
 -------------------

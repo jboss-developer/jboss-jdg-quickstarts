@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
-    <artifactId>jboss-cdi-quickstart</artifactId>
+    <artifactId>jboss-cdi-jdg</artifactId>
     <version>7.0.0.DR1-redhat-1</version>
     <packaging>war</packaging>
 

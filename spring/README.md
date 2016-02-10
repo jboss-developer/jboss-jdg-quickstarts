@@ -1,9 +1,9 @@
-spring-jdg: Spring integration example
-====================================
+spring-jdg: Example Using Infinispan Cache in Spring Application
+======================================
 Author: Sebastian Łaskawiec
 Level: Intermediate
 Technologies: Infinispan, Spring Boot
-Summary: Shows how to use Infinispan or JBoss Data Grid with Spring
+Summary: The `spring-jdg` quickstart demonstrates how to use Infinispan in a Spring application.
 Target Product: JDG
 Product Versions: JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -11,7 +11,7 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-Spring-jdg is an example that shows how to use Infinispan or JBoss Data Grid together with Spring.
+The `spring-jdg` quickstart shows how to use Infinispan together with Spring.
 
 In order to simplify the Spring bootstrapping this project uses Spring Boot.
 Infinispan/JBoss Data Grid is configured to use only default values.

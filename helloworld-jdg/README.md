@@ -1,9 +1,9 @@
-helloworld-jdg: Basic Infinispan example
-====================================
+helloworld-jdg: Example Using Simple Infinispan Cache and Servlets
+=========================================
 Author: Burr Sutter, Martin Gencur
 Level: Intermediate
-Technologies: Infinispan, CDI
-Summary: Shows how to use Infinispan in clustered mode, with expiration enabled.
+Technologies: Infinispan, CDI, Servlet, JSF
+Summary: The `helloworld-jdg` quickstart shows how to use Infinispan cache in clustered mode, with expiration enabled, and access it from Servlets or JSF pages.
 Target Product: JDG
 Product Versions: EAP 6.x, JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -11,13 +11,13 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-HelloWorld-JDG is a basic example that shows how to store and retrieve data to/from the cache. Users can access the cache
+The `helloworld-jdg` is a basic example that shows how to store and retrieve data to/from the cache. Users can access the cache
 either from a servlet or from a JSF page through request scoped beans.
 
 Infinispan is configured in clustered distributed mode with synchronous replication. Entries have their lifespan (expiration)
 and are removed from the cache after 60 seconds since last update.
 
-HelloWorld-JDG example works in _Library mode_. In this mode, the application and the data grid are running in the same
+The `helloworld-jdg` example works in _Library mode_. In this mode, the application and the data grid are running in the same
 JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform.
 The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also 
 enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.

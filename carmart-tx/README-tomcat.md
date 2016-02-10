@@ -1,15 +1,17 @@
-carmart-tx: Basic Infinispan example with transactions
-=================================================================
-Author: Tristan Tarrant, Martin Gencur
+carmart-tx: Example Using Local Infinispan Cache and Transactions
+========================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
-Summary: Shows how to use Infinispan instead of a relational database with transactions enabled.
-Product Versions: EWS 2, JDG 6.x
+Summary: The `carmart-tx` quickstart demonstrates how to configure and access Infinispan cache within a transaction, in a simple web application.
+Target Product: JDG
+Product Versions: EWS 2.x, JDG 6.x
+Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-Transactional CarMart is a simple web application that uses Infinispan instead of a relational database.
+The `carmart-tx` quickstart is a simple web application that uses Infinispan instead of a relational database.
 
 Users can list cars, add new cars or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, etc. 
 

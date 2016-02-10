@@ -1,9 +1,9 @@
-hotrod-secured: Use JDG remotely through Hotrod with Secured authentication/authorization
-=========================================================================================
-Author: Tristan Tarrant, Martin Gencur, Vitalii Chepeliuk
+hotrod-secured: Example Using Secured Remote Access to Cache via HotRod
+==============================================
+Author: Vitalii Chepeliuk, Martin Gencur
 Level: Intermediate
 Technologies: Infinispan, Hot Rod
-Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol and secured authentication/authorization.
+Summary: The `hotrod-secured` quickstart demonstrates how to use Infinispan cache remotely using the Hot Rod protocol and secured authentication/authorization.
 Target Product: JDG
 Product Versions: JDG 6.3
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
@@ -13,7 +13,7 @@ What is it?
 
 Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols(Memcached, REST) and allows clients to make decisions about load balancing, failover and data location operations.
 
-This quickstart demonstrates how to connect securely to remote JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows:
+The `hotrod-secured` quickstart demonstrates how to connect securely to remote JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows:
   coach can add or remove players from teams, or print a list of the all players
   player to see information about other players
   in the team using the Hot Rod based connector.

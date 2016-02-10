@@ -1,15 +1,15 @@
-rapid-stock-market: Compatibility Mode example with HotRod and REST
-===================================================================
+rapid-stock-market: Example of Compatibility Mode Between HotRod and REST 
+===============================================
 Author: Martin Gencur
 Level: Intermediate
 Technologies: Infinispan, HotRod, REST
-Summary: Shows how to enable Infinispan compatibility mode so that data can be read/written over different protocols.
+Summary: The `rapid-stock-market` quickstart demonstrates how to enable Infinispan compatibility mode so that data can be read/written over different protocols.
 Target Product: JDG
 Product Versions: EAP 6.x, JDG 6.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
-This quickstart demonstrates the behaviour of a compatibility mode. Updates of shares are
-being stored in a cache via HotRod client and retrieved via HTTP client over REST.
+The `rapid-stock-market` quickstart demonstrates the behaviour of a compatibility mode. Updates of shares are
+being stored in a cache via HotRod client and retrieved via REST client.
 
 The quickstart consists of two applications: a server-side application and client-side application.
 

@@ -1,9 +1,18 @@
-Security in Embedded Cache
-========================
+secure-embedded-cache: Example Using Secured Access to Embedded Cache
+==============================================
+Author: Vijay Chintalapati
+Level: Intermediate
+Technologies: Infinispan, CDI, JAX-RS
+Summary: The `secure-embedded-cache` quickstart demonstrates how cache level authentication and authorization works in an embedded mode of JDG.
+Target Product: JDG
+Product Versions: JDG 6.x
+Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
-This web application demonstrates how security, cache level authentication and authorization, works in embedded mode in JDG 6.3.
+What is it?
+-----------
 
-* Author: Vijay Chintalapati
+The `secure-embedded-cache` quickstart demonstrates how to configure security, authentication and authorization, on embedded Infinispan caches. Users
+can see the cache content in a web browser. The content is produced using JAX-RS.
 
 Prerequisites
 -------------
@@ -19,14 +28,17 @@ Setup
 4. To deploy the __security-domain__ that will be used for Authentication, run the command `mvn jboss-as:execute-commands`
 5. To deploy the packaged webapp, run the command `mvn jboss-as:deploy`
 6. Since we will be using __application-user.properties__ and __application-roles.properties__ files that come with a standard JBoss server installation at path: __$JBOSS_HOME/standalone/configuration__, run the following commands from the bin folder of the server installation
-		
-   	# Add a user who will be a reader. A reader can only read from the cache and cannot
-		# perform any operation that changes the state of the cache or its contents
-		$JBOSS_HOME/bin> ./add-user.sh -a -u readerUser -p readerUserPass9! -r ApplicationRealm -g reader
-		
-		# Add a user who will be an admin. An admin can perform ALL possible operations on 
-		# the cache
-		$JBOSS_HOME/bin> ./add-user.sh -a -u adminUser -p adminUserPass9! -r ApplicationRealm -g admin
+
+    # Add a user who will be a reader. A reader can only read from the cache and cannot
+    # perform any operation that changes the state of the cache or its contents
+
+    $JBOSS_HOME/bin> ./add-user.sh -a -u readerUser -p readerUserPass9! -r ApplicationRealm -g reader
+        
+    # Add a user who will be an admin. An admin can perform ALL possible operations on 
+    # the cache
+
+    $JBOSS_HOME/bin> ./add-user.sh -a -u adminUser -p adminUserPass9! -r ApplicationRealm -g admin
+
 7. Restart the application server to ensure that additions to the files containing the users/roles will be picked up
 8. Considering a very basic setup of the server, the application should now be accessible at the URL: http://127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/
 9. To run the JUnit tests, that test the authentication and authorization of the cache thru the secured webapp, run the command `mvn test` while the JBoss EAP server is still running

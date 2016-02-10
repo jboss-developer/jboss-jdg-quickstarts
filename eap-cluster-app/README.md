@@ -1,9 +1,9 @@
-eap-cluster-app: Example how to use JDG cache from a JBoss EAP application
-==========================================================================
+eap-cluster-app: Example Using Clustered Cache Deployed via JDG modules
+=============================================
 Author: Wolf-Dieter Fink
 Level: Advanced
-Technologies: Infinispan, CDI, Red Hat JBoss Enterprise Application Platform (JBoss EAP)
-Summary: Shows how to use Infinispan from a JBoss EAP application in embedded mode, using JDG modules for EAP
+Technologies: Infinispan, CDI, EJB
+Summary: The `eap-cluster-app` quickstart shows how to access Infinispan cache from a JBoss EAP application using JDG modules for EAP.
 Target Product: JDG
 Product Versions: JBoss EAP 6.x, JDG 6.4+
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -16,7 +16,7 @@ There are three different applications which show:
 - How to create and use an Infinispan clustered cache without having a JBoss EAP cluster
 - JBoss EAP cluster is independent of an Infinispan cluster
 - One JBoss EAP instance can use different Infinispan caches which are members of different Infinispan clusters
-- Programmatic cache configuration using Infinispan API
+- Programmatic cache configuration using Infinispan API and passing in a custom JGroups configuration file
 - File based configuration (administration application App1Cache)
 - Use CDI to inject the cache managers
 
