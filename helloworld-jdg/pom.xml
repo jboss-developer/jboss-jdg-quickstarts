@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-helloworld-jdg</artifactId>
-    <version>7.0.0-redhat-SNAPSHOT</version>
+    <version>7.0.0.DR1-redhat-1</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: helloworld-jdg</name>
 
@@ -27,9 +27,9 @@
         <!-- JBoss dependency versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <version.org.infinispan>8.3.0-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.3.0.DR1-redhat-1</version.org.infinispan>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.3.Final</version.jboss.spec.javaee.6.0>
 
         <!-- other plugin versions -->
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
@@ -37,8 +37,8 @@
         <version.maven.surefire>2.14</version.maven.surefire>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
         <!-- test dependencies versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

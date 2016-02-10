@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart-tx</artifactId>
-    <version>7.0.0-redhat-SNAPSHOT</version>
+    <version>7.0.0.DR1-redhat-1</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart-tx</name>
     <description>Transactional CarMart</description>
@@ -29,9 +29,9 @@
         <version.jboss.weld>1.1.31.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.0.2</version.com.sun.faces.jsf.impl>
 
-        <version.org.infinispan>8.3.0-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.3.0.DR1-redhat-1</version.org.infinispan>
 
-        <version.jboss.spec.javaee.6.0>3.0.2.Final-redhat-4</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.6.0>3.0.3.Final</version.jboss.spec.javaee.6.0>
 
         <version.org.jboss.jbossts.jta.narayana-jta>4.17.15.Final-redhat-4</version.org.jboss.jbossts.jta.narayana-jta>
 
@@ -52,8 +52,8 @@
         <version.maven.surefire>2.14</version.maven.surefire>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
         <!-- test dependencies versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

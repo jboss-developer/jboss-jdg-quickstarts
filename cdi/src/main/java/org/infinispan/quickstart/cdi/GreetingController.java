@@ -28,7 +28,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import static org.infinispan.Version.VERSION;
+//import static org.infinispan.Version.VERSION;
 
 
 /**
@@ -65,6 +65,6 @@ public class GreetingController {
     }
 
     public String getInfinispanVersion() {
-        return VERSION;
+        return "";
     }
 }
