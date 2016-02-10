@@ -5,24 +5,24 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod, Remote Query, Protostream
 Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.
 Target Product: JDG
-Product Versions: JDG 6.6
+Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
+Hot Rod is a binary TCP client-server protocol used in Red Hat JBoss Data Grid (JDG). The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols and allows clients to make decisions about load balancing, failover and data location operations.
 
-The `remote-query` quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, remove and query data from cache using the Hot Rod protocol. It contains two sample applications. One is a simple address book manager console application (AddressBookManager) that allows
+The `remote-query` quickstart demonstrates how to connect remotely to JDG to store, retrieve, remove and query data from cache using the Hot Rod protocol. It contains two sample applications. One is a simple address book manager console application (AddressBookManager) that allows
 you to create, edit and remove Persons, manage a list of phone numbers for each Person, query and print the contents of the data grid, all using the Hot Rod based connector. The second one (SnowForecast) is similar but it focuses on continuous queries and queries with grouping and aggregation.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or newer, Maven 3.0 or newer.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or newer, Maven 3.0 or newer.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.6
+The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.x
 
  
 Configure Maven
@@ -43,7 +43,7 @@ Configure JDG
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.2">
+        <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -68,7 +68,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.4" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default" statistics="true">
                 <local-cache name="default" start="EAGER">
                     <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>

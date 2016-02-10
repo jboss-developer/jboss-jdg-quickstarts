@@ -9,13 +9,13 @@
 
 	<container qualifier="jbossas-managed" default="true">
 		<configuration>
-			<property name="jbossHome">${as7home}</property>
+			<property name="jbossHome">${eapHome}</property>
 		</configuration>
 	</container>
 
 	<container qualifier="tomcat-managed-7" default="false">
 		<configuration>
-			<property name="catalinaHome">${tomcat7home}</property>
+			<property name="catalinaHome">${tomcatHome}</property>
 			<property name="user">admin</property>
 			<property name="pass">admin</property>
 		</configuration>
@@ -26,7 +26,7 @@
 		<container qualifier="eapContainer" managed="true" default="true">
 			<configuration>
 				<property name="managementPort">9999</property>
-				<property name="jbossHome">${as7home}</property>
+				<property name="jbossHome">${eapHome}</property>
 			</configuration>
 		</container>
 		<container qualifier="jdgContainer" managed="true">

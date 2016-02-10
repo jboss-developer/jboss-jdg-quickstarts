@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI
 Summary: The `carmart` quickstart demonstrates how to configure and access Infinispan cache in a simple web application.
 Target Product: JDG
-Product Versions: EAP 6.x, JDG 6.x
+Product Versions: JDG 7.x, EAP 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -19,15 +19,15 @@ The CarMart quickstart can work in two modes:
 
 * _Library mode_  - In this mode, the application and the data grid are running in the same JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform. The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.
 
-* _Client-server mode_ - In this mode, the Cache is stored in  a managed, distributed and clusterable data grid server.  Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs. This web application bundles only the HotRod client and communicates with a remote JBoss Data Grid (JDG) server. The JDG server is configured via the `standalone.xml` configuration file.
+* _Client-server mode_ - In this mode, the Cache is stored in  a managed, distributed and clusterable data grid server.  Applications can remotely access the data grid server using Hot Rod, memcached or REST client APIs. This web application bundles only the HotRod client and communicates with a remote Red Hat JBoss Data Grid (JDG) server. The JDG server is configured via the `standalone.xml` configuration file.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java SDK 1.8 or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
  
 Configure Maven
@@ -55,7 +55,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
         
 4. This will deploy `target/jboss-carmart.war` to the running instance of the server.
  
@@ -73,7 +73,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Debug the Application
@@ -98,19 +98,19 @@ To run these tests on EAP:
 
 4. Type this command to run the tests:
 
-        mvn test -Puitests-jbossas -Das7home=/path/to/server
+        mvn test -Puitests-eap -DeapHome=/path/to/eap/server
 
 
 Build and Start the Application in Client-Server Mode (using HotRod Client)
 ---------------------------------------------------------------------------
 
-NOTE: The application must be deployed to JBoss Enterprise Application Platform (EAP). It can not be deployed to JDG since it does not support deployment of applications.
+NOTE: The application must be deployed to Red Hat JBoss Enterprise Application Platform (EAP). It can not be deployed to JDG since it does not support deployment of applications.
 
 1. Obtain the JDG server distribution. See the following for more information: <http://www.redhat.com/products/jbossenterprisemiddleware/data-grid/>
 
 2. Configure the remote datagrid in the `$JDG_HOME/standalone/configuration/standalone.xml` file. Copy the following XML into the Infinispan subsystem before the ending </cache-container> tag. If you have an existing `carcache` element, be sure to replace it with this one.
        
-            <local-cache name="carcache" start="EAGER" batching="false"/>
+            <local-cache name="carcache" start="EAGER"/>
    
 3. Start the JDG server on localhost using port offset: 
     
@@ -127,17 +127,17 @@ NOTE: The application must be deployed to JBoss Enterprise Application Platform 
 
 6. Build the application in the example's directory:
 
-        mvn clean package -Premote-jbossas
+        mvn clean package -Premote-eap
 
 7. Deploy the application
 
-        mvn jboss-as:deploy -Premote-jbossas
+        mvn wildfly:deploy -Premote-eap
 
 8. The application will be running at the following URL: <http://localhost:8080/jboss-carmart/>
 
 9. Undeploy the application
 
-        mvn jboss-as:undeploy -Premote-jbossas
+        mvn wildfly:undeploy -Premote-eap
 
 
 Test the Application in Client-Server mode (using HotRod client)
@@ -148,10 +148,10 @@ Test the Application in Client-Server mode (using HotRod client)
 3. Open a command line and navigate to the root directory of this quickstart.
 4. Build the quickstart using:
 
-        mvn clean package -Premote-jbossas
+        mvn clean package -Premote-eap
 
 5. Type this command to run the tests:
 
-        mvn test -Puitests-remote -Das7home=/path/to/as/server -DjdgHome=/path/to/jdg/server
+        mvn test -Puitests-remote -DeapHome=/path/to/eap/server -DjdgHome=/path/to/jdg/server
 
 

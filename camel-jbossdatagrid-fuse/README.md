@@ -5,7 +5,7 @@ camel-jbossdatagrid-fuse: Example Using Infinispan Cache on Camel Routes
 * Technologies: Infinispan, Camel
 * Summary: The `camel-jbossdatagrid-fuse` quickstart demonstrates how to use Infinispan cache through camel-jbossdatagrid component on JBoss Fuse.
 * Target Product: JDG
-* Product Versions: JDG 6.6, Fuse 6.2
+* Product Versions: JDG 7.x, Fuse 6.2
 * Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -21,7 +21,7 @@ _The bundles reside in two different containers and the reason why the consumer 
 System requirements
 -------------------
 
-All you need to build this project is Java SDK 1.7 or better, Maven 3.0 or better.
+All you need to build this project is Java SDK 1.8 or better, Maven 3.0 or better.
 
 The application this project produces is designed to be run on JBoss Fuse 6.2.0 or later.
  

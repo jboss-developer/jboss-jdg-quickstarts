@@ -5,13 +5,13 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod
 Summary: The `hotrod-secured` quickstart demonstrates how to use Infinispan cache remotely using the Hot Rod protocol and secured authentication/authorization.
 Target Product: JDG
-Product Versions: JDG 6.3
+Product Versions: JDG 7.x
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
 What is it?
 -----------
 
-Hot Rod is a binary TCP client-server protocol used in JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols(Memcached, REST) and allows clients to make decisions about load balancing, failover and data location operations.
+Hot Rod is a binary TCP client-server protocol used in Red Hat JBoss Data Grid. The Hot Rod protocol facilitates faster client and server interactions in comparison to other text based protocols(Memcached, REST) and allows clients to make decisions about load balancing, failover and data location operations.
 
 The `hotrod-secured` quickstart demonstrates how to connect securely to remote JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Hot Rod protocol. It is a simple Football Manager console application allows:
   coach can add or remove players from teams, or print a list of the all players
@@ -21,8 +21,8 @@ The `hotrod-secured` quickstart demonstrates how to connect securely to remote J
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or higher, Maven 3.0 or higher.
-The application this project produces is designed to be run on JBoss Data Grid 6.3
+All you need to build this project is Java 8.0 (Java SDK 1.8) or higher, Maven 3.0 or higher.
+The application this project produces is designed to be run on JBoss Data Grid 7.x
 
 Configure Maven
 ---------------
@@ -31,7 +31,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 
 Hot Rod authentication
 ----------------------
-The Hot Rod protocol supports authentication since version 2.0 (Infinispan 7.0) by leveraging the SASL mechanisms. The supported SASL mechanisms (usually shortened as mechs) are:
+The Hot Rod protocol supports authentication since version 2.0 by leveraging the SASL mechanisms. The supported SASL mechanisms (usually shortened as mechs) are:
 
 * PLAIN - This is the most insecure mech, since credentials are sent over the wire in plain-text format, however it is the simplest to get to work. In combination with encryption (i.e. SSL) it can be used safely
 * DIGEST-MD5 - This mech hashes the credentials before sending them over the wire, so it is more secure than PLAIN
@@ -63,7 +63,7 @@ Configure JDG
 * Enpoint subsystem definition:
   The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
 
-        <subsystem xmlns="urn:infinispan:server:endpoint:6.1">
+        <subsystem xmlns="urn:infinispan:server:endpoint:8.0">
             <hotrod-connector socket-binding="hotrod" cache-container="local">
                 <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
                 <authentication security-realm="ApplicationRealm">
@@ -83,7 +83,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:6.3">
+        <subsystem xmlns="urn:infinispan:server:core:8.0">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>
@@ -113,8 +113,8 @@ Start JDG
 Add new users to ApplicationRealm
 ---------------------------------
 
-        <JDG_HOME>/bin/add-user.sh -a -u 'coach'      -p 'coachPass9!' -ro coach
-        <JDG_HOME>/bin/add-user.sh -a -u 'player'     -p 'playerPass9!' -ro player
+        $JDG_HOME/bin/add-user.sh -a -u 'coach'      -p 'coachPass9!' -ro coach
+        $JDG_HOME/bin/add-user.sh -a -u 'player'     -p 'playerPass9!' -ro player
 
 Hot Rod client configuration
 ----------------------------

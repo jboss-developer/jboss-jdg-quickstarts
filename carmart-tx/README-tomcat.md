@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
 Summary: The `carmart-tx` quickstart demonstrates how to configure and access Infinispan cache within a transaction, in a simple web application.
 Target Product: JDG
-Product Versions: EWS 2.x, JDG 6.x
+Product Versions: JDG 7.x, EAP 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -17,17 +17,17 @@ Users can list cars, add new cars or remove them from the CarMart. Information a
 
 The Transactional CarMart quickstart works in a library mode. All libraries (jar files) are bundled with the application and deployed to the server. Caches are configured programatically and run in the same JVM as the web application.
 
-All operations are done in a transactional context. In order to run the application in JBoss Enterprise Web Server 2 (EWS) or Tomcat 7, the standalone transaction manager from JBoss Transactions is used.
+All operations are done in a transactional context. In order to run the application in Red Hat JBoss Web Server 3 (JWS) or Tomcat 8, the standalone transaction manager from JBoss Transactions is used.
 
-When running this quickstart on JBoss Enterprise Web Server 2 or Tomcat 7, you must use only the "library-tomcat" maven profile.
+When running this quickstart on Red Hat JBoss Web Server 3 or Tomcat 8, you must use only the "library-tomcat" maven profile.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Enterprise Web Server 2 or Tomcat 7.
+The application this project produces is designed to be run on Red Hat JBoss Web Server 3 or Tomcat 8.
 
  
 Configure EWS or Tomcat
@@ -56,7 +56,7 @@ Add a `<server>` element into your Maven settings.xml with `<id>` equal to tomca
 Start EWS or Tomcat
 -------------------
 
-1. Open a command line and navigate to the root of the EWS/Tomcat server directory.
+1. Open a command line and navigate to the root of the JWS/Tomcat server directory.
 2. The following shows the command line to start the server with the web profile:
 
         For Linux:   $TOMCAT_HOME/bin/catalina.sh run
@@ -66,13 +66,16 @@ Start EWS or Tomcat
 Build and Deploy the Application in Library Mode
 ------------------------------------------------
 
-1. Make sure you have started EWS/Tomcat as described above.
+1. Make sure you have started JWS/Tomcat as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn -Plibrary-tomcat clean package tomcat:deploy
         
-4. This will deploy `target/jboss-carmart-tx.war` to the running instance of Tomcat/EWS.
+4. This will deploy `target/jboss-carmart-tx.war` to the running instance of Tomcat/JWS.
+
+Note: `tomcat:deploy` doesn't automatically undeploy the current deployed WAR if present, hence when
+trying to deploy the quickstart repeatedly, it will fail. For repeating deployment use `tomcat:redeploy`.
 
 
 Access the application
@@ -84,7 +87,7 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started EWS/Tomcat as described above.
+1. Make sure you have started JWS/Tomcat as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -95,6 +98,7 @@ Test the Application
 ------------------------------------
 
 If you want to test the application, there are simple Arquillian Selenium tests prepared.
+Before you try to run the tests, you have to undeploy existing WAR from Tomcat, see above.
 To run these tests on Tomcat:
 
 1. Undeploy the archive as described above
@@ -106,5 +110,5 @@ To run these tests on Tomcat:
 
 5. Type this command to run the tests:
 
-        mvn test -Puitests-tomcat -Dtomcat7home=/path/to/server
+        mvn test -Puitests-tomcat -DtomcatHome=/path/to/server
 

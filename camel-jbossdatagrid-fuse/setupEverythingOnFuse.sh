@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export FUSE_VERSION=jboss-fuse-6.2.0.redhat-133
+export FUSE_VERSION=jboss-fuse-6.2.1.redhat-084
 
 if [ -z "$MVN_SETTINGS_XML" ]; then
     export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
@@ -98,7 +98,7 @@ if [ ! -z "$MVN_SETTINGS_XML" ]; then
     sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.settings='${MVN_SETTINGS_XML}' default" > /dev/null 2>&1
 fi
 
-echo "- Containers child and child2 created"
+echo "- Containers child1 and child2 created"
 
 # Create a base profile and add feature repositories for camel-jbossdatagrid and the project to it
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel demo-base" > /dev/null 2>&1
@@ -118,9 +118,9 @@ sh client -r 2 -d 10 "fabric:profile-edit --features local-datagrid-consumer dem
 
 #sh client -r 2 -d 10 "fabric:profile-display default"
 
-echo "- Applying local_producer profile to child and local_consumer profile to child2"
+echo "- Applying local_producer profile to child1 and local_consumer profile to child2"
 echo
-sh client -r 2 -d 10 "fabric:container-add-profile child demo-local_producer" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:container-add-profile child1 demo-local_producer" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:container-add-profile child2 demo-local_consumer" > /dev/null 2>&1
 
 popd > /dev/null

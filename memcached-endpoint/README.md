@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, Memcached
 Summary: The `memcached-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the Memcached protocol.
 Target Product: JDG
-Product Versions: JDG 6.x
+Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -13,15 +13,15 @@ What is it?
 
 Memcached is an in-memory caching system used to improve response and operation times for database-driver websites. JBoss Data Grid offers a server that uses the text based, client-server Memcached protocol, removing the necessity to use Memcached separately with JBoss Data Grid. Additionally, due to JBoss Data Grid's clustering features, its data failover capabilities surpass those provided by Memcached.
 
-This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Memcached protocol. It is a simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the memcached based connector.
+This quickstart demonstrates how to connect remotely to Red Hat JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the Memcached protocol. It is a simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the memcached based connector.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.x
+The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.x
 
  
 Configure Maven
@@ -42,7 +42,7 @@ Configure JDG
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.2">
+        <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -67,7 +67,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.2" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -114,8 +114,8 @@ Start JDG
 1. Open a command line and navigate to the root of the JDG directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   JDG_HOME/bin/standalone.sh
-        For Windows: JDG_HOME\bin\standalone.bat
+        For Linux:   $JDG_HOME/bin/standalone.sh
+        For Windows: %JDG_HOME%\bin\standalone.bat
 
 
 Build and Run the Quickstart

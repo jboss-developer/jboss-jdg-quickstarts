@@ -26,12 +26,12 @@
 
         <!-- JBoss dependency versions -->
         <com.ocpsoft.prettyfaces.version>3.3.2</com.ocpsoft.prettyfaces.version>
-        <version.jboss.weld>1.1.31.Final</version.jboss.weld>
-        <version.com.sun.faces.jsf.impl>2.0.2</version.com.sun.faces.jsf.impl>
+        <version.jboss.weld>2.2.6.Final</version.jboss.weld>
+        <version.com.sun.faces.jsf.impl>2.2.12</version.com.sun.faces.jsf.impl>
 
         <version.org.infinispan>8.3.0.DR1-redhat-1</version.org.infinispan>
 
-        <version.jboss.spec.javaee.6.0>3.0.3.Final</version.jboss.spec.javaee.6.0>
+        <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 
         <version.org.jboss.jbossts.jta.narayana-jta>4.17.15.Final-redhat-4</version.org.jboss.jbossts.jta.narayana-jta>
 
@@ -43,13 +43,11 @@
         <version.commons.codec>1.10</version.commons.codec>
 
         <!-- other plugin versions -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
         <version.tomcat.maven.plugin>1.1</version.tomcat.maven.plugin>
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.2</version.war.plugin>
-        <version.maven.surefire>2.14</version.maven.surefire>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -57,12 +55,6 @@
 
         <!-- test dependencies versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>4.8.2</junit.version>
-        <arquillian.bom.version>1.1.1.Final</arquillian.bom.version>
-        <arquillian.drone.bom.version>1.2.0.Beta1</arquillian.drone.bom.version>
-        <jboss.as7.version>7.2.0.Final</jboss.as7.version>
-        <arquillian.selenium.version>2.35.0</arquillian.selenium.version>
-        <arquillian.graphene.version>2.0.0.Beta1</arquillian.graphene.version>
         <browser>phantomjs</browser>
 
     </properties>
@@ -77,20 +69,17 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
-                Any dependencies from org.jboss.spec will have their version defined by this
+            <!-- Define the version of JBoss' Java EE 7 APIs we want to import.
+                Any dependencies from org.wildfly.bom will have their version defined by this
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
-                read this as the JBoss stack of the Java EE 6 APIs). You can actually
-                use this stack with any version of JBoss AS that implements Java EE 6, not
-                just JBoss AS 7! -->
+                versions of artifacts. Here we use the jboss-javaee-7-with-tools stack. -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss.spec.javaee.6.0}</version>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -144,30 +133,6 @@
                 <scope>compile</scope>
             </dependency>
 
-            <!-- added to run arquillian -->
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian.bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.arquillian.extension</groupId>
-                <artifactId>arquillian-drone-bom</artifactId>
-                <version>${arquillian.drone.bom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.arquillian.selenium</groupId>
-                <artifactId>selenium-bom</artifactId>
-                <version>${arquillian.selenium.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -194,19 +159,17 @@
             in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the infinispan core -->
+        <!-- Import the infinispan dependency -->
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-embedded</artifactId>
@@ -231,13 +194,11 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
-            <version>${arquillian.bom.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.graphene</groupId>
             <artifactId>graphene-webdriver</artifactId>
-            <version>${arquillian.graphene.version}</version>
             <type>pom</type>
             <scope>test</scope>
         </dependency>
@@ -245,7 +206,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -280,7 +240,7 @@
         <!-- This is the default profile (active by default) that uses the 
             src/local/java folder which provided local access to the cache (library mode) -->
         <profile>
-            <id>library-jbossas</id>
+            <id>library-eap</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -307,18 +267,13 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <!-- The JBoss AS plugin deploys your war to a local 
-                            JBoss AS container -->
-                        <!-- To use, run: mvn package jboss-as:deploy -->
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>${version.jboss.maven.plugin}</version>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
                     </plugin>
                     <!-- Maven Surefire Plugin to skip tests on build -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.maven.surefire}</version>
                         <configuration>
                             <skipTests>true</skipTests>
                         </configuration>
@@ -329,8 +284,8 @@
 
 
         <profile>
-            <!-- This profile is intended to run this quickstart on ews/tomcat. 
-                It has to embed some libraries that aren't available on ews/tomcat. -->
+            <!-- This profile is intended to run this quickstart on jws/tomcat.
+                It has to embed some libraries that aren't available on jws/tomcat. -->
             <id>library-tomcat</id>
             <dependencies>
 
@@ -344,7 +299,7 @@
                 <!-- Import the JSF 2.1 API -->
                 <dependency>
                     <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <artifactId>jboss-jsf-api_2.2_spec</artifactId>
                     <scope>compile</scope>
                 </dependency>
 
@@ -367,7 +322,7 @@
                 </dependency>
 
                 <!-- Import the Mojarra JSF Impl, we use runtime scope as 
-                    the Impl is not included in ews/tomcat -->
+                    the Impl is not included in jws/tomcat -->
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
@@ -431,7 +386,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.maven.surefire}</version>
                         <configuration>
                             <skipTests>true</skipTests>
                         </configuration>
@@ -440,14 +394,19 @@
             </build>
         </profile>
 
-        <!-- This profile is for running tests on JBoss AS -->
+        <!-- This profile is for running tests on EAP -->
         <profile>
-            <id>uitests-jbossas</id>
+            <id>uitests-eap</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${jboss.as7.version}</version>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>
@@ -474,10 +433,10 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.maven.surefire}</version>
                         <configuration>
-                            <reportNameSuffix>uitests-jbossas</reportNameSuffix>
+                            <reportNameSuffix>uitests-eap</reportNameSuffix>
                             <systemPropertyVariables>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                                 <carmart-tx.war.directory>${basedir}/target</carmart-tx.war.directory>
                                 <carmart-tx.war.file>${project.artifactId}.war</carmart-tx.war.file>
                             </systemPropertyVariables>
@@ -533,7 +492,6 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.maven.surefire}</version>
                         <configuration>
                             <reportNameSuffix>uitests-tomcat</reportNameSuffix>
                             <systemPropertyVariables>

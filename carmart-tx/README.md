@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI, Transactions
 Summary: The `carmart-tx` quickstart demonstrates how to configure and access Infinispan cache within a transaction, in a simple web application.
 Target Product: JDG
-Product Versions: EAP 6.x, JDG 6.x
+Product Versions: JDG 7.x, EAP 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -29,9 +29,9 @@ Infinispan ships with several transaction manager lookup classes:
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
  
 Configure Maven
@@ -59,7 +59,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
         
 4. This will deploy `target/jboss-carmart-tx.war` to the running instance of the server.
  
@@ -77,7 +77,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Debug the Application
@@ -103,5 +103,5 @@ To run these tests on EAP:
 
 4. Type this command to run the tests:
 
-        mvn test -Puitests-jbossas -Das7home=/path/to/server
+        mvn test -Puitests-eap -DeapHome=/path/to/server
 
