@@ -33,7 +33,7 @@
 
         <version.jboss.spec.javaee.6.0>3.0.3.Final</version.jboss.spec.javaee.6.0>
 
-        <version.org.jboss.jbossts.jta.narayana-jta>4.17.15.Final-redhat-4</version.org.jboss.jbossts.jta.narayana-jta>
+        <version.org.jboss.jbossts.jta.narayana-jta>4.17.24.Final</version.org.jboss.jbossts.jta.narayana-jta>
 
         <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
             can deploy this quickstart on EWS/Tomcat through this URL -->
