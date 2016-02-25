@@ -1,11 +1,11 @@
-rest-endpoint: Use JDG remotely through REST
+rest-endpoint: Example Using Remote Access to Cache via REST
 ============================================
-Author: Tristan Tarrant, Martin Gencur
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, REST
-Summary: Demonstrates how to use Infinispan remotely using the REST protocol.
+Summary: The `rest-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the REST protocol.
 Target Product: JDG
-Product Versions: JDG 6.x
+Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -13,15 +13,15 @@ What is it?
 
 JBoss Data Grid uses a RESTful service, eliminating the need for tightly coupled client libraries and bindings. The REST API requires a REST client or custom code to understand and create REST calls. JBoss Data Grid's sole requirement is a HTTP client library. For Java, the Apache HTTP Commons Client is recommended. Alternatively, the java.net API can be used.
 
-This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the HTTP Commons Client RESTful client APIs. This simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the REST interface based connector.
+This quickstart demonstrates how to connect remotely to Red Hat JBoss Data Grid (JDG) to store, retrieve, and remove data from cache using the HTTP Commons Client RESTful client APIs. This simple Football Manager console application allows you to add and remove teams, add players to or remove players from teams, or print a list of the current teams and players using the REST interface based connector.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.x
+The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.x
 
  
 Configure Maven
@@ -37,12 +37,12 @@ Configure JDG
 
 2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
-3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
+3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`$JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
    
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.2">
+        <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -67,7 +67,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.3" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -109,7 +109,7 @@ Configure JDG
 
 4. Disable REST endpoint security: by default the standalone.xml configuration protects the REST endpoint with BASIC authentication. Since this quickstart cannot perform authentication, the REST connector should be configured without it:
 
-        <rest-connector virtual-server="default-host" cache-container="local" />
+        <rest-connector socket-binding="rest" cache-container="local"/>
 
 Start JDG
 ---------
@@ -117,8 +117,8 @@ Start JDG
 1. Open a command line and navigate to the root of the JDG directory.
 2. The following shows the command line to start the server with the web profile:
 
-        For Linux:   JDG_HOME/bin/standalone.sh
-        For Windows: JDG_HOME\bin\standalone.bat
+        For Linux:   $JDG_HOME/bin/standalone.sh
+        For Windows: %JDG_HOME%\bin\standalone.bat
 
 
 Build and Run the Quickstart

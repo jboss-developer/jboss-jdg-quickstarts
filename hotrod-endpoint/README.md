@@ -1,11 +1,11 @@
-hotrod-endpoint: Use JDG remotely through Hotrod
-================================================
-Author: Tristan Tarrant, Martin Gencur
+hotrod-endpoint: Example Using Remote Access to Cache via HotRod
+=========================================
+Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
 Technologies: Infinispan, Hot Rod
-Summary: Demonstrates how to use Infinispan remotely using the Hot Rod protocol.
+Summary: The `hotrod-endpoint` quickstart demonstrates how to use Infinispan cache remotely using the Hot Rod protocol.
 Target Product: JDG
-Product Versions: JDG 6.x
+Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -19,9 +19,9 @@ This quickstart demonstrates how to connect remotely to JBoss Data Grid (JDG) to
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss Data Grid 6.x
+The application this project produces is designed to be run on JBoss Data Grid 7.x
 
  
 Configure Maven
@@ -42,7 +42,7 @@ Configure JDG
 * Datasource subsystem definition:
 
     
-        <subsystem xmlns="urn:jboss:domain:datasources:1.2">
+        <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
@@ -67,7 +67,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:6.3" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>

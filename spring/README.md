@@ -1,17 +1,17 @@
-spring-jdg: Spring integration example
-====================================
+spring-jdg: Example Using Infinispan Cache in Spring Application
+======================================
 Author: Sebastian Łaskawiec
 Level: Intermediate
 Technologies: Infinispan, Spring Boot
-Summary: Shows how to use Infinispan or JBoss Data Grid with Spring
+Summary: The `spring-jdg` quickstart demonstrates how to use Infinispan in a Spring application.
 Target Product: JDG
-Product Versions: JDG 6.x
+Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-Spring-jdg is an example that shows how to use Infinispan or JBoss Data Grid together with Spring.
+The `spring-jdg` quickstart shows how to use Infinispan together with Spring.
 
 In order to simplify the Spring bootstrapping this project uses Spring Boot.
 Infinispan/JBoss Data Grid is configured to use only default values.
@@ -21,7 +21,10 @@ More information might be found after running this quickstart and navigating to 
 System requirements
 -------------------
 
-All you need to build this project is Java 7.0 (Java SDK 1.7) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
+
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later
+or Spring Boot Embedded Tomcat.
 
 Configure Maven
 ---------------
@@ -35,10 +38,10 @@ Type this command to build the quickstart:
 
         mvn clean package
 
-Deploy Quickstarts on WildFly/JBoss EAP (suggested)
+Deploy Quickstarts to EAP server (suggested)
 ---------------------------------------------------
 
-Copy built archive to WildFly/JBoss EAP deployment directory (e.g. EAP/standalone/deployment).
+Copy built archive to EAP deployment directory (e.g. EAP/standalone/deployment).
 Navigate to <http://localhost:8080/infinispan-spring> and follow the instructions in about page.
 
 Deploy Quickstarts using Spring Boot Embedded Tomcat

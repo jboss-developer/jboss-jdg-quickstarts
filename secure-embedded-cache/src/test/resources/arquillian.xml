@@ -6,7 +6,7 @@
 
 	<container qualifier="jbossas-managed" default="true">
 		<configuration>
-			<property name="jbossHome">${serverHome}</property>
+			<property name="jbossHome">${eapHome}</property>
 		</configuration>
 	</container>
 

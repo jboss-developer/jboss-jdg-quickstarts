@@ -1,11 +1,11 @@
-eap-cluster-app: Example how to use JDG cache from a JBoss EAP application
-==========================================================================
+eap-cluster-app: Example Using Clustered Cache Deployed via JDG modules
+=============================================
 Author: Wolf-Dieter Fink
 Level: Advanced
-Technologies: Infinispan, CDI, Red Hat JBoss Enterprise Application Platform (JBoss EAP)
-Summary: Shows how to use Infinispan from a JBoss EAP application in embedded mode, using JDG modules for EAP
+Technologies: Infinispan, CDI, EJB
+Summary: The `eap-cluster-app` quickstart shows how to access Infinispan cache from a JBoss EAP application using JDG modules for EAP.
 Target Product: JDG
-Product Versions: JBoss EAP 6.x, JDG 6.4+
+Product Versions: JDG 7.x, EAP 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -16,7 +16,7 @@ There are three different applications which show:
 - How to create and use an Infinispan clustered cache without having a JBoss EAP cluster
 - JBoss EAP cluster is independent of an Infinispan cluster
 - One JBoss EAP instance can use different Infinispan caches which are members of different Infinispan clusters
-- Programmatic cache configuration using Infinispan API
+- Programmatic cache configuration using Infinispan API and passing in a custom JGroups configuration file
 - File based configuration (administration application App1Cache)
 - Use CDI to inject the cache managers
 
@@ -27,15 +27,15 @@ The AdminApp is able to access both caches and change the entries.
 AppOne can only read the App1Cache and use a clustered EJB invocation to AppTwo to read from App2Cache.
 AppTwo is deployed as a clustered EJB application and only read App2Cache.
 
-All applications need to have an installed JDG 6.4+ module extention for the JBoss EAP server which can be downloaded from the Red Hat portal.
+All applications need to have an installed JDG 7.0 or later module extention for the JBoss EAP server which can be downloaded from the Red Hat portal.
 
 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on JBoss EAP 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.0 or later.
 
  
 Configure Maven
@@ -48,62 +48,62 @@ Configure and Start the Servers in standalone mode
 --------------------------------------------------
 
 1. Prepare a copy of the JBoss EAP
-   - unzip `jboss-datagrid-${version}-eap-modules-library.zip` where `${version}` is 6.4+
+   - unzip `jboss-datagrid-${version}-eap-modules-library.zip`
    - copy the modules to the server modules directory
 
-            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
-            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
+            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules $EAP_HOME
+            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules %EAP_HOME%\modules
 
    - Add a user to each server for EJB access
 
             For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
             For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
 
-2. Copy the prepared JBoss EAP server to 4 different directories EAP_HOME[1-4].
-3. Open a command line for each of the 4 nodes and navigate to the root of the JBoss EAP server directory.
+2. Copy the prepared EAP server to 4 different directories EAP_HOME[1-4].
+3. Open a command line for each of the 4 nodes and navigate to the root of the EAP server directory.
    The following shows the command line to start the different servers:
 
-        For Linux:   EAP_HOME1/bin/standalone.sh -Djboss.node.name=node1
-                     EAP_HOME2/bin/standalone.sh -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
-                     EAP_HOME3/bin/standalone.sh -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
-                     EAP_HOME4/bin/standalone.sh -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
+        For Linux:   $EAP_HOME1/bin/standalone.sh -Djboss.node.name=node1
+                     $EAP_HOME2/bin/standalone.sh -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
+                     $EAP_HOME3/bin/standalone.sh -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
+                     $EAP_HOME4/bin/standalone.sh -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
                      
-        For Windows: EAP_HOME1\bin\standalone.bat -Djboss.node.name=node1
-                     EAP_HOME2\bin\standalone.bat -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
-                     EAP_HOME3\bin\standalone.bat -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
-                     EAP_HOME4\bin\standalone.bat -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
+        For Windows: %EAP_HOME1%\bin\standalone.bat -Djboss.node.name=node1
+                     %EAP_HOME2%\bin\standalone.bat -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
+                     %EAP_HOME3%\bin\standalone.bat -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
+                     %EAP_HOME4%\bin\standalone.bat -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
 
 
 4. Add the configuration for node2 (AppOne) to use EJB server-to-server invocation:
 
-        For Linux:   EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10099 --file=QUICKSTART_HOME/install-appOne-standalone.cli
-        For Windows: EAP_HOME2\bin\jboss-cli.bat -c --controller=localhost:10099 --file=QUICKSTART_HOME/install-appOne-standalone.cli
+        For Linux:   $EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10099 --file=$QUICKSTART_HOME/install-appOne-standalone.cli
+        For Windows: %EAP_HOME2%\bin\jboss-cli.bat -c --controller=localhost:10099 --file=%QUICKSTART_HOME%/install-appOne-standalone.cli
 
 Configure and Start the Servers in domain mode
 ----------------------------------------------
 
-1. Copy a fresh JBoss EAP installation to EAP_HOME
-   - unzip `jboss-datagrid-${version}-eap-modules-library.zip` where ${version} is 6.4+
+1. Copy a fresh EAP installation to EAP_HOME
+   - unzip `jboss-datagrid-${version}-eap-modules-library.zip`
    - copy the modules to the server modules directory
 
-            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME
-            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules EAP_HOME\modules
+            For Linux:   cp -a jboss-datagrid-${version}-eap-modules-library/modules $EAP_HOME
+            For Windows: xcopy /e/i/f jboss-datagrid-${version}-eap-modules-library/modules %EAP_HOME%\modules
 
-2. Open a command line and navigate to the root of JBoss EAP.
+2. Open a command line and navigate to the root of EAP.
 3. Add a user:
 
-        For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
-        For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+        For Linux:   $EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+        For Windows: %EAP_HOME%\bin\add-user.bat -a -u quickuser -p quick-123
 
 4. The following shows the command line to start the domain:
 
-        For Linux:   EAP_HOME/bin/domain.sh
-        For Windows: EAP_HOME\bin\domain.bat
+        For Linux:   $EAP_HOME/bin/domain.sh
+        For Windows: %EAP_HOME%\bin\domain.bat
 
 5. Apply the configuration for the quickstart, the domain will contain 4 nodes:
 
-        For Linux:   EAP_HOME/bin/jboss-cli.sh -c --file=QUICKSTART_HOME/install-domain.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat -c --file=QUICKSTART_HOME/install-domain.cli
+        For Linux:   $EAP_HOME/bin/jboss-cli.sh -c --file=$QUICKSTART_HOME/install-domain.cli
+        For Windows: %EAP_HOME%\bin\jboss-cli.bat -c --file=%QUICKSTART_HOME%/install-domain.cli
 
 
 Build the Application
@@ -118,20 +118,20 @@ _NOTE: The following build command assumes you have configured your Maven user s
         
 3. Copy the application to the appropriate server
         
-        For Linux:   cp adminApp/ear/target/jboss-eap-application-adminApp.ear EAP_HOME1/standalone/deployments
-                     cp appOne/ear/target/jboss-eap-application-AppOne.ear EAP_HOME2/standalone/deployments
-                     cp appTwo/ear/target/jboss-eap-application-AppTwo.ear EAP_HOME3/standalone/deployments
-                     cp appTwo/ear/target/jboss-eap-application-AppTwo.ear EAP_HOME4/standalone/deployments      
+        For Linux:   cp adminApp/ear/target/jboss-eap-application-adminApp.ear $EAP_HOME1/standalone/deployments
+                     cp appOne/ear/target/jboss-eap-application-AppOne.ear $EAP_HOME2/standalone/deployments
+                     cp appTwo/ear/target/jboss-eap-application-AppTwo.ear $EAP_HOME3/standalone/deployments
+                     cp appTwo/ear/target/jboss-eap-application-AppTwo.ear $EAP_HOME4/standalone/deployments
                                     
-        For Windows: copy adminApp\ear\target\jboss-eap-application-adminApp.ear EAP_HOME1\standalone\deployments
-                     copy appOne\ear\target\jboss-eap-application-AppOne.ear EAP_HOME2\standalone\deployments
-                     copy appTwo\ear\target\jboss-eap-application-AppTwo.ear EAP_HOME3\standalone\deployments
-                     copy appTwo\ear\target\jboss-eap-application-AppTwo.ear EAP_HOME4\standalone\deployments
+        For Windows: copy adminApp\ear\target\jboss-eap-application-adminApp.ear %EAP_HOME1%\standalone\deployments
+                     copy appOne\ear\target\jboss-eap-application-AppOne.ear %EAP_HOME2%\standalone\deployments
+                     copy appTwo\ear\target\jboss-eap-application-AppTwo.ear %EAP_HOME3%\standalone\deployments
+                     copy appTwo\ear\target\jboss-eap-application-AppTwo.ear %EAP_HOME4%\standalone\deployments
  
 4. When domain mode is used, deploy the applications in the following way:
 
-        For Linux:   EAP_HOME/bin/jboss-cli.sh -c --file=QUICKSTART_HOME/deploy-domain.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat -c --file=QUICKSTART_HOME/deploy-domain.cli
+        For Linux:   $EAP_HOME/bin/jboss-cli.sh -c --file=$QUICKSTART_HOME/deploy-domain.cli
+        For Windows: %EAP_HOME%\bin\jboss-cli.bat -c --file=%QUICKSTART_HOME%/deploy-domain.cli
 
 
 Access the application

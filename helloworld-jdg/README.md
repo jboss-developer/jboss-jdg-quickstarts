@@ -1,23 +1,23 @@
-helloworld-jdg: Basic Infinispan example
-====================================
+helloworld-jdg: Example Using Simple Infinispan Cache and Servlets
+=========================================
 Author: Burr Sutter, Martin Gencur
 Level: Intermediate
-Technologies: Infinispan, CDI
-Summary: Shows how to use Infinispan in clustered mode, with expiration enabled.
+Technologies: Infinispan, CDI, Servlet, JSF
+Summary: The `helloworld-jdg` quickstart shows how to use Infinispan cache in clustered mode, with expiration enabled, and access it from Servlets or JSF pages.
 Target Product: JDG
-Product Versions: EAP 6.x, JDG 6.x
+Product Versions: JDG 7.x, EAP 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
 -----------
 
-HelloWorld-JDG is a basic example that shows how to store and retrieve data to/from the cache. Users can access the cache
+The `helloworld-jdg` is a basic example that shows how to store and retrieve data to/from the cache. Users can access the cache
 either from a servlet or from a JSF page through request scoped beans.
 
 Infinispan is configured in clustered distributed mode with synchronous replication. Entries have their lifespan (expiration)
 and are removed from the cache after 60 seconds since last update.
 
-HelloWorld-JDG example works in _Library mode_. In this mode, the application and the data grid are running in the same
+The `helloworld-jdg` example works in _Library mode_. In this mode, the application and the data grid are running in the same
 JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform.
 The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also 
 enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.
@@ -26,9 +26,9 @@ enables access to data stored in remote nodes (JVMs) that comprise the embedded 
 System requirements
 -------------------
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or better, Maven 3.0 or better.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.0 or better.
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
  
 Configure Maven
@@ -66,12 +66,12 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive to the first server:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 
 4. This will deploy `target/jboss-helloworld-jdg.war` to the first running instance of the server.
 5. Type this command to build and deploy the archive to the second server (running on different ports):
 
-        mvn clean package jboss-as:deploy -Djboss-as.port=10099
+        mvn clean package wildfly:deploy -Djboss-as.port=10090
 
 6. This will deploy `target/jboss-helloworld-jdg.war` to the second running instance of the server.
 
@@ -112,8 +112,8 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from both running servers:
 
-        mvn jboss-as:undeploy
-        mvn jboss-as:undeploy -Djboss-as.port=10099
+        mvn wildfly:undeploy
+        mvn wildfly:undeploy -Djboss-as.port=10090
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
@@ -146,5 +146,5 @@ To run these tests on EAP:
 
 4. Type this command to run the tests (server paths can be the same):
 
-        mvn test -Puitests-clustered -Das7home=/path/to/first/server -Das7home2=/path/to/second/server
+        mvn test -Puitests-clustered -DeapHome=/path/to/first/server -DeapHome2=/path/to/second/server
 

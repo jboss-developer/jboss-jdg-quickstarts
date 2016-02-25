@@ -45,16 +45,19 @@ This distribution contains the following quickstarts:
 |:-----------|:-----------|:-----------|
 | [carmart](carmart/README.md) | Infinispan, CDI | Shows how to use Infinispan instead of a relational database. |
 | [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Shows how to use Infinispan instead of a relational database with transactions enabled.|
+| [eap-cluster-app](eap-cluster-app/README.md) | Infinispan, CDI, EJB | Demonstrates how to access Infinispan cache from a JBoss EAP application using JDG modules for EAP.|
 | [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Shows how to use Infinispan in clustered mode, with expiration enabled.|
 | [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol. |
+| [hotrod-secured](hotrod-secured/README.md) | Infinispan, Hot Rod | Demonstrates how to use Infinispan remotely using the Hot Rod protocol and secured authentication/authorization. |
 | [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Demonstrates how to use Infinispan remotely using the Memcached protocol. |
 | [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Demonstrates the use of compatibility mode to access data from multiple protocols. |
 | [spring](spring/README.md) | Infinispan, Spring | Demonstrates the use of Spring integration modules. |
 | [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Demonstrates how to query Infinispan remotely using the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Demonstrates how to use Infinispan remotely using the REST protocol. |
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
-| [secure-embedded-cache](cdi/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
+| [cdi](cdi-jdg/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
 | [camel-jbossdatagrid-fuse](camel-jbossdatagrid-fuse/README.md) | Camel, Infinispan, REST | Demonstrates how to use Camel component camel-jbossdatagrid in JBoss Fuse. |
+
 
 [TOC-quickstart]
 
@@ -129,4 +132,3 @@ In most cases, you can use the following steps to build the application to test 
    * If you have NOT configured settings Maven settings:
 
             mvn clean install -s QUICKSTART_HOME/settings.xml
-

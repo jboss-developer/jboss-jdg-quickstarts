@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://jboss.org/schema/arquillian
-        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+        http://jboss.org/schema/arquillian/arquillian_1_1.xsd">
 
     <extension qualifier="webdriver">
         <property name="browser">${browser}</property>
@@ -11,7 +11,7 @@
     <group qualifier="grid">
         <container qualifier="container1" default="true">
             <configuration>
-                <property name="jbossHome">${as7home}</property>
+                <property name="jbossHome">${eapHome}</property>
                 <!-- For some reason, EAP tries to use ipv6 when started by arquillian (why, eap, why?!) -->
                 <property name="javaVmArguments">-Djava.net.preferIPv4Stack=true</property>
                 <property name="serverConfig">${test.server.config}</property>
@@ -19,9 +19,9 @@
         </container>
         <container qualifier="container2">
             <configuration>
-                <property name="jbossHome">${as7home2}</property>
+                <property name="jbossHome">${eapHome2}</property>
                 <property name="javaVmArguments">-Djava.net.preferIPv4Stack=true -Djboss.socket.binding.port-offset=100</property>
-                <property name="managementPort">10099</property>
+                <property name="managementPort">10090</property>
                 <property name="serverConfig">${test.server.config}</property>
             </configuration>
         </container>
