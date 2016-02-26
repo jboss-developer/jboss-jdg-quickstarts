@@ -47,7 +47,7 @@
         <module>secure-embedded-cache</module>
         <module>eap-cluster-app</module>
         <module>camel-jbossdatagrid-fuse</module>
-        <module>cdi</module>
+        <module>cdi-jdg</module>
     </modules>
 
     <properties>
