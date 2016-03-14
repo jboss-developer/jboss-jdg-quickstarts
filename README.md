@@ -57,6 +57,7 @@ This distribution contains the following quickstarts:
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Demonstrates how to secure Infinispan in embedded mode. |
 | [cdi](cdi-jdg/README.md) | Infinispan, CDI | Demonstrates how to use Infinispan CDI and JCache extension. |
 | [camel-jbossdatagrid-fuse](camel-jbossdatagrid-fuse/README.md) | Camel, Infinispan, REST | Demonstrates how to use Camel component camel-jbossdatagrid in JBoss Fuse. |
+| [spark](spark/README.md) | Infinispan, Apache Spark | Demonstrates how to read and write data to Infinispan, and to react to data changes in real time using streaming. |
 
 
 [TOC-quickstart]
@@ -76,7 +77,7 @@ System Requirements
 
 To run these quickstarts with the provided build scripts, you need the following:
 
-1. Java 1.6, to run JBoss Data Grid, JBoss EAP and Maven. You can choose from the following:
+1. Java 1.8, to run JBoss Data Grid, JBoss EAP and Maven. You can choose from the following:
     * OpenJDK
     * Oracle Java SE
     * Oracle JRockit
