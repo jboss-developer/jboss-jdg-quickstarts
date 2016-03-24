@@ -28,7 +28,7 @@ public class ChampionshipStandings {
 
       // Configure the Infinispan InputFormat wrapping it in a Hadoop Job class.
       Configuration configuration = new Configuration();
-      configuration.set(InfinispanConfiguration.INPUT_REMOTE_CACHE_HOST, "localhost");
+      configuration.set(InfinispanConfiguration.INPUT_REMOTE_CACHE_SERVER_LIST, "localhost");
       configuration.set(InfinispanConfiguration.OUTPUT_REMOTE_CACHE_NAME, "default");
       Job job = Job.getInstance(configuration, "La Liga Standings");
       InfinispanInputFormat<Integer, MatchResult> infinispanInputFormat = new InfinispanInputFormat<>();
