@@ -53,6 +53,11 @@
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-embedded</artifactId>
+            <version>${version.org.infinispan}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring4-embedded</artifactId>
             <version>${version.org.infinispan}</version>
             <exclusions>
