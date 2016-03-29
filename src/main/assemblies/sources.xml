@@ -55,6 +55,8 @@
                 <include>helloworld-jdg/**</include>
                 <include>remote-query/**</include>
                 <include>cdi/**</include>
+                <include>hadoop/**</include>
+                <include>spark/**</include>
                 <include>README.md</include>
             </includes>
             <excludes>
