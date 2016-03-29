@@ -71,7 +71,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 4. This will deploy `target/jboss-helloworld-jdg.war` to the first running instance of the server.
 5. Type this command to build and deploy the archive to the second server (running on different ports):
 
-        mvn clean package wildfly:deploy -Djboss-as.port=10090
+        mvn clean package wildfly:deploy -Dwildfly.port=10090
 
 6. This will deploy `target/jboss-helloworld-jdg.war` to the second running instance of the server.
 
