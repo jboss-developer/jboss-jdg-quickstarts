@@ -24,8 +24,8 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <version.camel.components>2.15.1.redhat-620133</version.camel.components>
-      <version.org.infinispan>8.3.0-redhat-SNAPSHOT</version.org.infinispan>
-      <version.camel-infinispan>2.15.1-redhat-SNAPSHOT</version.camel-infinispan>
+      <version.org.infinispan>8.3.0.ER2-redhat-1</version.org.infinispan>
+      <version.camel-infinispan>2.15.1.ER2-redhat-1</version.camel-infinispan>
    </properties>
 
     <modules>
