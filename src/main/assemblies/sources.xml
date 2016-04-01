@@ -58,6 +58,7 @@
                 <include>hadoop/**</include>
                 <include>spark/**</include>
                 <include>README.md</include>
+                <include>LICENSE.txt</include>
             </includes>
             <excludes>
                 <exclude>**/target/**</exclude>
