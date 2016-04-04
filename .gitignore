@@ -16,3 +16,6 @@ bin
 
 #preview output
 README*.html
+
+# javascript
+node_modules
