@@ -1,0 +1,15 @@
+{
+  "name": "hotrod-endpoint-js",
+  "version": "1.0.0",
+  "description": "Javascript example to remotely access Caches via Hot Rod",
+  "main": "football-manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Galder Zamarreño",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "infinispan": "^0.2.0",
+    "vorpal": "^1.10.10"
+  }
+}
