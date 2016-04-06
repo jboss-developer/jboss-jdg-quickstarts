@@ -58,6 +58,7 @@
                 <include>hadoop/**</include>
                 <include>spark/**</include>
                 <include>hotrod-endpoint-js/**</include>
+                <include>hadoop-samples/**</include>
                 <include>README.md</include>
                 <include>LICENSE.txt</include>
             </includes>
@@ -82,4 +83,3 @@
         </fileSet>
     </fileSets>
 </assembly>
-
