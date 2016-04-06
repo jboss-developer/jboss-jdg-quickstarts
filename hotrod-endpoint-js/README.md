@@ -28,7 +28,13 @@ based connector.
 System requirements
 -------------------
 
-All you need to build this project is Node.js 0.10 or better.
+You need Node.js 0.10 or better to build this project. You also need to have NodeJS client installed, either locally with:
+
+        npm install infinispan-<version>.tgz
+
+or globally:
+
+        npm install -g infinispan-<version>.tgz
 
 The application this project produces is designed to be run on JBoss Data Grid 7.x
 
