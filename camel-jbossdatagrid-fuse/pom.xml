@@ -25,7 +25,7 @@
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
       <version.camel.components>2.15.1.redhat-620133</version.camel.components>
       <version.org.infinispan>8.3.0.ER2-redhat-1</version.org.infinispan>
-      <version.camel-infinispan>2.15.1.ER2-redhat-1</version.camel-infinispan>
+      <version.camel-jbossdatagrid>2.15.1.ER2-redhat-1</version.camel-jbossdatagrid>
    </properties>
 
     <modules>
@@ -58,7 +58,7 @@
       <dependency>
          <groupId>org.apache.camel</groupId>
          <artifactId>camel-jbossdatagrid</artifactId>
-         <version>${version.camel-infinispan}</version>
+         <version>${version.camel-jbossdatagrid}</version>
          <scope>provided</scope>
       </dependency>
       <dependency>

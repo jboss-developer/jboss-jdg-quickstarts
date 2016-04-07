@@ -103,6 +103,9 @@ echo "- Containers child1 and child2 created"
 # Create a base profile and add feature repositories for camel-jbossdatagrid and the project to it
 sh client -r 2 -d 10 "fabric:profile-create --parents feature-camel demo-base" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='http://maven.repository.redhat.com/ga/@id=jboss-ga-repository' demo-base" > /dev/null 2>&1
+if [ ! -z "$JDG_MAVEN_REPO" ]; then
+    sh client -r 2 -d 10 "fabric:profile-edit --append --pid io.fabric8.agent/org.ops4j.pax.url.mvn.repositories='file:${JDG_MAVEN_REPO}' demo-base" > /dev/null 2>&1    
+fi
 sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.apache.camel/camel-jbossdatagrid/${CAMEL_JBOSSDATAGRID_VERSION}/xml/features demo-base" > /dev/null 2>&1
 sh client -r 2 -d 10 "fabric:profile-edit --repositories mvn:org.jboss.quickstarts.jdg/features/${JDG_VERSION}/xml/features demo-base" > /dev/null 2>&1
 

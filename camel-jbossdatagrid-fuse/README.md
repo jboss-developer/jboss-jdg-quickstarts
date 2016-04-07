@@ -39,7 +39,9 @@ Setup the quickstart
 4. Set the following two environment variables in the same shell: 
   1. export __FUSE_INSTALL_PATH__ = _[Full path to the folder into where Fuse will be installed]_ 
   2. export __FUSE_BINARY_PATH__ = _[Full path to the Fuse binary file]_ 
-5. While in the root folder of the quickstart, run `./setupEverythingOnFuse.sh`
+5. (Optional) Set the path to your local JDG maven repository:
+    export JDG_MAVEN_REPO=/path/to/unzipped/jdg/maven/repository
+6. While in the root folder of the quickstart, run `./setupEverythingOnFuse.sh`
 
 Setup Verification
 ------------------
