@@ -31,7 +31,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.TransactionManager;
 
-import org.infinispan.CacheImpl;
+import org.infinispan.Cache;
 import org.infinispan.commons.api.BasicCache;
 import org.jboss.as.quickstarts.datagrid.carmart.model.Car;
 import org.jboss.as.quickstarts.datagrid.carmart.model.Car.CarType;
@@ -65,7 +65,7 @@ public class PopulateCache implements SystemEventListener {
         BasicCache<String, Object> cars = provider.getCacheContainer().getCache(CarManager.CACHE_NAME);
         List<String> carNumbers = new ArrayList<String>();
         
-        tm = ((CacheImpl) cars).getAdvancedCache().getTransactionManager();
+        tm = ((Cache) cars).getAdvancedCache().getTransactionManager();
         
         try {
             tm.begin();
