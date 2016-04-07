@@ -27,7 +27,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 import javax.transaction.TransactionManager;
 
-import org.infinispan.CacheImpl;
+import org.infinispan.Cache;
 import org.infinispan.commons.api.BasicCache;
 import org.jboss.as.quickstarts.datagrid.carmart.model.Car;
 
@@ -183,7 +183,7 @@ public class CarManager {
     }
 
     private TransactionManager getTransactionManager(BasicCache<?, ?> cache) {
-        TransactionManager tm = ((CacheImpl) cache).getAdvancedCache().getTransactionManager();
+        TransactionManager tm = ((Cache) cache).getAdvancedCache().getTransactionManager();
         return tm;
     }
     
