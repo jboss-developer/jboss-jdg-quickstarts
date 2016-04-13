@@ -54,7 +54,7 @@
                 <include>secure-embedded-cache/**</include>
                 <include>helloworld-jdg/**</include>
                 <include>remote-query/**</include>
-                <include>cdi/**</include>
+                <include>cdi-jdg/**</include>
                 <include>hadoop/**</include>
                 <include>spark/**</include>
                 <include>hotrod-endpoint-js/**</include>
