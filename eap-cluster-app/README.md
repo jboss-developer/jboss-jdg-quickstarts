@@ -76,8 +76,8 @@ Configure and Start the Servers in standalone mode
 
 4. Add the configuration for node2 (AppOne) to use EJB server-to-server invocation:
 
-        For Linux:   $EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10099 --file=$QUICKSTART_HOME/install-appOne-standalone.cli
-        For Windows: %EAP_HOME2%\bin\jboss-cli.bat -c --controller=localhost:10099 --file=%QUICKSTART_HOME%/install-appOne-standalone.cli
+        For Linux:   $EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10090 --file=$QUICKSTART_HOME/install-appOne-standalone.cli
+        For Windows: %EAP_HOME2%\bin\jboss-cli.bat -c --controller=localhost:10090 --file=%QUICKSTART_HOME%/install-appOne-standalone.cli
 
 Configure and Start the Servers in domain mode
 ----------------------------------------------
