@@ -23,17 +23,18 @@
 
 	<group qualifier="jbossPlusJdg">
 		<!-- eap is default container for deployment inside of a group (jdg even does not support this) -->
-		<container qualifier="eapContainer" managed="true" default="true">
+		<container qualifier="eapContainer" mode="suite" default="true">
 			<configuration>
-				<property name="managementPort">9999</property>
+				<property name="managementPort">9990</property>
 				<property name="jbossHome">${eapHome}</property>
+				<property name="javaVmArguments">-Djboss.node.name=node1 -Djava.net.preferIPv4Stack=true</property>
 			</configuration>
 		</container>
-		<container qualifier="jdgContainer" managed="true">
+		<container qualifier="jdgContainer" mode="suite">
 			<configuration>
-				<property name="managementPort">10099</property>
+				<property name="managementPort">10090</property>
 				<property name="jbossHome">${jdgHome}</property>
-                <property name="javaVmArguments">-Djboss.socket.binding.port-offset=100</property>
+				<property name="javaVmArguments">-Djboss.socket.binding.port-offset=100 -Djboss.node.name=node2 -Djava.net.preferIPv4Stack=true</property>
 			</configuration>
 		</container>
 	</group>
