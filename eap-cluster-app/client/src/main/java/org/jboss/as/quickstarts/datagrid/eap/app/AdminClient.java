@@ -56,9 +56,9 @@ public class AdminClient {
     */
    public static void main(String[] args) throws Exception {
       String hostAdmin = "localhost";
-      String portAdmin = "4447";
+      String portAdmin = "8080";
       String hostAppOne = "localhost";
-      String portAppOne = "4547";
+      String portAppOne = "8180";
       
       // suppress output of client messages
       Logger.getLogger("org.jboss").setLevel(Level.OFF);
@@ -122,9 +122,9 @@ public class AdminClient {
 
       // check that the cache is transactional
       System.out.println("        Check whether changes to a cache are rollbacked if the transaction fail");
-      admin.removeFromApp2Cache("SouldNeverExist");
-      admin.addToApp2Cache("SouldNeverExist", "This value should not available as the transaction fail", true);
-      if (admin.containsApp2Key("SouldNeverExist")) {
+      admin.removeFromApp2Cache("ShouldNeverExist");
+      admin.addToApp2Cache("ShouldNeverExist", "This value should not available as the transaction fail", true);
+      if (admin.containsApp2Key("ShouldNeverExist")) {
          throw new RuntimeException("Unexpected result, the key exists after transaction rollback!");
       } else {
          System.out.println("        The cache App2 work as expected on rollback");

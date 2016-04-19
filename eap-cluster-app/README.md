@@ -56,11 +56,38 @@ Configure and Start the Servers in standalone mode
 
    - Add a user to each server for EJB access
 
-            For Linux:   EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
-            For Windows: EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            For Linux:   $EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            For Windows: %EAP_HOME%\bin\add-user.bat -a -u quickuser -p quick-123
 
 2. Copy the prepared EAP server to 4 different directories EAP_HOME[1-4].
-3. Open a command line for each of the 4 nodes and navigate to the root of the EAP server directory.
+3. Add the following configuration snippets to EAP's standalone.xml:
+
+   Inside security-realms:
+
+   <security-realm name="ejb-security-realm">
+       <server-identities>
+           <secret value="cXVpY2stMTIz"/>   <!-- this is a Base64 encoded password for the quickuser user -->
+       </server-identities>
+   </security-realm>
+
+   Inside remoting subsystem:
+
+   <outbound-connections>
+       <remote-outbound-connection name="remote-ejb-connection" outbound-socket-binding-ref="remote-ejb" username="quickuser" security-realm="ejb-security-realm" protocol="http-remoting">
+           <properties>
+               <property name="SASL_POLICY_NOANONYMOUS" value="false"/>
+               <property name="SSL_ENABLED" value="false"/>
+           </properties>
+       </remote-outbound-connection>
+   </outbound-connections>
+
+   Inside socket-binding-group:
+
+   <outbound-socket-binding name="remote-ejb">
+       <remote-destination host="localhost" port="8280"/>
+   </outbound-socket-binding>
+
+4. Open a command line for each of the 4 nodes and navigate to the root of the EAP server directory.
    The following shows the command line to start the different servers:
 
         For Linux:   $EAP_HOME1/bin/standalone.sh -Djboss.node.name=node1
@@ -74,7 +101,7 @@ Configure and Start the Servers in standalone mode
                      %EAP_HOME4%\bin\standalone.bat -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
 
 
-4. Add the configuration for node2 (AppOne) to use EJB server-to-server invocation:
+5. Add the configuration for node2 (AppOne) to use EJB server-to-server invocation:
 
         For Linux:   $EAP_HOME2/bin/jboss-cli.sh -c --controller=localhost:10090 --file=$QUICKSTART_HOME/install-appOne-standalone.cli
         For Windows: %EAP_HOME2%\bin\jboss-cli.bat -c --controller=localhost:10090 --file=%QUICKSTART_HOME%/install-appOne-standalone.cli
