@@ -74,20 +74,12 @@
             <scope>runtime</scope>
         </dependency>
 
-    <!-- The client needs JBoss remoting to access the server -->
-        <dependency>
-            <groupId>org.jboss.remoting3</groupId>
-            <artifactId>jboss-remoting</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
     <!-- Remote EJB accesses can be secured -->
         <dependency>
             <groupId>org.jboss.sasl</groupId>
             <artifactId>jboss-sasl</artifactId>
             <scope>runtime</scope>
         </dependency>
-
 
     <!-- data serialization for invoking remote EJBs -->
         <dependency>
@@ -100,13 +92,12 @@
       any direct reference to EJB spec API in our client code -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
-            <!--  version>${version.jboss.ejb.client}</version -->
         </dependency>
     </dependencies>
 

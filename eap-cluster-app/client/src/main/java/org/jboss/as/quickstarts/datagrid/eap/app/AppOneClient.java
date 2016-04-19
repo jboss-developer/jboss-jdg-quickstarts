@@ -52,9 +52,9 @@ public class AppOneClient {
     */
    public static void main(String[] args) throws Exception {
       String hostAdmin = "localhost";
-      String portAdmin = "4447";
+      String portAdmin = "8080";
       String hostAppOne = "localhost";
-      String portAppOne = "4547";
+      String portAppOne = "8180";
 
       // suppress output of client messages
       Logger.getLogger("org.jboss").setLevel(Level.OFF);

@@ -46,8 +46,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
             <scope>provided</scope>
             <type>pom</type>
         </dependency>
