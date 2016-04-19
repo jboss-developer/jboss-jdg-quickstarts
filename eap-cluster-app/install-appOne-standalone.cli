@@ -1,6 +1,6 @@
 batch
 # Configure the connection from main server to "one" and "two"
-/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=4647)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=8280)
 
 # add security realm
 /core-service=management/security-realm=ejb-security-realm:add()

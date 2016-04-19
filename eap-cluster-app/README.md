@@ -43,6 +43,39 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
+Setup/Run the quickstart with automated script
+==============================================
+
+1. Download the EAP server and jboss-datagrid EAP modules library;
+2. Set the following two environment variables in the same shell:
+ For Linux:
+   export EAP_SERVER_ZIP_PATH=[Full path to the EAP server ZIP]
+   export JDG_MODULES_ZIP_PATH= _[Full path to the JDG EAP Modules ZIP]_
+ For Windows:
+   set EAP_SERVER_ZIP_PATH=[Full path to the EAP server ZIP]
+   set JDG_MODULES_ZIP_PATH= _[Full path to the JDG EAP Modules ZIP]_
+3. While in the root folder of the eap-cluster-app quickstart, run the following commands:
+
+For Linux:
+ 
+           ./build.sh --setup or ./build.sh --setup-domain for setting up servers and running them either in standalone or domain mode;
+           
+           ./build.sh --run for running the quickstart;
+           
+           ./build.sh --teardown for stopping the started servers as well as deleting the created directories;
+
+ For Windows:
+ 
+            build.bat --setup or build.bat --setup-domain for setting up servers and running them either in standalone or domain mode;
+            
+            build.bat --run for running the quickstart;
+            
+            build.bat --teardown for stopping the started servers as well as deleting the created directories;
+
+You can also perform all setups manually with the following steps:
+
+Setup/Run the quickstart manually
+=================================================
 
 Configure and Start the Servers in standalone mode
 --------------------------------------------------
@@ -59,8 +92,7 @@ Configure and Start the Servers in standalone mode
             For Linux:   $EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
             For Windows: %EAP_HOME%\bin\add-user.bat -a -u quickuser -p quick-123
 
-2. Copy the prepared EAP server to 4 different directories EAP_HOME[1-4].
-3. Add the following configuration snippets to EAP's standalone.xml:
+2. Add the following configuration snippets to EAP's standalone.xml:
 
    Inside security-realms:
 
@@ -86,6 +118,8 @@ Configure and Start the Servers in standalone mode
    <outbound-socket-binding name="remote-ejb">
        <remote-destination host="localhost" port="8280"/>
    </outbound-socket-binding>
+
+3. Copy the prepared EAP server to 4 different directories EAP_HOME[1-4].
 
 4. Open a command line for each of the 4 nodes and navigate to the root of the EAP server directory.
    The following shows the command line to start the different servers:

@@ -25,7 +25,7 @@ batch
 /host=master/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value=cXVpY2stMTIz)
 
 # add the socket binding to the full-sockets, used by the AppOne server
-/socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=4647)
+/socket-binding-group=full-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=8280)
 
 # add the outbound connections to the remoting subsystem of the full-profile used by AppOne server
 /profile=full/subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, security-realm=ejb-security-realm, username=quickuser)
@@ -46,9 +46,6 @@ batch
 
 #add the group and the servers for the AppOne
 # AppOne is not a clustered application, so use full profile
-
-# remove the not wanted messaging subsystem
-/profile=full/subsystem=messaging:remove
 
 /server-group=quickstart-eap-appone:add(profile=full,socket-binding-group=full-sockets)
 /server-group=quickstart-eap-appone/jvm=default:add()
