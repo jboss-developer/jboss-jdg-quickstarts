@@ -303,6 +303,12 @@
                     <scope>compile</scope>
                 </dependency>
 
+                <!-- Import Hibernate aligned with Infinispan -->
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </dependency>
+
                 <!-- Import JBoss Transactions dependencies. Using the JBoss 
                     Transactions on Tomcat is an unsupported use case -->
                 <dependency>
