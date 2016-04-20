@@ -113,7 +113,7 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive from both running servers:
 
         mvn wildfly:undeploy
-        mvn wildfly:undeploy -Djboss-as.port=10090
+        mvn wildfly:undeploy -Dwildfly.port=10090
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
