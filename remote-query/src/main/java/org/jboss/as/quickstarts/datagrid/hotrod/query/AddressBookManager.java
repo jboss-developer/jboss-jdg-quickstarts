@@ -89,6 +89,8 @@ public class AddressBookManager {
       final int hotrodPort = Integer.parseInt(jdgProperty(HOTROD_PORT));
       final String cacheName = jdgProperty(CACHE_NAME);  // The name of the address book  cache, as defined in your server config.
 
+      System.out.printf("Using cache %s on %s:%d\n\n", cacheName, host, hotrodPort);
+
       ConfigurationBuilder builder = new ConfigurationBuilder();
       builder.addServer()
             .host(host)
@@ -240,8 +242,8 @@ public class AddressBookManager {
    }
 
    private void printAllEntries() {
-      for (Integer key : remoteCache.keySet()) {
-         System.out.println(remoteCache.get(key));
+      for (Object key : remoteCache.keySet()) {
+         System.out.println("key=" + key + " value=" + remoteCache.get(key));
       }
    }
 
