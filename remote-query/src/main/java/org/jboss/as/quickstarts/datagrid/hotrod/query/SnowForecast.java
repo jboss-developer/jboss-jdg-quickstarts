@@ -21,11 +21,11 @@ import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.Search;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.client.hotrod.event.ClientEvents;
-import org.infinispan.client.hotrod.event.ContinuousQueryListener;
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
 import org.infinispan.protostream.SerializationContext;
 import org.infinispan.protostream.annotations.ProtoSchemaBuilder;
+import org.infinispan.query.api.continuous.ContinuousQuery;
+import org.infinispan.query.api.continuous.ContinuousQueryListener;
 import org.infinispan.query.dsl.Expression;
 import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryFactory;
@@ -73,7 +73,7 @@ public class SnowForecast {
     */
    private RemoteCache<Integer, Forecast> remoteCache;
 
-   private Object clientListener;
+   private ContinuousQuery<Integer, Forecast> continuousQuery;
 
    public SnowForecast() throws Exception {
       final String host = jdgProperty(SERVER_HOST);
@@ -122,7 +122,7 @@ public class SnowForecast {
    }
 
    private void addContinuousQueryListener() {
-      if (clientListener == null) {
+      if (continuousQuery == null) {
          QueryFactory qf = Search.getQueryFactory(remoteCache);
 
          Query query = qf.from(Forecast.class)
@@ -131,6 +131,9 @@ public class SnowForecast {
                .and().having("rain").eq(0)
                .and().having("snowfall").gte(0)
                .toBuilder().build();
+
+         continuousQuery = Search.getContinuousQuery(remoteCache);
+
          ContinuousQueryListener<Integer, Forecast> cqListener = new ContinuousQueryListener<Integer, Forecast>() {
 
             @Override
@@ -144,15 +147,15 @@ public class SnowForecast {
             }
          };
 
-         clientListener = ClientEvents.addContinuousQueryListener(remoteCache, cqListener, query);
+         continuousQuery.addContinuousQueryListener(query, cqListener);
          System.out.println("Continuous query listener added.");
       }
    }
 
    private void removeContinuousQueryListener() {
-      if (clientListener != null) {
-         remoteCache.removeClientListener(clientListener);
-         clientListener = null;
+      if (continuousQuery != null) {
+         continuousQuery.removeAllListeners();
+         continuousQuery = null;
          System.out.println("Continuous query listener removed.");
       }
    }
