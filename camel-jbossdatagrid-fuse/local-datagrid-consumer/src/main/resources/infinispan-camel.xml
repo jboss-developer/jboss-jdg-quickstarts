@@ -6,8 +6,9 @@
     <jgroups transport="org.infinispan.remoting.transport.jgroups.JGroupsTransport">
           <stack-file name="configurationFile" path="jgroups.xml"/>
     </jgroups>
-    
+
     <cache-container name="default" default-cache="camel-datastore">
+        <transport cluster="fuseCluster" stack="configurationFile"/>
         <replicated-cache name="camel-datastore" mode="SYNC" start="EAGER" statistics="true" />
     </cache-container>
 </infinispan>
