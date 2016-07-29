@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-hotrod-endpoint-quickstart</artifactId>
-    <version>6.6.1.ER1-redhat-1</version>
+    <version>6.6.1-redhat-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: hotrod-endpoint</name>
 
     <licenses>
