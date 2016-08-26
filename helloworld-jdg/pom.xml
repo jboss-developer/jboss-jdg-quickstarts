@@ -25,7 +25,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.7.Final</version.jboss.maven.plugin>
 
         <version.org.infinispan>6.4.1.ER1-redhat-1</version.org.infinispan>
 
