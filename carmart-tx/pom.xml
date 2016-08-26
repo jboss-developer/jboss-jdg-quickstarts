@@ -43,7 +43,7 @@
         <version.commons.codec>1.10</version.commons.codec>
 
         <!-- other plugin versions -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.jboss.maven.plugin>7.7.Final</version.jboss.maven.plugin>
         <version.tomcat.maven.plugin>1.1</version.tomcat.maven.plugin>
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
 
