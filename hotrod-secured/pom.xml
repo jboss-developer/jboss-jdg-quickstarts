@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-hotrod-secured-quickstart</artifactId>
-    <version>6.6.1.Final-redhat-1</version>
+    <version>6.6.1-redhat-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: hotrod-secured</name>
 
     <licenses>
