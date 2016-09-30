@@ -1,0 +1,2 @@
+org.jboss.as.quickstarts.datagrid.remotetasks.tasks.BooksRemovingTask
+org.jboss.as.quickstarts.datagrid.remotetasks.tasks.BooksQueryingTask

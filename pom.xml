@@ -50,6 +50,7 @@
         <module>cdi-jdg</module>
         <module>spark</module>
         <module>hadoop</module>
+        <module>remote-tasks-with-streams</module>
     </modules>
 
     <properties>
