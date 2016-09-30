@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss.quickstarts.jdg</groupId>
+    <artifactId>jboss-remote-tasks-with-streams-quickstart</artifactId>
+    <version>7.1.0-redhat-SNAPSHOT</version>
+    <name>JBoss JDG Quickstart: remote-tasks-with-streams</name>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.org.infinispan>8.3.0.Final-redhat-1</version.org.infinispan>
+        <exec.plugin.version>1.2.1</exec.plugin.version>
+        <main.class>org.jboss.as.quickstarts.datagrid.remotetasks.LibraryManager</main.class>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${version.org.infinispan}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Import the Infinispan client hotrod -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-remote</artifactId>
+        </dependency>
+
+        <!-- Import the Infinispan tasks API-->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-tasks-api</artifactId>
+        </dependency>
+
+        <!-- Import the Infinispan Scripting library -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-scripting</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Maven will append the version to the finalName (which is the
+            name given to the generated jar) -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- This plugin permits the execution of this quickstart
+                through mvn exec:java command -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <classifier>service</classifier>
+                    <finalName>remote-tasks-with-streams</finalName>
+                    <excludes>
+                        <exclude>org/jboss/as/quickstarts/datagrid/remotetasks/LibraryManager.*</exclude>
+                        <exclude>org/jboss/as/quickstarts/datagrid/remotetasks/Book.*</exclude>
+                        <exclude>books.csv</exclude>
+                        <exclude>module.xml</exclude>
+                    </excludes>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>org.jboss.as.quickstarts.remote-task-with-streams</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-lib-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>lib</classifier>
+                            <finalName>remote-tasks-with-streams</finalName>
+                            <excludes>
+                                <exclude>jdg.properties</exclude>
+                                <exclude>module.xml</exclude>
+                                <exclude>books.csv</exclude>
+                                <exclude>META-INF/</exclude>
+                                <exclude>scripts/</exclude>
+                                <exclude>org/jboss/as/quickstarts/datagrid/remotetasks/tasks/</exclude>
+                                <exclude>org/jboss/as/quickstarts/datagrid/remotetasks/LibraryManager.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
