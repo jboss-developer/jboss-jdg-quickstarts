@@ -43,7 +43,7 @@
         <version.org.infinispan>8.4.0.DR1-redhat-1</version.org.infinispan>
         <version.spark.connector>0.4.0.DR1-redhat-1</version.spark.connector>
 
-        <version.spark>1.6.0</version.spark>
+        <version.spark>2.0.0</version.spark>
 
         <!-- maven-compiler-plugin -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -59,13 +59,13 @@
         <dependencies>
             <dependency>
                 <groupId>org.apache.spark</groupId>
-                <artifactId>spark-core_2.10</artifactId>
+                <artifactId>spark-core_2.11</artifactId>
                 <version>${version.spark}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.spark</groupId>
-                <artifactId>spark-streaming_2.10</artifactId>
+                <artifactId>spark-streaming_2.11</artifactId>
                 <version>${version.spark}</version>
                 <scope>provided</scope>
             </dependency>
