@@ -33,7 +33,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Setup the quickstart
 ----------------------
 
-1. Download the Fuse binary __jboss-fuse-full-6.2.0.redhat-133.zip__ from either http://www.jboss.org/products or from Red Hat's Customer portal
+1. Download the Fuse binary __jboss-fuse-karaf-6.3.0.redhat-187.zip__ from either http://www.jboss.org/products or from Red Hat's Customer portal
 2. Export the path to the folder where the CSV files will be placed by running the command of the form `export incomingFolderPath=[Full path to the CSV folder]`
 3. Run `mvn clean install -DincomingFolderPath=$incomingFolderPath` in the root folder of the quickstart
 4. Set the following two environment variables in the same shell: 

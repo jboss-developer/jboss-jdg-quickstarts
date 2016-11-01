@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export FUSE_VERSION=jboss-fuse-6.2.1.redhat-084
+export FUSE_VERSION=jboss-fuse-6.3.0.redhat-187
 
 if [ -z "$MVN_SETTINGS_XML" ]; then
     export JDG_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[' | grep -v 'Download'`
