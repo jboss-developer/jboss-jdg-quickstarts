@@ -58,7 +58,6 @@
                 <include>hadoop/**</include>
                 <include>spark/**</include>
                 <include>hotrod-endpoint-js/**</include>
-                <include>hadoop-samples/**</include>
                 <include>remote-tasks-with-streams/**</include>
                 <include>settings.xml</include>
                 <include>README.md</include>
@@ -85,3 +84,4 @@
         </fileSet>
     </fileSets>
 </assembly>
+
