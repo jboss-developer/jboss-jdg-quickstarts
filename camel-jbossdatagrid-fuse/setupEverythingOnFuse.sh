@@ -68,6 +68,8 @@ else
     sed -i '' "s/#admin/admin/" $EXISTING_INSTALL/etc/users.properties
 fi
 
+echo 'export JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"' >> ${EXISTING_INSTALL}/bin/setenv
+
 ####################################################################
 # Starting JBoss Fuse
 ####################################################################
