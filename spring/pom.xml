@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring-jdg</artifactId>
-    <version>7.1.0-redhat-SNAPSHOT</version>
+    <version>7.1.0.ER1-redhat-1</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring-jdg</name>
