@@ -57,7 +57,7 @@ public class Memo {
       this.id = id;
    }
 
-   @ProtoDoc("@IndexedField")
+   @ProtoDoc("@Field(store = Store.YES, analyze = Analyze.YES)")
    @ProtoField(number = 2)
    public String getText() {
       return text;
@@ -67,7 +67,7 @@ public class Memo {
       this.text = text;
    }
 
-   @ProtoDoc("@IndexedField")
+   @ProtoDoc("@Field(store = Store.YES)")
    @ProtoField(number = 3)
    public Person getAuthor() {
       return author;

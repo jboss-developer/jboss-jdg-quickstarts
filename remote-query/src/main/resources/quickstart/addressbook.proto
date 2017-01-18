@@ -3,10 +3,10 @@ package quickstart;
 /* @Indexed */
 message Person {
 
-   /* @IndexedField */
+   /* @Field(store = Store.YES) */
    required string name = 1;
 
-   /* @IndexedField(index=false, store=false) */
+   /* @Field(index = Index.NO, store = Store.NO) */
    required int32 id = 2;
 
    optional string email = 3;
@@ -20,13 +20,13 @@ message Person {
    /* @Indexed */
    message PhoneNumber {
 
-      /* @IndexedField */
+      /* @Field(store = Store.YES) */
       required string number = 1;
 
-      /* @IndexedField(index=false, store=false) */
+      /* @Field(index = Index.NO, store = Store.NO) */
       optional PhoneType type = 2 [default = HOME];
    }
 
-   /* @IndexedField(index=true, store=false) */
+   /* @Field(index = Index.YES, store = Store.NO) */
    repeated PhoneNumber phone = 4;
 }

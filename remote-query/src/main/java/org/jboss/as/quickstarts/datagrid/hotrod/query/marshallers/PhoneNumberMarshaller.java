@@ -16,11 +16,11 @@
  */
 package org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers;
 
+import java.io.IOException;
+
 import org.infinispan.protostream.MessageMarshaller;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneNumber;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneType;
-
-import java.io.IOException;
 
 /**
  * @author Adrian Nistor

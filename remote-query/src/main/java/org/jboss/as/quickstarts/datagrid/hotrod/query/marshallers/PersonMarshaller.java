@@ -16,13 +16,13 @@
  */
 package org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers;
 
-import org.infinispan.protostream.MessageMarshaller;
-import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Person;
-import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneNumber;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.infinispan.protostream.MessageMarshaller;
+import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Person;
+import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.PhoneNumber;
 
 /**
  * @author Adrian Nistor
@@ -44,7 +44,7 @@ public class PersonMarshaller implements MessageMarshaller<Person> {
       String name = reader.readString("name");
       int id = reader.readInt("id");
       String email = reader.readString("email");
-      List<PhoneNumber> phones = reader.readCollection("phone", new ArrayList<PhoneNumber>(), PhoneNumber.class);
+      List<PhoneNumber> phones = reader.readCollection("phone", new ArrayList<>(), PhoneNumber.class);
 
       Person person = new Person();
       person.setName(name);

@@ -44,7 +44,7 @@ public class Forecast {
    private float snowfall;
 
    /**
-    * In Celsius degrees.
+    * Temperature in Celsius degrees.
     */
    private float temperature;
 

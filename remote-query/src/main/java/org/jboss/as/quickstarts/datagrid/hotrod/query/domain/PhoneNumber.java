@@ -22,6 +22,7 @@ package org.jboss.as.quickstarts.datagrid.hotrod.query.domain;
 public class PhoneNumber {
 
    private String number;
+
    private PhoneType type;
 
    public String getNumber() {
