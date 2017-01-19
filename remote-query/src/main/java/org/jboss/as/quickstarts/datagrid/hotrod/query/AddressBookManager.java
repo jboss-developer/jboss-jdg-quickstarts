@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Properties;
@@ -74,8 +75,9 @@ public class AddressBookManager {
          " 7. Add memo\n" +
          " 8. Query memo by author\n" +
          " 9. Display all cache entries\n" +
-         "10. Clear cache\n" +
-         "11. Quit\n";
+         "10. Run Ickle query\n" +
+         "11. Clear cache\n" +
+         "12. Quit\n";
 
    private RemoteCacheManager cacheManager;
 
@@ -162,6 +164,23 @@ public class AddressBookManager {
       System.out.printf("Found %d matches:\n", results.size());
       for (Person p : results) {
          System.out.println(">> " + p);
+      }
+   }
+
+   private void runIckleQueryString() {
+      String queryString = readConsole("Enter an Ickle query string: ");
+
+      QueryFactory qf = Search.getQueryFactory(remoteCache);
+      Query query = qf.create(queryString);
+
+      List<Object> results = query.list();
+      System.out.printf("Found %d matches:\n", results.size());
+      for (Object o : results) {
+         if (o instanceof Object[]) {
+            System.out.println(">> " + Arrays.toString((Object[]) o));
+         } else {
+            System.out.println(">> " + o);
+         }
       }
    }
 
@@ -330,8 +349,10 @@ public class AddressBookManager {
             } else if ("9".equals(action)) {
                manager.printAllEntries();
             } else if ("10".equals(action)) {
-               manager.clearCache();
+               manager.runIckleQueryString();
             } else if ("11".equals(action)) {
+               manager.clearCache();
+            } else if ("12".equals(action)) {
                System.out.println("Bye!");
                break;
             } else {

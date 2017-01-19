@@ -180,11 +180,12 @@ Basic usage scenarios can look like this (keyboard actions will be shown to you 
      7. Add memo
      8. Query memo by author
      9. Display all cache entries
-    10. Clear cache
-    11. Quit    
+    10. Run Ickle query
+    11. Clear cache
+    12. Quit    
 
         
-Type `11` to exit the application.
+Type `12` to exit the application.
 
 Run application with different classpath
 ----------------------------------------
