@@ -63,8 +63,9 @@ public class SnowForecast {
          "4. Remove continuous query listener\n" +
          "5. Display snow report\n" +
          "6. Display all cache entries\n" +
-         "7. Clear cache\n" +
-         "8. Quit\n";
+         "7. Run Ickle query\n" +
+         "8. Clear cache\n" +
+         "9. Quit\n";
 
    private RemoteCacheManager cacheManager;
 
@@ -218,6 +219,23 @@ public class SnowForecast {
       }
    }
 
+   private void runIckleQueryString() {
+      String queryString = readConsole("Enter an Ickle query string: ");
+
+      QueryFactory qf = Search.getQueryFactory(remoteCache);
+      Query query = qf.create(queryString);
+
+      List<Object> results = query.list();
+      System.out.printf("Found %d matches:\n", results.size());
+      for (Object o : results) {
+         if (o instanceof Object[]) {
+            System.out.println(">> " + Arrays.toString((Object[]) o));
+         } else {
+            System.out.println(">> " + o);
+         }
+      }
+   }
+
    private void printAllEntries() {
       for (Object key : remoteCache.keySet()) {
          System.out.printf("key=%s, value=%s\n", key, remoteCache.get(key));
@@ -263,8 +281,10 @@ public class SnowForecast {
             } else if ("6".equals(action)) {
                forecast.printAllEntries();
             } else if ("7".equals(action)) {
-               forecast.cleaCache();
+               forecast.runIckleQueryString();
             } else if ("8".equals(action)) {
+               forecast.cleaCache();
+            } else if ("9".equals(action)) {
                System.out.println("Bye!");
                break;
             } else {
