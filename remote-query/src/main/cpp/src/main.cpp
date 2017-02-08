@@ -1,19 +1,30 @@
+#include <infinispan/hotrod/BasicTypesProtoStreamMarshaller.h>
+#include <infinispan/hotrod/ProtoStreamMarshaller.h>
 #include "infinispan/hotrod/ConfigurationBuilder.h"
 #include "infinispan/hotrod/RemoteCacheManager.h"
 #include "infinispan/hotrod/RemoteCache.h"
+#include "infinispan/hotrod/Query.h"
+#include "infinispan/hotrod/QueryUtils.h"
 
 #include "addressbook.pb.h"
 
-#include "Marshalling.h"
-
 #include <iostream>
+#include <memory>
 
-using namespace quickstart::primitive;
-using namespace quickstart::marshalling;
+#define PROTOBUF_METADATA_CACHE_NAME "___protobuf_metadata"
+#define ERRORS_KEY_SUFFIX  ".errors"
+
 using namespace infinispan::hotrod;
-using namespace std;
-using namespace std::tr1;
 using namespace ::google::protobuf;
+using namespace ::org::infinispan::query::remote::client;
+
+std::string read(std::string file)
+{
+    std::ifstream t(file);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+    return buffer.str();
+}
 
 template<class T> T read_valid(string prompt) {
     T result;
@@ -30,99 +41,216 @@ template<class T> T read_valid(string prompt) {
     }
 }
 
-ostream& operator<<(ostream& out, const tutorial::Person& person) {
+
+ostream& operator<<(ostream& out, const quickstart::Person& person) {
     out << person.ShortDebugString() << endl;
     return out;
 }
 
+
+static std::string APP_MENU = "\nAvailable actions:\n"
+        "0. Display available actions\n"
+        "1. Add person\n"
+        "2. Remove person\n"
+        "3. Add phone to person\n"
+        "4. Remove phone from person\n"
+        "5. Query persons by name\n"
+        "6. Query persons by phone\n"
+        "7. Add memo to person\n"
+        "8. Full text search on memo\n"
+        "9. Query for projection (name)\n"
+        "10. Count person with mobile\n"
+        "11. Display all cache entries\n"
+        "12. Clear cache\n"
+        "13. Quit\n";
+
 void displayActions() {
-    cout << "Available actions:" << endl
-         << "0. Display available actions" << endl
-         << "1. Add person" << endl
-         << "2. Remove person" << endl
-         << "3. Add phone" << endl
-         << "4. Remove phone" << endl
-         << "5. Print all" << endl
-         << "6. Quit" << endl << endl;
+    cout << APP_MENU << endl;
 }
 
-void addPerson(RemoteCache<string, string>& cache) {
+void putPerson(RemoteCache<int, quickstart::Person>& cache) {
     int id = read_valid<int>("Enter person id: ");
     string name = read_valid<string>("Enter person name: ");
     string email = read_valid<string>("Enter person email: ");
 
-    tutorial::Person person;
+    quickstart::Person person;
     person.set_id(id);
     person.set_name(name);
     person.set_email(email);
-    
-    cache.put(*marshal(id), *marshal(person));
+    person.set_department((id%2==0) ?"EVEN" : "ODD");
+    cache.put(id, person);
 }
 
-void removePerson(RemoteCache<string, string>& cache) {
+void removePerson(RemoteCache<int, quickstart::Person>& cache) {
     int id = read_valid<int>("Enter person id: ");
-    cache.remove(*marshal(id));
+    cache.remove(id);
 }
 
-void addPhone(RemoteCache<string, string>& cache) {
+
+void addPhone(RemoteCache<int, quickstart::Person>& cache) {
     int id = read_valid<int>("Enter person id: ");
 
-    string key = *marshal(id);
-
-    string *value = cache.get(key);
-    if (value == NULL) {
+    quickstart::Person *person = cache.get(id);
+    if (person == nullptr) {
         cerr << "Person not found." << endl;
         return;
     }
 
-    tutorial::Person person = *unmarshal<tutorial::Person>(*value);
-    cout << person << endl;
-
+    cout << *person << endl;
     string number = read_valid<string>("Phone Number: ");
     string phone_type_str = read_valid<string>("Phone Type (MOBILE/HOME/WORK): ");
 
-    tutorial::Person_PhoneType phone_type;
-    tutorial::Person_PhoneType_Parse(phone_type_str, &phone_type);
+    quickstart::Person_PhoneType phone_type;
+    quickstart::Person_PhoneType_Parse(phone_type_str, &phone_type);
 
-    tutorial::Person_PhoneNumber *phoneNumber = person.add_phone();
+    quickstart::Person_PhoneNumber *phoneNumber = person->add_phone();
     phoneNumber->set_number(number);
     phoneNumber->set_type(phone_type);
 
-    cache.put(key, *marshal(person));
+    cache.put(id, *person);
+    delete person;
+
 }
 
-void removePhone(RemoteCache<string, string>& cache) {
-    int id = read_valid<int>("Enter person id: ");
+void removePhone(RemoteCache<int, quickstart::Person>& cache) {
 
-    string key = *marshal(id);
+    int id = read_valid<int>("Enter Person id: ");
 
-    string *value = cache.get(key);
-    if (value == NULL) {
+    quickstart::Person* person= cache.get(id);
+
+    if (person == nullptr) {
         cerr << "Person not found." << endl;
         return;
     }
 
-    tutorial::Person person = *unmarshal<tutorial::Person>(*value);
-    cout << person << endl;
+    cout << *person << endl;
 
     int phone_index = read_valid<int>("Enter phone index: ");
-    if ((phone_index < 0) || (phone_index >= person.phone_size())) {
+    if ((phone_index < 0) || (phone_index >= person->phone_size())) {
         cerr << "Phone index '" << phone_index << "' is out of range." << endl;
         return;
     }
 
-    person.mutable_phone()->DeleteSubrange(phone_index, 1);
+    person->mutable_phone()->DeleteSubrange(phone_index, 1);
 
-    cache.put(key, *marshal(person));
+    cache.put(id, *person);
+    delete person;
 }
 
-void printAll(RemoteCache<string, string>& cache) {
-    set<shared_ptr<string> > key_set = cache.keySet();
-    for (set<shared_ptr<string> >::const_iterator i = key_set.begin(); i != key_set.end(); ++i) {
-        tutorial::Person person = *unmarshal<tutorial::Person>(*cache.get(**i));
-        cout << person << endl;
+void queryPersonByName(RemoteCache<int, quickstart::Person>& cache) {
+    string name = read_valid<string>("Enter person name: ");
+    QueryRequest qr;
+    qr.set_querystring("from quickstart.Person where name='"+name+"'");
+    QueryResponse resp = cache.query(qr);
+    std::vector<quickstart::Person> res;
+    if (!unwrapResults(resp, res)) {
+        std::cerr << "error in creating the resultset" << std::endl;
+    }
+    cout << "Result set is:" << endl;
+    for (auto i: res) {
+        cout << i << endl;
     }
 }
+
+void queryPersonByPhone(RemoteCache<int, quickstart::Person>& cache) {
+    string name = read_valid<string>("Enter phone number: ");
+    QueryRequest qr;
+    qr.set_querystring("from quickstart.Person as p where p.phone.number='"+name+"'");
+    QueryResponse resp = cache.query(qr);
+    std::vector<quickstart::Person> res;
+    if (!unwrapResults(resp, res)) {
+        std::cerr << "error in creating the resultset" << std::endl;
+    }
+    cout << "Result set is:" << endl;
+    for (auto i: res) {
+        cout << i << endl;
+    }
+}
+
+void addMemo(RemoteCache<int, quickstart::Person>& cache) {
+    int id = read_valid<int>("Enter person id: ");
+
+    quickstart::Person *person = cache.get(id);
+    if (person == nullptr) {
+        cerr << "Person not found." << endl;
+        return;
+    }
+    cout << *person << endl;
+
+    cout << ("Memo text: ");
+    string memotext;
+    cin.ignore();
+    getline(cin, memotext);
+    quickstart::Person_Memo *memo = person->add_memo();
+    memo->set_text(memotext);
+
+    cache.put(id, *person);
+    delete person;
+
+}
+
+void fullTextOnMemo(RemoteCache<int, quickstart::Person>& cache) {
+    QueryRequest qr;
+    qr.set_querystring("from quickstart.Person as p where p.memo.text : 'language'");
+    QueryResponse resp = cache.query(qr);
+    std::vector<quickstart::Person> res;
+    if (!unwrapResults(resp, res)) {
+        std::cerr << "error in creating the resultset" << std::endl;
+    }
+    cout << "Result set is:" << endl;
+    for (auto i: res) {
+        cout << i << endl;
+    }
+}
+
+void printAll(RemoteCache<int, quickstart::Person>& cache) {
+    QueryRequest qr;
+    qr.set_querystring("from quickstart.Person");
+    QueryResponse resp = cache.query(qr);
+    std::vector<quickstart::Person> res;
+    // unwrapProjection process the response and fill the given vector
+    if (!unwrapResults(resp, res)) {
+        std::cerr << "error in creating the resultset" << std::endl;
+    }
+    cout << "Result set is:" << endl;
+    for (auto i: res) {
+        cout << i << endl;
+    }
+}
+
+void projectAllNames(RemoteCache<int, quickstart::Person>& cache) {
+    QueryRequest qr;
+    qr.set_querystring("select name from quickstart.Person");
+    QueryResponse resp = cache.query(qr);
+    std::vector<std::tuple<std::string>> nameVector;
+    // unwrapProjection process the response if the result is not a set of entity/class
+    // and fill the given vector with tuples of result.
+    unwrapProjection(resp, nameVector);
+    for (auto i: nameVector) {
+        cout << get<0>(i) << endl;
+    }
+}
+
+void countByDepartment(RemoteCache<int, quickstart::Person>& cache) {
+    QueryRequest qr;
+    qr.set_querystring("select count(p.id) from quickstart.Person p where p.department='ODD'");
+    try
+    {
+        QueryResponse resp = cache.query(qr);
+        int odd = unwrapSingleResult<int>(resp);
+        qr.set_querystring("select count(p.id) from quickstart.Person p where p.department='EVEN'");
+        resp = cache.query(qr);
+        // unwrapSingleResult process the response if the result is a sigle row and column
+        // the result is the function return value
+        int even = unwrapSingleResult<int>(resp);
+        cout << "Result is: " << odd << " odd and " << even << " even" << endl;
+    }
+    catch (Exception e) {
+        cout << e.what() << endl;
+    }
+}
+
+
 
 int readAction() {
     return read_valid<int>("> ");
@@ -133,10 +261,31 @@ int main(int argc, char *argv[]) {
 
   // Connect.
   ConfigurationBuilder builder;
-  builder.addServer().host(argc > 1 ? argv[1] : "127.0.0.1").port(argc > 2 ? atoi(argv[2]) : 11222);
-
+  builder.addServer().host("127.0.0.1").port(11222);
+  builder.protocolVersion(Configuration::PROTOCOL_VERSION_24);
   RemoteCacheManager cacheManager(builder.build());
-  RemoteCache<string, string> cache = cacheManager.getCache<string, string>("addressbook", false);
+
+  //server side setup:
+  //    installing protobuf model for cache entries
+  auto *km = new BasicTypesProtoStreamMarshaller<std::string>();
+  auto *vm = new BasicTypesProtoStreamMarshaller<std::string>();
+
+  RemoteCache<std::string, std::string> metadataCache = cacheManager.getCache<std::string, std::string>(
+          km, &Marshaller<std::string>::destroy, vm, &Marshaller<std::string>::destroy,PROTOBUF_METADATA_CACHE_NAME, false);
+
+  std::string s=read("/home/rigazilla/git/jboss-jdg-quickstarts/remote-query/src/main/cpp/src/addressbook.proto");
+  metadataCache.put("q/a.proto"  , s);
+  if (metadataCache.containsKey(ERRORS_KEY_SUFFIX))
+  {
+    std::cerr << "fail: error in registering .proto model" << std::endl;
+    return -1;
+  }
+
+  auto *testkm = new BasicTypesProtoStreamMarshaller<int>();
+  auto *testvm = new ProtoStreamMarshaller<quickstart::Person, quickstart::PersonType::id>();
+
+
+  auto cache = cacheManager.getCache<int, quickstart::Person>(testkm, &Marshaller<int>::destroy, testvm, &Marshaller<quickstart::Person>::destroy, false);
   cacheManager.start();
 
   bool quit = false;
@@ -146,7 +295,7 @@ int main(int argc, char *argv[]) {
 
       switch (action) {
       case 1:
-          addPerson(cache);
+          putPerson(cache);
           break;
       case 2:
           removePerson(cache);
@@ -158,91 +307,38 @@ int main(int argc, char *argv[]) {
           removePhone(cache);
           break;
       case 5:
-          printAll(cache);
+          queryPersonByName(cache);
           break;
       case 6:
+          queryPersonByPhone(cache);
+          break;
+      case 7:
+          addMemo(cache);
+          break;
+      case 8:
+          fullTextOnMemo(cache);
+          break;
+      case 9:
+          projectAllNames(cache);
+          break;
+      case 10:
+          countByDepartment(cache);
+          break;
+      case 11:
+          printAll(cache);
+          break;
+      case 12:
+          cache.clear();
+          cout << "Cache cleared" << endl;
+          break;
+      case 13:
           quit = true;
+          cout << "Bye!" << endl;
           break;
       default:
-          cerr << "Invalid action: " << action << endl;
+          std::cerr << "Invalid action: " << action << std::endl;
       case 0:
           displayActions();
       }
   }
-
-  // // Create some protobuf messages.
-  // tutorial::AddressBook address_book;
-
-  // tutorial::Person *p0 = address_book.add_person();
-  // tutorial::Person *p1 = address_book.add_person();
-
-  // p0->set_id(0);
-  // p0->set_name("person0");
-
-  // p1->set_id(1);
-  // p1->set_name("person1");
-
-  // // Marshal Keys.
-  // shared_ptr<string> key1 = marshal("key1");
-  // shared_ptr<string> key2 = marshal("key2");
-  // shared_ptr<string> key3 = marshal("key3");
-
-  // // Marshal Values.
-  // shared_ptr<string> value1 = marshal(address_book);
-  // shared_ptr<string> value2 = marshal(string("value2"));
-  // shared_ptr<string> value3 = marshal(3.0);
-
-  // // Write to cache.
-  // cache.put(*key1, *value1);
-  // cache.put(*key2, *value2);
-  // cache.put(*key3, *value3);
-
-  // // Fetch from cache.
-  // auto_ptr<string> marshalled_value_fetched1(cache.get(*key1));
-  // auto_ptr<string> marshalled_value_fetched2(cache.get(*key2));
-  // auto_ptr<string> marshalled_value_fetched3(cache.get(*key3));
-
-  // // Don't know what the type of the values should be.
-  // {
-  //   // Register marshallers for the known types.
-  //   MarshallingRegistry registry;
-  //   registry.registerMarshaller("tutorial.AddressBook",
-  //                               shared_ptr<quickstart::marshalling::Marshaller>(new DefaultMarshaller<tutorial::AddressBook>));
-
-  //   shared_ptr<Message> message_fetched1 = registry.unmarshal(*marshalled_value_fetched1);
-  //   shared_ptr<Message> message_fetched2 = registry.unmarshal(*marshalled_value_fetched2);
-  //   shared_ptr<Message> message_fetched3 = registry.unmarshal(*marshalled_value_fetched3);
-
-  //   if ("tutorial.AddressBook" == message_fetched1->GetTypeName()) {
-  //     tutorial::AddressBook value_fetched1 = *((tutorial::AddressBook*) message_fetched1.get());
-  //     std::cout << "value_fetched1: " << value_fetched1.GetTypeName() << endl;
-  //   }
-
-  //   if ("quickstart.primitive.String" == message_fetched2->GetTypeName()) {
-  //     string value_fetched2 = ((String*) message_fetched2.get())->value();
-  //     std::cout << "value_fetched2: " << value_fetched2 << endl;
-  //   }
-
-  //   if ("quickstart.primitive.Double" == message_fetched3->GetTypeName()) {
-  //     double value_fetched3 = ((Double*) message_fetched3.get())->value();
-  //     std::cout << "value_fetched3: " << value_fetched3 << endl;
-  //   }
-  // }
-
-  // // I know what the type of the values should be.
-  // {
-  //   tutorial::AddressBook value_fetched1 = *unmarshal<tutorial::AddressBook>(*marshalled_value_fetched1);
-  //   std::cout << "known type value_fetched1: " << value_fetched1.GetTypeName() << endl;
-
-  //   string value_fetched2 = unmarshalString(*marshalled_value_fetched2);
-  //   std::cout << "known type value_fetched2: " << value_fetched2 << endl;
-
-  //   double value_fetched3 = unmarshalDouble(*marshalled_value_fetched3);
-  //   std::cout << "known type value_fetched3: " << value_fetched3 << endl;
-  // }
-
-  // Clean-up.
-  cacheManager.stop();
-  
-  google::protobuf::ShutdownProtobufLibrary();
 }

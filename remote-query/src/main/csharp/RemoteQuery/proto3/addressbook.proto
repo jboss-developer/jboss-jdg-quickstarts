@@ -1,6 +1,8 @@
+syntax = "proto3";
 package quickstart;
 
 enum PersonType {
+      zero = 0;
       id = 42;
 }
 
@@ -10,11 +12,11 @@ enum PersonType {
  */
 message Person {
    /* @Field(index=Index.YES, analyze=Analyze.YES) */
-   required string name = 1;
+   string name = 1;
 
-   required int32 id = 2;
+   int32 id = 2;
 
-   optional string email = 3;
+   string email = 3;
 
    enum PhoneType {
       MOBILE = 0;
@@ -24,9 +26,9 @@ message Person {
 
    message PhoneNumber {
 
-      required string number = 1;
+      string number = 1;
 
-      optional PhoneType type = 2 [default = HOME];
+      PhoneType type = 2;
    }
 
    repeated PhoneNumber phone = 4;
@@ -36,10 +38,10 @@ message Person {
  */
    message Memo {
    /* @Field(index=Index.YES, analyze=Analyze.YES) */
-       optional string text = 1;
+        string text = 1;
    }
    /* @Field(index=Index.YES, analyze=Analyze.YES) */
    repeated Memo memo = 5;
-   optional string department = 6;
+   string department = 6;
 }
 
