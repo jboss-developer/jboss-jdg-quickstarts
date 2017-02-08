@@ -95,7 +95,7 @@ sh client -r 2 -d 10 "fabric:create --clean --wait-for-provisioning --global-res
 
 echo "- Fabric created"
 echo
-sh client -r 2 -d 10 "fabric:container-create-child --profile=fabric root child 2" > /dev/null 2>&1
+sh client -r 2 -d 10 "fabric:container-create-child --jvm-opts='-Djava.security.egd=file:/dev/./urandom' --profile=fabric root child 2" > /dev/null 2>&1
 if [ ! -z "$MVN_SETTINGS_XML" ]; then
     sh client -r 2 -d 10 "fabric:profile-edit --pid io.fabric8.agent/org.ops4j.pax.url.mvn.settings='${MVN_SETTINGS_XML}' default" > /dev/null 2>&1
 fi
