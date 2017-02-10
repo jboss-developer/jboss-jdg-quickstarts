@@ -40,8 +40,8 @@
     </modules>
 
     <properties>
-        <version.org.infinispan>8.4.0.ER4-redhat-1</version.org.infinispan>
-        <version.spark.connector>0.4.0.ER4-redhat-1</version.spark.connector>
+        <version.org.infinispan>8.4.0.ER5-redhat-1</version.org.infinispan>
+        <version.spark.connector>0.4.0.ER5-redhat-1</version.spark.connector>
 
         <version.spark>2.0.0</version.spark>
 
