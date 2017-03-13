@@ -33,7 +33,7 @@
     </licenses>
 
     <properties>
-        <version.org.infinispan>8.4.0.ER6-redhat-1</version.org.infinispan>
+        <version.org.infinispan>8.4.0.ER7-redhat-1</version.org.infinispan>
         <version.jdg.hadoop>0.2.0.Final-redhat-1</version.jdg.hadoop>
         <version.flink>1.0.0</version.flink>
 
