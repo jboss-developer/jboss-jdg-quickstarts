@@ -42,6 +42,7 @@
         <fileSet>
             <includes>
                 <include>spring/**</include>
+                <include>spring-session/**</include>
                 <include>camel-jbossdatagrid-fuse/**</include>
                 <include>carmart/**</include>
                 <include>eap-cluster-app/**</include>
