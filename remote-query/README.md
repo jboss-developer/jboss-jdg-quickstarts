@@ -1,11 +1,11 @@
 remote-query: Example Using Remote Query via Hot Rod
 ==================================
-Author: Adrian Nistor
-Level: Intermediate
-Technologies: Infinispan, Hot Rod, Remote Query, Protostream
-Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.
-Target Product: JDG
-Product Versions: JDG 7.1.x
+Author: Adrian Nistor  
+Level: Intermediate  
+Technologies: Infinispan, Hot Rod, Remote Query, Protostream  
+Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.  
+Target Product: JDG  
+Product Versions: JDG 7.1.x  
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -38,7 +38,7 @@ Configure JDG
 
 2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the [Administration and Configuration Guide for JBoss Enterprise Application Platform](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform) . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
-3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
+3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/clustered.xml`) to contain the following definitions:
    
 * Datasource subsystem definition:
 
@@ -68,35 +68,20 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
-            <cache-container name="local" default-cache="default" statistics="true">
-                <local-cache name="default" start="EAGER">
-                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
-                    <transaction mode="NONE"/>
-                </local-cache>
-                <local-cache name="memcachedCache" start="EAGER">
-                    <locking isolation="NONE" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
-                    <transaction mode="NONE"/>
-                </local-cache>
-                <local-cache name="namedCache" start="EAGER"/>
-                
-                <!-- Add a local cache named 'addressbook_indexed' -->
-                <local-cache name="addressbook_indexed" start="EAGER">
-
+        <subsystem xmlns="urn:infinispan:server:core:8.4">
+            <cache-container name="clustered" default-cache="default" statistics="true">
+                <transport lock-timeout="60000"/>
+                <global-state/>
+                <!-- Add a distributed cache named 'addressbook_indexed' -->
+                <distributed-cache name="addressbook_indexed" start="EAGER">
                     <!-- Define the locking isolation of this cache -->
-                    <locking
-                        acquire-timeout="20000"
-                        concurrency-level="500"
-                        striping="false" />
-                        
-                    <!-- Enable indexing using the RAM Lucene directory provider -->
-                    <indexing index="ALL">
-                        <property name="default.directory_provider">ram</property>
-                    </indexing>
-                    
+                    <locking acquire-timeout="20000" concurrency-level="500" striping="false"/>
+    
+                    <!-- Enable indexing using default configs -->
+                    <indexing index="LOCAL" auto-config="true"/>
+    
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
                     <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
-
                         <!-- specifies information about database table/column names and data types -->
                         <string-keyed-table prefix="JDG">
                             <id-column name="id" type="VARCHAR"/>
@@ -104,43 +89,53 @@ Configure JDG
                             <timestamp-column name="version" type="BIGINT"/>
                         </string-keyed-table>
                     </string-keyed-jdbc-store>
-                </local-cache>
+                </distributed-cache>
+    
+                <!-- Configure index caches -->
+                <replicated-cache name="LuceneIndexesLocking">
+                    <indexing index="NONE"/>
+                </replicated-cache>
+                <replicated-cache name="LuceneIndexesMetadata">
+                    <indexing index="NONE"/>
+                </replicated-cache>
+                <distributed-cache name="LuceneIndexesData">
+                    <indexing index="NONE"/>
+                </distributed-cache>
                 <!-- End of 'addressbook_indexed' cache definition -->
-
+    
                 <!-- Add a local cache named 'addressbook' which is not indexed -->
-                <local-cache name="addressbook" start="EAGER">
-
+                <distributed-cache name="addressbook" start="EAGER">
                     <!-- Define the locking isolation of this cache -->
-                    <locking
-                        acquire-timeout="20000"
-                        concurrency-level="500"
-                        striping="false" />
-
+                    <locking acquire-timeout="20000" concurrency-level="500" striping="false"/>
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
                     <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
-
                         <!-- specifies information about database table/column names and data types -->
                         <string-keyed-table prefix="JDG">
                             <id-column name="id" type="VARCHAR"/>
                             <data-column name="datum" type="BINARY"/>
                             <timestamp-column name="version" type="BIGINT"/>
                         </string-keyed-table>
-                    </string-keyed-jdbc-store>
-                </local-cache>
+                     </string-keyed-jdbc-store>
+                </distributed-cache>
                 <!-- End of 'addressbook' cache definition -->
-
+                <distributed-cache name="default"/>
+                <distributed-cache name="memcachedCache"/>
             </cache-container>
-            <cache-container name="security"/>
         </subsystem>
 
-Start JDG
----------
+Start JDG NODES
+---------------
 
 1. Open a command line and navigate to the root of the JDG directory.
-2. The following shows the command line to start the server with the web profile:
+2. The following shows the command line to start one of the servers:
 
-        For Linux:   $JDG_HOME/bin/standalone.sh
-        For Windows: %JDG_HOME%\bin\standalone.bat
+        For Linux:   $JDG_HOME/bin/standalone.sh  -c clustered.xml -Djboss.server.log.dir=standalone/logs/server1 -Djboss.node.name=node1 -Djboss.server.data.dir=standalone/data/node1
+        For Windows: %JDG_HOME%\bin\standalone.bat -c clustered.xml -Djboss.server.log.dir=standalone/logs/server1 -Djboss.node.name=node1 -Djboss.server.data.dir=standalone/data/node1
+        
+3. (Optional) In another terminal, start another node by pointing to the same folder and executing:
+        
+        For Linux:    $JDG_HOME/bin/standalone.sh -c clustered.xml -Djboss.server.log.dir=logs/server2 -Djboss.node.name=node2 -Djboss.server.data.dir=data2 -Djboss.socket.binding.port-offset=1000
+        For Windowds: %JDG_HOME%\bin\standalone.bat -c clustered.xml -Djboss.server.log.dir=logs/server2 -Djboss.node.name=node2 -Djboss.server.data.dir=data2 -Djboss.socket.binding.port-offset=1000
 
 
 Build and Run the Quickstart
