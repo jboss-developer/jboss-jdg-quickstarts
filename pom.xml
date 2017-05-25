@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-jdg-quickstarts</artifactId>
-    <version>7.0.1-redhat-SNAPSHOT</version>
+    <version>7.0.1.DR1-redhat-1</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: parent</name>
 
@@ -57,7 +57,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <product.version>7.0.1</product.version>
-        <product.milestone>Final-SNAPSHOT</product.milestone>
+        <product.milestone>DR1</product.milestone>
         <version.jdg.hadoop>0.2.0.DR1-redhat-1</version.jdg.hadoop>
     </properties>
 
