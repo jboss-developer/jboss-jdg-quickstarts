@@ -5,7 +5,7 @@
    <groupId>org.jboss.quickstarts.jdg</groupId>
    <artifactId>jboss-secure-embedded-cache-quickstart</artifactId>
    <packaging>war</packaging>
-   <version>7.0.0-redhat-SNAPSHOT</version>
+   <version>7.0.1-redhat-SNAPSHOT</version>
 
    <name>JBoss JDG Quickstart: secure-embedded-cache</name>
    <description>This quickstart demonstrates security in an embedded cache running within a webapp</description>
