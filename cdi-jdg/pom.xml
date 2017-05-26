@@ -80,12 +80,18 @@
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
+            <!-- asMODULE  use provided scope to avoid bundling into the war file
+            <scope>provided</scope>
+            -->
         </dependency>
 
         <!-- Infinispan dependency -->
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-embedded</artifactId>
+            <!-- asMODULE  use provided scope to avoid bundling into the war file
+            <scope>provided</scope>
+            -->
         </dependency>
 
         <!-- Test dependencies -->
@@ -118,6 +124,12 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
+                        <!-- asMODULE  add dependencies for the modules in EAP
+                             alternative you might rename src/main/webapp/WEB-INF/jboss-deployment-structure.xml.alternative
+                        <manifestEntries>
+                            <Dependencies>org.infinispan.cdi.embedded:jdg-7.1 annotations meta-inf, org.infinispan.jcache:jdg-7.1 annotations meta-inf</Dependencies>
+                        </manifestEntries>
+                        -->
                     </archive>
                 </configuration>
             </plugin>

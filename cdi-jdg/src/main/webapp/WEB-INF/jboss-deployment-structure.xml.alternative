@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+           <module name="org.infinispan.cdi.embedded" slot="jdg-7.1"  meta-inf="import" annotations="true"/>
+            <module name="org.infinispan.jcache" slot="jdg-7.1"  meta-inf="import" annotations="true"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
