@@ -41,11 +41,19 @@ Build and Deploy the Application in Library Mode
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
-3. Type this command to build and deploy the archive:
+3. continue with step 7 if you want to package the JDG libraries in your application (not recommended)
+   or follow step 4...6 to use the JDG modules in EAP to not bundle JDG with your version (recommended)
+4. Change the pom.xml, see the comments 'asMODULE'
+   Maybe use MANIFEST or jboss-deployment-structure.xml to declare dependencies
+5. Download the 'Library Module for JBoss EAP' from
+   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=data.grid
+6. Apply the modules to your EAP installation as described within the downloaded modules
+7. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
+8. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
+
 
 Access the application
 ---------------------
