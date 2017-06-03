@@ -16,6 +16,17 @@
  */
 package org.jboss.as.quickstarts.datagrid.hotrod.query;
 
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
 import org.infinispan.client.hotrod.Flag;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -31,17 +42,6 @@ import org.infinispan.query.dsl.Query;
 import org.infinispan.query.dsl.QueryFactory;
 import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.domain.Forecast;
-
-import java.io.BufferedReader;
-import java.io.Console;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * A simple demo for aggregations and continuous query capabilities on a remote cache.
@@ -166,8 +166,8 @@ public class SnowForecast {
       int year = Integer.parseInt(readConsole("Enter year (int): "));
       int month = Integer.parseInt(readConsole("Enter month (int): "));
       int day = Integer.parseInt(readConsole("Enter day (int): "));
-      float rain = Float.parseFloat(readConsole("Rain (float): "));
-      float snow = Float.parseFloat(readConsole("Snowfall (float): "));
+      float rain = Float.parseFloat(readConsole("Rain mm (float): "));
+      float snow = Float.parseFloat(readConsole("Snowfall cm (float): "));
       float temperature = Float.parseFloat(readConsole("Temperature (float): "));
       float humidity = Float.parseFloat(readConsole("Humidity (float): "));
       Forecast forecast = new Forecast();
@@ -215,7 +215,7 @@ public class SnowForecast {
 
    private void printAllEntries() {
       for (Object key : remoteCache.keySet()) {
-         System.out.println("key=" + key + " value=" + remoteCache.get(key));
+         System.out.printf("key=%s, value=%s\n", key, remoteCache.get(key));
       }
    }
 

@@ -16,6 +16,19 @@
  */
 package org.jboss.as.quickstarts.datagrid.hotrod.query;
 
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Properties;
+
 import org.infinispan.client.hotrod.Flag;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -36,19 +49,6 @@ import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PersonMarshall
 import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PhoneNumberMarshaller;
 import org.jboss.as.quickstarts.datagrid.hotrod.query.marshallers.PhoneTypeMarshaller;
 
-import java.io.BufferedReader;
-import java.io.Console;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Properties;
-
 /**
  * A simple demo for remote query capabilities.
  *
@@ -64,16 +64,16 @@ public class AddressBookManager {
    private static final String PROTOBUF_DEFINITION_RESOURCE = "/quickstart/addressbook.proto";
 
    private static final String APP_MENU = "\nAvailable actions:\n" +
-         "0. Display available actions\n" +
-         "1. Add person\n" +
-         "2. Remove person\n" +
-         "3. Add phone to person\n" +
-         "4. Remove phone from person\n" +
-         "5. Query persons by name\n" +
-         "6. Query persons by phone\n" +
-         "7. Add memo\n" +
-         "8. Query memo by author\n" +
-         "9. Display all cache entries\n" +
+         " 0. Display available actions\n" +
+         " 1. Add person\n" +
+         " 2. Remove person\n" +
+         " 3. Add phone to person\n" +
+         " 4. Remove phone from person\n" +
+         " 5. Query persons by name\n" +
+         " 6. Query persons by phone\n" +
+         " 7. Add memo\n" +
+         " 8. Query memo by author\n" +
+         " 9. Display all cache entries\n" +
          "10. Clear cache\n" +
          "11. Quit\n";
 
@@ -144,7 +144,7 @@ public class AddressBookManager {
             .build();
 
       List<Person> results = query.list();
-      System.out.println("Found " + results.size() + " matches:");
+      System.out.printf("Found %d matches:\n", results.size());
       for (Person p : results) {
          System.out.println(">> " + p);
       }
@@ -159,7 +159,7 @@ public class AddressBookManager {
             .build();
 
       List<Person> results = query.list();
-      System.out.println("Found " + results.size() + " matches:");
+      System.out.printf("Found %d matches:\n", results.size());
       for (Person p : results) {
          System.out.println(">> " + p);
       }
@@ -243,7 +243,7 @@ public class AddressBookManager {
 
    private void printAllEntries() {
       for (Object key : remoteCache.keySet()) {
-         System.out.println("key=" + key + " value=" + remoteCache.get(key));
+         System.out.printf("key=%s, value=%s\n", key, remoteCache.get(key));
       }
    }
 
@@ -284,7 +284,7 @@ public class AddressBookManager {
             .build();
 
       List<Memo> results = query.list();
-      System.out.println("Found " + results.size() + " matches:");
+      System.out.printf("Found %d matches:\n", results.size());
       for (Memo p : results) {
          System.out.println(">> " + p);
       }
@@ -347,8 +347,8 @@ public class AddressBookManager {
    }
 
    private static String readConsole(String prompt) {
-      // this method is intended to be as simple as possible rather than
-      // being efficient by caching a reference to the console/buffered reader
+      // This method is intended to be as simple as possible rather than
+      // being efficient by caching a reference to the console/buffered reader.
 
       Console con = System.console();
       if (con != null) {
