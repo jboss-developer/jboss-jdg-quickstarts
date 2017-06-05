@@ -11,7 +11,10 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-The `cdi-jdg` quickstart demontrates injection of Infinispan caches into a web application using CDI.
+The `cdi-jdg` quickstart demontrates injection of Infinispan caches into a web application using CDI. It it worth to mention
+that dependencies used in this quickstart needs to be present in EAP instance. In other words, one needs to JDG
+EAP modules. If one wishes to run this quickstart without EAP modules, the scope of JDG dependencies must be changed
+from `provided` into `compile`. A manifest entry with dependencies also needs to be removed.
 
 Additionally, this quickstart uses JCache integration which makes accessing Cache much easier.
 
