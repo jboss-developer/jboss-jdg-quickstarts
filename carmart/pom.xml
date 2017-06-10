@@ -26,7 +26,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <com.ocpsoft.prettyfaces.version>3.3.2</com.ocpsoft.prettyfaces.version>
         <version.jboss.weld>1.1.31.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.0.2</version.com.sun.faces.jsf.impl>
 
@@ -95,14 +94,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
-            <dependency>
-                <groupId>com.ocpsoft</groupId>
-                <artifactId>prettyfaces-jsf2</artifactId>
-                <version>${com.ocpsoft.prettyfaces.version}</version>
-                <scope>compile</scope>
-            </dependency>
-
             <!-- added to run arquillian -->
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -163,13 +154,6 @@
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
-        <dependency>
-            <groupId>com.ocpsoft</groupId>
-            <artifactId>prettyfaces-jsf2</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Test dependencies -->
