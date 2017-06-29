@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod, Remote Query, Protostream
 Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.
 Target Product: JDG
-Product Versions: JDG 7.x
+Product Versions: JDG 7.0.x
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -22,7 +22,7 @@ System requirements
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or newer, Maven 3.0 or newer.
 
-The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.x
+The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.0.x
 
  
 Configure Maven

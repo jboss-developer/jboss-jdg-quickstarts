@@ -204,7 +204,7 @@ public class AddressBookManager {
       PhoneType type = PhoneType.valueOf(readConsole("Enter phone type " + EnumSet.allOf(PhoneType.class) + ": ").toUpperCase());
       List<PhoneNumber> phones = person.getPhones();
       if (phones == null) {
-         phones = new ArrayList<PhoneNumber>();
+         phones = new ArrayList<>();
       }
       PhoneNumber phoneNumber = new PhoneNumber();
       phoneNumber.setNumber(number);
@@ -385,9 +385,8 @@ public class AddressBookManager {
    }
 
    private String readResource(String resourcePath) throws IOException {
-      InputStream is = getClass().getResourceAsStream(resourcePath);
-      try {
-         final Reader reader = new InputStreamReader(is, "UTF-8");
+      try (InputStream is = getClass().getResourceAsStream(resourcePath)) {
+         Reader reader = new InputStreamReader(is, "UTF-8");
          StringWriter writer = new StringWriter();
          char[] buf = new char[1024];
          int len;
@@ -395,8 +394,6 @@ public class AddressBookManager {
             writer.write(buf, 0, len);
          }
          return writer.toString();
-      } finally {
-         is.close();
       }
    }
 }

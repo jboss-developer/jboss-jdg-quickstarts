@@ -24,8 +24,11 @@ import java.util.List;
 public class Person {
 
    private String name;
+
    private int id;
+
    private String email;
+
    private List<PhoneNumber> phones;
 
    public String getName() {

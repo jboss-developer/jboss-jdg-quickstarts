@@ -137,13 +137,13 @@ public class SnowForecast {
          ContinuousQueryListener<Integer, Forecast> cqListener = new ContinuousQueryListener<Integer, Forecast>() {
 
             @Override
-            public void resultJoining(Integer key, Forecast forecast) {
-               System.out.printf("Great news! Found perfect ski conditions at %s in %d-%d-%d%n", forecast.getLocation(), forecast.getYear(), forecast.getMonth(), forecast.getDay());
+            public void resultJoining(Integer key, Forecast f) {
+               System.out.printf("Great news! Found perfect ski conditions at '%s' in %d-%d-%d\n", f.getLocation(), f.getYear(), f.getMonth(), f.getDay());
             }
 
             @Override
             public void resultLeaving(Integer key) {
-               System.out.printf("The forecast %s was updated (or removed) and it no longer predicts good ski conditions%n", key);
+               System.out.printf("The forecast %s was updated (or removed) and it no longer predicts good ski conditions\n", key);
             }
          };
 
