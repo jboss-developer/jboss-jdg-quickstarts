@@ -121,7 +121,7 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Dependencies>org.infinispan.cdi.embedded:jdg-7.0 services meta-inf</Dependencies>
+                            <Dependencies>org.infinispan.cdi.embedded:jdg-7.0 services meta-inf, org.infinispan.jcache:jdg-7.0 services meta-inf</Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>
