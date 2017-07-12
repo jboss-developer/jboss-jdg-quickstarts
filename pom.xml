@@ -58,7 +58,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <product.version>7.0.1</product.version>
         <product.milestone>Final-SNAPSHOT</product.milestone>
-        <version.jdg.hadoop>0.2.0.DR1-redhat-1</version.jdg.hadoop>
+        <version.jdg.hadoop>0.2.0.Final-redhat-1</version.jdg.hadoop>
     </properties>
 
     <profiles>
