@@ -39,6 +39,15 @@
     <baseDirectory>jboss-datagrid-${product.version}-quickstarts</baseDirectory>
 
     <fileSets>
+
+        <fileSet>
+          <directory>src/main/resources/licenses/</directory>
+          <includes>
+            <include>**</include>
+          </includes>
+          <outputDirectory></outputDirectory>
+        </fileSet>
+
         <fileSet>
             <includes>
                 <include>spring/**</include>
