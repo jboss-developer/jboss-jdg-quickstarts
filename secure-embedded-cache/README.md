@@ -69,9 +69,17 @@ Testing
 
 Unit tests
 ----------
-There are prepared unit tests for this quickstart. To run them, run following command:
+There are prepared unit tests for this quickstart. To run them :
 
-      mvn test -DeapHome=/path/to/server
+1. Ensure that the local EAP server is running in Standalone mode : 
+
+       For Linux:   $JBOSS_HOME/bin/standalone.sh
+       For Windows: %JBOSS_HOME%\bin\standalone.bat
+              
+2. Deploy the __security-domain__: `mvn wildfly:execute-commands`
+3. Shutdown the server
+4. Build and package the webapp with `mvn clean package -DskipTests`
+5. Run the tests with `mvn test -DeapHome=/path/to/server -Plibrary-tests`
 
 References
 ----------
