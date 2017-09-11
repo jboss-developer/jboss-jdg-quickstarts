@@ -41,6 +41,7 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>caching-service/**</include>
                 <include>spring/**</include>
                 <include>spring-session/**</include>
                 <include>camel-jbossdatagrid-fuse/**</include>
@@ -85,4 +86,3 @@
         </fileSet>
     </fileSets>
 </assembly>
-
