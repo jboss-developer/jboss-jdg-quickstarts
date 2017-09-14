@@ -83,7 +83,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
         
 * Run the following command for creating a new module in JDG server and copying the `target/remote-tasks-with-streams-lib.jar` into it.
 
-       For Linux:    mkdir $JDG_HOME/modules/system/layers/base/org/jboss/as/quickstarts/remote-task-with-streams/main
+       For Linux:    mkdir -p $JDG_HOME/modules/system/layers/base/org/jboss/as/quickstarts/remote-task-with-streams/main
        For Windows:  MD %JDG_HOME%\modules\system\layers\base\org\jboss\as\quickstarts\remote-task-with-streams\main
          
        For Linux:    cp target/remote-tasks-with-streams-lib.jar $JDG_HOME/modules/system/layers/base/org/jboss/as/quickstarts/remote-task-with-streams/main/  
