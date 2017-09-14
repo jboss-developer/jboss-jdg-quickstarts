@@ -38,6 +38,9 @@ or globally:
 
 The application this project produces is designed to be run on JBoss Data Grid 7.x
 
+You also need to install vorpal dependency locally :
+
+        npm install vorpal@1.10.10
  
 Configure JDG
 -------------
