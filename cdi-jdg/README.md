@@ -12,7 +12,7 @@ What is it?
 -----------
 
 The `cdi-jdg` quickstart demontrates injection of Infinispan caches into a web application using CDI. It it worth to mention
-that dependencies used in this quickstart needs to be present in EAP instance. In other words, one needs to JDG
+that dependencies used in this quickstart needs to be present in EAP instance. In other words, one needs to install JDG
 EAP modules. If one wishes to run this quickstart without EAP modules, the scope of JDG dependencies must be changed
 from `provided` into `compile`. A manifest entry with dependencies also needs to be removed.
 
@@ -29,6 +29,11 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
+
+Install EAP Modules
+--------------------
+
+Download JDG EAP modules and copy them to `%JBOSS_HOME%/modules` directory. 
 
 Start EAP
 ---------
@@ -48,6 +53,7 @@ Build and Deploy the Application in Library Mode
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
+
 
         mvn clean package wildfly:deploy
 
