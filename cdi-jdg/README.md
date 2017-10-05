@@ -33,7 +33,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Install EAP Modules
 --------------------
 
-Download JDG EAP modules and copy them to `%JBOSS_HOME%/modules` directory. 
+Download JDG EAP modules and copy them to `%JBOSS_HOME%/modules` directory.
 
 Start EAP
 ---------
@@ -49,11 +49,11 @@ Build and Deploy the Application in Library Mode
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
-7. Type this command to build and deploy the archive:
+3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
 
-8. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
+4. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
 
 
 Access the application
