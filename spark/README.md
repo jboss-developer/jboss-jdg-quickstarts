@@ -25,7 +25,7 @@ System requirements
  * JDK 8+
  * Maven 3+
  * JBoss Data Grid 7.0.0
- * Apache Spark 1.6+
+ * Apache Spark 2.0.2+
  
 Configure Maven
 ---------------
@@ -49,18 +49,18 @@ Start and configure the JDG Server
     * The following shows the commands used to create the cache:
     
             For Linux:   
-                bin/ispn-cli.sh -c command="/subsystem=datagrid-infinispan/cache-container=local/configurations=CONFIGURATIONS/local-cache-configuration=avg-temperatures:add(start=EAGER,template=false)"
-                bin/ispn-cli.sh -c command="/subsystem=datagrid-infinispan/cache-container=local/local-cache=avg-temperatures:add(configuration=avg-temperatures)"
+                bin/cli.sh -c command="/subsystem=datagrid-infinispan/cache-container=local/configurations=CONFIGURATIONS/local-cache-configuration=avg-temperatures:add(start=EAGER,template=false)"
+                bin/cli.sh -c command="/subsystem=datagrid-infinispan/cache-container=local/local-cache=avg-temperatures:add(configuration=avg-temperatures)"
                 
             For Windows:
-                bin\ispn-cli.bat -c command="/subsystem=datagrid-infinispan/cache-container=local/configurations=CONFIGURATIONS/local-cache-configuration=avg-temperatures:add(start=EAGER,template=false)"
-                bin\ispn-cli.bat -c command="/subsystem=datagrid-infinispan/cache-container=local/local-cache=avg-temperatures:add(configuration=avg-temperatures)"
+                bin\cli.bat -c command="/subsystem=datagrid-infinispan/cache-container=local/configurations=CONFIGURATIONS/local-cache-configuration=avg-temperatures:add(start=EAGER,template=false)"
+                bin\cli.bat -c command="/subsystem=datagrid-infinispan/cache-container=local/local-cache=avg-temperatures:add(configuration=avg-temperatures)"
 
 
 Start and configure Apache Spark
 ------------------------------
 
-1. Download and unpack version 1.6.x of [Apache Spark](http://spark.apache.org/downloads.html), picking as package a pre-built version like ` Pre-built for Hadoop 2.6 and later`.  On Windows, you can use 7-zip to extract the .tgz file.
+1. Download and unpack version 2.0.2+ of [Apache Spark](http://spark.apache.org/downloads.html), picking as package a pre-built version like ` Pre-built for Hadoop 2.6 and later`.  On Windows, you can use 7-zip to extract the .tgz file.
 The extract location will be referred as `SPARK_HOME`
 
 _NOTE For Windows users: Spark on windows relies on some binaries not packaged with the .tgz distributed. You'll need to download a Hadoop 2.6 distribution that contains windows binaries on the `\bin` folder such as winutils.exe, and also have a environment variable `HADOOP_HOME` pointing to the hadoop distribution folder._
