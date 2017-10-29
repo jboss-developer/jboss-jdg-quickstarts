@@ -29,7 +29,7 @@
         <version.jboss.weld>2.2.6.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.2.12</version.com.sun.faces.jsf.impl>
 
-        <version.org.infinispan>8.4.1-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.4.1.Final-redhat-1</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 
