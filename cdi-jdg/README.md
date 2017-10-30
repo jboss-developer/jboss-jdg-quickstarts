@@ -34,24 +34,21 @@ Start EAP
 ---------
 
 1. Open a command line and navigate to the root of the EAP server directory.
-2. The following shows the command line to start the server with the web profile:
+2. Download the 'Library Module for JBoss EAP' from
+   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=data.grid
+3. Apply the modules to your EAP installation as described within the downloaded modules
+4. The following shows the command line to start the server with the web profile:
 
         For Linux:   $JBOSS_HOME/bin/standalone.sh
         For Windows: %JBOSS_HOME%\bin\standalone.bat
+        
 
 Build and Deploy the Application in Library Mode
 ------------------------------------------------
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
-3. continue with step 7 if you want to package the JDG libraries in your application (not recommended)
-   or follow step 4...6 to use the JDG modules in EAP to not bundle JDG with your version (recommended)
-4. Change the pom.xml, see the comments 'asMODULE'
-   Maybe use MANIFEST or jboss-deployment-structure.xml to declare dependencies
-5. Download the 'Library Module for JBoss EAP' from
-   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=data.grid
-6. Apply the modules to your EAP installation as described within the downloaded modules
-7. Type this command to build and deploy the archive:
+5. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
 
