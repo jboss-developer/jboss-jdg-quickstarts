@@ -34,7 +34,7 @@
 
     <properties>
         <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
-        <version.jdg.hadoop>0.2.0.Final-redhat-1</version.jdg.hadoop>
+        <version.jdg.hadoop>0.2.0.Final-redhat-2</version.jdg.hadoop>
         <version.flink>1.0.0</version.flink>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

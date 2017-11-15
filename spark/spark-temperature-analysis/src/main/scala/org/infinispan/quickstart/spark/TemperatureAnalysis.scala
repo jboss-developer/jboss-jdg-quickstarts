@@ -9,6 +9,8 @@ import org.apache.spark.streaming.dstream.{DStream, MapWithStateDStream}
 import org.apache.spark.streaming.{Seconds, State, StateSpec, StreamingContext}
 import org.infinispan.spark.stream.{InfinispanDStream, InfinispanInputDStream}
 
+import scala.collection.JavaConverters._
+
 /**
  * <p>Computes average temperature in each place from incoming stream of measurements.</p>
  * <p>The measurement stream is read from the Data Grid and produces stream of avg. temperatures.
@@ -62,7 +64,7 @@ object TemperatureAnalysis {
       val configIn = new Properties
       configIn.put("infinispan.rdd.cacheName", inputDataGridCache)
       configIn.put("infinispan.client.hotrod.server_list", dataGridServer)
-      val ispnStream = new InfinispanInputDStream[String, Double](ssc, StorageLevel.MEMORY_ONLY, configIn)
+      val ispnStream = new InfinispanInputDStream[String, Double](ssc, StorageLevel.MEMORY_ONLY, org.infinispan.spark.config.ConnectorConfiguration(configIn.asInstanceOf[java.util.Map[String, String]].asScala.toMap))
 
       // extract the (place, temperature) pair from the incoming stream that is composed of (key, value, eventType)
       // we are assuming only events of type CLIENT_CACHE_ENTRY_CREATED will be present.
@@ -85,7 +87,7 @@ object TemperatureAnalysis {
       val configOut = new Properties
       configOut.put("infinispan.rdd.cacheName", outputDataGridCache)
       configOut.put("infinispan.client.hotrod.server_list", dataGridServer)
-      avgTemperatures.writeToInfinispan(configOut)
+      avgTemperatures.writeToInfinispan(org.infinispan.spark.config.ConnectorConfiguration(configOut.asInstanceOf[java.util.Map[String, String]].asScala.toMap))
 
       ssc.start()
       ssc.awaitTermination()
