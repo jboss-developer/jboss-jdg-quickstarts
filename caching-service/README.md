@@ -27,6 +27,12 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
+Configure Client
+----------------
+
+You need to configure the authentication and service parameters in the client to match the values utilised when creating the caching-service.
+In `org.infinispan.demo.online.Main` you must change the values of the USERNAME, PASSWORD and APPLICATION_NAME class variables to the appropriate values.
+
 Build the Quickstart
 --------------------
 
