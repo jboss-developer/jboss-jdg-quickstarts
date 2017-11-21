@@ -15,7 +15,7 @@ The `online-services` quickstart demonstrates how to connect to to a deployed JD
 Prerequisites
 -------------
 
-In order to run this project one needs to have an access to OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image/tree/dataservices72-dev/caching-service) how to do it.
+In order to run this project one needs to have an access to OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image) how to do it.
 
 System requirements
 -------------------
