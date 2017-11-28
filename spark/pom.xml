@@ -43,7 +43,7 @@
         <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
         <version.spark.connector>7.2.0-redhat-SNAPSHOT</version.spark.connector>
 
-        <version.spark>2.0.0</version.spark>
+        <version.spark>2.1.0</version.spark>
 
         <!-- maven-compiler-plugin -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
