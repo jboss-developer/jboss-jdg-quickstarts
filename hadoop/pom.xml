@@ -55,6 +55,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--
+                The following dependency is defined in the infinispan-bom above,
+                using a ${version.caffeine} property. However, the property
+                is not being resolved for some reason, causing the build to fail.
+                We'll redefine it here with the same version as used in the bom (for 7.2.x)
+                as a quick workaround.
+            -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>2.4.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
