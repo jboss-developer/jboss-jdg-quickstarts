@@ -7,6 +7,7 @@ import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream.toPairDStreamFunctions
 import org.apache.spark.streaming.dstream.{DStream, MapWithStateDStream}
 import org.apache.spark.streaming.{Seconds, State, StateSpec, StreamingContext}
+import org.infinispan.spark.config.ConnectorConfiguration
 import org.infinispan.spark.stream.{InfinispanDStream, InfinispanInputDStream}
 
 /**
@@ -59,9 +60,9 @@ object TemperatureAnalysis {
       ssc.checkpoint("/tmp/spark-temperature")
 
       // configure the connection to the DataGrid and create the incoming DStream
-      val configIn = new Properties
-      configIn.put("infinispan.rdd.cacheName", inputDataGridCache)
-      configIn.put("infinispan.client.hotrod.server_list", dataGridServer)
+      val configIn = new ConnectorConfiguration
+      configIn.setCacheName(inputDataGridCache)
+      configIn.setServerList(dataGridServer)
       val ispnStream = new InfinispanInputDStream[String, Double](ssc, StorageLevel.MEMORY_ONLY, configIn)
 
       // extract the (place, temperature) pair from the incoming stream that is composed of (key, value, eventType)
@@ -82,9 +83,9 @@ object TemperatureAnalysis {
       })
 
       // write average temperature stream to the avg-temperatures cache
-      val configOut = new Properties
-      configOut.put("infinispan.rdd.cacheName", outputDataGridCache)
-      configOut.put("infinispan.client.hotrod.server_list", dataGridServer)
+      val configOut = new ConnectorConfiguration
+      configOut.setCacheName(outputDataGridCache)
+      configOut.setServerList(dataGridServer)
       avgTemperatures.writeToInfinispan(configOut)
 
       ssc.start()
