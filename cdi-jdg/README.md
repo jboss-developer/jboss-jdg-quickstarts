@@ -34,8 +34,7 @@ Start EAP
 ---------
 
 1. Open a command line and navigate to the root of the EAP server directory.
-2. Download the 'Library Module for JBoss EAP' from
-   https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=data.grid
+2. Download the [Library Module for JBoss EAP](https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=data.grid)
 3. Apply the modules to your EAP installation as described within the downloaded modules
 4. The following shows the command line to start the server with the web profile:
 
@@ -48,11 +47,11 @@ Build and Deploy the Application in Library Mode
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
-5. Type this command to build and deploy the archive:
+3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
 
-8. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
+4. This will deploy `target/infinispan-cdi.war` to the running instance of the server.
 
 
 Access the application
