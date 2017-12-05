@@ -19,3 +19,7 @@ README*.html
 
 # javascript
 node_modules
+
+#eap-cluster-app
+eap-cluster-app/server.log
+eap-cluster-app/setupOutput
