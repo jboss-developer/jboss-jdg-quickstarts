@@ -96,14 +96,16 @@ Configure and Start the Servers in standalone mode
 
    Inside security-realms:
 
+```xml
    <security-realm name="ejb-security-realm">
        <server-identities>
            <secret value="cXVpY2stMTIz"/>   <!-- this is a Base64 encoded password for the quickuser user -->
        </server-identities>
    </security-realm>
-
+```
    Inside remoting subsystem:
 
+```xml
    <outbound-connections>
        <remote-outbound-connection name="remote-ejb-connection" outbound-socket-binding-ref="remote-ejb" username="quickuser" security-realm="ejb-security-realm" protocol="http-remoting">
            <properties>
@@ -112,12 +114,15 @@ Configure and Start the Servers in standalone mode
            </properties>
        </remote-outbound-connection>
    </outbound-connections>
+```
 
    Inside socket-binding-group:
 
+```xml
    <outbound-socket-binding name="remote-ejb">
        <remote-destination host="localhost" port="8280"/>
    </outbound-socket-binding>
+```
 
 3. Copy the prepared EAP server to 4 different directories EAP_HOME[1-4].
 

@@ -32,45 +32,21 @@ case "$1" in
 
       if [ "${1}" == "--setup" ]; #Starting in standalone mode otherwise in domain mode
       then
-         echo "Copying the configurations from README file to EAP ..."
-         # modify EAP standalone.xml according to README
-         # copy <security-realm> from README to standalone.xml
-         sed '/<security-realm name="ejb-security-realm">/,/<\/security-realm>/!d' README.md > tmpbuff
-         sed '/<\/security-realms>/i \
-               INSERT-SECURITY-REALM-HERE' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
-         sed '/INSERT-SECURITY-REALM-HERE/ {
-              r tmpbuff
-              d
-              }' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
+        echo "Copying the configurations from README file to EAP ..."
 
-         sed '/<outbound-connections>/,/<\/outbound-connections>/!d' README.md > tmpbuff
-         sed '/<subsystem xmlns="urn:jboss:domain:remoting:.*">/a \
-            INSERT_OUTBOUND_CONNECTION_HERE' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
-         sed '/INSERT_OUTBOUND_CONNECTION_HERE/ {
-              r tmpbuff
-              d
-              }' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
+        echo "Copying EAP server to directories"
+        cp -R "${EAP_HOME}" setupOutput/eap-server/server1
+        export EAP_HOME1=`cd setupOutput/eap-server/server1;pwd`
 
-         sed '/<outbound-socket-binding.*/,/<\/outbound-socket-binding/!d' README.md > tmpbuff
-         sed '/<\/socket-binding-group>/i \
-               INSERT-SOCKET-BINDING-HERE' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
-         sed '/INSERT-SOCKET-BINDING-HERE/ {
-              r tmpbuff
-              d
-              }' -i "${EAP_HOME}"/standalone/configuration/standalone.xml
+        cp -R "${EAP_HOME}" setupOutput/eap-server/server2
+        export EAP_HOME2=`cd setupOutput/eap-server/server2;pwd`
 
-         echo "Copying EAP server to directories"
-         cp -R "${EAP_HOME}" setupOutput/eap-server/server1
-         export EAP_HOME1=`cd setupOutput/eap-server/server1;pwd`
+        cp -R "${EAP_HOME}" setupOutput/eap-server/server3
+        export EAP_HOME3=`cd setupOutput/eap-server/server3;pwd`
 
-         cp -R "${EAP_HOME}" setupOutput/eap-server/server2
-         export EAP_HOME2=`cd setupOutput/eap-server/server2;pwd`
+        cp -R "${EAP_HOME}" setupOutput/eap-server/server4
+        export EAP_HOME4=`cd setupOutput/eap-server/server4;pwd`
 
-         cp -R "${EAP_HOME}" setupOutput/eap-server/server3
-         export EAP_HOME3=`cd setupOutput/eap-server/server3;pwd`
-
-         cp -R "${EAP_HOME}" setupOutput/eap-server/server4
-         export EAP_HOME4=`cd setupOutput/eap-server/server4;pwd`
 
         echo "Running quckstart in Standalon mode. Starting all 4 instances of the server..."
         sh "${EAP_HOME1}/"bin/standalone.sh -Djboss.node.name=node1 > "${EAP_HOME1}/server.log" &
@@ -85,9 +61,15 @@ case "$1" in
         sh "${EAP_HOME4}"/bin/standalone.sh -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml > "${EAP_HOME4}/server.log" &
         sleep 10
 
-        echo "Adding the configuration for node2 (AppOne) to use EJB server-to-server invocation ..."
-        "${EAP_HOME2}"/bin/jboss-cli.sh -c --controller=localhost:10090 --file=install-appOne-standalone.cli > setupOutput/install.log
-        sleep 10
+        echo "Adding the configuration for nodes (AppOne) to use EJB server-to-server invocation ..."
+        sh "${EAP_HOME1}"/bin/jboss-cli.sh  -c --controller=localhost:9990 --file=install-appOne-standalone.cli > setupOutput/install_server_1.log &
+        sleep 2
+        sh "${EAP_HOME2}"/bin/jboss-cli.sh  -c --controller=localhost:10090 --file=install-appOne-standalone.cli > setupOutput/install_server_2.log &
+        sleep 2
+        sh "${EAP_HOME3}"/bin/jboss-cli.sh  -c --controller=localhost:10190 --file=install-appOne-standalone.cli > setupOutput/install_server_3.log &
+        sleep 2
+        sh "${EAP_HOME4}"/bin/jboss-cli.sh  -c --controller=localhost:10290 --file=install-appOne-standalone.cli > setupOutput/install_server_4.log &
+        sleep 2
 
         echo "Copying the resources to EAP servers.."
         cp adminApp/ear/target/jboss-eap-application-adminApp.ear "${EAP_HOME1}"/standalone/deployments
@@ -131,15 +113,14 @@ case "$1" in
       (ps -ef | grep 'Process Controller' | grep -v grep | awk '{print $2}' | xargs kill) > /dev/null 2>&1
       (ps -ef | grep 'Standalone' | grep -v grep | awk '{print $2}' | xargs kill) > /dev/null 2>&1
 
-      rm -rf setupOutput/
    ;;
 
    *)
       echo -e "${GREEN}Possible list of arguments is:"
-      echo "--setup sets up the EAP servers, starts them in standalone mode and installs quickstart configuration;"
+      echo "--setup cleanup, sets up the EAP servers, starts them in standalone mode and installs quickstart configuration;"
       echo "--setup-domain sets up the EAP servers, starts them in domain mode and installs quickstart configuration. Use this argument with --setup argument;"
       echo "--run runs the quickstarts;"
-      echo -e "--teardown stops the servers and cleans up the folders;${NO_COLOR}"
+      echo -e "--teardown stops the servers;${NO_COLOR}"
       exit 1;
 esac
 
