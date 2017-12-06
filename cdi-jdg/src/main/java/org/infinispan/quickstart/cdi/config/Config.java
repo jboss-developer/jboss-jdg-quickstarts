@@ -58,9 +58,7 @@ public class Config {
     @ConfigureCache("greeting-cache")
     @Produces
     public Configuration greetingCache() {
-        return new ConfigurationBuilder()
-                .eviction().strategy(EvictionStrategy.LRU).maxEntries(4)
-                .build();
+        return new ConfigurationBuilder().memory().evictionType(EvictionType.COUNT).size(4).build();
     }
 
     /**
