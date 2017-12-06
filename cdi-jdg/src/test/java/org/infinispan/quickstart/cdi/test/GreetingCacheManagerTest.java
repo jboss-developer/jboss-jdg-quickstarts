@@ -58,7 +58,7 @@ public class GreetingCacheManagerTest {
     public void testGreetingCacheConfiguration() {
         assertEquals("greeting-cache", greetingCacheManager.getCacheName());
         assertEquals(4, greetingCacheManager.getEvictionMaxEntries());
-        assertEquals(EvictionStrategy.LRU, greetingCacheManager.getEvictionStrategy());
+        assertEquals(EvictionType.COUNT, greetingCacheManager.getEvictionType());
 
     }
 

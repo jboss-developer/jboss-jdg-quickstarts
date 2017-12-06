@@ -58,12 +58,12 @@ public class GreetingCacheManager {
         return cache.size();
     }
 
-    public EvictionStrategy getEvictionStrategy() {
-        return cache.getCacheConfiguration().eviction().strategy();
+    public EvictionType getEvictionType() {
+        return cache.getCacheConfiguration().memory().evictionType();
     }
 
     public long getEvictionMaxEntries() {
-        return cache.getCacheConfiguration().eviction().maxEntries();
+        return cache.getCacheConfiguration().memory().size()
     }
 
     public String[] getCachedValues() {
