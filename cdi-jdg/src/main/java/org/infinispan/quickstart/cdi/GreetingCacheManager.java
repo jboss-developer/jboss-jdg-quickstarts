@@ -25,6 +25,7 @@ package org.infinispan.quickstart.cdi;
 
 import org.infinispan.Cache;
 import org.infinispan.eviction.EvictionStrategy;
+import org.infinispan.eviction.EvictionType;
 import org.infinispan.quickstart.cdi.config.GreetingCache;
 
 import javax.cache.annotation.CacheKey;
@@ -63,7 +64,7 @@ public class GreetingCacheManager {
     }
 
     public long getEvictionMaxEntries() {
-        return cache.getCacheConfiguration().memory().size()
+        return cache.getCacheConfiguration().memory().size();
     }
 
     public String[] getCachedValues() {
