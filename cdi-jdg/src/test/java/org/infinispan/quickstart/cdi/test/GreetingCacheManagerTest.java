@@ -22,7 +22,7 @@
  */
 package org.infinispan.quickstart.cdi.test;
 
-import org.infinispan.eviction.EvictionStrategy;
+import org.infinispan.eviction.EvictionType;
 import org.infinispan.quickstart.cdi.GreetingCacheManager;
 import org.infinispan.quickstart.cdi.GreetingService;
 import org.infinispan.quickstart.cdi.test.util.Deployments;
