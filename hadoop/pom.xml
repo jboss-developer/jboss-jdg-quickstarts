@@ -33,7 +33,7 @@
     </licenses>
 
     <properties>
-        <version.org.infinispan>8.4.1-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.4.1.Final-redhat-3</version.org.infinispan>
         <version.jdg.hadoop>0.2.0.Final-redhat-2</version.jdg.hadoop>
         <version.flink>1.0.0</version.flink>
 
