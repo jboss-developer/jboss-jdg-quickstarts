@@ -10,12 +10,14 @@ Product Versions: JDG 7.2
 What is it?
 -----------
 
-The `online-services` quickstart demonstrates how to connect to to a deployed JDG Online Services.
+The `online-services` quickstart demonstrates how to connect to a deployed JDG Online Services.
 
 Prerequisites
 -------------
 
-In order to run this project one needs to have an access to OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image) how to do it.
+In order to run this project one needs to have an access to local OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image) how to do it.
+
+You can use local OpenShift all-in-one cluster. To prepare you local OpenShift cluster follow [the documentation](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md).
 
 System requirements
 -------------------
