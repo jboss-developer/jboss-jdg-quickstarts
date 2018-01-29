@@ -12,11 +12,11 @@
 	<camelContext trace="false" id="blueprintContext"
 		xmlns="http://camel.apache.org/schema/blueprint">
 		<route>
-			<from uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-datastore&amp;sync=false&amp;clustered=true&amp;eventTypes=CACHE_ENTRY_CREATED" />
+			<from uri="infinispan://camel-datastore?cacheContainer=#cacheManager&amp;sync=false&amp;clusteredListener=true&amp;eventTypes=CACHE_ENTRY_CREATED" />
 			<setHeader headerName="CamelInfinispanKey">
 				<simple>${out.header.CamelInfinispanKey}</simple>
 			</setHeader>
-			<to uri="infinispan://foo?cacheContainer=#cacheManager&amp;cacheName=camel-datastore&amp;command=GET" />
+			<to uri="infinispan://camel-datastore?cacheContainer=#cacheManager&amp;command=GET" />
 			<setBody>
 				<simple>${header.CamelInfinispanOperationResult}</simple>
 			</setBody>
