@@ -25,7 +25,7 @@ import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
-import org.infinispan.eviction.EvictionStrategy;
+import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.transaction.LockingMode;
 import org.infinispan.transaction.TransactionMode;
@@ -56,6 +56,7 @@ public class JBossASCacheContainerProvider implements CacheContainerProvider {
                 .nonClusteredDefault() //Helper method that gets you a default constructed GlobalConfiguration, preconfigured for use in LOCAL mode
                 .globalJmxStatistics().enable() //This method allows enables the jmx statistics of the global configuration.
                 .jmxDomain("org.infinispan.carmart.tx")  //prevent collision with non-transactional carmart
+                .defaultCacheName("default")
                 .build(); //Builds  the GlobalConfiguration object
             Configuration loc = new ConfigurationBuilder()
                 .jmxStatistics().enable() //Enable JMX statistics
@@ -63,7 +64,7 @@ public class JBossASCacheContainerProvider implements CacheContainerProvider {
                 .transaction().transactionMode(TransactionMode.TRANSACTIONAL).autoCommit(false) //Enable Transactional mode with autocommit false
                 .lockingMode(LockingMode.OPTIMISTIC).transactionManagerLookup(new GenericTransactionManagerLookup()) //uses GenericTransactionManagerLookup - This is a lookup class that locate transaction managers in the most  popular Java EE application servers. If no transaction manager can be found, it defaults on the dummy transaction manager.
                 .locking().isolationLevel(IsolationLevel.REPEATABLE_READ) //Sets the isolation level of locking
-                .eviction().maxEntries(4).strategy(EvictionStrategy.LIRS) //Sets  4 as maximum number of entries in a cache instance and uses the LIRS strategy - an efficient low inter-reference recency set replacement policy to improve buffer cache performance
+                .memory().size(4).evictionType(EvictionType.COUNT) // Evicts entries from the cache when a specified count has been set
                 .persistence().passivation(false).addSingleFileStore().purgeOnStartup(true) //Disable passivation and adds a SingleFileStore that is purged on Startup
                 .build(); //Builds the Configuration object
             manager = new DefaultCacheManager(glob, loc, true);
