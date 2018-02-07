@@ -11,7 +11,10 @@ import org.infinispan.client.hotrod.configuration.Configuration;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.configuration.SaslQop;
 
-public class Main {
+/**
+ * An openshift client which is deployed on its own pod within an openshift namespace
+ */
+public class DeployedOpenShiftClient {
 
    // This is where the openshift CRT file is located, DO NOT CHANGE
    private static final String CRT_PATH = "/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt";

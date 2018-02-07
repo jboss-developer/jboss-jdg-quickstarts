@@ -15,13 +15,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
-
+        <openshift-client.version>3.0.3</openshift-client.version>
         <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
         <shade-maven-plugin.version>3.1.0</shade-maven-plugin.version>
 
         <fabric8-maven-plugin.from.image>fabric8/s2i-java:2.0</fabric8-maven-plugin.from.image>
         <fabric8-maven-plugin.image.name>%g/%a:%v</fabric8-maven-plugin.image.name>
-        <shade-maven-plugin.main.class>org.infinispan.demo.online.Main</shade-maven-plugin.main.class>
+        <shade-maven-plugin.main.class>org.infinispan.demo.online.DeployedOpenShiftClient</shade-maven-plugin.main.class>
+        <exec-java.main.class>org.infinispan.demo.online.ExternalOpenShiftClient</exec-java.main.class>
     </properties>
 
     <dependencyManagement>
@@ -52,6 +53,11 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-client-hotrod</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>openshift-client</artifactId>
+            <version>${openshift-client.version}</version>
         </dependency>
     </dependencies>
 
@@ -106,6 +112,21 @@
                             </build>
                         </image>
                     </images>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${exec-java.main.class}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
