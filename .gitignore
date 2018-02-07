@@ -10,6 +10,7 @@
 # maven build results
 target
 test-output
+**/dependency-reduced-pom.xml
 
 #eclipse output
 bin
