@@ -17,6 +17,9 @@ Prerequisites
 
 In order to run this project one needs to have an access to OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image) how to do it.
 
+Furthermore, if you are using the ExternalOpenshiftClient quickstart, you must ensure that you expose the caching-service-app-hotrod
+service via a route which has passthrough encryption, e.g. `oc create route passthrough caching-service-endpoint-hotrod --port=11222 --service caching-service-app-hotrod`
+
 System requirements
 -------------------
 
@@ -31,7 +34,11 @@ Configure Client
 ----------------
 
 You need to configure the authentication and service parameters in the client to match the values utilised when creating the caching-service.
-In `org.infinispan.demo.online.Main` you must change the values of the USERNAME, PASSWORD and APPLICATION_NAME class variables to the appropriate values.
+If you are deploying the quickstart to openshift in `DeployedOpenshiftClient` you must change the values of the USERNAME, PASSWORD and
+APPLICATION_NAME class variables to the appropriate values.
+
+If you are running the quickstart locally in `ExternalOpenShiftClient` you must change the values HOT_ROD_ENDPOINT_ROUTE, USERNAME, PASSWORD and
+APPLICATION_NAME class variables to the appropriate values.
 
 Build the Quickstart
 --------------------
@@ -40,7 +47,7 @@ Type this command to build the quickstart:
 
         mvn clean package
 
-Run the Quickstart
+Run the Quickstart on Openshift
 ------------------
 
 Run the following command
@@ -90,3 +97,15 @@ Here is an example of the command's output:
         [INFO] F8: Value from Cache: 2017-11-20T10:29:14.870Z
 
 After you're happy with the results, just hit ctrl-c on the console. The Fabric8 Maven Plugin will undeploy client application.
+
+Run the Quickstart Locally
+------------------
+Run the following command
+
+        mvn exec:java
+
+This will attempt to connect to an external openshift instance running a caching-service. This quickstart uses already
+configured and connected `oc` client, so make sure you are already authenticated and the correct project has been selected.
+
+Remember, on openshift you must ensure that you expose the caching-service-app-hotrod
+service via a route which has passthrough encryption, e.g. `oc create route passthrough caching-service-endpoint-hotrod --port=11222 --service caching-service-app-hotrod`

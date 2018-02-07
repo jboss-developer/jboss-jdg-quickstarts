@@ -1,9 +1,11 @@
 package org.infinispan.demo.online;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,10 +18,44 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+import io.fabric8.openshift.client.DefaultOpenShiftClient;
+import io.fabric8.openshift.client.OpenShiftClient;
+import io.fabric8.openshift.client.OpenShiftConfig;
+import io.fabric8.openshift.client.OpenShiftConfigBuilder;
+
 /**
  * This is a helper class for parsing a CRT file and creating a java truststore
  */
 public class TrustStore {
+
+   public static void createFromCmdLine(String path, char[] password) throws GeneralSecurityException, IOException {
+      String oauthToken = getStringFromCommand("oc whoami -t");
+      String currentContext = getStringFromCommand("oc config current-context");
+      String[] contextArray = currentContext.split("/");
+      String namespace = contextArray[0];
+      String url = "https://" + contextArray[1].split(":")[0];
+
+      String certificate = getCertificateSecret(url, namespace, oauthToken);
+      create(certificate, path, password);
+   }
+
+   private static String getStringFromCommand(String cmd) throws IOException {
+      Process process = Runtime.getRuntime().exec(cmd);
+      try (BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+         return input.readLine();
+      }
+   }
+
+   private static String getCertificateSecret(String url, String namespace, String oauthTok) {
+      OpenShiftConfig config = new OpenShiftConfigBuilder()
+            .withOpenShiftUrl(url)
+            .withNamespace(namespace)
+            .withOauthToken(oauthTok)
+            .build();
+
+      OpenShiftClient client = new DefaultOpenShiftClient(config);
+      return client.secrets().withName("service-certs").get().getData().get("tls.crt");
+   }
 
    /**
     * @param crtPath  the path to the crt file to be passed
