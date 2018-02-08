@@ -83,7 +83,7 @@ public class TrustStore {
     */
    public static void create(List<String> certs, String path, char[] password) throws GeneralSecurityException, IOException {
       try (FileOutputStream output = new FileOutputStream(path)) {
-         KeyStore trustStore = KeyStore.getInstance("JKS");
+         KeyStore trustStore = KeyStore.getInstance("PKCS12");
          CertificateFactory cf = CertificateFactory.getInstance("X.509");
          trustStore.load(null, null);
 
