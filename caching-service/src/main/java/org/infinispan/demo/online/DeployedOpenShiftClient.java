@@ -35,7 +35,7 @@ public class DeployedOpenShiftClient {
    private static final char[] TRUSTSTORE_PASSWORD = "secret".toCharArray();
 
    // This is the path of the generated truststore, here we simply use the home dir on the deployed openshift pod
-   private static final String TRUSTSTORE_PATH = "truststore.jks";
+   private static final String TRUSTSTORE_PATH = "truststore.pkcs12";
 
    public static void main(String... args) throws GeneralSecurityException, InterruptedException, IOException {
 
