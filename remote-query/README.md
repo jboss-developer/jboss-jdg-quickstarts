@@ -68,7 +68,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:8.4">
+        <subsystem xmlns="urn:infinispan:server:core:8.5">
             <cache-container name="clustered" default-cache="default" statistics="true">
                 <transport lock-timeout="60000"/>
                 <global-state/>

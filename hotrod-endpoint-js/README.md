@@ -54,7 +54,7 @@ to contain the following definitions:
    
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:8.0" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:8.5" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
