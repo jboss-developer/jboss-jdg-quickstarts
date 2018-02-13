@@ -63,7 +63,7 @@ Configure JDG
 * Enpoint subsystem definition:
   The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
 
-        <subsystem xmlns="urn:infinispan:server:endpoint:8.0">
+        <subsystem xmlns="urn:infinispan:server:endpoint:8.1">
             <hotrod-connector socket-binding="hotrod" cache-container="local">
                 <topology-state-transfer lazy-retrieval="false" lock-timeout="1000" replication-timeout="5000"/>
                 <authentication security-realm="ApplicationRealm">
@@ -83,7 +83,7 @@ Configure JDG
 * Infinispan subsystem definition:
   Server supports authorization with cache configuration defined below
 
-        <subsystem xmlns="urn:infinispan:server:core:8.0">
+        <subsystem xmlns="urn:infinispan:server:core:8.5">
             <cache-container name="local" default-cache="teams">
                 <security>
                     <authorization>
