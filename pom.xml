@@ -48,6 +48,7 @@
         <module>rest-endpoint</module>
         <module>secure-embedded-cache</module>
         <module>eap-cluster-app</module>
+        <module>eap-datagrid-subsystem</module>
         <module>camel-jbossdatagrid-fuse</module>
         <module>cdi-jdg</module>
         <module>spark</module>
