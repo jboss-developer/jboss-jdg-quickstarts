@@ -1,0 +1,3 @@
+# add a local cache
+# This must be done after the server is restarted if running the install1 script
+/subsystem=datagrid-infinispan/cache-container=jdg-container/distributed-cache=EAPcache:add(configuration=localDefault)
