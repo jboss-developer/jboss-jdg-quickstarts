@@ -16,7 +16,7 @@
 
         <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
         <openshift-client.version>3.0.3</openshift-client.version>
-        <fabric8-maven-plugin.version>3.5.33</fabric8-maven-plugin.version>
+        <fabric8-maven-plugin.version>3.5.35</fabric8-maven-plugin.version>
         <shade-maven-plugin.version>3.1.0</shade-maven-plugin.version>
 
         <fabric8-maven-plugin.from.image>fabric8/s2i-java:2.0</fabric8-maven-plugin.from.image>
