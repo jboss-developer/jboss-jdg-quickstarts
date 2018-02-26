@@ -77,8 +77,8 @@ case "$1" in
         cp appTwo/ear/target/jboss-eap-application-AppTwo.ear "${EAP_HOME3}"/standalone/deployments
         cp appTwo/ear/target/jboss-eap-application-AppTwo.ear "${EAP_HOME4}"/standalone/deployments
 
-        echo "Waiting for 40 seconds until the servers are deployed..."
-        sleep 40
+        echo "Waiting for 70 seconds until the servers are deployed..."
+        sleep 70
       else
          echo "Running quckstart in Domain mode ..."
          sh "${EAP_HOME}"/bin/domain.sh > "${EAP_HOME}/server.log" &
@@ -88,7 +88,7 @@ case "$1" in
          "${EAP_HOME}"/bin/jboss-cli.sh -c --file=install-domain.cli > setupOutput/install.log
 
          echo "Waiting until the nodes are started for deploying the application ..."
-         sleep 40 #Waiting for applications to start so that the next operation succeeds
+         sleep 70 #Waiting for applications to start so that the next operation succeeds
 
          echo "Deploying application for domain mode..."
          "${EAP_HOME}"/bin/jboss-cli.sh -c --file=deploy-domain.cli > setupOutput/deploy.log
