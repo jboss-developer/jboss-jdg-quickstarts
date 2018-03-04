@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.5.0.ER4-redhat-9</version.org.infinispan>
         <version.spring-boot>1.5.2.RELEASE</version.spring-boot>
         <version.spring-session>1.3.0.RELEASE</version.spring-session>
     </properties>
