@@ -99,6 +99,13 @@
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
         </dependency>
+
+        <!-- Add the commons module to the dir so that if a CacheException or CacheConfigException occurs on the EJB
+        then a ClassNotFoundException will not be thrown-->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-commons</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
