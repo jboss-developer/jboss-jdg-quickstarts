@@ -56,10 +56,8 @@ public class AppOneCacheManagerProvider {
                     .build();
             manager = new DefaultCacheManager(glob, loc, true);
 
-            Configuration progCache = new ConfigurationBuilder().build();
+            Configuration progCache = new ConfigurationBuilder().clustering().cacheMode(CacheMode.REPL_SYNC).build();
             manager.defineConfiguration("progCache", progCache);
-            Configuration appCache = new ConfigurationBuilder().clustering().cacheMode(CacheMode.REPL_SYNC).build();
-            manager.defineConfiguration("progCache",appCache);
         }
         return manager;
     }
