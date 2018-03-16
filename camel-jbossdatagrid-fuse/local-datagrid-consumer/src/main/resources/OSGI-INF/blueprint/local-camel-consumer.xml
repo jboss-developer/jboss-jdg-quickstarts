@@ -18,7 +18,7 @@
 			</setHeader>
 			<to uri="infinispan://camel-datastore?cacheContainer=#cacheManager&amp;command=GET" />
 			<setBody>
-				<simple>${header.CamelInfinispanOperationResult}</simple>
+				<simple>${body}</simple>
 			</setBody>
 			<marshal ref="gson" />
 			<convertBodyTo type="java.lang.String" />
