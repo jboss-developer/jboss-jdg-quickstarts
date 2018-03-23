@@ -23,9 +23,9 @@
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-      <version.camel.components>7.2.0-redhat-SNAPSHOT</version.camel.components>
-      <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
-      <version.camel-jbossdatagrid>7.2.0-redhat-SNAPSHOT</version.camel-jbossdatagrid>
+      <version.camel.components>7.2.0.ER5-redhat-2</version.camel.components>
+      <version.org.infinispan>8.5.0.ER5-redhat-2</version.org.infinispan>
+      <version.camel-jbossdatagrid>7.2.0.ER5-redhat-2</version.camel-jbossdatagrid>
    </properties>
 
     <modules>
