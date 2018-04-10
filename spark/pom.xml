@@ -40,8 +40,8 @@
     </modules>
 
     <properties>
-        <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
-        <version.spark.connector>0.6.0-redhat-SNAPSHOT</version.spark.connector>
+        <version.org.infinispan>8.5.0.Final-redhat-6</version.org.infinispan>
+        <version.spark.connector>0.6.0.Final-redhat-6</version.spark.connector>
 
         <version.spark>2.2.0</version.spark>
 
