@@ -36,6 +36,9 @@
 
     <url>http://maven.apache.org</url>
     <packaging>war</packaging>
+    <properties>
+        <browser>phantomjs</browser>
+    </properties>
 
     <dependencies>
     <!-- add dependencies to all related EJB applications which are used.
@@ -67,6 +70,23 @@
                 <!-- repeat of version necessary because of double declaration in EAP and JDG ?????? -->
                 <version>${version.org.infinispan}</version>
         	<scope>provided</scope>
+        </dependency>
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
