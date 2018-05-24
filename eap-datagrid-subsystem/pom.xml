@@ -66,6 +66,14 @@
         <ear.plugin.version>2.10.1</ear.plugin.version>
         <ear.plugin.version>2.10.1</ear.plugin.version>
         <war.plugin.version>3.0.0</war.plugin.version>
+
+        <!---->
+        <version.maven.ant.plugin>1.7</version.maven.ant.plugin>
+        <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
+        <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
+        <!-- test dependencies versions -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <browser>phantomjs</browser>
     </properties>
 
     <dependencyManagement>
@@ -93,17 +101,33 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Define the version of JBoss' Java EE 7 APIs we want to import.
+               Any dependencies from org.wildfly.bom will have their version defined by this
+               BOM -->
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-7-with-tools stack.
+                The -with-tools means also versions of other artifacts like Arquillian. -->
             <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>${version.wildfly}</version>
-                <scope>import</scope>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <!-- export browser property to arquillian.xml -->
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -115,6 +139,154 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>skip.tests.by.default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+        <!-- This profile is for running tests on EAP standalone -->
+        <profile>
+            <id>tests-eap</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <!--<property>-->
+                <!--<name>eapHome</name>-->
+                <!--</property>-->
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- This plugin will add the src/local/java source
+                            folder -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>${version.buildhelper.maven.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/local/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!--Test only SubsystemTest for standalone mode-->
+                            <includes>
+                                <include>**/SubsystemTest*</include>
+                            </includes>
+                            <reportNameSuffix>tests-eap</reportNameSuffix>
+                            <systemPropertyVariables>
+                                <subsystem.war.directory>${basedir}/target</subsystem.war.directory>
+                                <subsystem.war.file>${project.artifactId}.war</subsystem.war.file>
+                            </systemPropertyVariables>
+                            <systemProperties>
+                                <arquillian.launch>jbossas-managed</arquillian.launch>
+                            </systemProperties>
+                            <!-- Added so selenium doesn't print it's INFO logs to console (there's a LOT of them -
+                                 like 5000 lines for each run) - they are instead appended (important when
+                                 there are multiple profiles) to <module>/target/jul-info.log (warnings are printed in console) -->
+                            <argLine>-Djava.util.logging.config.file=${basedir}/web/src/test/resources/logging.properties</argLine>
+                        </configuration>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- This profile is for running tests on clustered EAPs -->
+        <profile>
+            <id>tests-eap-clustered</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- This plugin will add the src/local/java source
+                            folder -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>${version.buildhelper.maven.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/local/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!--Test only SubsystemClusteredTest for clustered mode-->
+                            <includes>
+                                <include>**/SubsystemClusteredTest*</include>
+                            </includes>
+                            <reportNameSuffix>tests-eap-clustered</reportNameSuffix>
+                            <systemPropertyVariables>
+                                <subsystem.war.directory>${basedir}/target</subsystem.war.directory>
+                                <subsystem.war.file>${project.artifactId}.war</subsystem.war.file>
+                            </systemPropertyVariables>
+                            <systemProperties>
+                                <arquillian.launch>jbossas-cluster</arquillian.launch>
+                                <!--<arquillian.launch>clustered-jbossas-managed-1</arquillian.launch>-->
+                                <!--<arquillian.launch>clustered-jbossas-managed-2</arquillian.launch>-->
+                            </systemProperties>
+                            <!-- Added so selenium doesn't print it's INFO logs to console (there's a LOT of them -
+                                 like 5000 lines for each run) - they are instead appended (important when
+                                 there are multiple profiles) to <module>/target/jul-info.log (warnings are printed in console) -->
+                            <argLine>-Djava.util.logging.config.file=${basedir}/web/src/test/resources/logging.properties</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
 
