@@ -27,7 +27,7 @@ Simple start
 
         $EAP_HOME/bin/standalone.sh
 
-4. use the CLI scipts to configure the datagrid subsystem and necessary dependencies
+4. use the CLI scripts to configure the datagrid subsystem and necessary dependencies
 
         $EAP_HOME/bin/jboss-cli.sh -c --file=$SRC_HOME/install1-standalone-local.cli
         > restart the server !
@@ -66,7 +66,7 @@ To see the behaviour for JDG caches
 
         $EAP_HOME/bin/standalone.sh [-c standalone-ha.xml]
 
-4. use the CLI scipts to configure the datagrid subsystem and necessary dependencies
+4. use the CLI scripts to configure the datagrid subsystem and necessary dependencies
 
         $EAP_HOME/bin/jboss-cli.sh -c --file=$SRC_HOME/install1-standalone-clustered.cli
         > restart the server !
@@ -91,7 +91,7 @@ To see the behaviour for JDG caches
 Notes
 =======
   - You can simple rename the jboss-eap-datagrid-subsystem-AppWeb.war to any other name.war to simulate different applications.
-    If there are multiple applicatations they share the same cache!
+    If there are multiple applications they share the same cache!
   - Caches are independent from application lifecycles. Undeploying any, or all, applications instances has no affect on a cache's lifecycle or data.
     Even if the cache has no persistence the data will be kept as long as the server is not stopped.
   - In this example the EAP server is not clustered, but if the cache is configured as clustered with the datagrid-jgroups subsystem and replicated or 
@@ -99,3 +99,16 @@ Notes
   - The respective JGroups subsystem needs to be defined for both EAP and JDG as the respective subsystems depend on different JGroups versions and provide different functionality.
   - Also it is indespensable that the communication addresses and port for the JGroups subsystems need to be different. This prevent from cross-talking
     which cause performance drawback, WARN message or error messages.
+
+
+Test clustered cache mode
+========================
+1. Set variables
+	$EAP_SERVER_ZIP_PATH - path to jboss-eap.zip
+	$JDG_MODULES_ZIP_PATH - path to jboss-datagrid-eap-modules-library.zip
+
+2. Run prepareTwoEAP.sh from working directory. This will prepare two EAPs
+
+3. Save path to EAPs directories as $EAP_HOME1 and $EAP_HOME2
+
+4. run	`mvn test -Ptests-eap-clustered -DeapHome1=$EAP_HOME1 -DeapHome2=$EAP_HOME2`
