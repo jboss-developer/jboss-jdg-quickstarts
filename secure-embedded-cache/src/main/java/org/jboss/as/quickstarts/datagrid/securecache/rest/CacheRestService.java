@@ -1,5 +1,6 @@
 package org.jboss.as.quickstarts.datagrid.securecache.rest;
 
+import java.io.IOException;
 import java.security.Principal;
 
 import java.security.PrivilegedAction;
@@ -13,12 +14,16 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.security.auth.Subject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.infinispan.Cache;
@@ -162,5 +167,17 @@ public class CacheRestService {
 			cor.setFailureMessage(e.getMessage());
 		}
 		return cor;	
+	}
+
+	@GET
+	@Path("/logout")
+	@Produces({ MediaType.TEXT_PLAIN })
+	public String logout(final @Context HttpServletRequest req) {
+		try {
+			req.logout();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+		return "You're now logged out. Refresh the browser to log in again.";
 	}
 }

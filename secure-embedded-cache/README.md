@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI, JAX-RS
 Summary: The `secure-embedded-cache` quickstart demonstrates how cache level authentication and authorization works in an embedded mode of JDG.
 Target Product: JDG
-Product Versions: JDG 7.x, EAP 7.x
+Product Versions: JDG 7.x, EAP 7.1+
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
 What is it?
@@ -19,7 +19,9 @@ System requirements
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.1.1 or better.
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.1 or later.
+This application requires Red Hat Single Sign-On server 7.2.x for user authentication/authorization.
+
 
 Configure Maven
 ---------------
@@ -33,53 +35,69 @@ Setup
     mvn clean package -DskipTests
 
 2. To run the install and configuration commands, ensure that the local EAP server is running in Standalone mode
-3. To deploy the __security-domain__ that will be used for Authentication, run the command
+
+3. To configure the keycloak subsystem in EAP, run this command:
 
     mvn wildfly:execute-commands
 
-4. Since we will be using __application-user.properties__ and __application-roles.properties__ files that come with a standard EAP server installation at path: __$JBOSS_HOME/standalone/configuration__, run the following commands from the bin folder of the server installation
+4. Download Red Hat Single Sign-On (RH-SSO) server and Client Adapter for JBoss EAP 7 from Red Hat's Customer portal.
 
-    # Add a user who will be a reader. A reader can only read from the cache and cannot
-    # perform any operation that changes the state of the cache or its contents
+5. Install the Client Adapter in EAP by unpacking the Client Adapter zip file into the root directory of EAP
+   and running the following command:
 
-    $JBOSS_HOME/bin/add-user.sh -a -u readerUser -p readerUserPass9! -r ApplicationRealm -g reader
+   ${JBOSS_HOME}/jboss-cli.sh --file=adapter-install-offline.cli
 
-    # Add a user who will be an admin. An admin can perform ALL possible operations on
-    # the cache
+6. Start RH-SSO/Keycloak server with port offset:
 
-    $JBOSS_HOME/bin/add-user.sh -a -u adminUser -p adminUserPass9! -r ApplicationRealm -g admin
+    ${KEYCLOAK_HOME}/bin/standalone.sh -Djboss.socket.binding.port-offset=100
 
-5. To deploy the packaged webapp, run the command
+7. Open the Keycloak server Admin console running at http://localhost:8180 and create the admin user with the following credentials:
+
+    username: johndoe
+    password: password
+
+8. To run the installation script for Keycloak server that will install the necessary realm, clients, roles and users:
+
+    export PATH=${KEYCLOAK_HOME}/bin:$PATH
+
+    ./keycloak-setup/install-demo-realm.sh
+
+   Note: You'll be prompted for a password. Enter johndoe's password.
+
+9. To deploy the packaged webapp in EAP, run the command
 
     mvn wildfly:deploy
 
-6. Considering a very basic setup of the server, the application should now be accessible at the URL: http://127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/
-7. To run the JUnit tests, that test the authentication and authorization of the cache thru the secured webapp, run the command `mvn test` while the JBoss EAP server is still running
+10. Considering a very basic setup of the server, the application should now be accessible at the URL: http://localhost:8080/jboss-secure-embedded-cache-quickstart/
+
 
 Testing
 -------
-1. Log in as __readerUser__ when prompted for a login
+1. Log in as __reader__ when prompted for a login (password: Password_)
 2. Once successfully authenticated, using the form on the page presented to you, try adding a string Key/Value pair. Make a note of any messages displayed.
-3. Now, log out <sup>1</sup> as __readerUser__ by using the link provided in the location of your browser OR by clicking on it: [http://logout@127.0.0.1:8080/jboss-secure-embedded-cache-quickstart/](http://logout@127.0.0.1:8080/secure-embedded-cache-quickstart/)
-4. You will be prompted with a login again, at which point, click on __Cancel__ button
-5. Now try logging in as __adminUser__ by clicking on the original URL (step 7 of Setup)
+3. Now, log out and go to the application URL again.
+4. You will be prompted with a login again.
+5. Now try logging in as __admin__ (password: Strong_password) by clicking on the original URL
 6. Repeat testing step #2. If you see the writes being permitted, go ahead and add 5 new entries and delete 2 of them as part of testing
-7. Now logout as __adminUser__ using the URL provided in testing step #3 and in the same manner as described above
-8. Log back in as __readerUser__ and verify that you see 3 entires in the cache. If Yes, the testing was a SUCCESS. While still logged in as __readerUser__, see if you could delete any entries from the cache and note any messages displayed
+7. Now logout as __admin__ in the same manner as described above
+8. Log back in as __reader__ and verify that you see 3 entries in the cache. If Yes, the testing was a SUCCESS. While still logged in as __reader__, see if you could delete any entries from the cache and note any messages displayed
 
 Unit tests
 ----------
 There are prepared unit tests for this quickstart. To run them :
 
-1. Ensure that the local EAP server is running in Standalone mode : 
+1. Ensure that the local EAP server is running in Standalone mode :
 
        For Linux:   $JBOSS_HOME/bin/standalone.sh
        For Windows: %JBOSS_HOME%\bin\standalone.bat
-              
-2. Deploy the __security-domain__: `mvn wildfly:execute-commands`
-3. Shutdown the server
+2. Configure the keycloak subsystem: `mvn wildfly:execute-commands`
+3. Shutdown the EAP server
 4. Build and package the webapp with `mvn clean package -DskipTests`
-5. Run the tests with `mvn test -DeapHome=/path/to/server -Plibrary-tests`
+5. Ensure the Keycloak server is configured properly and running with a port offset
+
+    ${KEYCLOAK_HOME}/standalone.sh -Djboss.socket.binding.port-offset=100
+
+6. Run the tests with `mvn test -DeapHome=/path/to/server -Plibrary-tests`
 
 References
 ----------
