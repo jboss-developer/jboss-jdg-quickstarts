@@ -36,7 +36,7 @@
     <dependencies>
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-remote</artifactId>
+            <artifactId>infinispan-client-hotrod</artifactId>
             <version>${version.org.infinispan}</version>
         </dependency>
     </dependencies>
