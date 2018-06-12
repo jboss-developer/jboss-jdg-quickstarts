@@ -71,7 +71,7 @@
         <!-- Import the Infinispan client hotrod -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-remote</artifactId>
+            <artifactId>infinispan-client-hotrod</artifactId>
         </dependency>
 
         <!-- Import the Infinispan tasks API-->
