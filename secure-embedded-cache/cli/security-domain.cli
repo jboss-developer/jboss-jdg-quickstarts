@@ -1,6 +1,0 @@
-batch
-/subsystem=security/security-domain=file-based-auth:add
-/subsystem=security/security-domain=file-based-auth/authentication=classic:add
-/subsystem=security/security-domain=file-based-auth/authentication=classic/login-module=UsersRoles:add(code=UsersRoles, flag=required)
-run-batch
-:reload

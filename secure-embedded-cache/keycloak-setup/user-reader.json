@@ -1,0 +1,12 @@
+{
+   "username" : "reader",
+   "enabled": true,
+   "email" : "reader@localhost",
+   "firstName": "reader",
+   "lastName": "reader",
+   "credentials" : [
+     { "type" : "password",
+       "value" : "Password_" }
+   ],
+   "realmRoles": ["reader", "offline_access"]
+}

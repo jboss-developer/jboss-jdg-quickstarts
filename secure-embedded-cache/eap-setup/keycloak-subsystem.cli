@@ -1,0 +1,1 @@
+/subsystem=keycloak/secure-deployment=jboss-secure-embedded-cache-quickstart.war:add(realm=demo,resource=quickstart,public-client=true,auth-server-url=http://localhost:8180/auth,ssl-required=EXTERNAL)

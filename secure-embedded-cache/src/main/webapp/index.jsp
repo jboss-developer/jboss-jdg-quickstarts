@@ -106,6 +106,17 @@
 			});
 		}
 
+        function logout() {
+            $("#loggedUser").html("");
+            $.ajax({
+                url: 'rest/cache/logout',
+                type: 'GET',
+                success: function(result) {
+                    $("#loggedUser").html(result);
+                }
+            });
+        }
+
 		$(document).ready(function() {
 			fetchLoggedUser();
 			fetchCacheEntries();
@@ -130,7 +141,8 @@
           <input class="form-control" id="key" placeholder="Key" autocomplete="on" type="text">
           <input class="form-control" id="value" placeholder="Value" autocomplete="on" type="text">
 		  <br/>
-		  <button class="btn btn-lg btn-primary" style="width:445px" onclick="add()">Add</button>
+		  <button class="btn btn-lg btn-primary" style="width:445px; margin-bottom:2px" onclick="add()">Add</button>
+		  <button class="btn btn-lg btn-default" style="width:445px" onclick="logout()">Log out</button>
         </div>
         <h3>Cache Contents</h3>
 		<table id="cacheTable" style="width:100%; border: 1px solid green; ">

@@ -1,0 +1,7 @@
+{
+   "name": "reader",
+   "scopeParamRequired": false,
+   "composite": false,
+   "clientRole": false,
+   "containerId": "demo"
+}
