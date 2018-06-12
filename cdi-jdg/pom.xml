@@ -86,7 +86,13 @@
         <!-- Infinispan dependency -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
+            <artifactId>infinispan-core</artifactId>
+            <version>${version.org.infinispan}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-cdi-embedded</artifactId>
             <scope>provided</scope>
         </dependency>
 

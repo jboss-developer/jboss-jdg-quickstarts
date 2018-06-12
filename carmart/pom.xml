@@ -198,7 +198,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-embedded</artifactId>
+                    <artifactId>infinispan-core</artifactId>
                 </dependency>
             </dependencies>
             <build>
@@ -299,7 +299,7 @@
 
                 <dependency>
                     <groupId>org.infinispan</groupId>
-                    <artifactId>infinispan-embedded</artifactId>
+                    <artifactId>infinispan-core</artifactId>
                 </dependency>
 
                 <dependency>

@@ -74,7 +74,7 @@
 
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
+            <artifactId>infinispan-core</artifactId>
         </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is included
