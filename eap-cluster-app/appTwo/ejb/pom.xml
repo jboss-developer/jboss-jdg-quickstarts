@@ -47,7 +47,7 @@
         <!-- For JDG caches -->
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
+            <artifactId>infinispan-core</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
