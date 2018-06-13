@@ -54,16 +54,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+               <groupId>org.infinispan</groupId>
+               <artifactId>infinispan-bom</artifactId>
+               <version>${version.org.infinispan}</version>
+               <type>pom</type>
+               <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
                 <version>${version.jboss.spec.javaee.7.0}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
-                <version>${version.org.infinispan}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -87,7 +87,6 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <version>${version.org.infinispan}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
