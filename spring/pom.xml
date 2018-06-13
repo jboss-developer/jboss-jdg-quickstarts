@@ -17,7 +17,7 @@
         <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
         <java.version>1.7</java.version>
 
-        <version.org.infinispan>8.5.0-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.5.1-redhat-SNAPSHOT</version.org.infinispan>
         <version.spring-boot-starter-parent>1.2.3.RELEASE</version.spring-boot-starter-parent>
     </properties>
 
