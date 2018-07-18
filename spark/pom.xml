@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spark-quickstart</artifactId>
-    <version>7.2.0-redhat-SNAPSHOT</version>
+    <version>7.2.2.redhat-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: spark - parent</name>
     <packaging>pom</packaging>
 
@@ -40,7 +40,7 @@
     </modules>
 
     <properties>
-        <version.org.infinispan>8.5.1-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>8.5.2-redhat-SNAPSHOT</version.org.infinispan>
         <version.spark.connector>0.6.0-redhat-SNAPSHOT</version.spark.connector>
 
         <version.spark>2.2.0</version.spark>

@@ -82,7 +82,7 @@ Here is an example of the command's output:
         [INFO] F8:[NEW] Press Ctrl-C to scale down the app and stop tailing the log
         [INFO] F8:[NEW]
         [INFO] F8: Starting the Java application using /opt/run-java/run-java.sh ...
-        [INFO] F8: exec java -javaagent:/opt/jolokia/jolokia.jar=config=/opt/jolokia/etc/jolokia.properties -cp . -jar /deployments/caching-service-7.2.0-redhat-SNAPSHOT.jar
+        [INFO] F8: exec java -javaagent:/opt/jolokia/jolokia.jar=config=/opt/jolokia/etc/jolokia.properties -cp . -jar /deployments/caching-service-7.2.2-redhat-SNAPSHOT.jar
         [INFO] F8: Nov 20, 2017 10:29:04 AM org.infinispan.client.hotrod.impl.protocol.Codec20 readNewTopologyAndHash
         [INFO] F8: INFO: ISPN004006: caching-service-app-hotrod:11222 sent new topology view (id=1, age=0) containing 1 addresses: [172.17.0.2:11222]
         [INFO] F8: Nov 20, 2017 10:29:04 AM org.infinispan.client.hotrod.impl.transport.tcp.TcpTransportFactory updateTopologyInfo
