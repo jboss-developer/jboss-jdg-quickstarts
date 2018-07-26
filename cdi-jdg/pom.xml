@@ -94,7 +94,13 @@
             <artifactId>infinispan-cdi-embedded</artifactId>
             <scope>provided</scope>
         </dependency>
+	<dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-jcache</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
+	
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
