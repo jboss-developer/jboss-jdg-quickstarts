@@ -131,7 +131,7 @@
                <failOnMissingWebXml>false</failOnMissingWebXml>
                <archive>
                   <manifestEntries>
-                     <Dependencies>org.codehaus.jackson.jackson-mapper-asl,org.picketbox</Dependencies>
+                     <Dependencies>org.codehaus.jackson.jackson-mapper-asl,org.picketbox,org.infinispan</Dependencies>
                   </manifestEntries>
                </archive>
             </configuration>
