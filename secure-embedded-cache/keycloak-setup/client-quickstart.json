@@ -1,0 +1,11 @@
+{
+   "clientId": "quickstart",
+   "rootUrl": "http://localhost:8080/jboss-secure-embedded-cache-quickstart",
+   "adminUrl": "/",
+   "baseUrl": "/",
+   "enabled": true,
+   "publicClient" : true,
+   "redirectUris": [
+     "http://localhost:8080/jboss-secure-embedded-cache-quickstart/*"
+   ]
+}

@@ -1,0 +1,12 @@
+{
+   "username" : "admin",
+   "enabled": true,
+   "email" : "admin@localhost",
+   "firstName": "admin",
+   "lastName": "admin",
+   "credentials" : [
+     { "type" : "password",
+       "value" : "Strong_password" }
+   ],
+   "realmRoles": ["admin", "offline_access"]
+}

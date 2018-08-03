@@ -1,0 +1,7 @@
+{
+   "name": "admin",
+   "scopeParamRequired": false,
+   "composite": false,
+   "clientRole": false,
+   "containerId": "demo"
+}
