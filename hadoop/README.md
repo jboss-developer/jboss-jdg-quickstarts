@@ -23,7 +23,7 @@ System requirements
 
  * JDK 8+
  * Maven 3+
- * JBoss Data Grid 7.2.2
+ * JBoss Data Grid 7.2.3
  * Apache Flink v1.0
  
 Configure Maven

@@ -24,7 +24,7 @@ System requirements
 
  * JDK 8+
  * Maven 3+
- * JBoss Data Grid 7.2.2
+ * JBoss Data Grid 7.2.3
  * Apache Spark 2.0.2+
  
 Configure Maven

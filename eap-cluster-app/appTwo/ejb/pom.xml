@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application-AppTwo</artifactId>
-        <version>7.2.2.redhat-SNAPSHOT</version>
+        <version>7.2.3.redhat-SNAPSHOT</version>
     </parent>
     <licenses>
         <license>
