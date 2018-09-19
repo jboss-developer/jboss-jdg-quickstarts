@@ -17,6 +17,13 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
+    <parent>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-build-configuration-parent</artifactId>
+        <version>9.4.0-SNAPSHOT</version>
+    </parent>
+
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
@@ -29,7 +36,7 @@
         <version.jboss.weld>2.2.6.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.2.12</version.com.sun.faces.jsf.impl>
 
-        <version.org.infinispan>8.5.2-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>9.4.0-SNAPSHOT</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 
