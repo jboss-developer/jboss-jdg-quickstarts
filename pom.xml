@@ -42,6 +42,7 @@
         <module>helloworld-jdg</module>
         <module>hotrod-endpoint</module>
         <module>hotrod-secured</module>
+        <module>hotrod-transactions</module>
         <module>memcached-endpoint</module>
         <module>rapid-stock-market</module>
         <module>remote-query</module>
