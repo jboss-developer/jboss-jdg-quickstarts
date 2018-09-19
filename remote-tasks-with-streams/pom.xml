@@ -32,9 +32,15 @@
         </license>
     </licenses>
 
+    <parent>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-build-configuration-parent</artifactId>
+        <version>9.4.0-SNAPSHOT</version>
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.org.infinispan>8.5.2-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>9.4.0-SNAPSHOT</version.org.infinispan>
         <exec.plugin.version>1.2.1</exec.plugin.version>
         <main.class>org.jboss.as.quickstarts.datagrid.remotetasks.LibraryManager</main.class>
 

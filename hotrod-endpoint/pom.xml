@@ -32,6 +32,12 @@
         </license>
     </licenses>
 
+    <parent>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-build-configuration-parent</artifactId>
+        <version>9.4.0-SNAPSHOT</version>
+    </parent>
+
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following 
             message: -->
@@ -43,7 +49,7 @@
             command -->
         <main.class.hotrod-endpoint>org.jboss.as.quickstarts.datagrid.hotrod.FootballManager</main.class.hotrod-endpoint>
 
-        <version.org.infinispan>8.5.2-redhat-SNAPSHOT</version.org.infinispan>
+        <version.org.infinispan>9.4.0-SNAPSHOT</version.org.infinispan>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
