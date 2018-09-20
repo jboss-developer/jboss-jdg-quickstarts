@@ -27,12 +27,6 @@
     <name>JBoss JDG Quickstart: CDI</name>
     <description>This quickstart demonstrates the Infinispan CDI Support.</description>
 
-    <parent>
-        <groupId>org.infinispan</groupId>
-        <artifactId>infinispan-build-configuration-parent</artifactId>
-        <version>9.4.0-SNAPSHOT</version>
-    </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
