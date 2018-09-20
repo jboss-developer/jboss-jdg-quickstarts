@@ -18,12 +18,6 @@
       </license>
    </licenses>
 
-   <parent>
-      <groupId>org.infinispan</groupId>
-      <artifactId>infinispan-build-configuration-parent</artifactId>
-      <version>9.4.0-SNAPSHOT</version>
-   </parent>
-
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -36,6 +30,13 @@
 
    <dependencyManagement>
       <dependencies>
+         <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-bom</artifactId>
+            <version>${version.org.infinispan}</version>
+            <type>pom</type>
+            <scope>import</scope>
+         </dependency>
          <!-- Picketbox contains dependency for 1.0.1B, 1.1 is more convinient -->
          <dependency>
             <groupId>javax.transaction</groupId>
@@ -46,13 +47,6 @@
             <groupId>org.wildfly.bom</groupId>
             <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
             <version>${version.jboss.spec.javaee.7.0}</version>
-            <type>pom</type>
-            <scope>import</scope>
-         </dependency>
-         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-bom</artifactId>
-            <version>${version.org.infinispan}</version>
             <type>pom</type>
             <scope>import</scope>
          </dependency>

@@ -10,12 +10,6 @@
 
     <name>JBoss JDG Quickstart: spring-jdg</name>
 
-    <parent>
-        <groupId>org.infinispan</groupId>
-        <artifactId>infinispan-build-configuration-parent</artifactId>
-        <version>9.4.0-SNAPSHOT</version>
-    </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -30,16 +24,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${version.spring-boot-starter-parent}</version>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${version.org.infinispan}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
-                <version>${version.org.infinispan}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${version.spring-boot-starter-parent}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
