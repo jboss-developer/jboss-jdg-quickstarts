@@ -41,14 +41,14 @@ public class FootballManager {
    private static final String JDG_HOST = "jdg.host";
    private static final String HOTROD_PORT = "jdg.hotrod.port";
    private static final String PROPERTIES_FILE = "jdg.properties";
-   private static final String msgTeamMissing = "The specified team \"%s\" does not exist, choose next operation\n";
-   private static final String msgEnterTeamName = "Enter team name: ";
+   private static final String msgTeamMissing = "The team \"%s\" does not exist. Choose another operation\n";
+   private static final String msgEnterTeamName = "Enter a team name: ";
    private static final String initialPrompt = "Choose action:\n" + "============= \n"
          + "at  -  add a team\n"
          + "ap  -  add a player to a team\n"
          + "rt  -  remove a team\n"
          + "rp  -  remove a player from a team\n"
-         + "p   -  print all teams and players\n"
+         + "p   -  print all teams\n"
          + "pc  -  print all players and countries\n"
          + "q   -  quit\n";
 
@@ -81,7 +81,7 @@ public class FootballManager {
 
    public FootballManager() {
       initCaches();
-      // Both caches are using the same tx manager so we can keep the reference
+      // Both caches use the same transaction manager so we can keep the reference.
       tm = teams.getTransactionManager();
    }
 
@@ -90,14 +90,14 @@ public class FootballManager {
       builder.addServer()
             .host(jdgProperty(JDG_HOST))
             .port(Integer.parseInt(jdgProperty(HOTROD_PORT)));
-      // Configure the RemoteCacheManager to use a transactional cache as default
-      // Use the simple TransactionManager in hot rod client
+      // Configure the RemoteCacheManager to use a transactional cache by default.
+      // Use the simple TransactionManager in the Hot Rod client.
       builder.transaction().transactionManagerLookup(RemoteTransactionManagerLookup.getInstance());
-      // The cache will be enlisted as Synchronization
+      // The cache uses Synchronization mode for transactions.
       builder.transaction().transactionMode(TransactionMode.NON_XA);
 
       cacheManager = new RemoteCacheManager(builder.build());
-      // Create teams as a transactional cache
+      // Create teams as a transactional cache.
       teams = cacheManager.administration().getOrCreateCache(TEAMS_CACHE, new XMLStringConfiguration(TEAMS_XML_CACHE_CONFIG));
       players = cacheManager.administration().getOrCreateCache(PLAYERS_CACHE, new XMLStringConfiguration(PLAYERS_XML_CACHE_CONFIG));
    }
@@ -191,7 +191,7 @@ public class FootballManager {
       try {
          tm.setRollbackOnly();
       } catch (Exception exRollback) {
-         con.printf("Transaction can't be marked for rollback after an error %s", exRollback.getMessage());
+         con.printf("Transactions cannot be marked for rollback after an error %s", exRollback.getMessage());
       }
    }
 
@@ -203,7 +203,7 @@ public class FootballManager {
             tm.rollback();
          }
       } catch (Exception e) {
-         con.printf("Transaction can't be ended %s", e.getMessage());
+         con.printf("Transaction cannot be stopped %s", e.getMessage());
       }
    }
 
