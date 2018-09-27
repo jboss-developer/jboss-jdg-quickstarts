@@ -8,7 +8,7 @@
     <artifactId>jboss-embedded-openshift-quickstart</artifactId>
     <version>7.3.0-SNAPSHOT</version>
     <name>JBoss JDG Quickstart: Embedded Openshift</name>
-    <description>Deploy Datagrid in openshift in embedded mode</description>
+    <description>Create an OpenShift deployment that uses Red Hat Data Grid in Library mode.</description>
 
     <licenses>
         <license>
@@ -19,7 +19,7 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following
+        <!-- Explicitly declare the source encoding to avoid the following
             message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
@@ -27,17 +27,17 @@
 
         <version.org.infinispan>9.4.0-SNAPSHOT</version.org.infinispan>
 
-        <!-- maven-compiler-plugin -->
+        <!-- Set properties for the maven-compiler-plugin. -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <!-- Project name used in the OpenShift -->
+        <!-- Specify the OpenShift project namespace. -->
         <fabric8.namespace>myproject</fabric8.namespace>
-        <!-- This let's you debug a local container -->
+        <!-- Enable debugging for local containers. -->
         <options.debug>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8787</options.debug>
-        <!-- Not sure, what's your configuration, so let's use IPv4 just in case -->
+        <!-- Use IPv4 sockets. The application cannot accept connections via IPv6. -->
         <options.useIPv4>-Djava.net.preferIPv4Stack=true</options.useIPv4>
-        <!-- This allows redeploying when using Fabric8 Maven Plugin -->
+        <!-- Allow application redeployments when using the Fabric8 Maven Plugin. -->
         <fabric8.openshift.trimImageInContainerSpec>true</fabric8.openshift.trimImageInContainerSpec>
     </properties>
 
@@ -112,11 +112,11 @@
                                     <descriptorRef>artifact-with-dependencies</descriptorRef>
                                 </assembly>
                                 <ports>
-                                    <!-- KUBE_PING requires exposing ping port -->
+                                    <!-- Expose the ping port for KUBE_PING. -->
                                     <port>8888</port>
                                 </ports>
                                 <env>
-                                    <!-- This is how we tell KUBE_PING in which project it should operate -->
+                                    <!-- Provide the OpenShift project namespace in which KUBE_PING operates. -->
                                     <OPENSHIFT_KUBE_PING_NAMESPACE>${fabric8.namespace}</OPENSHIFT_KUBE_PING_NAMESPACE>
                                     <JAVA_MAIN_CLASS>org.infinispan.quickstart.openshift.embedded.InfinispanOpenshift
                                     </JAVA_MAIN_CLASS>
@@ -125,7 +125,7 @@
                             </build>
                         </image>
                     </images>
-                    <!-- We are not interested in creating any services -->
+                    <!-- Do not create any services. -->
                     <ignoreServices>true</ignoreServices>
                 </configuration>
             </plugin>

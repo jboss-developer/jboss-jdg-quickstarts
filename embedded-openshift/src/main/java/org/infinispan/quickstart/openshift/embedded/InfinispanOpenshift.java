@@ -18,13 +18,13 @@ import org.infinispan.manager.DefaultCacheManager;
 public class InfinispanOpenshift {
 
    public static void main(String[] args) throws UnknownHostException {
-      //Configure Infinispan to use default transport and Kubernetes configuration
+      //Configure Infinispan to use default transport and the default Kubernetes JGroups configuration.
       GlobalConfiguration globalConfig = new GlobalConfigurationBuilder().transport()
             .defaultTransport()
             .addProperty("configurationFile", "default-configs/default-jgroups-kubernetes.xml")
             .build();
 
-      // We need a distributed cache for the purpose of this demo
+      // Use a distributed cache for the quickstart application.
       Configuration cacheConfiguration = new ConfigurationBuilder()
             .clustering()
             .cacheMode(CacheMode.REPL_SYNC)
@@ -34,7 +34,7 @@ public class InfinispanOpenshift {
       cacheManager.defineConfiguration("default", cacheConfiguration);
       Cache<String, String> cache = cacheManager.getCache("default");
 
-      //Each cluster member will update its own entry in the cache
+      //Each cluster member updates its own entry in the cache.
       String hostname = Inet4Address.getLocalHost().getHostName();
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
       scheduler.scheduleAtFixedRate(() -> {
@@ -48,7 +48,7 @@ public class InfinispanOpenshift {
             0, 2, TimeUnit.SECONDS);
 
       try {
-         //This container will operate for an hour and then it will die
+         //The container operates for one hour and then shuts down.
          TimeUnit.HOURS.sleep(1);
       } catch (InterruptedException e) {
          scheduler.shutdown();
