@@ -4,9 +4,11 @@ import org.infinispan.spring.provider.SpringEmbeddedCacheManagerFactoryBean;
 import org.jboss.as.quickstarts.datagrid.spring.core.client.ClientCache;
 import org.jboss.as.quickstarts.datagrid.spring.core.client.CachedClientGetter;
 import org.jboss.as.quickstarts.datagrid.spring.core.client.ClientGetter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -16,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableCaching
+@EnableAutoConfiguration
 public class DomainConfig {
 
     @Bean
