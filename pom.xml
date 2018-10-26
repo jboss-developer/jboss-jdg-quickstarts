@@ -55,6 +55,7 @@
         <module>spark</module>
         <module>hadoop</module>
         <module>remote-tasks-with-streams</module>
+        <module>embedded-openshift</module>
     </modules>
 
     <properties>
