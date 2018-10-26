@@ -35,6 +35,7 @@
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 
         <version.org.jboss.jbossts.jta.narayana-jta>4.17.24.Final</version.org.jboss.jbossts.jta.narayana-jta>
+        <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
 
         <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
             can deploy this quickstart on EWS/Tomcat through this URL -->
@@ -138,6 +139,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <!-- this commons-codec dep has to be at the top so as to prevent errors like this one:
              https://issues.jboss.org/browse/ARQ-1456 -->
         <dependency>
@@ -181,6 +183,7 @@
             <groupId>org.jboss.spec.javax.transaction</groupId>
             <artifactId>jboss-transaction-api_1.1_spec</artifactId>
             <scope>provided</scope>
+            <version>${version.jboss-transaction-api_1.1_spec}</version>
         </dependency>
 
         <!-- Import Prettyfaces dependency. This is a UNSUPPORTED component -->
