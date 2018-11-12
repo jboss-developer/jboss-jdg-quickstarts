@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, CDI, JAX-RS
 Summary: Learn how cache-level authentication and authorization works for Red Hat Data Grid in Library mode.
 Target Product: Red Hat Data Grid
-Product Versions: Red Hat Data Grid 7.x, EAP 7.1+
+Product Versions: Red Hat Data Grid 7.3 or later, Red Hat JBoss Enterprise Application Platform 7.1 or later, Red Hat Single Sign-On Server 7.2 or later
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
 About This Quickstart
