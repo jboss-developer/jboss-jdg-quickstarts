@@ -56,7 +56,7 @@ public class HttpKeycloakAuthTest {
       WebArchive archive = ShrinkWrap.create(ZipImporter.class, ARCHIVE_NAME)
               .importFrom(new File(BUILD_DIRECTORY + '/' + ARCHIVE_NAME))
               .as(WebArchive.class);
-      TestsHelper.initialAccessCode = getAdminAccessToken(); //required for creating the client
+      TestsHelper.initialAccessCode = getAdminAccessToken(); //required to create the client
       archive.addAsWebInfResource(new StringAsset(TestsHelper.createClient(ClientBuilder.create("test-dga")
               .baseUrl(TestsHelper.baseUrl).accessType(PUBLIC))), "keycloak.json");
       return archive;

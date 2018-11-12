@@ -51,14 +51,14 @@ public class CacheRestService {
 		Subject subject = SecurityContextAssociation.getSubject();
 		try {
 			Security.doAs(subject, new PrivilegedAction<Void>() {
-				public Void run() {	
+				public Void run() {
 					Cache<String, String> cache;
 					cache = cm.getCache("secured");
 
 					ArrayList<CacheEntry<String, String>> cacheEntries = new ArrayList<CacheEntry<String, String>>();
-					/* 
-					 * If key is provided, extract the value associated with the key in the
-					 * cache, else get all the entries
+					/*
+					 * If a key is provided, get the value for that key in the
+					 * cache, else get all entries.
 					 */
 					if (key == null) {
 						Set<Map.Entry<String, String>> entries = cache.entrySet();
@@ -70,15 +70,15 @@ public class CacheRestService {
 						if (value != null)
 							cacheEntries.add(new CacheEntry<String, String>(key, value));
 					}
-					
+
 					/*
-					 * Sort all the cache entries base on the key value
+					 * Sort all cache entries based on key value.
 					 */
 					Collections.sort(cacheEntries);
 					cor.setOutputEntries(cacheEntries);
 					return null;
 				}
-			});	
+			});
 		} catch(Exception e) {
 			cor.setFailed(true);
 			cor.setFailureMessage(e.getMessage());
@@ -89,7 +89,7 @@ public class CacheRestService {
 	@PUT
 	@Path("/put")
 	@Produces("application/json")
-	public CacheOperationResult<String> put(final @QueryParam("key") String key, 
+	public CacheOperationResult<String> put(final @QueryParam("key") String key,
 			final @QueryParam("value") String value) {
 		final CacheOperationResult<String> cor = new CacheOperationResult<String>();
 		Subject subject = SecurityContextAssociation.getSubject();
@@ -100,7 +100,7 @@ public class CacheRestService {
 					cache = cm.getCache("secured");
 					return cache.putIfAbsent(key, value);
 				}
-			});	
+			});
 			ArrayList<String> returnValues= new ArrayList<String>();
 			returnValues.add(returnValue);
 			cor.setOutputEntries(returnValues);
@@ -119,13 +119,13 @@ public class CacheRestService {
 		Subject subject = SecurityContextAssociation.getSubject();
 		Set<Principal> principals = subject.getPrincipals();
 		for (Principal p : principals) {
-			if(p instanceof SimplePrincipal 
-					&& !p.getName().equals("Roles") 
+			if(p instanceof SimplePrincipal
+					&& !p.getName().equals("Roles")
 					&& !p.getName().equals("CallerPrincipal")) {
 				SimplePrincipal sp = (SimplePrincipal) p;
 				returnValue = returnValue.concat(sp.getName());
-			} 
-			
+			}
+
 			if (p instanceof SimpleGroup && p.getName().equals("Roles")) {
 				SimpleGroup sg = (SimpleGroup) p;
 				@SuppressWarnings("rawtypes")
@@ -138,9 +138,9 @@ public class CacheRestService {
 					}
 				}
 				returnValue = returnValue.concat(", Roles :"+roles);
-			} 
+			}
 		}
-		
+
 		return returnValue;
 	}
 
@@ -151,7 +151,7 @@ public class CacheRestService {
 			final @QueryParam("value") String value) {
 		final CacheOperationResult<Boolean> cor = new CacheOperationResult<Boolean>();
 		Subject subject = SecurityContextAssociation.getSubject();
-		try {		
+		try {
 			Boolean returnValue = Security.doAs(subject, new PrivilegedAction<Boolean>() {
 				public Boolean run() {
 					Cache<String, String> cache;
@@ -166,7 +166,7 @@ public class CacheRestService {
 			cor.setFailed(true);
 			cor.setFailureMessage(e.getMessage());
 		}
-		return cor;	
+		return cor;
 	}
 
 	@GET
@@ -178,6 +178,6 @@ public class CacheRestService {
 		} catch (ServletException e) {
 			e.printStackTrace();
 		}
-		return "You're now logged out. Refresh the browser to log in again.";
+		return "You are now logged out. Refresh your browser to log in again.";
 	}
 }

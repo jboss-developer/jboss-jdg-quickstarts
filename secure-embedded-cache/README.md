@@ -1,108 +1,156 @@
-secure-embedded-cache: Example Using Secured Access to Embedded Cache
+Securing Access to an Embedded Cache
 ==============================================
 Author: Vijay Chintalapati
 Level: Intermediate
 Technologies: Infinispan, CDI, JAX-RS
-Summary: The `secure-embedded-cache` quickstart demonstrates how cache level authentication and authorization works in an embedded mode of JDG.
-Target Product: JDG
-Product Versions: JDG 7.x, EAP 7.1+
+Summary: Learn how cache-level authentication and authorization works for Red Hat Data Grid in Library mode.
+Target Product: Red Hat Data Grid
+Product Versions: Red Hat Data Grid 7.x, EAP 7.1+
 Source: <https://github.com/jboss-developer/jboss-jdg-quickstarts>
 
-What is it?
+About This Quickstart
 -----------
+The `secure-embedded-cache` quickstart provides a demo application (webapp) that lets you read and write entries in an embedded cache with different user credentials.
 
-The `secure-embedded-cache` quickstart demonstrates how to configure security, authentication and authorization, on embedded Infinispan caches. Users
-can see the cache content in a web browser. The content is produced using JAX-RS.
-
-System requirements
+System Requirements
 -------------------
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3.1.1 or better.
+* Java 8.0 (Java SDK 1.8) or later.
+* Maven 3.0 or later. You must also [configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts).
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.1 or later.
-This application requires Red Hat Single Sign-On server 7.2.x for user authentication/authorization.
+To run the demo application, you must install:
 
+* Red Hat JBoss Enterprise Application Platform (EAP) 7.1 or later.
+* Red Hat Single Sign-On (RH-SSO) Server 7.2.x.
+* RH-SSO Client Adapter for JBoss EAP 7.
 
-Configure Maven
----------------
-
-If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
-
-Setup
------
-1. To build and package the webapp, run the command at the command prompt in the root directory of the project:
-
-    mvn clean package -DskipTests
-
-2. To run the install and configuration commands, ensure that the local EAP server is running in Standalone mode
-
-3. To configure the keycloak subsystem in EAP, run this command:
-
-    mvn wildfly:execute-commands
-
-4. Download Red Hat Single Sign-On (RH-SSO) server and Client Adapter for JBoss EAP 7 from Red Hat's Customer portal.
-
-5. Install the Client Adapter in EAP by unpacking the Client Adapter zip file into the root directory of EAP
-   and running the following command:
-
-   ${JBOSS_HOME}/jboss-cli.sh --file=adapter-install-offline.cli
-
-6. Start RH-SSO/Keycloak server with port offset:
-
-    ${KEYCLOAK_HOME}/bin/standalone.sh -Djboss.socket.binding.port-offset=100
-
-7. Open the Keycloak server Admin console running at http://localhost:8180 and create the admin user with the following credentials:
-
-    username: johndoe
-    password: password
-
-8. To run the installation script for Keycloak server that will install the necessary realm, clients, roles and users:
-
-    export PATH=${KEYCLOAK_HOME}/bin:$PATH
-
-    ./keycloak-setup/install-demo-realm.sh
-
-   Note: You'll be prompted for a password. Enter johndoe's password.
-
-9. To deploy the packaged webapp in EAP, run the command
-
-    mvn wildfly:deploy
-
-10. Considering a very basic setup of the server, the application should now be accessible at the URL: http://localhost:8080/jboss-secure-embedded-cache-quickstart/
+Download EAP and RH-SSO from the [Red Hat Customer Portal](https://access.redhat.com/downloads).
 
 
-Testing
--------
-1. Log in as __reader__ when prompted for a login (password: Password_)
-2. Once successfully authenticated, using the form on the page presented to you, try adding a string Key/Value pair. Make a note of any messages displayed.
-3. Now, log out and go to the application URL again.
-4. You will be prompted with a login again.
-5. Now try logging in as __admin__ (password: Strong_password) by clicking on the original URL
-6. Repeat testing step #2. If you see the writes being permitted, go ahead and add 5 new entries and delete 2 of them as part of testing
-7. Now logout as __admin__ in the same manner as described above
-8. Log back in as __reader__ and verify that you see 3 entries in the cache. If Yes, the testing was a SUCCESS. While still logged in as __reader__, see if you could delete any entries from the cache and note any messages displayed
+Deploying the Demo Application
+-------------------------------
+To deploy the demo application, do the following:
 
-Unit tests
-----------
-There are prepared unit tests for this quickstart. To run them :
+1. Open a command prompt and navigate to the root directory of this repository.
+2. Build and package the demo application.
 
-1. Ensure that the local EAP server is running in Standalone mode :
+  ```bash
+  $ mvn clean package -DskipTests
+  ```
 
-       For Linux:   $JBOSS_HOME/bin/standalone.sh
-       For Windows: %JBOSS_HOME%\bin\standalone.bat
-2. Configure the keycloak subsystem: `mvn wildfly:execute-commands`
-3. Shutdown the EAP server
-4. Build and package the webapp with `mvn clean package -DskipTests`
-5. Ensure the Keycloak server is configured properly and running with a port offset
+3. Set up your EAP server.
 
-    ${KEYCLOAK_HOME}/standalone.sh -Djboss.socket.binding.port-offset=100
+  a. Start your local EAP server in Standalone mode.
 
-6. Run the tests with `mvn test -DeapHome=/path/to/server -Plibrary-tests`
+    - Linux:   `${JBOSS_HOME}/bin/standalone.sh`
+    - Windows: `%JBOSS_HOME%\bin\standalone.bat`
 
-References
-----------
-<b><sup>1</sup></b> The above shown log out steps work well with Firefox. If it doesn't work well in your environment, you have three choices to log in as a different user:
+  b. Configure the keycloak subsystem in EAP:
 
-1. Start a new browser session  (applies to IE 6+)
-2. Use another browser 
-3. Kill/Start (restart) the browser 
+  ```bash
+  $ mvn wildfly:execute-commands
+  ```
+
+  c. Extract the Client Adapter archive into the root directory of your EAP installation and then run the following command:
+
+  ```bash
+  $ ${JBOSS_HOME}/jboss-cli.sh --file=adapter-install-offline.cli
+  ```
+4. Set up your RH-SSO server.
+
+  a. Start the RH-SSO server with a port offset:
+
+  ```bash
+  $ ${KEYCLOAK_HOME}/bin/standalone.sh -Djboss.socket.binding.port-offset=100
+  ```
+
+  b. Navigate to the RH-SSO Admin console at http://localhost:8180.
+
+  c. Create an _admin_ user account with the following credentials:
+
+    - Username: __johndoe__
+    - Password: __password__
+
+  d. Install the realm, clients, roles, and users for the RH-SSO server.
+
+  ```bash
+  $ export PATH=${KEYCLOAK_HOME}/bin:$PATH
+
+  $ ./keycloak-setup/install-demo-realm.sh
+  ```
+
+  e. Enter the password for __johndoe__ when prompted.
+
+5. Deploy the demo application in your local EAP server.
+
+  ```bash
+  $ mvn wildfly:deploy
+  ```
+
+You should now be able to access the demo application at the following URL:
+
+http://localhost:8080/jboss-secure-embedded-cache-quickstart/
+
+The demo application lets you access cache content in a web browser. The cache entries are created with the Java API for RESTful Web Services (JAX-RS).
+
+Testing Authentication and Authorization
+----------------------------------------
+The demo application includes two users, __reader__ and __admin__. To access the embedded cache in the demo application, you must authenticate as either of these users.
+
+To demonstrate authorization, __reader__ has only read permissions to the embedded cache while __admin__ has both read and write permissions.
+
+_Note:_ The following steps are tested with Mozilla Firefox. If you are using a different browser, you might encounter issues logging in and out of the demo application with different users. To resolve issues with login, you can start a new browser session (Internet Explorer 6 or later) or restart your browser between logins.
+
+To test authentication and authorization, do the following:
+
+1. Navigate to the demo application.
+2. Log in as __reader__ with this password: **Password_**.
+
+  The demo application presents a form in your browser where you can perform cache operations.
+
+3. Attempt to add a string key/value pair to the cache.
+
+  You can see that the demo application displays messages that indicate that __reader__ is not authorized for write operations.
+
+4. Log out and then refresh your browser to return to the demo application.
+5. Log in as __admin__ with this password: **Strong_password**.
+6. Add five new string key/value pairs to the cache.
+
+  You can see that the demo application allows __admin__ to perform write operations to the cache.
+
+7. Delete two of the entries that you created in the cache.
+8. Log out, refresh your browser, and then log in as __reader__.
+9. Verify that you can see the three cache entries you created as __admin__.
+10. Attempt to delete cache entries as __reader__.
+
+  Again, you can see that __reader__ is not authorized to delete entries from the cache.
+
+11. Log out from the demo application.
+
+Running Unit Tests
+------------------
+This quickstart includes prepared unit tests that you can run as follows:
+
+1. Start your local EAP server in Standalone mode.
+2. Configure the keycloak subsystem.
+
+  ```bash
+  $ mvn wildfly:execute-commands
+  ```
+3. Stop your local EAP server.
+4. Build and package the demo application.
+
+  ```bash
+  $ mvn clean package -DskipTests
+  ```
+5. Start the RH-SSO server with a port offset.
+
+  ```bash
+  $ ${KEYCLOAK_HOME}/standalone.sh -Djboss.socket.binding.port-offset=100
+  ```
+
+6. Run the unit tests.
+
+  ```bash
+  $ mvn test -DeapHome=/path/to/server -Plibrary-tests
+  ```
