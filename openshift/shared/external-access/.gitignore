@@ -1,0 +1,2 @@
+# ignore downloaded certificates
+tls.crt
