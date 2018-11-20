@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.infinispan>9.4.1-SNAPSHOT</version.infinispan>
+        <version.org.infinispan>9.4.1-SNAPSHOT</version.org.infinispan>
         <version.spring-boot>1.5.16.RELEASE</version.spring-boot>
         <version.spring-session>1.3.0.RELEASE</version.spring-session>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
@@ -51,12 +51,12 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <version>${version.infinispan}</version>
+            <version>${version.org.infinispan}</version>
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring4-embedded</artifactId>
-            <version>${version.infinispan}</version>
+            <version>${version.org.infinispan}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
