@@ -6,3 +6,5 @@ The example should be explained directly in the same tutorial.
 * Should the hello world quickstart be shared? In some kind of shared folder?
 * Creating a cache service or data grid service becomes just a parameter to the tutorial.
 * Less code to maintain
+
+- [x] Custom XML: Hello World via Hot Rod.
