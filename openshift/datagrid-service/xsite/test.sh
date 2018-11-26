@@ -76,16 +76,21 @@ main () {
   stopService "xsite-b"
 
   startXSiteService "xsite-a"
-  local extAddrSiteA=`./external-ip.sh`
+  # local extAddrSiteA=`./external-ip.sh`
+  local extAddrSiteA=$(minishift ip)
+  # local extPortSiteA=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
+  local extPortSiteA=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
   echo "$extAddrSiteA"
 
   startXSiteService "xsite-b"
-  local extAddrSiteB=`./external-ip.sh`
+  # local extAddrSiteB=`./external-ip.sh`
+  local extAddrSiteB=$(minishift ip)
+  local extPortSiteB=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
   echo "$extAddrSiteB"
 
   echo "External addresses are: siteA=${extAddrSiteA},siteB=${extAddrSiteB}"
 
-  local discovery="${extAddrSiteA}[55200],${extAddrSiteB}[55200]"
+  local discovery="${extAddrSiteA}[${extPortSiteA}],${extAddrSiteB}[${extPortSiteB}]"
 
   startService "xsite-a" "SiteA" "${extAddrSiteA}" "${discovery}"
   startService "xsite-b" "SiteB" "${extAddrSiteB}" "${discovery}"
