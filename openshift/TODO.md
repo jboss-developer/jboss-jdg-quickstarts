@@ -1,6 +1,7 @@
 - [x] Cache service: Hello World via Hot Rod.
 - [ ] Cache service: Hello World via HTTPS REST.
-The example should be explained directly in the same tutorial. 
+The example should be explained directly in the same tutorial.
+Requires using `curl --cacert...` 
 
 - [ ] Data Grid service: Hello World.
 * Should the hello world quickstart be shared? In some kind of shared folder?
