@@ -8,8 +8,9 @@ metadata:
   name: datagrid-service-xsite
 spec:
   ports:
-  - port: 55200
-    targetPort: 55200
+  - port: 8660
+    targetPort: 8660
+    nodePort: 32660
   selector:
     deploymentConfig: datagrid-service
   type: LoadBalancer

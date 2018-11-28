@@ -35,9 +35,7 @@
                 <authorization>
                     <properties path="application-roles.properties" relative-to="jboss.server.config.dir"/>
                 </authorization>
-                <!-- ##SERVER_IDENTITIES## -->
             </security-realm>
-            <!-- ##DATAGRID_REALM## -->
         </security-realms>
         <audit-log>
             <formatters>
@@ -103,11 +101,6 @@
             <logger category="com.arjuna">
                 <level name="WARN"/>
             </logger>
-            <!-- xsite mod:start -->
-            <logger category="org.jgroups">
-                <level name="TRACE"/>
-            </logger>
-            <!-- xsite mod:end -->
             <logger category="org.jboss.as.config">
                 <level name="DEBUG"/>
             </logger>
@@ -165,9 +158,16 @@
                 </drivers>
             </datasources>
         </subsystem>
-<!-- ##INFINISPAN_ENDPOINT## -->
+        <!-- xsite mod:start / fill in ##INFINISPAN_ENDPOINTS## -->
+        <subsystem xmlns="urn:infinispan:server:endpoint:8.1">
+            <hotrod-connector cache-container="clustered" socket-binding="hotrod-internal" name="hotrod-internal" />
+            <rest-connector name="rest" socket-binding="rest" cache-container="clustered">
+                <authentication security-realm="ApplicationRealm" auth-method="BASIC"/>
+            </rest-connector>
+        </subsystem>
+        <!-- xsite mod:end -->
         <subsystem xmlns="urn:infinispan:server:core:8.5" default-cache-container="clustered">
-            <!-- xsite mod:start -->
+            <!-- xsite mod:start / fill in ##INFINISPAN_CORE## -->
             <cache-container name="clustered" default-cache="default">
                 <transport channel="cluster"/>
                 <global-state/>
@@ -191,16 +191,16 @@
             <stacks>
                 <stack name="udp">
                     <transport type="UDP" socket-binding="jgroups-udp"/>
-                    <!-- ##JGROUPS_PING_PROTOCOL## -->
+                    <!-- xsite mod:start / fill in ##JGROUPS_PING_PROTOCOL## -->
+                    <protocol type="openshift.DNS_PING" socket-binding="jgroups-mping"/>
+                    <!-- xsite mod:end -->
                     <protocol type="MERGE3"/>
                     <protocol type="FD_SOCK" socket-binding="jgroups-udp-fd"/>
                     <protocol type="FD_ALL"/>
                     <protocol type="VERIFY_SUSPECT"/>
-                    <!-- ##JGROUPS_ENCRYPT## -->
                     <protocol type="pbcast.NAKACK2"/>
                     <protocol type="UNICAST3"/>
                     <protocol type="pbcast.STABLE"/>
-                    <!-- ##JGROUPS_AUTH## -->
                     <protocol type="pbcast.GMS"/>
                     <protocol type="UFC"/>
                     <protocol type="MFC"/>
@@ -208,18 +208,18 @@
                 </stack>
                 <stack name="tcp">
                     <transport type="TCP" socket-binding="jgroups-tcp"/>
-                    <!-- ##JGROUPS_PING_PROTOCOL## -->
+                    <!-- xsite mod:start / fill in ##JGROUPS_PING_PROTOCOL## -->
+                    <protocol type="openshift.DNS_PING" socket-binding="jgroups-mping"/>
+                    <!-- xsite mod:end -->
                     <protocol type="MERGE3"/>
                     <protocol type="FD_SOCK" socket-binding="jgroups-tcp-fd"/>
                     <protocol type="FD_ALL"/>
                     <protocol type="VERIFY_SUSPECT"/>
-                    <!-- ##JGROUPS_ENCRYPT## -->
                     <protocol type="pbcast.NAKACK2">
                         <property name="use_mcast_xmit">false</property>
                     </protocol>
                     <protocol type="UNICAST3"/>
                     <protocol type="pbcast.STABLE"/>
-                    <!-- ##JGROUPS_AUTH## -->
                     <protocol type="pbcast.GMS"/>
                     <protocol type="MFC"/>
                     <protocol type="FRAG3"/>
@@ -236,9 +236,10 @@
                 <stack name="relay-global">
                     <transport type="TCP" socket-binding="jgroups-tcp-relay">
                         <property name="external_addr">${jboss.bind.ext_address:127.0.0.1}</property>
+                        <property name="external_port">${jboss.bind.ext_port:8660}</property>
                     </transport>
                     <protocol type="TCPPING">
-                        <property name="initial_hosts">${jboss.relay.global_cluster:127.0.0.1[55200]}</property>
+                        <property name="initial_hosts">${jboss.relay.global_cluster:127.0.0.1[8660]}</property>
                     </protocol>
                     <protocol type="MERGE3"/>
                     <protocol type="FD_SOCK" socket-binding="jgroups-tcp-fd">
@@ -338,7 +339,6 @@
             </core-environment>
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager" recovery-listener="true"/>
             <coordinator-environment default-timeout="300"/>
-            <!-- ##JDBC_STORE## -->
         </subsystem>
     </profile>
     <interfaces>
@@ -358,7 +358,7 @@
         <socket-binding name="jgroups-tcp" port="7600"/>
         <socket-binding name="jgroups-tcp-fd" port="57600"/>
         <!-- xsite mod:start -->
-        <socket-binding name="jgroups-tcp-relay" port="55200" />
+        <socket-binding name="jgroups-tcp-relay" port="8660" />
         <!-- xsite mod:end -->
         <socket-binding name="jgroups-udp" port="55200" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45688"/>
         <socket-binding name="jgroups-udp-fd" port="54200"/>

@@ -31,7 +31,8 @@ startService() {
   local profile=$1
   local siteName=$2
   local extAddr=$3
-  local discovery=$4
+  local extPort=$4
+  local discovery=$5
 
   minishift profile set ${profile}
   eval $(minishift oc-env)
@@ -44,56 +45,31 @@ startService() {
     -p APPLICATION_USER=test \
     -p APPLICATION_USER_PASSWORD=changeme \
     -e USER_CONFIG_MAP=true \
-    -e JAVA_OPTS_APPEND="-Djboss.bind.ext_address=${extAddr} -Djboss.relay.site=${siteName} -Djboss.relay.global_cluster=${discovery}"
+    -e SCRIPT_DEBUG=true \
+    -e JAVA_OPTS_APPEND="-Djboss.bind.ext_address=${extAddr} -Djboss.bind.ext_port=${extPort} -Djboss.relay.site=${siteName} -Djboss.relay.global_cluster=${discovery}"
 }
-
-#startServiceSiteA() {
-#  echo "--> Start service"
-#
-#  oc create -f xsite-service.yaml
-#
-#  local site="SiteA"
-#  local extAddr=`./external-ip.sh`
-#  local discovery="${extAddr}[55200]"
-#
-#  oc create -f xsite-datagrid-service-template.yaml
-#
-#  oc create configmap datagrid-config --from-file=configuration
-#
-#  oc new-app datagrid-service \
-#    -p APPLICATION_USER=test \
-#    -p APPLICATION_USER_PASSWORD=changeme \
-#    -e USER_CONFIG_MAP=true \
-#    -e JBOSS_HA_ARGS="-Djboss.bind.ext_address=${extAddr} -Djboss.relay.site=${site} -Djboss.relay.global_cluster=${discovery}"
-#
-#  # Check logs for message like:
-#  # INFO Running ___ image, version ___ with user standalone.xml
-#}
-
 
 main () {
   stopService "xsite-a"
   stopService "xsite-b"
 
   startXSiteService "xsite-a"
-  # local extAddrSiteA=`./external-ip.sh`
   local extAddrSiteA=$(minishift ip)
-  # local extPortSiteA=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
   local extPortSiteA=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
-  echo "$extAddrSiteA"
+  echo "External info for SiteA: $extAddrSiteA:$extPortSiteA"
 
   startXSiteService "xsite-b"
-  # local extAddrSiteB=`./external-ip.sh`
   local extAddrSiteB=$(minishift ip)
   local extPortSiteB=`oc get svc/datagrid-service-xsite --template="{{range .spec.ports}}{{.nodePort}}{{end}}"`
-  echo "$extAddrSiteB"
-
-  echo "External addresses are: siteA=${extAddrSiteA},siteB=${extAddrSiteB}"
+  echo "External info for SiteB: $extAddrSiteB:$extPortSiteB"
 
   local discovery="${extAddrSiteA}[${extPortSiteA}],${extAddrSiteB}[${extPortSiteB}]"
 
-  startService "xsite-a" "SiteA" "${extAddrSiteA}" "${discovery}"
-  startService "xsite-b" "SiteB" "${extAddrSiteB}" "${discovery}"
+  startService "xsite-a" "SiteA" "${extAddrSiteA}" "${extPortSiteA}" "${discovery}"
+
+  sleep 30 # give some time for first site to come up
+
+  startService "xsite-b" "SiteB" "${extAddrSiteB}" "${extPortSiteB}" "${discovery}"
 }
 
 
