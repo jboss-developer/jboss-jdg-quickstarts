@@ -99,11 +99,9 @@ logQuickstart() {
 
 
 main () {
-  if [ "$1" == "--quickstart-only" ]; then
-    stopService
-    startService
-    waitForService
-  fi
+  stopService
+  startService
+  waitForService
 
   local demo="quickstart"
 
