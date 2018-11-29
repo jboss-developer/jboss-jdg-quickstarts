@@ -10,9 +10,11 @@ startMinishift() {
 
 
 main () {
-  ./registry-credentials-validate.sh
+  local dir=$(dirname $0)
+
+  ${dir}/registry-credentials-validate.sh
   startMinishift
-  ./registry-credentials-setup.sh
+  ${dir}/registry-credentials-setup.sh
 }
 
 
