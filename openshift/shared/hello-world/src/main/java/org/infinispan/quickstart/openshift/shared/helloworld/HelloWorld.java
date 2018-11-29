@@ -7,7 +7,7 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 public class HelloWorld {
 
    private static final String APP_NAME = System.getenv("APP_NAME");
-   private static final String HOST = APP_NAME + "-hotrod";
+   private static final String SVC_DNS_NAME = System.getenv("SVC_DNS_NAME");
    private static final String USER = "test";
    private static final String PASSWORD = "changeme";
 
@@ -16,7 +16,7 @@ public class HelloWorld {
 
    public static void main(String[] args) {
       ConfigurationBuilder cfg =
-         ClientConfiguration.create(HOST, APP_NAME, USER, PASSWORD);
+         ClientConfiguration.create(SVC_DNS_NAME, APP_NAME, USER, PASSWORD);
 
       System.out.printf("--- Connect to %s ---%n", APP_NAME);
       final RemoteCacheManager remote = new RemoteCacheManager(cfg.build());

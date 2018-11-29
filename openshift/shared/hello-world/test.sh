@@ -15,7 +15,7 @@ usage() {
 	OPTIONS:
 		-c --clean               delete the services and quickstart from OpenShift.
 		-h --help                show this help.
-		-p --cross-project       TODO.
+		-p --cross-project       deploys and tests services and quickstarts in different OpenShift namespaces.
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
 		-s --service-name        service to test, can be either cache-service or datagrid-service.
 		                         cache-service is default.
@@ -32,8 +32,14 @@ usage() {
 		Test quickstart on datagrid-service:
 		$PROGNAME --service-name datagrid-service
 
-		Clean and remove quickstart and datagrid-service deployment::
+		Clean and remove quickstart and datagrid-service deployment:
 		$PROGNAME --clean --service-name datagrid-service
+
+		Starts cache-service and tests that quickstart can interact with it when deployed in separate namespace:
+		$PROGNAME --cross-project
+
+		Tests that quickstart can interact with it when deployed in separate namespace:
+		$PROGNAME --cross-project --quickstart-only
 	EOF
 }
 
@@ -157,13 +163,15 @@ buildQuickstart() {
 startQuickstart() {
     local demo=$1
     local appName=$2
-    echo "--> Start quickstart for ${appName}"
+    local svcDnsName=$3
+    echo "--> Start quickstart for ${appName} and service dns name ${svcDnsName}"
 
     oc run ${demo} \
         --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
+        --env SVC_DNS_NAME=${svcDnsName} \
         --env JAVA_OPTIONS=-ea
 }
 
@@ -199,15 +207,36 @@ main() {
     local svcName=${SERVICE_NAME}
     local appName="${svcName}-hello-world"
 
+    local svcProject="myproject"
+    local svcDnsName="${appName}-hotrod"
+    local demoProject="myproject"
+
+    if [ -n "${X_PROJECT+1}" ]; then
+        svcProject="${svcName}-project"
+        svcDnsName="${svcDnsName}.${svcProject}.svc.cluster.local"
+        demoProject="quickstart-project"
+
+        # oc delete project ${svcProject}
+        # oc delete project ${demoProject}
+        oc new-project ${svcProject} || true
+        ../../registry-credentials-setup.sh
+        oc new-project ${demoProject} || true
+        ../../registry-credentials-setup.sh
+    fi
+
     echo "--> Test params: service=${svcName},app=${appName}";
 
     if [ -n "${CLEAN+1}" ]; then
+        oc project ${svcProject}
         stopService ${svcName}
+
+        oc project ${demoProject}
         stopQuickstart ${demo}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
 
+            oc project ${svcProject}
             stopService ${svcName}
             startService ${svcName} ${appName}
             waitForService ${appName}
@@ -215,9 +244,10 @@ main() {
 
         echo "--> Run quickstart";
 
+        oc project ${demoProject}
         stopQuickstart ${demo}
         buildQuickstart ${demo}
-        startQuickstart ${demo} ${appName}
+        startQuickstart ${demo} ${appName} ${svcDnsName}
         waitForQuickstart ${demo}
         logQuickstart ${demo}
     fi
