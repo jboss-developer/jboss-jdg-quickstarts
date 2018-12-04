@@ -64,9 +64,7 @@
         <profile>
             <id>docker</id>
             <activation>
-                <file>
-                    <exists>/var/run/docker.sock</exists>
-                </file>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
