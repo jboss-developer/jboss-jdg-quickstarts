@@ -35,6 +35,7 @@
 
     <modules>
         <module>caching-service</module>
+        <module>embedded-openshift</module>
         <module>spring</module>
         <module>spring-session</module>
         <module>carmart</module>
@@ -55,7 +56,6 @@
         <module>spark</module>
         <module>hadoop</module>
         <module>remote-tasks-with-streams</module>
-        <module>embedded-openshift</module>
     </modules>
 
     <properties>

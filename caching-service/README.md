@@ -47,19 +47,19 @@ Build the Quickstart
 
 Type this command to build the quickstart:
 
-        mvn clean package
+        mvn clean package -P docker
 
 Run the Quickstart on Openshift
 ------------------
 
 Run the following command
 
-        mvn fabric8:run
+        mvn fabric8:run -P docker
 
 This will deploy this service into OpenShift and connect to a default deployed Online Service. The plugin uses already configured and connected
  `oc` or `kubectl` client, so make sure you are already authenticated and proper Project has been selected.
 
-The expected output should be displayed on the console (the same that was used to invoke `mvn fabric8:run`).
+The expected output should be displayed on the console (the same that was used to invoke `mvn fabric8:run -P docker`).
 Here is an example of the command's output:
 
         ...
@@ -104,7 +104,7 @@ Run the Quickstart Locally
 ------------------
 Run the following command
 
-        mvn exec:java
+        mvn exec:java -P docker
 
 This will attempt to connect to an external openshift instance running a caching-service. This quickstart uses already
 configured and connected `oc` client, so make sure you are already authenticated and the correct project has been selected.

@@ -48,7 +48,7 @@ To build the quickstart application, do the following:
 2. Build the application `JAR` file.
 
   ```bash
-  $ mvn clean package
+  $ mvn clean package -P docker
   ```
 
   This command creates `target/jboss-embedded-openshift-quickstart.jar`. The `target/` directory also contains a Dockerfile and other deployment artifacts. The `target/classes/META-INF/fabric8` directory contains Kubernetes and OpenShift deployment templates.
@@ -56,7 +56,7 @@ To build the quickstart application, do the following:
 3. Deploy the quickstart application to OpenShift.
 
   ```bash
-  $ mvn fabric8:run
+  $ mvn fabric8:run -P docker
   ```
 
   This command uses the OpenShift source-to-image build process to create an image stream, deployment configuration, and pod named `jboss-embedded-openshift-quickstart`.
