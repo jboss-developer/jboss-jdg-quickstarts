@@ -15,9 +15,12 @@
 ``` 
 
 // Start services
+
 // Build and run quickstart in site A
+
 // Build and run quickstart in site B
-// ^ To be extracted out what `test.sh` does
+
+// Steps to be extracted out what `test.sh` does
 
 
 ## Test
