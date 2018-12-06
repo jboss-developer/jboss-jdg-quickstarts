@@ -10,7 +10,8 @@ spec:
   ports:
   - port: 8660
     targetPort: 8660
+    # Fixed nodePort for easier debugging (could be removed)
     nodePort: 32660
   selector:
     deploymentConfig: datagrid-service
-  type: LoadBalancer
+  type: NodePort
