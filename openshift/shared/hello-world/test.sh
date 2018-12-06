@@ -26,6 +26,9 @@ usage() {
 		Test quickstart on cache-service:
 		$PROGNAME
 
+		Only tests quickstart, assumes service is already running:
+		$PROGNAME --quickstart-only
+
 		Clean and remove quickstart and cache-service deployment:
 		$PROGNAME --clean
 
