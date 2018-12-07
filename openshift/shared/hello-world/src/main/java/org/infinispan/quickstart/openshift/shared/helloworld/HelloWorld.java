@@ -30,7 +30,7 @@ public class HelloWorld {
 
       System.out.printf("--- Value is '%s' ---%n", value);
 
-      assert VALUE.equals(value) : "Expected value to be '" + value + "' but was: " + value;
+      assert VALUE.equals(value) : "Expected value of '" + value + "' but was: " + value;
    }
 
 }
