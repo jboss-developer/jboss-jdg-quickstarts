@@ -8,7 +8,7 @@
     <artifactId>openshift-datagrid-service-create-cache</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>JBoss JDG Quickstart: OpenShift Create Cache in Data Grid Service</name>
+    <name>Creating Caches with the Data Grid Service: Red Hat Data Grid for OpenShift</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

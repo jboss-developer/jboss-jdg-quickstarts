@@ -8,7 +8,7 @@
     <artifactId>openshift-shared-external-access</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>JBoss JDG Quickstart: OpenShift External Access</name>
+    <name>External Access: Red Hat Data Grid for OpenShift</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
