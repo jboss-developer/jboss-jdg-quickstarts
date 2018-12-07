@@ -1,32 +1,13 @@
-# Cross-Site quickstart
+Cross-Site Replication: Red Hat Data Grid (RHDG) for OpenShift
+==============================================================
+**Author:** Galder Zamarreno  
+**Technologies:** Infinispan, Data Grid, OpenShift  
+**Summary:** Learn how to run back up data from one Data Grid cluster to another.  
+**Target Product:** Red Hat Data Grid  
+**Product Versions:** RHDG 7.3 or later
 
+About This Quickstart
+---------------------
+This tutorial is currently a work in progress to be completed when RHDG for OpenShift 7.3 becomes available.
 
-## First time
-
-```bash
-./setup-minishift.sh
-```
-
-
-## Run
-
-```bash
-./start-minishift.sh
-``` 
-
-// Start services
-
-// Build and run quickstart in site A
-
-// Build and run quickstart in site B
-
-// Steps to be extracted out what `test.sh` does
-
-
-## Test
-
-For maintainers to verify quickstar works as expected:
-
-```bash
-./test.sh
-```
+**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.

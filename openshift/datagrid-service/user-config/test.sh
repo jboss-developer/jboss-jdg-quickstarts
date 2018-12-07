@@ -132,7 +132,7 @@ stopQuickstart() {
 
 
 clean() {
-    echo "--> Stopa and clean service and quickstart"
+    echo "--> Stop and clean service and quickstart"
     local demo=$1
 
     stopService

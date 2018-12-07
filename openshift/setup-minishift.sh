@@ -2,7 +2,7 @@
 
 set -e -x
 
-minishift profile set openshift-datagrid-tutorials
+minishift profile set datagrid-quickstart
 
 minishift config set memory 8GB
 minishift config set cpus 4
