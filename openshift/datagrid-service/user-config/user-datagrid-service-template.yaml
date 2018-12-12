@@ -61,6 +61,7 @@ objects:
       port: 8888
     selector:
       deploymentConfig: ${APPLICATION_NAME}
+# [user config mod / switch from https to http : start]
 - apiVersion: v1
   kind: Service
   metadata:
@@ -68,13 +69,14 @@ objects:
       description: Provides a service for accessing the application over HTTPS.
     labels:
       application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-https
+    name: ${APPLICATION_NAME}-http
   spec:
     ports:
     - port: 8080
-      targetPort: 8443
+      targetPort: 8080
     selector:
       deploymentConfig: ${APPLICATION_NAME}
+# [user config mod / switch from https to http : end]
 - apiVersion: v1
   kind: Service
   metadata:
@@ -177,11 +179,11 @@ objects:
             name: keystore-volume
           - mountPath: /var/run/secrets/openshift.io/serviceaccount
             name: service-certs
-          # [user config mod:start]
+          # [user config mod / add volume for config map : start]
           - mountPath: /opt/datagrid/standalone/configuration/user
             name: config-volume
             readOnly: true
-          # [user config mod:end]
+          # [user config mod / add volume for config map : end]
         terminationGracePeriodSeconds: 60
         volumes:
         - empty-dir: {}
@@ -189,11 +191,11 @@ objects:
         - name: service-certs
           secret:
             secretName: service-certs
-        # [user config mod:start]
+        # [user config mod / add config map : start]
         - configMap:
             name: datagrid-config
           name: config-volume
-        # [user config mod:end]
+        # [user config mod / add config map : end]
     triggers:
     - type: ConfigChange
     volumeClaimTemplates:
@@ -231,7 +233,9 @@ parameters:
 - description: Specifies a username to authenticate client applications
   displayName: Client User
   name: APPLICATION_USER
-  required: true
+  # [user config mod / application user not required : start]
+  required: false
+  # [user config mod / application user not required : end]
 - description: Sets a password to authenticate client applications
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'

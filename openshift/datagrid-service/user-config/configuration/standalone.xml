@@ -160,9 +160,20 @@
                 </drivers>
             </datasources>
         </subsystem>
-<!-- ##INFINISPAN_ENDPOINT## -->
+        <!-- user config mod:start / fill in ##INFINISPAN_ENDPOINTS## -->
+        <subsystem xmlns="urn:infinispan:server:endpoint:8.1">
+            <hotrod-connector name="hotrod-internal" socket-binding="hotrod-internal" cache-container="clustered" />
+            <rest-connector name="rest" socket-binding="rest" cache-container="clustered" />
+        </subsystem>
+        <!-- user config mod:end -->
         <subsystem xmlns="urn:infinispan:server:core:8.5" default-cache-container="clustered">
-          <!-- ##INFINISPAN_CORE## -->
+            <!-- user config mod:start / fill in ##INFINISPAN_CORE## -->
+            <cache-container name="clustered" default-cache="default">
+                <transport channel="cluster"/>
+                <global-state/>
+                <distributed-cache name="default"/>
+            </cache-container>
+            <!-- user config mod:end -->
         </subsystem>
         <subsystem xmlns="urn:infinispan:server:jgroups:8.0">
             <channels default="cluster">
