@@ -20,5 +20,8 @@
 - [x] Accessing Cache Service or Data Grid Service unauthenticated and unencrypted
 * Custom XML tutorial shows how to do this 
 
-- [ ] External access for cache or data grid service.
+- [x] External access via Hot Rod for cache or data grid service.
+* Show how data can be accessed externally.
+
+- [ ] External access via HTTP REST for cache or data grid service.
 * Show how data can be accessed externally.
