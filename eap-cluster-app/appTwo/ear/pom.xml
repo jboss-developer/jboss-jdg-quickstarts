@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application-AppTwo</artifactId>
-        <version>7.3.0-SNAPSHOT</version>
+        <version>7.3.0.ER1-redhat-00001</version>
     </parent>
     <artifactId>jboss-eap-application-AppTwo-ear</artifactId>
     <packaging>ear</packaging>
