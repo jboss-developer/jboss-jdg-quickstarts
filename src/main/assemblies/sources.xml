@@ -42,25 +42,28 @@
         <fileSet>
             <includes>
                 <include>caching-service/**</include>
-                <include>spring/**</include>
-                <include>spring-session/**</include>
                 <include>camel-jbossdatagrid-fuse/**</include>
                 <include>carmart/**</include>
-                <include>eap-cluster-app/**</include>
                 <include>carmart-tx/**</include>
+                <include>cdi-jdg/**</include>
+                <include>eap-cluster-app/**</include>
+                <include>eap-datagrid-subsystem/**</include>
+                <include>embedded-openshift/**</include>
+                <include>hadoop/**</include>
+                <include>helloworld-jdg/**</include>
                 <include>hotrod-endpoint/**</include>
+                <include>hotrod-endpoint-js/**</include>
                 <include>hotrod-secured/**</include>
+                <include>hotrod-transactions/**</include>
                 <include>memcached-endpoint/**</include>
                 <include>rapid-stock-market/**</include>
+                <include>remote-query/**</include>
+                <include>remote-tasks-with-streams/**</include>
                 <include>rest-endpoint/**</include>
                 <include>secure-embedded-cache/**</include>
-                <include>helloworld-jdg/**</include>
-                <include>remote-query/**</include>
-                <include>cdi-jdg/**</include>
-                <include>hadoop/**</include>
                 <include>spark/**</include>
-                <include>hotrod-endpoint-js/**</include>
-                <include>remote-tasks-with-streams/**</include>
+                <include>spring/**</include>
+                <include>spring-session/**</include>
                 <include>settings.xml</include>
                 <include>README.md</include>
                 <include>LICENSE.txt</include>
