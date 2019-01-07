@@ -21,7 +21,7 @@ Prepare the server instances
 Simple start
 1.  Create a fresh copy of EAP 7.1 (or newer) server
 
-2.  Unzip jboss-datagrid-7.2.0-eap-modules-library.zip and copy the modules/* directories into the EAP_HOME/modules directory
+2.  Unzip jboss-datagrid-7.3.0-eap-modules-library.zip and copy the modules/* directories into the EAP_HOME/modules directory
 
 3.  start EAP with the default configuration standalone.xml
 
@@ -60,7 +60,7 @@ To see the behaviour for JDG caches
 
 1.  Create a fresh copy of EAP 7.1 (or newer) server
 
-2.  Unzip jboss-datagrid-7.2.0-eap-modules-library.zip and copy the modules/* directories into the EAP_HOME/modules directory
+2.  Unzip jboss-datagrid-7.3.0-eap-modules-library.zip and copy the modules/* directories into the EAP_HOME/modules directory
 
 3.  start EAP with the default configuration standalone.xml
 
