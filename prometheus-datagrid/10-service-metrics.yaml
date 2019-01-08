@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    description: Datagrid Prometeus metrics exposed
+  labels:
+    app: datagrid-app
+    application: datagrid-app
+    template: datagrid73-basic
+    metrics: datagrid
+  name: datagrid-app-metrics
+spec:
+  ports:
+    - name: web
+      port: 8080
+      protocol: TCP
+      targetPort: 9779
+  selector:
+    deploymentConfig: datagrid-app
+  sessionAffinity: None
+  type: ClusterIP
+
+
