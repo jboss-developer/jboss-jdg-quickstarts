@@ -88,10 +88,14 @@ cmdline() {
 
 stopService() {
     local svcName=$1
-    echo "--> Stop services for template '${svcName}'"
+    local hotRodRouteName=$2
+    local httpsRouteName=$3
+    echo "--> Stop services for template '${svcName}' and routes hotrod='${hotRodRouteName}',https='${httpsRouteName}'"
 
     oc delete all,secrets,sa,templates,configmaps,daemonsets,clusterroles,rolebindings,serviceaccounts --selector=template=${svcName} || true
     oc delete template ${svcName} || true
+    oc delete route ${hotRodRouteName} || true
+    oc delete route ${httpsRouteName} || true
 }
 
 
@@ -114,9 +118,11 @@ startService() {
 createRoutes() {
     local appName=$1
     local hotRodRouteName=$2
+    local httpsRouteName=$3
 
     # Create a pass-through route
     oc create route passthrough ${hotRodRouteName} --port=11222 --service ${appName}-hotrod
+    oc create route passthrough ${httpsRouteName} --port=8443 --service ${appName}-https
 }
 
 
@@ -149,6 +155,37 @@ startQuickstart() {
 }
 
 
+runHttpsQuickstart() {
+    local appName=$1
+
+    echo "--> Run HTTPs quickstart for '${appName}'"
+
+    rm -drf tls.crt
+    oc get secret service-certs -o jsonpath='{.data.tls\.crt}' | base64 -D > tls.crt
+
+    local ip=$(minishift ip)
+
+    local curlCmd="curl"
+    if [ -n "${DEBUG+1}" ]; then
+        curlCmd="${curlCmd} -v"
+    fi
+
+    echo "--> Store 'hola'/'mundo' key/value pair via HTTPs"
+    ${curlCmd} -X PUT \
+        -u test:changeme \
+        --cacert tls.crt \
+        -H 'Content-type: text/plain' \
+        -d 'mundo' \
+        https://${appName}-https-route-myproject.${ip}.nip.io/rest/default/hola
+
+    echo "--> Retrieve value via HTTPs:"
+    ${curlCmd} -X GET \
+        -u test:changeme \
+        --cacert tls.crt \
+        https://${appName}-https-route-myproject.${ip}.nip.io/rest/default/hola
+}
+
+
 main() {
     cmdline $ARGS
 
@@ -156,21 +193,23 @@ main() {
 
     local svcName=${SERVICE_NAME}
     local appName="${svcName}-external-access"
+
     local hotRodRouteName="${appName}-hotrod-route"
+    local httpsRouteName="${appName}-https-route"
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
     oc login $(minishift ip):8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
-        stopService ${svcName}
+        stopService ${svcName} ${hotRodRouteName} ${httpsRouteName}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
 
             stopService ${svcName}
             startService ${svcName} ${appName}
-            createRoutes ${appName} ${hotRodRouteName}
+            createRoutes ${appName} ${hotRodRouteName} ${httpsRouteName}
             waitForService ${appName}
         fi
 
@@ -179,6 +218,8 @@ main() {
         buildQuickstart
 
         startQuickstart ${appName}
+
+        runHttpsQuickstart ${appName}
     fi
 
 }

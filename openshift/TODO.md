@@ -5,10 +5,6 @@
 * Creating a cache service or data grid service becomes just a parameter to the tutorial.
 * Less code to maintain
 
-- [ ] Hello World via HTTPS REST.
-* The example should be explained directly in the same shared hello world tutorial.
-* Requires using `curl --cacert...` 
-
 - [x] Custom XML: For a 2 node cluster and do a Hello World via Hot Rod.
 * Custom XML deployment working, but needs verifying that cluster can form.
 * Needs a basic example to check that things work.
@@ -23,5 +19,7 @@
 - [x] External access via Hot Rod for cache or data grid service.
 * Show how data can be accessed externally.
 
-- [ ] External access via HTTP REST for cache or data grid service.
+- [x] External access via HTTP REST for cache or data grid service.
 * Show how data can be accessed externally.
+* Secured access not fully working, see [JDG-2446](https://issues.jboss.org/browse/JDG-2446)
+* Temporarily working with -k (issue)
