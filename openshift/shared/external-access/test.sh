@@ -172,6 +172,7 @@ runHttpsQuickstart() {
 
     echo "--> Store 'hola'/'mundo' key/value pair via HTTPs"
     ${curlCmd} -X PUT \
+        -k \
         -u test:changeme \
         --cacert tls.crt \
         -H 'Content-type: text/plain' \
@@ -180,6 +181,7 @@ runHttpsQuickstart() {
 
     echo "--> Retrieve value via HTTPs:"
     ${curlCmd} -X GET \
+        -k \
         -u test:changeme \
         --cacert tls.crt \
         https://${appName}-https-route-myproject.${ip}.nip.io/rest/default/hola
