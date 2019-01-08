@@ -101,12 +101,31 @@
       </pluginRepositories>
     </profile>
 
+    <profile>
+      <id>mead-jdg7</id>
+      <repositories>
+        <repository>
+          <id>mead-jdg7</id>
+          <name>MEAD JDG7 Maven Repository</name>
+          <url>http://download.lab.eng.bos.redhat.com/brewroot/repos/jb-dg-7-rhel-7-build/latest/maven/</url>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+
   </profiles>
 
   <activeProfiles>
     <!-- Optionally, make the repositories active by default -->
     <activeProfile>jboss-ga-repository</activeProfile>
     <activeProfile>jboss-earlyaccess-repository</activeProfile>
+    <activeProfile>mead-jdg7</activeProfile>
   </activeProfiles>
 
 </settings>

@@ -56,6 +56,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <browser>phantomjs</browser>
 
+        <!--Used for tomcat profile-->
+        <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
+
     </properties>
 
 
@@ -317,6 +320,7 @@
                 <dependency>
                     <groupId>org.jboss.spec.javax.transaction</groupId>
                     <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                    <version>${version.jboss-transaction-api_1.1_spec}</version>
                 </dependency>
 
                 <!-- Import the WELD "uber-jar", meaning it bundles all the 
