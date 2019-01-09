@@ -3,7 +3,7 @@ spring-session-jdg: Example Using Spring Session and Infinispan integration
 Author: Sebastian Łaskawiec
 Level: Intermediate
 Technologies: Infinispan, Spring Boot, Spring Session
-Summary: The `spring-session-jdg` quickstart demonstrates how to use Infinispan in a Spring application and integration with session container.
+Summary: The `spring5-session-jdg` quickstart demonstrates how to use Infinispan in a Spring application and integration with session container.
 Target Product: JDG
 Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -11,7 +11,7 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-The `spring-session-jdg` quickstart shows how to use Infinispan with [Spring Boot](https://projects.spring.io/spring-boot) and 
+The `spring5-session-jdg` quickstart shows how to use Infinispan with [Spring Boot](https://projects.spring.io/spring-boot) and 
 [Spring Session](http://projects.spring.io/spring-session/).
 
 The project can be ran using standalone mode (Spring Boot can use embedded Tomcat container) or can be deployed
