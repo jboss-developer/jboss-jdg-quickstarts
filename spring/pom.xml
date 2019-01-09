@@ -14,11 +14,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
+        <start-class>org.jboss.as.quickstarts.datagrid.spring.embedded.bootstrap.Application</start-class>
 
-        <infinispan.version>9.4.1-SNAPSHOT</infinispan.version>
         <version.spring-boot-starter-parent>1.5.16.RELEASE</version.spring-boot-starter-parent>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
+
+        <version.org.infinispan>9.4.4.Final</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
@@ -26,7 +27,7 @@
             <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-bom</artifactId>
-                <version>${infinispan.version}</version>
+                <version>${version.org.infinispan}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -44,12 +45,12 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <version>${infinispan.version}</version>
+            <version>${version.org.infinispan}</version>
         </dependency>
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring4-embedded</artifactId>
-            <version>${infinispan.version}</version>
+            <version>${version.org.infinispan}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
