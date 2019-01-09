@@ -1,0 +1,17 @@
+{
+  "name": "jboss-spring-jdg",
+  "version": "1.0.0",
+  "authors": [
+    "Sebastian Laskawiec <slaskawi@redhat.com>"
+  ],
+  "directory": "src/main/webapp/js/lib",
+  "license": "MIT",
+  "ignore": [
+    "src/main/webapp/js/libs"
+  ],
+  "dependencies": {
+    "patternfly": "~1.1.2",
+    "ember": "~1.8.1",
+    "ember-data": "~1.0.0-beta.12"
+  }
+}
