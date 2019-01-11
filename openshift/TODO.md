@@ -28,7 +28,7 @@
 * Cache can only a copy of default configuration. 
 * Show how the cache can be created permanently and show how it survives after complete restart.
 
-- [ ] Create a new cache via Hot Rod API in data grid service.
+- [x] Create a new cache via Hot Rod API in data grid service.
 * Similar to cache service but here you can create any cache type by passing the correct XML. 
 * Additionally show how cache can be created permanently.
 
