@@ -36,6 +36,9 @@ usage() {
 
 		Clean and remove quickstart and datagrid-service deployment:
 		$PROGNAME --clean --service-name datagrid-service
+
+		Run with extra logging:
+		$PROGNAME --debug
 	EOF
 }
 

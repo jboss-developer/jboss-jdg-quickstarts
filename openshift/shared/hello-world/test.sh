@@ -43,6 +43,9 @@ usage() {
 
 		Tests that quickstart can interact with it when deployed in separate namespace:
 		$PROGNAME --cross-project --quickstart-only
+
+		Run with extra logging:
+		$PROGNAME --debug
 	EOF
 }
 

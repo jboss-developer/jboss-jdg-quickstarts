@@ -28,6 +28,9 @@ usage() {
 
 		Clean and remove quickstart and $SERVICE_NAME deployment:
 		$PROGNAME --clean
+
+		Run with extra logging:
+		$PROGNAME --debug
 	EOF
 }
 
