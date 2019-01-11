@@ -23,3 +23,19 @@
 * Show how data can be accessed externally.
 * Secured access not fully working, see [JDG-2446](https://issues.jboss.org/browse/JDG-2446)
 * Temporarily working with -k (issue)
+
+- [x] Create a new cache via Hot Rod API in cache service.
+* Cache can only a copy of default configuration. 
+* Show how the cache can be created permanently and show how it survives after complete restart.
+
+- [ ] Create a new cache via Hot Rod API in data grid service.
+* Similar to cache service but here you can create any cache type by passing the correct XML. 
+* Additionally show how cache can be created permanently.
+
+- [ ] Persist data to persistent volume file system with data grid service.
+
+- [ ] Persist data and index information to persistent volume file system with data grid service.
+
+- [ ] Persist data into MySQL DB with data grid service.
+
+- [ ] Persist data into PostgreSQL DB with data grid service.
