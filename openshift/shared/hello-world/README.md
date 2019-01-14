@@ -17,7 +17,7 @@ Before You Begin
 * Ensure you meet system requirements.
 * Install and set up `minishift`.
 
-See the main `README` in this repository for details.
+  See the main `README` for the OpenShift quickstarts.
 
 Deploying Data Grid for OpenShift Services
 ------------------------------------------
@@ -31,44 +31,39 @@ Building the Hello World Quickstart
 $ oc new-build \
     --binary \
     --strategy=source \
-    --name=${demo} \
-    -l app=${demo} \
+    --name=quickstart \
+    -l app=quickstart \
     fabric8/s2i-java:2.3
 ```
+
 2. Build the Hello World quickstart.
 ```bash
 $ mvn -s ../../../settings.xml clean package compile -DincludeScope=runtime
 ```
+  Artifacts are built in the `target` directory.
+
 3. Start the build on OpenShift.
 ```bash
-$ oc start-build ${demo} --from-dir=target/ --follow
+$ oc start-build quickstart --from-dir=target/ --follow
 ```
 
 Running the Hello World Quickstart
 ----------------------------------
-
-Run the Hello World quickstart as follows:
-
+1. Invoke cache operations with the quickstart application.
 ```bash
-$ oc run ${demo} \
-    --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
+$ oc run quickstart \
+    --image=`oc get is quickstart -o jsonpath="{.status.dockerImageRepository}"` \
     --replicas=1 \
     --restart=OnFailure \
     --env APP_NAME=${appName} \
-    --env SVC_DNS_NAME=${svcDnsName} \
+    --env SVC_DNS_NAME=${appName}-hotrod \
     --env JAVA_OPTIONS=-ea
 ```
+  Where `${appName}` matches the application name that you specified when you created `cache-service` or `datagrid-service`.
 
-Verifying the Hello World Quickstart
-------------------------------------
-
-1. Log in to OpenShift.
-2. Navigate to the pod for the Hello World quickstart.
-3. Open the logs for the pod.
-
-If you built and ran the Hello World quickstart successfully, you should find log messages such as the following:
-
+2. Verify the cache operations completed successfully.
 ```
+$ oc logs quickstart --tail=50
 --- Connect to datagrid-service ---
     ...
 --- Store key='hello'/value='world' pair ---
@@ -76,5 +71,4 @@ If you built and ran the Hello World quickstart successfully, you should find lo
 --- Retrieve key='hello' ---
 --- Value is 'world' ---
 ```
-
-The preceding messages indicate that the Hello World quickstart connected to the `datagrid-service` and stored a `hello/world` key/value pair. The Hello World quickstart also includes an assertion to ensure that the returned value is `world`.
+  The preceding log messages show the Hello World quickstart connected to the Data Grid for OpenShift service and stored a `hello/world` key/value pair. The quickstart application also performs an assertion to ensure that the returned value is `world`.
