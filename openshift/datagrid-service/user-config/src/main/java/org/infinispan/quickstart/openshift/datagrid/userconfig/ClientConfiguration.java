@@ -7,12 +7,12 @@ class ClientConfiguration {
    private ClientConfiguration() {
    }
 
-   static ConfigurationBuilder create(String svcName) {
+   static ConfigurationBuilder create(String appName) {
       final ConfigurationBuilder cfg = new ConfigurationBuilder();
 
       cfg
          .addServer()
-            .host(svcName)
+            .host(appName)
             .port(11222);
 
       return cfg;

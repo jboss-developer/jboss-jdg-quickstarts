@@ -6,16 +6,16 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 
 public class UserConfig {
 
-   private static final String SVC_DNS_NAME = System.getenv("SVC_DNS_NAME");
+   private static final String APP_NAME = System.getenv("APP_NAME");
 
    private static final String KEY = "key-hotrod";
    private static final String VALUE = "user-config";
 
    public static void main(String[] args) throws Exception {
       ConfigurationBuilder cfg =
-         ClientConfiguration.create(SVC_DNS_NAME);
+         ClientConfiguration.create(APP_NAME);
 
-      System.out.printf("--- Connect to %s ---%n", SVC_DNS_NAME);
+      System.out.printf("--- Connect to %s ---%n", APP_NAME);
       final RemoteCacheManager remote = new RemoteCacheManager(cfg.build());
 
       System.out.printf("--- Store key='%s'/value='%s' pair ---%n", KEY, VALUE);
