@@ -8,7 +8,6 @@ import org.infinispan.commons.api.CacheContainerAdmin;
 public class CreateCache {
 
    private static final String APP_NAME = System.getenv("APP_NAME");
-   private static final String SVC_DNS_NAME = System.getenv("SVC_DNS_NAME");
    private static final String USER = "test";
    private static final String PASSWORD = "changeme";
 
@@ -20,7 +19,7 @@ public class CreateCache {
       final String cmd = System.getenv("CMD");
 
       ConfigurationBuilder cfg =
-         ClientConfiguration.create(SVC_DNS_NAME, APP_NAME, USER, PASSWORD);
+         ClientConfiguration.create(APP_NAME, USER, PASSWORD);
 
       switch (cmd) {
          case "create-cache":

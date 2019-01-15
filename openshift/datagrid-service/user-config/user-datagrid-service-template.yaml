@@ -29,26 +29,6 @@ objects:
   kind: Service
   metadata:
     annotations:
-      description: Provides a headless service for the StatefulSet.
-      service.alpha.openshift.io/serving-cert-secret-name: service-certs
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-headless
-  spec:
-    clusterIP: None
-    ports:
-    - name: http
-      port: 8080
-      targetPort: 8080
-    - name: hotrod
-      port: 11222
-      targetPort: 11222
-    selector:
-      deploymentConfig: ${APPLICATION_NAME}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
       description: Provides a ping service for clustered applications.
       service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
     labels:
@@ -66,32 +46,22 @@ objects:
   kind: Service
   metadata:
     annotations:
-      description: Provides a service for accessing the application over HTTP.
+      description: Provides a service for accessing the application over HTTPS or Hot Rod protocol.
+      service.alpha.openshift.io/serving-cert-secret-name: service-certs
     labels:
       application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-http
+    name: ${APPLICATION_NAME}
   spec:
     ports:
-    - port: 8080
+    - name: hotrod
+      port: 11222
+      targetPort: 11222
+    - name: http
+      port: 8080
       targetPort: 8080
     selector:
       deploymentConfig: ${APPLICATION_NAME}
 # [user config mod / Use HTTP instead of HTTPS : end]
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: Provides a service for accessing the application through the Hot
-        Rod protocol.
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-hotrod
-  spec:
-    ports:
-    - port: 11222
-      targetPort: 11222
-    selector:
-      deploymentConfig: ${APPLICATION_NAME}
 - apiVersion: apps/v1beta1
   kind: StatefulSet
   metadata:
@@ -100,7 +70,7 @@ objects:
     name: ${APPLICATION_NAME}
   spec:
     replicas: ${{NUMBER_OF_INSTANCES}}
-    serviceName: ${APPLICATION_NAME}-headless
+    serviceName: ${APPLICATION_NAME}-ping
     strategy:
       rollingParams:
         intervalSeconds: 20
@@ -240,4 +210,4 @@ parameters:
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'
   generate: expression
-  name: APPLICATION_USER_PASSWORD
+  name: APPLICATION_PASSWORD
