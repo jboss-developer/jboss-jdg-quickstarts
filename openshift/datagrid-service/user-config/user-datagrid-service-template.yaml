@@ -61,12 +61,12 @@ objects:
       port: 8888
     selector:
       deploymentConfig: ${APPLICATION_NAME}
-# [user config mod / switch from https to http : start]
+# [user config mod / Use HTTP instead of HTTPS : start]
 - apiVersion: v1
   kind: Service
   metadata:
     annotations:
-      description: Provides a service for accessing the application over HTTPS.
+      description: Provides a service for accessing the application over HTTP.
     labels:
       application: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}-http
@@ -76,7 +76,7 @@ objects:
       targetPort: 8080
     selector:
       deploymentConfig: ${APPLICATION_NAME}
-# [user config mod / switch from https to http : end]
+# [user config mod / Use HTTP instead of HTTPS : end]
 - apiVersion: v1
   kind: Service
   metadata:
@@ -179,11 +179,11 @@ objects:
             name: keystore-volume
           - mountPath: /var/run/secrets/openshift.io/serviceaccount
             name: service-certs
-          # [user config mod / add volume for config map : start]
+          # [user config mod / Add a ConfigMap volume : start]
           - mountPath: /opt/datagrid/standalone/configuration/user
             name: config-volume
             readOnly: true
-          # [user config mod / add volume for config map : end]
+          # [user config mod / Add a ConfigMap volume : end]
         terminationGracePeriodSeconds: 60
         volumes:
         - empty-dir: {}
@@ -191,11 +191,11 @@ objects:
         - name: service-certs
           secret:
             secretName: service-certs
-        # [user config mod / add config map : start]
+        # [user config mod / Add a ConfigMap : start]
         - configMap:
             name: datagrid-config
           name: config-volume
-        # [user config mod / add config map : end]
+        # [user config mod / Add a ConfigMap : end]
     triggers:
     - type: ConfigChange
     volumeClaimTemplates:
@@ -233,9 +233,9 @@ parameters:
 - description: Specifies a username to authenticate client applications
   displayName: Client User
   name: APPLICATION_USER
-  # [user config mod / application user not required : start]
+  # [user config mod / Application user not required : start]
   required: false
-  # [user config mod / application user not required : end]
+  # [user config mod / Application user not required : end]
 - description: Sets a password to authenticate client applications
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'
