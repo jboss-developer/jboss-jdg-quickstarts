@@ -16,6 +16,7 @@ usage() {
 		-c --clean               delete the services and quickstart from OpenShift.
 		-h --help                show this help.
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
+		-i --image               optional parameter with image to test.
 		-x --debug               debug
 
 
@@ -28,6 +29,9 @@ usage() {
 
 		Clean and remove quickstart and datagrid-service deployment:
 		$PROGNAME --clean
+
+		Test quickstart on custom image:
+		$PROGNAME --image ...
 
 		Run with extra logging:
 		$PROGNAME --debug
@@ -44,6 +48,7 @@ cmdline() {
             --clean)                   args="${args}-c ";;
             --help)                    args="${args}-h ";;
             --quickstart-only)         args="${args}-q ";;
+            --image)                   args="${args}-i ";;
             --debug)                   args="${args}-x ";;
             #pass through anything else
             *) [[ "${arg:0:1}" == "-" ]] || delim="\""
@@ -54,7 +59,7 @@ cmdline() {
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts "chqx" OPTION
+    while getopts "chqi:x" OPTION
     do
          case $OPTION in
          c)
@@ -66,6 +71,9 @@ cmdline() {
              ;;
          q)
              readonly QUICKSTART_ONLY=1
+             ;;
+         i)
+             readonly IMAGE=$OPTARG
              ;;
          x)
              readonly DEBUG='-x'
@@ -88,15 +96,15 @@ stopService() {
 destroyCache() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
+
+    oc delete all --selector=run=${demo} || true
 
     oc run ${demo} \
         --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
-        --env CMD=destroy-cache
+        --env CMD=destroy-cache || true
 }
 
 
@@ -105,14 +113,23 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 15.11.18
-    oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/f186aba68a3042605e64daac706e7ca364b1c758/services/${svcName}-template.yaml
+    local imageBase="https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image"
 
-    oc new-app ${svcName} \
-        -p APPLICATION_USER=test \
-        -p APPLICATION_USER_PASSWORD=changeme \
-        -p APPLICATION_NAME=${appName}
+    oc create -f \
+        "${imageBase}/7.3-v1.0/services/${svcName}-template.yaml"
+
+    if [ -n "${IMAGE+1}" ]; then
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName} \
+            -p IMAGE=${IMAGE}
+    else
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName}
+    fi
 }
 
 
@@ -162,7 +179,7 @@ waitForQuickstart() {
     local demo=$1
 
     status=NA
-    while [ "$status" != "Running" ];
+    while [[ "$status" != "Running" && "$status" != "Succeeded" ]];
     do
         status=`oc get pod -l run=${demo} -o jsonpath="{.items[0].status.phase}"`
         echo "Status of pod: ${status}"
@@ -184,7 +201,6 @@ logQuickstart() {
 startCreateCacheQuickstart() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
 
     echo "--> Start quickstart for '${appName}'"
 
@@ -194,7 +210,6 @@ startCreateCacheQuickstart() {
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
         --env CMD=create-cache \
         --env JAVA_OPTIONS=-ea
 
@@ -208,7 +223,6 @@ startCreateCacheQuickstart() {
 startUseCacheQuickstart() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
 
     printf "\n--> Invoke get and using custom cache:\n"
     oc run ${demo} \
@@ -216,7 +230,6 @@ startUseCacheQuickstart() {
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
         --env CMD=get-cache \
         --env JAVA_OPTIONS=-ea
 
@@ -241,6 +254,17 @@ scaleUpService() {
 }
 
 
+getIp() {
+    set +e
+    minishift ip
+    local result=$?
+    if [ ${result} -ne 0 ]; then
+        echo "127.0.0.1"
+    fi
+    set -e
+}
+
+
 main() {
     cmdline $ARGS
 
@@ -248,15 +272,16 @@ main() {
 
     local svcName=${SERVICE_NAME}
     local appName="${svcName}-create-cache"
-    local svcDnsName="${appName}-hotrod"
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
-    oc login $(minishift ip):8443 -u developer -p developer
+    local publicIp=$(getIp)
+    oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
+        destroyCache ${demo} ${appName}
         stopService ${svcName}
-        destroyCache ${demo} ${appName} ${svcDnsName}
+        stopQuickstart ${demo}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
@@ -270,15 +295,15 @@ main() {
 
         stopQuickstart ${demo}
         buildQuickstart ${demo}
-        startCreateCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startCreateCacheQuickstart ${demo} ${appName}
         sleep 5
-        startUseCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startUseCacheQuickstart ${demo} ${appName}
 
         scaleDownService ${appName}
         sleep 5
         scaleUpService ${appName}
         waitForService ${appName}
-        startUseCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startUseCacheQuickstart ${demo} ${appName}
     fi
 
 }

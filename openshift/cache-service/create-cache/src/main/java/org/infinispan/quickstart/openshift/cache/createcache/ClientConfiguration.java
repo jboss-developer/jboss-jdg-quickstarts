@@ -26,21 +26,21 @@ class ClientConfiguration {
    private ClientConfiguration() {
    }
 
-   static ConfigurationBuilder create(String svcName, String saslName, String user, String password) {
+   static ConfigurationBuilder create(String appName, String user, String password) {
       createTruststoreFromCrtFile(CRT_PATH, TRUSTSTORE_PATH, TRUSTSTORE_PASSWORD);
 
       final ConfigurationBuilder cfg = new ConfigurationBuilder();
 
       cfg
          .addServer()
-            .host(svcName)
+            .host(appName)
             .port(11222)
          .security().authentication()
             .enable()
             .username(user)
             .password(password)
             .realm("ApplicationRealm")
-            .serverName(saslName)
+            .serverName(appName)
             .saslMechanism("DIGEST-MD5")
             .saslQop(SaslQop.AUTH)
          .ssl()
