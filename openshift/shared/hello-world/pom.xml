@@ -19,7 +19,8 @@
 
         <shade-maven-plugin.main.class>org.infinispan.quickstart.openshift.shared.helloworld.HelloWorld</shade-maven-plugin.main.class>
 
-        <version.org.infinispan>8.5.3.Final-redhat-00002</version.org.infinispan>
+        <!-- TODO move to product when released -->
+        <version.org.infinispan>9.4.5.Final</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
@@ -30,18 +31,6 @@
                 <version>${version.org.infinispan}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!--
-                The following dependency is defined in the infinispan-bom above,
-                using a ${version.caffeine} property. However, the property
-                is not being resolved for some reason, causing the build to fail.
-                We'll redefine it here with the same version as used in the bom (for 7.2.x)
-                as a quick workaround.
-            -->
-            <dependency>
-                <groupId>com.github.ben-manes.caffeine</groupId>
-                <artifactId>caffeine</artifactId>
-                <version>2.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
