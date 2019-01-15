@@ -19,6 +19,7 @@ usage() {
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
 		-s --service-name        service to test, can be either cache-service or datagrid-service.
 		                         cache-service is default.
+		-i --image               optional parameter with image to test.
 		-x --debug               debug
 
 
@@ -44,6 +45,9 @@ usage() {
 		Tests that quickstart can interact with it when deployed in separate namespace:
 		$PROGNAME --cross-project --quickstart-only
 
+		Test quickstart on custom image:
+		$PROGNAME --image ...
+
 		Run with extra logging:
 		$PROGNAME --debug
 	EOF
@@ -61,6 +65,7 @@ cmdline() {
             --cross-project)           args="${args}-p ";;
             --quickstart-only)         args="${args}-q ";;
             --service-name)            args="${args}-s ";;
+            --image)                   args="${args}-i ";;
             --debug)                   args="${args}-x ";;
             #pass through anything else
             *) [[ "${arg:0:1}" == "-" ]] || delim="\""
@@ -71,7 +76,7 @@ cmdline() {
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts "chpqs:x" OPTION
+    while getopts "chpqs:i:x" OPTION
     do
          case $OPTION in
          c)
@@ -89,6 +94,9 @@ cmdline() {
              ;;
          s)
              SERVICE_NAME=$OPTARG
+             ;;
+         i)
+             readonly IMAGE=$OPTARG
              ;;
          x)
              readonly DEBUG='-x'
@@ -114,14 +122,22 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 15.11.18
+    # TODO last datagrid73-dev commit on 11.01.19
     oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/f186aba68a3042605e64daac706e7ca364b1c758/services/${svcName}-template.yaml
+        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/e16ac0a0c8c972afc72d8709e1a9a75a75edea04/services/${svcName}-template.yaml
 
-    oc new-app ${svcName} \
-        -p APPLICATION_USER=test \
-        -p APPLICATION_USER_PASSWORD=changeme \
-        -p APPLICATION_NAME=${appName}
+    if [ -n "${IMAGE+1}" ]; then
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName} \
+            -p IMAGE=${IMAGE}
+    else
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName}
+    fi
 }
 
 
