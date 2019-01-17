@@ -17,6 +17,7 @@ usage() {
 		-c --clean               delete the services and quickstart from OpenShift.
 		-h --help                show this help.
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
+		-i --image               optional parameter with image to test.
 		-x --debug               debug
 
 
@@ -30,6 +31,9 @@ usage() {
 		Clean and remove quickstart and $SERVICE_NAME deployment:
 		$PROGNAME --clean
 
+		Test quickstart on custom image:
+		$PROGNAME --image ...
+
 		Run with extra logging:
 		$PROGNAME --debug
 	EOF
@@ -42,36 +46,40 @@ cmdline() {
         local delim=""
         case "$arg" in
         #translate --gnu-long-options to -g (short options)
-            --clean) args="${args}-c " ;;
-            --help) args="${args}-h " ;;
-            --quickstart-only) args="${args}-q " ;;
-            --debug) args="${args}-x " ;;
-        #pass through anything else
+            --clean)                   args="${args}-c ";;
+            --help)                    args="${args}-h ";;
+            --quickstart-only)         args="${args}-q ";;
+            --image)                   args="${args}-i ";;
+            --debug)                   args="${args}-x ";;
+            #pass through anything else
             *) [[ "${arg:0:1}" == "-" ]] || delim="\""
-            args="${args}${delim}${arg}${delim} " ;;
+                args="${args}${delim}${arg}${delim} ";;
         esac
     done
 
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts "chqx" OPTION
+    while getopts "chqi:x" OPTION
     do
         case $OPTION in
             c)
                 readonly CLEAN=1
-            ;;
+                ;;
             h)
                 usage
                 exit 0
-            ;;
+                ;;
             q)
                 readonly QUICKSTART_ONLY=1
-            ;;
+                ;;
+            i)
+                readonly IMAGE=$OPTARG
+                ;;
             x)
                 readonly DEBUG='-x'
                 set -x
-            ;;
+                ;;
         esac
     done
 
@@ -95,10 +103,18 @@ startService() {
 
     oc create configmap datagrid-config --from-file=configuration
 
-    oc new-app datagrid-service \
-        -p APPLICATION_NAME=${appName} \
-        -p NUMBER_OF_INSTANCES=${NUM_INSTANCES} \
-        -e USER_CONFIG_MAP=true
+    if [ -n "${IMAGE+1}" ]; then
+        oc new-app datagrid-service \
+            -p APPLICATION_NAME=${appName} \
+            -p NUMBER_OF_INSTANCES=${NUM_INSTANCES} \
+            -e USER_CONFIG_MAP=true \
+            -p IMAGE=${IMAGE}
+    else
+        oc new-app datagrid-service \
+            -p APPLICATION_NAME=${appName} \
+            -p NUMBER_OF_INSTANCES=${NUM_INSTANCES} \
+            -e USER_CONFIG_MAP=true
+    fi
 
     # Check logs for message like:
     # INFO Running ___ image, version ___ with user standalone.xml
@@ -108,7 +124,7 @@ startService() {
 waitForClusterToForm() {
     local appName=$1
     local expectedClusterSize=${NUM_INSTANCES}
-    local connectCmd="oc exec -it ${appName}-0 -- /opt/datagrid/bin/cli.sh --connect"
+    local connectCmd="oc exec -it ${appName}-0 -- /opt/datagrid/bin/ispn-cli.sh --connect"
     local clusterSizeCmd="/subsystem=datagrid-infinispan/cache-container=clustered/:read-attribute(name=cluster-size)"
 
     local members=''
@@ -226,7 +242,7 @@ logQuickstart() {
 
 runHttpRest() {
     local appName=$1
-    echo "--> Run HTTP REST on ${appName}"
+    printf "\n--> Run HTTP REST on ${appName}\n"
 
     echo "--> Store data with HTTP POST"
     oc exec -it ${appName}-0 \
@@ -235,6 +251,19 @@ runHttpRest() {
     echo "--> Get data with HTTP GET"
     oc exec -it ${appName}-0 \
         -- curl -v ${appName}-http:8080/rest/default/key-rest
+}
+
+
+getIp() {
+    set +e
+    minishift ip
+    local result=$?
+    if [ ${result} -eq 0 ]; then
+        echo result
+    else
+        echo "127.0.0.1"
+    fi
+    set -e
 }
 
 
@@ -247,6 +276,9 @@ main() {
     local svcDnsName="${appName}-hotrod"
 
     echo "--> Test params: service=${SERVICE_NAME},app=${appName}";
+
+    local publicIp=$(getIp)
+    oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
         clean ${demo}

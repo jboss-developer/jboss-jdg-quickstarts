@@ -240,4 +240,4 @@ parameters:
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'
   generate: expression
-  name: APPLICATION_USER_PASSWORD
+  name: APPLICATION_PASSWORD
