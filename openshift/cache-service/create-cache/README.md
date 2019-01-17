@@ -12,7 +12,7 @@ This quickstart demonstrates how to connect to the `cache-service` with a lightw
 
 Permanent caches survive between application restarts. You only need to create a permanent cache once. However, data in the cache is not persisted between restarts unless you add storage.
 
-**Before You Begin:** Read through the main `README` for the OpenShift quickstarts.
+**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
 Configuring Authentication
 --------------------------
@@ -200,13 +200,16 @@ $ oc logs quickstart --tail=50
 
   Do one of the following:
 
-    - Delete quickstart resources and continue using the project with RHDG for OpenShift.
+  - Delete quickstart resources and continue using the project with RHDG for OpenShift.
+
     ```bash
     $ oc delete all --selector=run=quickstart || true
     $ oc delete imagestream quickstart || true
     $ oc delete buildconfig quickstart || true
     ```
-    - Delete the project to remove all resources, for example:
+
+  - Delete the project to remove all resources, for example:
+
     ```bash
     $ oc delete project my_project
     ```
