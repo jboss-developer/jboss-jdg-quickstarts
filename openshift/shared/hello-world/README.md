@@ -12,16 +12,7 @@ This quickstart provides a lightweight Java application that connects to Data Gr
 
 You can use this quickstart with both `cache-service` and `datagrid-service` deployments.
 
-Before You Begin
-----------------
-* Ensure you meet system requirements.
-* Install and set up `minishift`.
-
-  See the main `README` for the OpenShift quickstarts.
-
-Deploying Data Grid for OpenShift Services
-------------------------------------------
-Deploy either the `cache-service` and `datagrid-service`. See the [Red Hat Data Grid for OpenShift](https://access.redhat.com/documentation/en-us/red_hat_data_grid/7.3/html-single/data_grid_for_openshift/) 7.3 documentation.
+**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
 Building the Hello World Quickstart
 -----------------------------------
@@ -65,10 +56,28 @@ $ oc run quickstart \
 ```
 $ oc logs quickstart --tail=50
 --- Connect to datagrid-service ---
-    ...
+...
 --- Store key='hello'/value='world' pair ---
-    ...
+...
 --- Retrieve key='hello' ---
 --- Value is 'world' ---
 ```
   The preceding log messages show the Hello World quickstart connected to the Data Grid for OpenShift service and stored a `hello/world` key/value pair. The quickstart application also performs an assertion to ensure that the returned value is `world`.
+
+  You've successfully completed this tutorial!
+
+  Do one of the following:
+
+  - Delete quickstart resources and continue using the project with RHDG for OpenShift.
+
+    ```bash
+    $ oc delete all --selector=run=quickstart || true
+    $ oc delete imagestream quickstart || true
+    $ oc delete buildconfig quickstart || true
+    ```
+
+  - Delete the project to remove all resources, for example:
+
+    ```bash
+    $ oc delete project my_project
+    ```
