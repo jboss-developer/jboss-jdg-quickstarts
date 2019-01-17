@@ -16,6 +16,7 @@ usage() {
 		-c --clean               delete the services and quickstart from OpenShift.
 		-h --help                show this help.
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
+		-i --image               optional parameter with image to test.
 		-x --debug               debug
 
 
@@ -28,6 +29,9 @@ usage() {
 
 		Clean and remove quickstart and cache-service deployment:
 		$PROGNAME --clean
+
+		Test quickstart on custom image:
+		$PROGNAME --image ...
 
 		Run with extra logging:
 		$PROGNAME --debug
@@ -44,6 +48,7 @@ cmdline() {
             --clean)                   args="${args}-c ";;
             --help)                    args="${args}-h ";;
             --quickstart-only)         args="${args}-q ";;
+            --image)                   args="${args}-i ";;
             --debug)                   args="${args}-x ";;
             #pass through anything else
             *) [[ "${arg:0:1}" == "-" ]] || delim="\""
@@ -54,7 +59,7 @@ cmdline() {
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts "chqx" OPTION
+    while getopts "chqi:x" OPTION
     do
          case $OPTION in
          c)
@@ -66,6 +71,9 @@ cmdline() {
              ;;
          q)
              readonly QUICKSTART_ONLY=1
+             ;;
+         i)
+             readonly IMAGE=$OPTARG
              ;;
          x)
              readonly DEBUG='-x'
@@ -105,14 +113,22 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 15.11.18
+    # TODO last datagrid73-dev commit on 11.01.19
     oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/f186aba68a3042605e64daac706e7ca364b1c758/services/${svcName}-template.yaml
+        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/e16ac0a0c8c972afc72d8709e1a9a75a75edea04/services/${svcName}-template.yaml
 
-    oc new-app ${svcName} \
-        -p APPLICATION_USER=test \
-        -p APPLICATION_USER_PASSWORD=changeme \
-        -p APPLICATION_NAME=${appName}
+    if [ -n "${IMAGE+1}" ]; then
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName} \
+            -p IMAGE=${IMAGE}
+    else
+        oc new-app ${svcName} \
+            -p APPLICATION_USER=test \
+            -p APPLICATION_PASSWORD=changeme \
+            -p APPLICATION_NAME=${appName}
+    fi
 }
 
 
@@ -241,6 +257,19 @@ scaleUpService() {
 }
 
 
+getIp() {
+    set +e
+    minishift ip
+    local result=$?
+    if [ ${result} -eq 0 ]; then
+        echo result
+    else
+        echo "127.0.0.1"
+    fi
+    set -e
+}
+
+
 main() {
     cmdline $ARGS
 
@@ -252,7 +281,8 @@ main() {
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
-    oc login $(minishift ip):8443 -u developer -p developer
+    local publicIp=$(getIp)
+    oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
         stopService ${svcName}
