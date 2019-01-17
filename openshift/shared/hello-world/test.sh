@@ -221,6 +221,19 @@ logQuickstart() {
 }
 
 
+getIp() {
+    set +e
+    minishift ip
+    local result=$?
+    if [ ${result} -eq 0 ]; then
+        echo result
+    else
+        echo "127.0.0.1"
+    fi
+    set -e
+}
+
+
 main() {
     cmdline $ARGS
 
@@ -247,6 +260,9 @@ main() {
     fi
 
     echo "--> Test params: service=${svcName},app=${appName}";
+
+    local publicIp=$(getIp)
+    oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
         oc project ${svcProject}
