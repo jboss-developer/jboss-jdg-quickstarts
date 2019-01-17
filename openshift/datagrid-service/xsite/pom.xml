@@ -8,7 +8,7 @@
     <artifactId>openshift-datagrid-service-x-site</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>JBoss JDG Quickstart: OpenShift Cross-Site</name>
+    <name>Cross-Site Replication: Red Hat Data Grid for OpenShift</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
