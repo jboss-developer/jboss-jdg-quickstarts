@@ -10,4 +10,4 @@ About This Quickstart
 ---------------------
 This tutorial is currently a work in progress to be completed when RHDG for OpenShift 7.3 becomes available.
 
-**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
+**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
