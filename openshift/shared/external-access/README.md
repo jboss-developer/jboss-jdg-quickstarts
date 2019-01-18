@@ -34,7 +34,7 @@ Routes provide access to Data Grid endpoints.
   ```
   Where `${appName}` matches the application name that you specified when you created `cache-service` or `datagrid-service`.  
 
-    **TIP:** Use `oc get statefulsets` to retrieve the application name.
+  **TIP:** Use `oc get statefulsets` to retrieve the application name.
 
 2. Verify the routes are created successfully.
   ```bash
