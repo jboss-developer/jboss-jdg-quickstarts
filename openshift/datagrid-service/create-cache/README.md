@@ -12,7 +12,7 @@ This quickstart demonstrates how to connect to `datagrid-service` with a lightwe
 
 Permanent caches survive between application restarts. You only need to create a permanent cache once. However, data in the cache is not persisted between restarts unless you add storage.
 
-**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
+**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
 Configuring Authentication
 --------------------------
