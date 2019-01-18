@@ -14,7 +14,7 @@ To access pods externally via Hot Rod, you build and run a simple Java client fo
 
 In both cases, you authenticate with the Data Grid for OpenShift service and then store and retrieve a sample entry from your host outside the pod where the service is running.
 
-**Before You Begin:** Read through the main `README` for the OpenShift quickstarts.
+**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
 Creating Routes
 ---------------
