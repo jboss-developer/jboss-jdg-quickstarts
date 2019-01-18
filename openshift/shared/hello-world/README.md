@@ -12,7 +12,7 @@ This quickstart provides a lightweight Java application that connects to Data Gr
 
 You can use this quickstart with both `cache-service` and `datagrid-service` deployments.
 
-**Before You Begin:** Complete the steps in the main `README` to set up an OpenShift cluster and create Data Grid for OpenShift services.
+**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
 Building the Hello World Quickstart
 -----------------------------------
