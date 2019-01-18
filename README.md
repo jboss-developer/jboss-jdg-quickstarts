@@ -23,22 +23,23 @@ This distribution contains the following quickstarts:
 
 | **Quickstart Name** | **Demonstrated Technologies** | **Shows you how to...** |
 |:-----------|:-----------|:-----------|
-| [carmart](carmart/README.md) | Infinispan, CDI | Use Infinispan instead of a relational database. |
-| [carmart-tx](carmart-tx/README.md) | Infinispan, CDI, Transactions | Use Infinispan instead of a relational database with transactions enabled.|
-| [eap-cluster-app](eap-cluster-app/README.md) | Infinispan, CDI, EJB | Access an Infinispan cache from a JBoss EAP application using JDG modules for EAP.|
-| [helloworld-jdg](helloworld-jdg/README.md) | Infinispan, CDI | Use Infinispan in clustered mode with expiration.|
-| [hotrod-endpoint](hotrod-endpoint/README.md) | Infinispan, Hot Rod | Access Infinispan remotely through the Hot Rod protocol. |
-| [hotrod-secured](hotrod-secured/README.md) | Infinispan, Hot Rod | Securely access Infinispan remotely through the Hot Rod protocol. |
-| [memcached-endpoint](memcached-endpoint/README.md) | Infinispan, Memcached | Access Infinispan remotely through the Memcached protocol. |
-| [rapid-stock-market](rapid-stock-market/README.md) | Infinispan, Hot Rod, REST | Use compatibility mode to access data with multiple protocols. |
-| [spring](spring/README.md) | Infinispan, Spring | Use Spring integration modules. |
-| [spring](spring-session/README.md) | Infinispan, Spring Boot, Spring Session | Use of Spring Boot and Spring Session with RHDG. |
-| [remote-query](remote-query/README.md) | Infinispan, Hot Rod, Remote Query | Query Infinispan remotely through the Hot Rod protocol. |
-| [rest-endpoint](rest-endpoint/README.md) | Infinispan, REST | Access Infinispan remotely through the REST protocol. |
-| [secure-embedded-cache](secure-embedded-cache/README.md) | Infinispan, CDI, REST | Secure Infinispan in Library (embedded) mode. |
-| [cdi](cdi-jdg/README.md) | Infinispan, CDI | Use Infinispan CDI and JCache extensions. |
-| [camel-jbossdatagrid-fuse](camel-jbossdatagrid-fuse/README.md) | Camel, Infinispan, REST | Use the Camel component camel-jbossdatagrid in JBoss Fuse. |
-| [spark](spark/README.md) | Infinispan, Apache Spark | Read and write data to Infinispan and use streaming to react to data changes in real time. |
+| [carmart](carmart/README.md) | Data Grid, CDI | Use Data Grid instead of a relational database. |
+| [carmart-tx](carmart-tx/README.md) | Data Grid, CDI, Transactions | Use Data Grid instead of a relational database with transactions enabled.|
+| [eap-cluster-app](eap-cluster-app/README.md) | Data Grid, CDI, EJB | Access an Data Grid cache from a JBoss EAP application using JDG modules for EAP.|
+| [helloworld-jdg](helloworld-jdg/README.md) | Data Grid, CDI | Use Data Grid in clustered mode with expiration.|
+| [hotrod-endpoint](hotrod-endpoint/README.md) | Data Grid, Hot Rod | Access Data Grid remotely through the Hot Rod protocol. |
+| [hotrod-secured](hotrod-secured/README.md) | Data Grid, Hot Rod | Securely access Data Grid remotely through the Hot Rod protocol. |
+| [memcached-endpoint](memcached-endpoint/README.md) | Data Grid, Memcached | Access Data Grid remotely through the Memcached protocol. |
+| [openshift](openshift/README.md) | Data Grid, OpenShift | Complete tutorials for Data Grid on OpenShift that range from simple "Hello World" demonstrations to more advanced use cases. |
+| [rapid-stock-market](rapid-stock-market/README.md) | Data Grid, Hot Rod, REST | Use compatibility mode to access data with multiple protocols. |
+| [spring](spring/README.md) | Data Grid, Spring | Use Spring integration modules. |
+| [spring](spring-session/README.md) | Data Grid, Spring Boot, Spring Session | Use of Spring Boot and Spring Session with RHDG. |
+| [remote-query](remote-query/README.md) | Data Grid, Hot Rod, Remote Query | Query Data Grid remotely through the Hot Rod protocol. |
+| [rest-endpoint](rest-endpoint/README.md) | Data Grid, REST | Access Data Grid remotely through the REST protocol. |
+| [secure-embedded-cache](secure-embedded-cache/README.md) | Data Grid, CDI, REST | Secure Data Grid in Library (embedded) mode. |
+| [cdi](cdi-jdg/README.md) | Data Grid, CDI | Use Data Grid CDI and JCache extensions. |
+| [camel-jbossdatagrid-fuse](camel-jbossdatagrid-fuse/README.md) | Camel, Data Grid, REST | Use the Camel component camel-jbossdatagrid in JBoss Fuse. |
+| [spark](spark/README.md) | Data Grid, Apache Spark | Read and write data to Data Grid and use streaming to react to data changes in real time. |
 
 ## System Requirements
 You need the following to build and run the quickstarts:
