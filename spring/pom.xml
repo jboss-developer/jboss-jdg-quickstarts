@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring-jdg</artifactId>
-    <version>7.3.0.CD20190118-redhat-00001</version>
+    <version>7.3.0.ER3-redhat-00001</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring-jdg</name>
@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
 
-        <infinispan.version>9.4.6.CD20190118-redhat-00001</infinispan.version>
+        <infinispan.version>9.4.6.ER3-redhat-00001</infinispan.version>
         <version.spring-boot-starter-parent>1.5.16.RELEASE</version.spring-boot-starter-parent>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
     </properties>
