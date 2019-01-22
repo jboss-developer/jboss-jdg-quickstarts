@@ -65,19 +65,23 @@ After you successfully deploy `datagrid-service`, export the template to verify 
 $ oc export template datagrid-service
 ```
 
-The `datagrid-service` template contains an HTTP service:
+The `datagrid-service` template uses HTTP instead of HTTPS:
 
 ```yaml
 kind: Service
   metadata:
     annotations:
-      description: Provides a service for accessing the application over HTTP.
+      description: Provides a service for accessing the application over HTTP or Hot Rod protocol.
+      service.alpha.openshift.io/serving-cert-secret-name: service-certs
     labels:
       application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-http
   spec:
     ports:
-    - port: 8080
+    - name: hotrod
+      port: 11222
+      targetPort: 11222
+    - name: http
+      port: 8080
       targetPort: 8080
     selector:
       deploymentConfig: ${APPLICATION_NAME}
@@ -114,15 +118,15 @@ $ oc run quickstart \
   --image=`oc get is quickstart -o jsonpath="{.status.dockerImageRepository}"` \
   --replicas=1 \
   --restart=OnFailure \
-  --env SVC_DNS_NAME=datagrid-service-user-config-hotrod \
+  --env APP_NAME=datagrid-service-user-config \
   --env JAVA_OPTIONS=-ea
-```
+```  
   The quickstart application connects to the Data Grid service and invokes a `PUT` operation that stores a `key='key-hotrod'/value='user-config'` pair and performs an assertion to verify the entry.
 
 2. Verify the `PUT` operation completed successfully.
 ```
 $ oc logs quickstart --tail=50
---- Connect to datagrid-service-user-config-hotrod ---
+--- Connect to datagrid-service-user-config ---
 ...
 --- Store key='key-hotrod'/value='user-config' pair ---
 ...
@@ -139,18 +143,18 @@ $ oc exec \
   -- curl -v -X POST \
   -H 'Content-type: text/plain' \
   -d 'user-config' \
-  datagrid-service-user-config-http:8080/rest/default/key-rest
+  datagrid-service-user-config:8080/rest/default/key-rest
 ```
 
   If the `POST` operation is successful, you should get output similar to the following:
 
   ```
-  * About to connect() to datagrid-service-user-config-http port 8080 (#0)
+  * About to connect() to datagrid-service-user-config port 8080 (#0)
   *   Trying 172.30.180.240...
-  * Connected to datagrid-service-user-config-http (172.30.180.240) port 8080 (#0)
+  * Connected to datagrid-service-user-config (172.30.180.240) port 8080 (#0)
   > POST /rest/default/key-rest HTTP/1.1
   > User-Agent: curl/7.29.0
-  > Host: datagrid-service-user-config-http:8080
+  > Host: datagrid-service-user-config:8080
   > Accept: */*
   > Content-type: text/plain
   > Content-Length: 11
@@ -161,7 +165,7 @@ $ oc exec \
   < etag: -1432381597
   < content-length: 0
   <
-  * Connection #0 to host datagrid-service-user-config-http left intact
+  * Connection #0 to host datagrid-service-user-config left intact
   ```
 
 2. Invoke a `GET` operation to retrieve data via the REST API over HTTP.
@@ -169,18 +173,18 @@ $ oc exec \
 $ oc exec \
   -it datagrid-service-user-config-0 \
   -- curl -v \
-  datagrid-service-user-config-http:8080/rest/default/key-rest
+  datagrid-service-user-config:8080/rest/default/key-rest
 ```
 
   If the `GET` operation is successful, you should get output similar to the following:
 
   ```
-  * About to connect() to datagrid-service-user-config-http port 8080 (#0)
+  * About to connect() to datagrid-service-user-config port 8080 (#0)
   *   Trying 172.30.180.240...
-  * Connected to datagrid-service-user-config-http (172.30.180.240) port 8080 (#0)
+  * Connected to datagrid-service-user-config (172.30.180.240) port 8080 (#0)
   > GET /rest/default/key-rest HTTP/1.1
   > User-Agent: curl/7.29.0
-  > Host: datagrid-service-user-config-http:8080
+  > Host: datagrid-service-user-config:8080
   > Accept: */*
   >
   < HTTP/1.1 200 OK
@@ -190,7 +194,7 @@ $ oc exec \
   < content-type: application/octet-stream
   < content-length: 11
   <
-  * Connection #0 to host datagrid-service-user-config-http left intact
+  * Connection #0 to host datagrid-service-user-config left intact
   ```
 
   You've successfully completed this tutorial!
