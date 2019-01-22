@@ -60,7 +60,7 @@ If you do not configure Maven, you must pass settings with every Maven command a
 ### Setting Environment Variables
 RHDG quickstarts use the following environment variables:
 
-* `JBOSS_HOME` denotes the root JBoss server directory.
+* `JBOSS_HOME` denotes the path to your RHDG server installation.
 * `EAP_HOME` denotes the path to your JBoss EAP installation.
 
 `EAP_HOME` is a *replaceable* value. When you encounter it in a RHDG quickstart, change the value as appropriate.
