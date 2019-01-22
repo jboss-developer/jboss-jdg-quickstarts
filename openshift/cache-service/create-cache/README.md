@@ -60,7 +60,6 @@ $ oc run quickstart \
    --replicas=1 \
    --restart=OnFailure \
    --env APP_NAME=${appName} \
-   --env SVC_DNS_NAME=${appName}-hotrod \
    --env CMD=create-cache \
    --env JAVA_OPTIONS=-ea
 ```
@@ -114,7 +113,6 @@ $ oc run quickstart \
    --replicas=1 \
    --restart=OnFailure \
    --env APP_NAME=${appName} \
-   --env SVC_DNS_NAME=${appName}-hotrod \
    --env CMD=get-cache \
    --env JAVA_OPTIONS=-ea
 ```
@@ -179,7 +177,6 @@ $ oc run quickstart \
    --replicas=1 \
    --restart=OnFailure \
    --env APP_NAME=${appName} \
-   --env SVC_DNS_NAME=${appName}-hotrod \
    --env CMD=get-cache \
    --env JAVA_OPTIONS=-ea
 ```

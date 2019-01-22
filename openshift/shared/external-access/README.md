@@ -23,14 +23,14 @@ Routes provide access to Data Grid endpoints.
   * Hot Rod
   ```bash
   $ oc create route passthrough ${appName}-hotrod-route \
-    --port=11222 \
-    --service ${appName}-hotrod
+    --port=hotrod \
+    --service ${appName}
   ```
   * HTTPS
   ```bash
   $ oc create route passthrough ${appName}-https-route \
-    --port=8443 \
-    --service ${appName}-https
+    --port=https \
+    --service ${appName}
   ```
   Where `${appName}` matches the application name that you specified when you created `cache-service` or `datagrid-service`.  
 

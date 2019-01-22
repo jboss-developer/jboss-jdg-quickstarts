@@ -43,7 +43,7 @@ You should now have a locally running OpenShift cluster and can start using the 
 
 Running the Data Grid for OpenShift Quickstarts
 -----------------------------------------------
-1. Clone this repository and navigate to the quickstart directory.
+1. Clone this repository and navigate to the quickstart directory, for example:
 ```bash
 $ cd ${repoHome}/openshift/shared/hello-world
 ```

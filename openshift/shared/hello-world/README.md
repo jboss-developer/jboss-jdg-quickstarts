@@ -47,7 +47,6 @@ $ oc run quickstart \
     --replicas=1 \
     --restart=OnFailure \
     --env APP_NAME=${appName} \
-    --env SVC_DNS_NAME=${appName}-hotrod \
     --env JAVA_OPTIONS=-ea
 ```
   Where `${appName}` matches the application name that you specified when you created `cache-service` or `datagrid-service`.
