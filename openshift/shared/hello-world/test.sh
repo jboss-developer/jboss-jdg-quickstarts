@@ -122,9 +122,9 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 11.01.19
+    # TODO last datagrid73-dev commit on 21.01.19
     oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/e16ac0a0c8c972afc72d8709e1a9a75a75edea04/services/${svcName}-template.yaml
+        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ddd676c666baa325f9c4b19bfcf63910eea6dbdd/services/${svcName}-template.yaml
 
     if [ -n "${IMAGE+1}" ]; then
         oc new-app ${svcName} \
@@ -243,7 +243,7 @@ main() {
     local appName="${svcName}-hello-world"
 
     local svcProject="myproject"
-    local svcDnsName="${appName}-hotrod"
+    local svcDnsName="${appName}"
     local demoProject="myproject"
 
     if [ -n "${X_PROJECT+1}" ]; then

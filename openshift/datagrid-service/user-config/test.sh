@@ -193,9 +193,7 @@ runQuickstart() {
     stopQuickstart ${demo}
     uploadQuickstart ${demo}
 
-    local svcDnsName="${appName}-hotrod"
-
-    startQuickstart ${demo} ${svcDnsName}
+    startQuickstart ${demo} ${appName}
     waitForQuickstart ${demo}
     logQuickstart ${demo}
 }
@@ -203,14 +201,14 @@ runQuickstart() {
 
 startQuickstart() {
     local demo=$1
-    local svcDnsName=$2
-    echo "--> Start quickstart for dns name ${svcDnsName}"
+    local appName=$2
+    echo "--> Start quickstart to access ${appName}"
 
     oc run ${demo} \
         --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
         --replicas=1 \
         --restart=OnFailure \
-        --env SVC_DNS_NAME=${svcDnsName} \
+        --env APP_NAME=${appName} \
         --env JAVA_OPTIONS=-ea
 }
 
@@ -246,11 +244,11 @@ runHttpRest() {
 
     echo "--> Store data with HTTP POST"
     oc exec -it ${appName}-0 \
-        -- curl -v -X POST -H 'Content-type: text/plain' -d 'user-config' ${appName}-http:8080/rest/default/key-rest
+        -- curl -v -X POST -H 'Content-type: text/plain' -d 'user-config' ${appName}:8080/rest/default/key-rest
 
     echo "--> Get data with HTTP GET"
     oc exec -it ${appName}-0 \
-        -- curl -v ${appName}-http:8080/rest/default/key-rest
+        -- curl -v ${appName}:8080/rest/default/key-rest
 }
 
 
@@ -273,7 +271,6 @@ main() {
     local demo="quickstart"
 
     local appName="${SERVICE_NAME}-user-config"
-    local svcDnsName="${appName}-hotrod"
 
     echo "--> Test params: service=${SERVICE_NAME},app=${appName}";
 

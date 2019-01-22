@@ -96,15 +96,15 @@ stopService() {
 destroyCache() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
+
+    oc delete all --selector=run=${demo} || true
 
     oc run ${demo} \
         --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
-        --env CMD=destroy-cache
+        --env CMD=destroy-cache || true
 }
 
 
@@ -113,9 +113,9 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 11.01.19
+    # TODO last datagrid73-dev commit on 21.01.19
     oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/e16ac0a0c8c972afc72d8709e1a9a75a75edea04/services/${svcName}-template.yaml
+        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ddd676c666baa325f9c4b19bfcf63910eea6dbdd/services/${svcName}-template.yaml
 
     if [ -n "${IMAGE+1}" ]; then
         oc new-app ${svcName} \
@@ -200,7 +200,6 @@ logQuickstart() {
 startCreateCacheQuickstart() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
 
     echo "--> Start quickstart for '${appName}'"
 
@@ -210,7 +209,6 @@ startCreateCacheQuickstart() {
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
         --env CMD=create-cache \
         --env JAVA_OPTIONS=-ea
 
@@ -224,7 +222,6 @@ startCreateCacheQuickstart() {
 startUseCacheQuickstart() {
     local demo=$1
     local appName=$2
-    local svcDnsName=$3
 
     printf "\n--> Invoke get and using custom cache:\n"
     oc run ${demo} \
@@ -232,7 +229,6 @@ startUseCacheQuickstart() {
         --replicas=1 \
         --restart=OnFailure \
         --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
         --env CMD=get-cache \
         --env JAVA_OPTIONS=-ea
 
@@ -277,7 +273,6 @@ main() {
 
     local svcName=${SERVICE_NAME}
     local appName="${svcName}-create-cache"
-    local svcDnsName="${appName}-hotrod"
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
@@ -285,8 +280,9 @@ main() {
     oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
+        destroyCache ${demo} ${appName}
         stopService ${svcName}
-        destroyCache ${demo} ${appName} ${svcDnsName}
+        stopQuickstart ${demo}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
@@ -300,15 +296,15 @@ main() {
 
         stopQuickstart ${demo}
         buildQuickstart ${demo}
-        startCreateCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startCreateCacheQuickstart ${demo} ${appName}
         sleep 5
-        startUseCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startUseCacheQuickstart ${demo} ${appName}
 
         scaleDownService ${appName}
         sleep 5
         scaleUpService ${appName}
         waitForService ${appName}
-        startUseCacheQuickstart ${demo} ${appName} ${svcDnsName}
+        startUseCacheQuickstart ${demo} ${appName}
     fi
 
 }
