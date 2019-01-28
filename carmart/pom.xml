@@ -37,6 +37,7 @@
         <version.org.infinispan>9.4.1-SNAPSHOT</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
 
         <version.commons.logging>1.1.1</version.commons.logging>
         <version.commons.codec>1.10</version.commons.codec>
@@ -317,6 +318,7 @@
                 <dependency>
                     <groupId>org.jboss.spec.javax.transaction</groupId>
                     <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                    <version>${version.jboss-transaction-api_1.1_spec}</version>
                 </dependency>
 
                 <!-- Import the WELD "uber-jar", meaning it bundles all the 
