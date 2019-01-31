@@ -23,8 +23,8 @@ System requirements
 
  * JDK 8+
  * Maven 3+
- * JBoss Data Grid 7.2.2
- * Apache Flink v1.0
+ * JBoss Data Grid 7.3
+ * Apache Flink v1.7
  
 Configure Maven
 ---------------
@@ -46,16 +46,16 @@ Start the JDG Server
 Start Apache Flink
 --------------------
 
-1. Download and unpack v1.0 of [Apache Flink](https://flink.apache.org/downloads.html#binaries). On Windows, you can use 7-zip to extract the .tgz file.  
+1. Download and unpack v1.7 of [Apache Flink with Hadoop](https://www-eu.apache.org/dist/flink/flink-1.7.1/flink-1.7.1-bin-hadoop28-scala_2.11.tgz). On Windows, you can use 7-zip to extract the .tgz file.
 The extract location will be referred as `FLINK_HOME`.
 
 2. Start Apache Flink
     * Open a command line and navigate to `FLINK_HOME`
     * The following shows the command line to start the server:
     
-            For Linux:   bin/start-local.sh
+            For Linux:   bin/start-cluster.sh
             
-            For Windows: bin\start-local.bat 
+            For Windows: bin\start-cluster.bat 
             
 The Flink dashboard will be visible at <http://localhost:8081>
 

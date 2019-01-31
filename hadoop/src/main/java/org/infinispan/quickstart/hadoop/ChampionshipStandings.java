@@ -4,8 +4,10 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.operators.Order;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.aggregation.Aggregations;
+import org.apache.flink.api.java.hadoop.mapreduce.HadoopInputFormat;
 import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.hadoopcompatibility.HadoopInputs;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Job;
@@ -36,8 +38,10 @@ public class ChampionshipStandings {
       // Obtain the Execution environment from Flink
       final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
+      final HadoopInputFormat<Integer, MatchResult> hadoopInput = HadoopInputs.createHadoopInput(infinispanInputFormat, Integer.class, MatchResult.class, job);
+
       // Create a DataSource that reads data using the InfinispanInputFormat
-      DataSource<Tuple2<Integer, MatchResult>> infinispanDS = env.createHadoopInput(infinispanInputFormat, Integer.class, MatchResult.class, job);
+      DataSource<Tuple2<Integer, MatchResult>> infinispanDS = env.createInput(hadoopInput);
 
       // For each entry (K,V) in the cache, extracts the value, calculate points per team, emmit tuples (Team, point),
       // group by team summing the points and finally sort results by points won.
