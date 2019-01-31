@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-spark-quickstart</artifactId>
-        <version>7.3.0-SNAPSHOT</version>
+        <version>7.3.0.Final-redhat-00002</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
