@@ -134,8 +134,9 @@
                                         <copy todir="${project.build.directory}/lib">
                                             <fileset
                                                     dir="${classpath}">
-                                                <include name="*.jar"/>
+                                                <include name="**/*.jar"/>
                                             </fileset>
+                                            <mapper type="flatten"/>
                                         </copy>
                                         <pathconvert pathsep=" " property="jar.classpath">
                                             <fileset dir="${project.build.directory}/lib"/>
