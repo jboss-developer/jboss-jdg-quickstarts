@@ -187,12 +187,19 @@ Run application with different classpath
 It's possible to run this quickstart with different classpath (other than default created by mvn exec:java).
 To do this, compile quickstart with:
 
-        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath/directory
+        mvn clean package -Pcustom-classpath,AddressBookManager  -Dclasspath=/custom/classpath/directory
 
 This will create a file at `target/jboss-remote-query-quickstart.jar`.
 Then you can run it with:
 
         java -jar target/jboss-remote-query-quickstart.jar
+
+This will execute the AddressBookManager application by default. To run the SnowForecast application you will need to activate the SnowForecast profile.
+    
+        mvn clean package -Pcustom-classpath,SnowForecast  -Dclasspath=/custom/classpath/directory
+Then you can run it with:
+
+        java -jar target/jboss-remote-query-quickstart.jar        
 
 Debug the Application
 ---------------------
