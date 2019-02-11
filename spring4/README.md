@@ -3,7 +3,7 @@ spring-jdg: Example Using Infinispan Cache in Spring Application
 Author: Sebastian Łaskawiec
 Level: Intermediate
 Technologies: Infinispan, Spring Boot
-Summary: The `spring-jdg` quickstart demonstrates how to use Infinispan in a Spring application.
+Summary: The `spring4-jdg` quickstart demonstrates how to use Infinispan in a Spring application.
 Target Product: JDG
 Product Versions: JDG 7.x
 Source: <https://github.com/infinispan/jdg-quickstart>
@@ -11,7 +11,7 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-The `spring-jdg` quickstart shows how to use Infinispan together with Spring.
+The `spring4-jdg` quickstart shows how to use Infinispan together with Spring.
 
 In order to simplify the Spring bootstrapping this project uses Spring Boot.
 Infinispan/JBoss Data Grid is configured to use only default values.

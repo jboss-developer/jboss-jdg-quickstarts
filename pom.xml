@@ -36,8 +36,8 @@
     <modules>
         <module>caching-service</module>
         <module>embedded-openshift</module>
-        <module>spring</module>
-        <module>spring-session</module>
+        <module>spring4</module>
+        <module>spring4-session</module>
         <module>carmart</module>
         <module>carmart-tx</module>
         <module>helloworld-jdg</module>
