@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Infinispan, Hot Rod, Remote Query, Protostream  
 Summary: The `remote-query` quickstart demonstrates how to query Infinispan cache remotely using the Hot Rod client.  
 Target Product: JDG  
-Product Versions: JDG 7.2.x  
+Product Versions: JDG 7.3.x  
 Source: <https://github.com/infinispan/jdg-quickstart>
 
 What is it?
@@ -22,7 +22,7 @@ System requirements
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or newer, Maven 3.0 or newer.
 
-The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.2.x
+The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.3.x
 
  
 Configure Maven
@@ -187,12 +187,19 @@ Run application with different classpath
 It's possible to run this quickstart with different classpath (other than default created by mvn exec:java).
 To do this, compile quickstart with:
 
-        mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath/directory
+        mvn clean package -Pcustom-classpath,AddressBookManager  -Dclasspath=/custom/classpath/directory
 
 This will create a file at `target/jboss-remote-query-quickstart.jar`.
 Then you can run it with:
 
         java -jar target/jboss-remote-query-quickstart.jar
+
+This will execute the AddressBookManager application by default. To run the SnowForecast application you will need to activate the SnowForecast profile.
+    
+        mvn clean package -Pcustom-classpath,SnowForecast  -Dclasspath=/custom/classpath/directory
+Then you can run it with:
+
+        java -jar target/jboss-remote-query-quickstart.jar        
 
 Debug the Application
 ---------------------

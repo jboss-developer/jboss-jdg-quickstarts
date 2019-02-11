@@ -96,12 +96,12 @@ To run the *Football Manager* application with a classpath other than the defaul
   $ mvn clean package -Pcustom-classpath -Dclasspath=/custom/classpath/directory
   ```
 
-  The command creates `target/jboss-hotrod-endpoint-quickstart.jar`.
+  The command creates `target/jboss-hotrod-transactions-quickstart.jar`.
 
 2. Run the application.
 
   ```bash
-  $ java -jar target/jboss-hotrod-endpoint-quickstart.jar
+  $ java -jar target/jboss-hotrod-transactions-quickstart.jar
   ```
 
 Debugging
