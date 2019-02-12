@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<head>
+    <title>Spring Quickstarts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="components/patternfly/dist/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="components/patternfly/dist/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="components/patternfly/dist/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="components/patternfly/dist/img/apple-touch-icon-57-precomposed.png">
+    <link href="components/patternfly/dist/css/patternfly.css" rel="stylesheet" media="screen, print">
+    <script src="components/patternfly/components/jquery/jquery.min.js"></script>
+    <script src="components/patternfly/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="components/patternfly/dist/js/patternfly.min.js"></script>
+    <script src="components/handlebars/handlebars.min.js"></script>
+    <script src="components/ember/ember.min.js"></script>
+    <script src="components/ember-data/ember-data.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+<script type="text/x-handlebars">
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand">
+            <img src="components/patternfly/dist/img/brand.png" alt="Infinispan / JBoss Data Grid"/>
+        </a>
+    </div>
+
+
+    <div class="collapse navbar-collapse navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-primary">
+            <li class="active">
+                <a>{{#link-to 'about'}}About this Quickstarts{{/link-to}}</a>
+            </li>
+            <li>
+                <a href="http://infinispan.org/documentation">Infnispan Manual</a>
+            </li>
+            <li>
+                <a href="http://www.jboss.org/products/datagrid/resources">JBoss Data Grid Manual</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar-pf sidebar-pf-left">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="content: none">
+                                Quickstarts
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                 <li>{{#link-to 'noncached'}}Non-cached Clients{{/link-to}}</li>
+                                 <li>{{#link-to 'cached'}}Cached Clients{{/link-to}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-9 col-md-10">
+            {{outlet}}
+        </div>
+
+    </div>
+</div>
+</div>
+<br/>
+<br/>
+<br/>
+
+</script>
+<script type="text/x-handlebars" id="noncached">
+    <h1>Non-cached Clients</h1>
+    <div class="col-md-6">
+        <table class="table">
+            <thead style="background: transparent none;">
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Favorite coffee</th>
+                    <th>Number of orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td>{{favoriteCoffee}}</td>
+                        <td>{{numberOfOrders}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <button class="btn btn-lg btn-danger" {{action "reload"}}>
+            Reload!
+        </button>
+    </div>
+
+</script>
+<script type="text/x-handlebars" id="cached">
+    <h1>Cached Clients</h1>
+    <div class="col-md-6">
+        <table class="table">
+            <thead style="background: transparent none;">
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Favorite coffee</th>
+                    <th>Number of orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{firstName}}</td>
+                        <td>{{lastName}}</td>
+                        <td>{{favoriteCoffee}}</td>
+                        <td>{{numberOfOrders}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <button class="btn btn-lg btn-danger" {{action "reload"}}>
+            Reload!
+        </button>
+    </div>
+
+</script>
+<script type="text/x-handlebars" id="about">
+    <div class="col-md-6">
+        <h2>Introduction</h2>
+        <br/>
+        This Quickstart will show you how to use Infinispan/JBoss Data Grid integration with Spring.
+        <br/>
+        <br/>
+        Upper menu bar contains a couple of useful links - manual pages and this about page.
+        Menu on the left have 2 entries:
+        <ul>
+            <li>{{#link-to 'noncached'}}Non-cached Clients{{/link-to}}</li>
+             <li>{{#link-to 'cached'}}Cached Clients{{/link-to}}</li>
+        </ul>
+        Both retrieve client list from backend, however the first one does not use Spring cache and the second does.
+        <br/>
+        <br/>
+        If you open the first link, you will notice that it took pretty long time to load the results (precise time is printed in logs). The same happens if you use "Reload" button.
+        <br/>
+        <br/>
+        The second page uses Infinispan's/JBoss Data Grid's cache to store generated list of clients. This is implemented using Spring's <code>@Cacheable</code> annotation used in <code>org.jboss.as.quickstarts.datagrid.spring.core.client.CachedClientGetter.getBestClients</code>.
+        Since the list is generated once and stored in Spring Cache, it doesn't change if you click "Reload" button. You may try to clear out the cache using REST interface.
+
+        <h2>Maven dependencies</h2>
+        <br/>
+        It is a good practice to start the implementation with BOM Dependencies for Infinispan/JBoss Data Grid and Spring:
+        <br/>
+        <pre>
+            <br/>&lt;dependencyManagement&gt;<br/>    &lt;dependencies&gt;<br/>        &lt;dependency&gt;<br/>            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br/>            &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;<br/>            &lt;version&gt;SPRING BOOT VERSION&lt;/version&gt;<br/>            &lt;type&gt;pom&lt;/type&gt;<br/>            &lt;scope&gt;import&lt;/scope&gt;<br/>        &lt;/dependency&gt;<br/>        &lt;dependency&gt;<br/>            &lt;groupId&gt;org.infinispan&lt;/groupId&gt;<br/>            &lt;artifactId&gt;infinispan-bom&lt;/artifactId&gt;<br/>            &lt;version&gt;INFINISPAN/JDG VERSION&lt;/version&gt;<br/>            &lt;type&gt;pom&lt;/type&gt;<br/>            &lt;scope&gt;import&lt;/scope&gt;<br/>        &lt;/dependency&gt;<br/>    &lt;/dependencies&gt;<br/>&lt;/dependencyManagement&gt;
+        </pre>
+        Secondly, we need to add Spring Boot and Infinispan/JBoss Data Grid dependency to our pom.xml - and that's it.
+        <pre>
+            <br/>&lt;dependency&gt;<br/>    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br/>    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;<br/>&lt;/dependency&gt;<br/>&lt;dependency&gt;<br/>    &lt;groupId&gt;org.infinispan&lt;/groupId&gt;<br/>    &lt;artifactId&gt;infinispan-spring&lt;/artifactId&gt;<br/>    &lt;exclusions&gt;<br/>        &lt;exclusion&gt;<br/>            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;<br/>            &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;<br/>        &lt;/exclusion&gt;<br/>    &lt;/exclusions&gt;<br/>&lt;/dependency&gt;
+        </pre>
+
+        <h2>Backend</h2>
+        <br/>
+        In order to get Spring configuration up and running, we need 2 things:
+        <ul>
+            <li>Turn on Caching (for example by adding <code>@EnableCaching</code> to configuration)</li>
+            <li>Create instance of <code>SpringEmbeddedCacheManagerFactoryBean</code></li>
+        </ul>
+        After that we should be able to inject <code>Cache</code> instances and use other Spring Cache annotations (like <code>@Cacheable</code>)
+
+        <h2>REST interface</h2>
+        <br/>
+        This webapp exposes several REST interfaces:
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>REST Endpoint</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="/infinispan-spring/clients">/infinispan-spring/clients</a></td>
+                    <td>Not cached clients endpoint</td>
+                </tr>
+                <tr>
+                    <td><a href="/infinispan-spring/clients?caching=true">/infinispan-spring/clients?caching=true</a></td>
+                    <td>Cached clients endpoint</td>
+                </tr>
+                <tr>
+                    <td><a href="/infinispan-spring/cache">/infinispan-spring/cache</a></td>
+                    <td>Prints out what's inside the cache</td>
+                </tr>
+                <tr>
+                    <td><a href="/infinispan-spring/cache/clear">/infinispan-spring/cache/clear</a></td>
+                    <td>Clear cache (not used in webapp)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Frontend</h2>
+        <br/>
+        Frontend of this web app is built using <a href="http://emberjs.com/">Ember JS</a>.
+    </div>
+
+
+</script>
+</body>
+</html>
