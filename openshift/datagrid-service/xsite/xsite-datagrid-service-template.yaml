@@ -23,28 +23,8 @@ objects:
     labels:
       application: ${APPLICATION_NAME}
   stringData:
-    application-password: ${APPLICATION_USER_PASSWORD}
+    application-password: ${APPLICATION_PASSWORD}
     application-user: ${APPLICATION_USER}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: Provides a headless service for the StatefulSet.
-      service.alpha.openshift.io/serving-cert-secret-name: service-certs
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-headless
-  spec:
-    clusterIP: None
-    ports:
-    - name: http
-      port: 8080
-      targetPort: 8080
-    - name: hotrod
-      port: 11222
-      targetPort: 11222
-    selector:
-      deploymentConfig: ${APPLICATION_NAME}
 - apiVersion: v1
   kind: Service
   metadata:
@@ -65,29 +45,19 @@ objects:
   kind: Service
   metadata:
     annotations:
-      description: Provides a service for accessing the application over HTTPS.
+      description: Provides a service for accessing the application over HTTPS or Hot Rod protocol.
+      service.alpha.openshift.io/serving-cert-secret-name: service-certs
     labels:
       application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-https
+    name: ${APPLICATION_NAME}
   spec:
     ports:
-    - port: 8080
-      targetPort: 8443
-    selector:
-      deploymentConfig: ${APPLICATION_NAME}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-      description: Provides a service for accessing the application through the Hot
-        Rod protocol.
-    labels:
-      application: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-hotrod
-  spec:
-    ports:
-    - port: 11222
+    - name: hotrod
+      port: 11222
       targetPort: 11222
+    - name: https
+      port: 8443
+      targetPort: 8443
     selector:
       deploymentConfig: ${APPLICATION_NAME}
 - apiVersion: apps/v1beta1
@@ -98,7 +68,7 @@ objects:
     name: ${APPLICATION_NAME}
   spec:
     replicas: ${{NUMBER_OF_INSTANCES}}
-    serviceName: ${APPLICATION_NAME}-headless
+    serviceName: ${APPLICATION_NAME}-ping
     strategy:
       rollingParams:
         intervalSeconds: 20
@@ -146,8 +116,8 @@ objects:
             timeoutSeconds: 10
           name: ${APPLICATION_NAME}
           ports:
-          - containerPort: 8080
-            name: http
+          - containerPort: 8443
+            name: https
             protocol: TCP
           - containerPort: 8888
             name: ping
@@ -214,7 +184,7 @@ parameters:
 - description: Defines the image to bootstrap the service.
   name: IMAGE
   required: true
-  value: registry.redhat.io/jboss-datagrid-7/datagrid72-openshift
+  value: registry.redhat.io/jboss-datagrid-7/datagrid73-openshift
 - description: Specifies how many instances of the application to create in the cluster.
   displayName: Number of Instances
   name: NUMBER_OF_INSTANCES
@@ -236,4 +206,4 @@ parameters:
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'
   generate: expression
-  name: APPLICATION_USER_PASSWORD
+  name: APPLICATION_PASSWORD

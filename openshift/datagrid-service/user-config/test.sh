@@ -220,7 +220,7 @@ waitForQuickstart() {
     sleep .5 # Short sleep before first try
 
     status=NA
-    while [ "$status" != "Running" ];
+    while [[ "$status" != "Running" && "$status" != "Succeeded" ]];
     do
         status=`oc get pod -l run=${demo} -o jsonpath="{.items[0].status.phase}"`
         echo "Status of pod: ${status}"
@@ -256,9 +256,7 @@ getIp() {
     set +e
     minishift ip
     local result=$?
-    if [ ${result} -eq 0 ]; then
-        echo result
-    else
+    if [ ${result} -ne 0 ]; then
         echo "127.0.0.1"
     fi
     set -e

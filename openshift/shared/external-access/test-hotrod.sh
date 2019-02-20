@@ -15,7 +15,6 @@ usage() {
 	OPTIONS:
 		-c --clean               delete the services and quickstart from OpenShift.
 		-h --help                show this help.
-		-p --cross-project       deploys and tests services and quickstarts in different OpenShift namespaces.
 		-q --quickstart-only     only test the quickstart, it assumes the service is running.
 		-s --service-name        service to test, can be either cache-service or datagrid-service.
 		                         cache-service is default.
@@ -39,12 +38,6 @@ usage() {
 		Clean and remove quickstart and datagrid-service deployment:
 		$PROGNAME --clean --service-name datagrid-service
 
-		Starts cache-service and tests that quickstart can interact with it when deployed in separate namespace:
-		$PROGNAME --cross-project
-
-		Tests that quickstart can interact with it when deployed in separate namespace:
-		$PROGNAME --cross-project --quickstart-only
-
 		Test quickstart on custom image:
 		$PROGNAME --image ...
 
@@ -62,7 +55,6 @@ cmdline() {
             #translate --gnu-long-options to -g (short options)
             --clean)                   args="${args}-c ";;
             --help)                    args="${args}-h ";;
-            --cross-project)           args="${args}-p ";;
             --quickstart-only)         args="${args}-q ";;
             --service-name)            args="${args}-s ";;
             --image)                   args="${args}-i ";;
@@ -76,7 +68,7 @@ cmdline() {
     #Reset the positional parameters to the short options
     eval set -- $args
 
-    while getopts "chpqs:i:x" OPTION
+    while getopts "chqs:i:x" OPTION
     do
          case $OPTION in
          c)
@@ -85,9 +77,6 @@ cmdline() {
          h)
              usage
              exit 0
-             ;;
-         p)
-             readonly X_PROJECT=1
              ;;
          q)
              readonly QUICKSTART_ONLY=1
@@ -110,10 +99,12 @@ cmdline() {
 
 stopService() {
     local svcName=$1
-    echo "--> Stop services for template '${svcName}'"
+    local routeName=$2
+    echo "--> Stop services for template '${svcName}' and routes hotrod='${routeName}'"
 
     oc delete all,secrets,sa,templates,configmaps,daemonsets,clusterroles,rolebindings,serviceaccounts --selector=template=${svcName} || true
     oc delete template ${svcName} || true
+    oc delete route ${routeName} || true
 }
 
 
@@ -142,6 +133,15 @@ startService() {
 }
 
 
+createRoutes() {
+    local appName=$1
+    local routeName=$2
+
+    # Create a pass-through route
+    oc create route passthrough ${routeName} --port=hotrod --service ${appName}
+}
+
+
 waitForService() {
     local appName=$1
     echo "--> Wait for '${appName}'"
@@ -157,68 +157,17 @@ waitForService() {
 }
 
 
-stopQuickstart() {
-    echo "--> Stop quickstart"
-    local demo=$1
-
-    oc delete all --selector=run=${demo} || true
-    oc delete imagestream quickstart || true
-    oc delete buildconfig quickstart || true
-}
-
-
 buildQuickstart() {
-    local demo=$1
-
-    oc new-build \
-        --binary \
-        --strategy=source \
-        --name=${demo} \
-        -l app=${demo} \
-        fabric8/s2i-java:2.3
-
-    mvn -s ../../../settings.xml clean package compile -DincludeScope=runtime
-
-    oc start-build ${demo} --from-dir=target/ --follow
+    mvn -s ../../../settings.xml clean package
 }
 
 
 startQuickstart() {
-    local demo=$1
-    local appName=$2
-    local svcDnsName=$3
-    echo "--> Start quickstart for ${appName} and service dns name ${svcDnsName}"
+    local appName=$1
 
-    oc run ${demo} \
-        --image=`oc get is ${demo} -o jsonpath="{.status.dockerImageRepository}"` \
-        --replicas=1 \
-        --restart=OnFailure \
-        --env APP_NAME=${appName} \
-        --env SVC_DNS_NAME=${svcDnsName} \
-        --env JAVA_OPTIONS=-ea
-}
+    echo "--> Start quickstart for '${appName}'"
 
-
-waitForQuickstart() {
-    echo "--> Wait for quickstart"
-    local demo=$1
-
-    status=NA
-    while [[ "$status" != "Running" && "$status" != "Succeeded" ]];
-    do
-        status=`oc get pod -l run=${demo} -o jsonpath="{.items[0].status.phase}"`
-        echo "Status of pod: ${status}"
-        sleep .5
-    done
-}
-
-
-logQuickstart() {
-    echo "--> Log quickstart"
-    local demo=$1
-
-    local pod=`oc get pod -l run=${demo} -o jsonpath="{.items[0].metadata.name}"`
-    oc logs ${pod} -f
+    mvn -s ../../../settings.xml exec:java -Dexec.args="${appName}"
 }
 
 
@@ -239,24 +188,9 @@ main() {
     local demo="quickstart"
 
     local svcName=${SERVICE_NAME}
-    local appName="${svcName}-hello-world"
+    local appName="${svcName}-external-access"
 
-    local svcProject="myproject"
-    local svcDnsName="${appName}"
-    local demoProject="myproject"
-
-    if [ -n "${X_PROJECT+1}" ]; then
-        svcProject="${svcName}-project"
-        svcDnsName="${svcDnsName}.${svcProject}.svc.cluster.local"
-        demoProject="quickstart-project"
-
-        # oc delete project ${svcProject}
-        # oc delete project ${demoProject}
-        oc new-project ${svcProject} || true
-        ../../registry-credentials-setup.sh
-        oc new-project ${demoProject} || true
-        ../../registry-credentials-setup.sh
-    fi
+    local routeName="${appName}-hotrod-route"
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
@@ -264,29 +198,22 @@ main() {
     oc login ${publicIp}:8443 -u developer -p developer
 
     if [ -n "${CLEAN+1}" ]; then
-        oc project ${svcProject}
-        stopService ${svcName}
-
-        oc project ${demoProject}
-        stopQuickstart ${demo}
+        stopService ${svcName} ${routeName}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
 
-            oc project ${svcProject}
-            stopService ${svcName}
+            stopService ${svcName} ${routeName}
             startService ${svcName} ${appName}
+            createRoutes ${appName} ${routeName}
             waitForService ${appName}
         fi
 
         echo "--> Run quickstart";
 
-        oc project ${demoProject}
-        stopQuickstart ${demo}
-        buildQuickstart ${demo}
-        startQuickstart ${demo} ${appName} ${svcDnsName}
-        waitForQuickstart ${demo}
-        logQuickstart ${demo}
+        buildQuickstart
+
+        startQuickstart ${appName}
     fi
 
 }

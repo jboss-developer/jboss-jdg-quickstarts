@@ -113,9 +113,10 @@ startService() {
     local appName=$2
     echo "--> Start service from template '${svcName}' as '${appName}'"
 
-    # TODO last datagrid73-dev commit on 21.01.19
+    local imageBase="https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image"
+
     oc create -f \
-        https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ddd676c666baa325f9c4b19bfcf63910eea6dbdd/services/${svcName}-template.yaml
+        "${imageBase}/7.3-v1.0/services/${svcName}-template.yaml"
 
     if [ -n "${IMAGE+1}" ]; then
         oc new-app ${svcName} \
@@ -178,7 +179,7 @@ waitForQuickstart() {
     local demo=$1
 
     status=NA
-    while [ "$status" != "Running" ];
+    while [[ "$status" != "Running" && "$status" != "Succeeded" ]];
     do
         status=`oc get pod -l run=${demo} -o jsonpath="{.items[0].status.phase}"`
         echo "Status of pod: ${status}"
@@ -257,9 +258,7 @@ getIp() {
     set +e
     minishift ip
     local result=$?
-    if [ ${result} -eq 0 ]; then
-        echo result
-    else
+    if [ ${result} -ne 0 ]; then
         echo "127.0.0.1"
     fi
     set -e

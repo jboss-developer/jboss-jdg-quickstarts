@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<server xmlns="urn:jboss:domain:4.0">
+<server xmlns="urn:jboss:domain:8.0">
     <extensions>
         <extension module="org.infinispan.extension"/>
         <extension module="org.infinispan.server.endpoint"/>
@@ -51,7 +51,8 @@
             </logger>
         </audit-log>
         <management-interfaces>
-            <http-interface http-upgrade-enabled="true" console-enabled="false"><!-- ##MGMT_IFACE_REALM## -->
+            <http-interface console-enabled="false"><!-- ##MGMT_IFACE_REALM## -->
+                <http-upgrade enabled="true"/>
                 <socket-binding http="management-http"/>
             </http-interface>
         </management-interfaces>
@@ -141,7 +142,7 @@
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
             <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:datasources:4.0">
+        <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
                 <!-- ##DATASOURCES## -->
                 <drivers>
@@ -159,14 +160,14 @@
             </datasources>
         </subsystem>
         <!-- xsite mod:start / fill in ##INFINISPAN_ENDPOINTS## -->
-        <subsystem xmlns="urn:infinispan:server:endpoint:8.1">
-            <hotrod-connector cache-container="clustered" socket-binding="hotrod-internal" name="hotrod-internal" />
+        <subsystem xmlns="urn:infinispan:server:endpoint:9.4">
+            <hotrod-connector name="hotrod-internal" socket-binding="hotrod-internal" cache-container="clustered" />
             <rest-connector name="rest" socket-binding="rest" cache-container="clustered">
                 <authentication security-realm="ApplicationRealm" auth-method="BASIC"/>
             </rest-connector>
         </subsystem>
         <!-- xsite mod:end -->
-        <subsystem xmlns="urn:infinispan:server:core:8.5" default-cache-container="clustered">
+        <subsystem xmlns="urn:infinispan:server:core:9.4" default-cache-container="clustered">
             <!-- xsite mod:start / fill in ##INFINISPAN_CORE## -->
             <cache-container name="clustered" default-cache="default">
                 <transport channel="cluster"/>
@@ -181,7 +182,7 @@
             </cache-container>
             <!-- xsite mod:end -->
         </subsystem>
-        <subsystem xmlns="urn:infinispan:server:jgroups:8.0">
+        <subsystem xmlns="urn:infinispan:server:jgroups:9.4">
             <channels default="cluster">
                 <channel name="cluster" stack="tcp"/>
                 <!-- xsite mod:start -->
@@ -262,11 +263,11 @@
                 <!-- xsite mod:end -->
             </stacks>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:io:1.1">
+        <subsystem xmlns="urn:jboss:domain:io:3.0">
             <worker name="default"/>
             <buffer-pool name="default"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:jca:4.0">
+        <subsystem xmlns="urn:jboss:domain:jca:5.0">
             <archive-validation enabled="true" fail-on-error="true" fail-on-warn="false"/>
             <bean-validation enabled="true"/>
             <default-workmanager>
@@ -294,11 +295,11 @@
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
             <remote-naming/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:remoting:3.0">
+        <subsystem xmlns="urn:jboss:domain:remoting:4.0">
             <endpoint/>
             <http-connector name="http-remoting-connector" connector-ref="default" security-realm="ApplicationRealm"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:security:1.2">
+        <subsystem xmlns="urn:jboss:domain:security:2.0">
             <security-domains>
                 <security-domain name="other" cache-type="default">
                     <authentication>
@@ -331,7 +332,7 @@
                 <!-- ##ADDITIONAL_SECURITY_DOMAINS## -->
             </security-domains>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:transactions:3.0">
+        <subsystem xmlns="urn:jboss:domain:transactions:5.0">
             <core-environment node-identifier="${jboss.node.name}">
                 <process-id>
                     <uuid/>
