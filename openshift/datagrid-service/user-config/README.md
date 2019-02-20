@@ -6,25 +6,24 @@ Customizing Data Grid Service Deployments: Red Hat Data Grid for OpenShift
 **Target Product:** Data Grid for OpenShift  
 **Product Versions:** RHDG 7.3 or later
 
-**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
-
 About This Quickstart
 ---------------------
 This quickstart demonstrates how to deploy Data Grid clusters with custom configuration on OpenShift.
 
-Setting Up the Custom Template
+Evaluating the Custom Template
 ------------------------------
-1. Open `user-datagrid-service-template.yaml` with any text editor.
+Open `user-datagrid-service-template.yaml` with any text editor and look for modifications in the template between lines commented with `# user config mod "start|end"`.  
 
-2. Look for modifications in the template between lines commented with `# user config mod "start|end"`.  
+The template customizes `datagrid-service` by:
 
-   The template customizes the `datagrid-service` template to expose the REST endpoint over HTTP at port `8080` instead of HTTPS at port `8443`.
+- Exposing the REST endpoint over HTTP at port `8080` instead of HTTPS at port `8443`.
+- Adding a config volume for the container at `/opt/datagrid/standalone/configuration/user`.
+- Adding a ConfigMap named `datagrid-config`.
+- Setting the `APPLICATION_USER` parameter to a value of `false` because user authentication is not required for HTTP access.
 
-   The template also adds a config volume for the container at `/opt/datagrid/standalone/configuration/user` and a ConfigMap named `datagrid-config`.
-
-   Additionally, the template sets the `APPLICATION_USER` parameter to a value of `false` because user authentication is not required for HTTP access.
-
-3. Import the custom template for this quickstart.
+Importing the Custom Template
+-----------------------------
+Make the custom template available on OpenShift.
 ```bash
 $ oc create -f user-datagrid-service-template.yaml
 ```
@@ -125,7 +124,7 @@ $ oc run quickstart \
 
 2. Verify the `PUT` operation completed successfully.
 ```
-$ oc logs quickstart --tail=50
+$ oc logs quickstart-${id} --tail=50
 --- Connect to datagrid-service-user-config ---
 ...
 --- Store key='key-hotrod'/value='user-config' pair ---
@@ -133,6 +132,7 @@ $ oc logs quickstart --tail=50
 --- Retrieve key='key-hotrod' ---
 --- Value is 'user-config' ---
 ```
+  Where `${id}` is the unique ID for the pod. **TIP:** Use `oc get pods` to find the pod name.
 
 Verifying Access with HTTP
 --------------------------

@@ -90,7 +90,7 @@ $ oc run quickstart \
 
 2. Verify the cache is created successfully.
 ```
-$ oc logs quickstart --tail=50
+$ oc logs quickstart-${id} --tail=50
 ...
 --- Connect to cache-service ---
 ...
@@ -98,6 +98,7 @@ $ oc logs quickstart --tail=50
 ...
 --- Cache 'custom' created in 'cache-service' ---
 ```
+  Where `${id}` is the unique ID for the pod. **TIP:** Use `oc get pods` to find the pod name.
 
 3. Delete the quickstart pod.
 ```bash
@@ -120,7 +121,7 @@ $ oc run quickstart \
 
 2. Verify the cache operations completed successfully.
 ```
-$ oc logs quickstart --tail=50
+$ oc logs quickstart-${id} --tail=50
 ...
 --- Connect to cache-service ---
 ...
@@ -183,7 +184,7 @@ $ oc run quickstart \
 
 6. Verify the cache operations.
 ```
-$ oc logs quickstart --tail=50
+$ oc logs quickstart-${id} --tail=50
 ...
 --- Connect to cache-service ---
 ...

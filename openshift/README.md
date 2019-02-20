@@ -62,7 +62,7 @@ $ oc get secrets
 
    1. Confirm that `cache-service` or `datagrid-service` are available.
    ```bash
-   $ oc get templates | grep 'cache-service\|datagrid-service'
+   $ oc get templates -n openshift | grep 'cache-service\|datagrid-service'
    ```
 
     See the [Red Hat Data Grid for OpenShift](https://access.redhat.com/documentation/en-us/red_hat_data_grid/7.3/html-single/data_grid_for_openshift/) documentation for more information.
