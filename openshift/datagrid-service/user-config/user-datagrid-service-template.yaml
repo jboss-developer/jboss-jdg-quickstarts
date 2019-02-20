@@ -186,7 +186,7 @@ parameters:
 - description: Defines the image to bootstrap the service.
   name: IMAGE
   required: true
-  value: registry.redhat.io/jboss-datagrid-7/datagrid72-openshift
+  value: registry.redhat.io/jboss-datagrid-7/datagrid73-openshift
 - description: Specifies how many instances of the application to create in the cluster.
   displayName: Number of Instances
   name: NUMBER_OF_INSTANCES

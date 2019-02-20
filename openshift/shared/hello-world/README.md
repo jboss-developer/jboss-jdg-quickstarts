@@ -14,6 +14,20 @@ You can use this quickstart with both `cache-service` and `datagrid-service` dep
 
 **Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
+Configuring Authentication
+--------------------------
+The quickstart application must authenticate with Data Grid services.
+
+1. Open `HelloWorld.java` for editing.
+
+2. In the `HelloWorld` class, update the following values with the credentials you specified when you created the Data Grid service:
+```java
+private static final String USER = "test";
+private static final String PASSWORD = "changeme";
+```
+
+3. Save and close `HelloWorld.java`.
+
 Building the Hello World Quickstart
 -----------------------------------
 
@@ -47,13 +61,14 @@ $ oc run quickstart \
     --replicas=1 \
     --restart=OnFailure \
     --env APP_NAME=${appName} \
+    --env SVC_DNS_NAME=${appName} \
     --env JAVA_OPTIONS=-ea
 ```
   Where `${appName}` matches the application name that you specified when you created `cache-service` or `datagrid-service`.
 
 2. Verify the cache operations completed successfully.
 ```
-$ oc logs quickstart --tail=50
+$ oc logs quickstart-${id} --tail=50
 --- Connect to datagrid-service ---
 ...
 --- Store key='hello'/value='world' pair ---
@@ -61,6 +76,8 @@ $ oc logs quickstart --tail=50
 --- Retrieve key='hello' ---
 --- Value is 'world' ---
 ```
+  Where `${id}` is the unique ID for the pod. **TIP:** Use `oc get pods` to find the pod name.
+
   The preceding log messages show the Hello World quickstart connected to the Data Grid for OpenShift service and stored a `hello/world` key/value pair. The quickstart application also performs an assertion to ensure that the returned value is `world`.
 
   You've successfully completed this tutorial!

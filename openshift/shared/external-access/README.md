@@ -16,10 +16,24 @@ In both cases, you authenticate with the Data Grid for OpenShift service and the
 
 **Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
+Configuring Authentication
+--------------------------
+The quickstart application must authenticate with Data Grid services.
+
+1. Open `ExternalAccess.java` for editing.
+
+2. In the `ExternalAccess` class, update the following values with the credentials you specified when you created the Data Grid service:
+```java
+private static final String USER = "test";
+private static final String PASSWORD = "changeme";
+```
+
+3. Save and close `ExternalAccess.java`.
+
 Creating Routes
 ---------------
 Routes provide access to Data Grid endpoints.
-1. Create `passthrough` routes for Hot Rod and HTTPS endpoints.
+1. Create routes for Hot Rod and HTTPS endpoints.
   * Hot Rod
   ```bash
   $ oc create route passthrough ${appName}-hotrod-route \
@@ -28,7 +42,7 @@ Routes provide access to Data Grid endpoints.
   ```
   * HTTPS
   ```bash
-  $ oc create route passthrough ${appName}-https-route \
+  $ oc create route reencrypt ${appName}-https-route \
     --port=https \
     --service ${appName}
   ```
@@ -86,9 +100,8 @@ Accessing Pods Externally with HTTPS
 2. Invoke a `PUT` operation to store a value of `world` in a key named `hello`.
   ```bash
   curl -X PUT \
-  -k \
   -u ${user}:${password} \
-  --cacert tls.crt \
+  --cacert service-ca.crt \
   -H 'Content-type: text/plain' \
   -d 'world' \
   https://${routeHost}/rest/default/hello
@@ -100,10 +113,8 @@ Accessing Pods Externally with HTTPS
 
 3. Invoke a `GET` operation to verify the entry.
   ```bash
-  curl -X GET  \
-  -k  \
-  -u ${user}:${password}  \
-  --cacert tls.crt  \
+  curl -i -u ${user}:${password}  \
+  -H 'Content-type: text/plain' \
   https://${routeHost}/rest/default/hello
   ```
 
