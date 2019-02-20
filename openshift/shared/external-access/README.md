@@ -10,16 +10,32 @@ About This Quickstart
 ---------------------
 This quickstart demonstrates how to access `cache-service` and `datagrid-service` pods externally.
 
-To access pods externally via Hot Rod, you build and run a simple Java client for OpenShift. For external HTTPS access, you use the `curl` command.
+You authenticate with the Data Grid for OpenShift service and then store and retrieve a sample entry from your host outside the pod where the service is running.
 
-In both cases, you authenticate with the Data Grid for OpenShift service and then store and retrieve a sample entry from your host outside the pod where the service is running.
+To access pods externally via Hot Rod, you build and run a simple Java client for OpenShift.
+
+For external HTTPS access, you must use OpenShift Online or another OpenShift cluster where certificates are signed by a trusted authority.
 
 **Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
+
+Configuring Authentication
+--------------------------
+The quickstart application must authenticate with Data Grid services.
+
+1. Open `ExternalAccess.java` for editing.
+
+2. In the `ExternalAccess` class, update the following values with the credentials you specified when you created the Data Grid service:
+```java
+private static final String USER = "test";
+private static final String PASSWORD = "changeme";
+```
+
+3. Save and close `ExternalAccess.java`.
 
 Creating Routes
 ---------------
 Routes provide access to Data Grid endpoints.
-1. Create `passthrough` routes for Hot Rod and HTTPS endpoints.
+1. Create routes for Hot Rod and HTTPS endpoints.
   * Hot Rod
   ```bash
   $ oc create route passthrough ${appName}-hotrod-route \
@@ -28,7 +44,7 @@ Routes provide access to Data Grid endpoints.
   ```
   * HTTPS
   ```bash
-  $ oc create route passthrough ${appName}-https-route \
+  $ oc create route reencrypt ${appName}-https-route \
     --port=https \
     --service ${appName}
   ```
@@ -76,19 +92,10 @@ Accessing Pods Externally with Hot Rod
 
 Accessing Pods Externally with HTTPS
 ------------------------------------
-1. Retrieve the public certificate for the CA, `tls.crt`, from the `service-certs` secret.
-  ```bash
-  $ oc get secret service-certs \
-  -o jsonpath='{.data.tls\.crt}' \
-  | base64 > tls.crt
-  ```
-
-2. Invoke a `PUT` operation to store a value of `world` in a key named `hello`.
+1. Invoke a `PUT` operation to store a value of `world` in a key named `hello`.
   ```bash
   curl -X PUT \
-  -k \
   -u ${user}:${password} \
-  --cacert tls.crt \
   -H 'Content-type: text/plain' \
   -d 'world' \
   https://${routeHost}/rest/default/hello
@@ -100,10 +107,8 @@ Accessing Pods Externally with HTTPS
 
 3. Invoke a `GET` operation to verify the entry.
   ```bash
-  curl -X GET  \
-  -k  \
-  -u ${user}:${password}  \
-  --cacert tls.crt  \
+  curl -i -u ${user}:${password}  \
+  -H 'Content-type: text/plain' \
   https://${routeHost}/rest/default/hello
   ```
 
