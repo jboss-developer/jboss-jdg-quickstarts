@@ -10,7 +10,7 @@ spec:
   ports:
   - port: 8660
     targetPort: 8660
-    # Fixed nodePort for easier debugging (could be removed)
+    # Optional fixed nodePort to make debugging easier.
     nodePort: 32660
   selector:
     deploymentConfig: datagrid-service-xsite-hello-world

@@ -177,7 +177,6 @@ uploadQuickstart() {
     oc start-build ${demo} --from-dir=target/ --follow
 }
 
-
 startQuickstart() {
     local demo=$1
     local svcDnsName=$2
@@ -193,7 +192,6 @@ startQuickstart() {
         --env JAVA_OPTIONS=-ea
 }
 
-
 waitForQuickstart() {
     echo "--> Wait for quickstart"
     local demo=$1
@@ -207,7 +205,6 @@ waitForQuickstart() {
     done
 }
 
-
 logQuickstart() {
     echo "--> Log quickstart"
     local demo=$1
@@ -217,7 +214,7 @@ logQuickstart() {
 }
 
 clean() {
-    echo "--> Stopa and clean service and quickstart"
+    echo "--> Stop and clean service and quickstart"
     local demo=$1
 
     switchProfile "xsite-a"
@@ -265,7 +262,6 @@ restartService() {
     echo "X-Site view formed"
 }
 
-
 runQuickstart() {
     echo "--> Run quickstart"
     local demo=$1
@@ -292,7 +288,6 @@ runQuickstart() {
     logQuickstart ${demo}
 }
 
-
 main() {
     cmdline $ARGS
 
@@ -312,6 +307,5 @@ main() {
         runQuickstart ${demo} ${appName}
     fi
 }
-
 
 main
