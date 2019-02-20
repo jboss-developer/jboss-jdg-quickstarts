@@ -2,12 +2,10 @@
 
 set -e
 
-
 startMinishift() {
   minishift start
   eval $(minishift oc-env)
 }
-
 
 main () {
   ../../registry-credentials-validate.sh
@@ -20,6 +18,5 @@ main () {
   startMinishift
   ../../registry-credentials-setup.sh
 }
-
 
 main
