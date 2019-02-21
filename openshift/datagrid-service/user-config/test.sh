@@ -220,7 +220,7 @@ waitForQuickstart() {
     sleep .5 # Short sleep before first try
 
     status=NA
-    while [ "$status" != "Running" ];
+    while [[ "$status" != "Running" && "$status" != "Succeeded" ]];
     do
         status=`oc get pod -l run=${demo} -o jsonpath="{.items[0].status.phase}"`
         echo "Status of pod: ${status}"
