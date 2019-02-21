@@ -2,7 +2,7 @@
 
 set -e -x
 
-VMDRIVER=${1-xhyve}
+VMDRIVER=${1-virtualbox}
 
 echo "Using VM driver '$VMDRIVER'"
 
