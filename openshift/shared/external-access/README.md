@@ -10,9 +10,11 @@ About This Quickstart
 ---------------------
 This quickstart demonstrates how to access `cache-service` and `datagrid-service` pods externally.
 
-To access pods externally via Hot Rod, you build and run a simple Java client for OpenShift. For external HTTPS access, you use the `curl` command.
+You authenticate with the Data Grid for OpenShift service and then store and retrieve a sample entry from your host outside the pod where the service is running.
 
-In both cases, you authenticate with the Data Grid for OpenShift service and then store and retrieve a sample entry from your host outside the pod where the service is running.
+To access pods externally via Hot Rod, you build and run a simple Java client for OpenShift.
+
+For external HTTPS access, you must use OpenShift Online or another OpenShift cluster where certificates are signed by a trusted authority.
 
 **Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster and create Data Grid for OpenShift services.
 
@@ -90,18 +92,10 @@ Accessing Pods Externally with Hot Rod
 
 Accessing Pods Externally with HTTPS
 ------------------------------------
-1. Retrieve the public certificate for the CA, `tls.crt`, from the `service-certs` secret.
-  ```bash
-  $ oc get secret service-certs \
-  -o jsonpath='{.data.tls\.crt}' \
-  | base64 > tls.crt
-  ```
-
-2. Invoke a `PUT` operation to store a value of `world` in a key named `hello`.
+1. Invoke a `PUT` operation to store a value of `world` in a key named `hello`.
   ```bash
   curl -X PUT \
   -u ${user}:${password} \
-  --cacert service-ca.crt \
   -H 'Content-type: text/plain' \
   -d 'world' \
   https://${routeHost}/rest/default/hello
