@@ -7,7 +7,7 @@ readonly ARGS="$@"
 SERVICE_NAME="cache-service"
 
 usage() {
-	cat <<- EOF
+    cat <<- EOF
 	usage: $PROGNAME options
 
 	Builds, deploys and tests the quickstart and associated services on OpenShift.
@@ -52,16 +52,16 @@ cmdline() {
     do
         local delim=""
         case "$arg" in
-            #translate --gnu-long-options to -g (short options)
+        #translate --gnu-long-options to -g (short options)
             --clean)                   args="${args}-c ";;
             --help)                    args="${args}-h ";;
             --quickstart-only)         args="${args}-q ";;
             --service-name)            args="${args}-s ";;
             --image)                   args="${args}-i ";;
             --debug)                   args="${args}-x ";;
-            #pass through anything else
+        #pass through anything else
             *) [[ "${arg:0:1}" == "-" ]] || delim="\""
-                args="${args}${delim}${arg}${delim} ";;
+            args="${args}${delim}${arg}${delim} ";;
         esac
     done
 
@@ -70,27 +70,27 @@ cmdline() {
 
     while getopts "chqs:i:x" OPTION
     do
-         case $OPTION in
-         c)
-             readonly CLEAN=1
-             ;;
-         h)
-             usage
-             exit 0
-             ;;
-         q)
-             readonly QUICKSTART_ONLY=1
-             ;;
-         s)
-             SERVICE_NAME=$OPTARG
-             ;;
-         i)
-             readonly IMAGE=$OPTARG
-             ;;
-         x)
-             readonly DEBUG='-x'
-             set -x
-             ;;
+        case $OPTION in
+            c)
+                readonly CLEAN=1
+            ;;
+            h)
+                usage
+                exit 0
+            ;;
+            q)
+                readonly QUICKSTART_ONLY=1
+            ;;
+            s)
+                SERVICE_NAME=$OPTARG
+            ;;
+            i)
+                readonly IMAGE=$OPTARG
+            ;;
+            x)
+                readonly DEBUG='-x'
+                set -x
+            ;;
         esac
     done
 
@@ -99,14 +99,12 @@ cmdline() {
 
 stopService() {
     local svcName=$1
-    local hotRodRouteName=$2
-    local httpsRouteName=$3
-    echo "--> Stop services for template '${svcName}' and routes hotrod='${hotRodRouteName}',https='${httpsRouteName}'"
+    local routeName=$2
+    echo "--> Stop services for template '${svcName}' and routes https='${routeName}'"
 
     oc delete all,secrets,sa,templates,configmaps,daemonsets,clusterroles,rolebindings,serviceaccounts --selector=template=${svcName} || true
     oc delete template ${svcName} || true
-    oc delete route ${hotRodRouteName} || true
-    oc delete route ${httpsRouteName} || true
+    oc delete route ${routeName} || true
 }
 
 
@@ -137,12 +135,9 @@ startService() {
 
 createRoutes() {
     local appName=$1
-    local hotRodRouteName=$2
-    local httpsRouteName=$3
+    local routeName=$2
 
-    # Create a pass-through route
-    oc create route passthrough ${hotRodRouteName} --port=hotrod --service ${appName}
-    oc create route passthrough ${httpsRouteName} --port=https --service ${appName}
+    oc create route reencrypt ${routeName} --port=https --service ${appName}
 }
 
 
@@ -161,60 +156,35 @@ waitForService() {
 }
 
 
-buildQuickstart() {
-    mvn -s ../../../settings.xml clean package
-}
-
-
-startQuickstart() {
-    local appName=$1
-
-    echo "--> Start quickstart for '${appName}'"
-
-    mvn -s ../../../settings.xml exec:java -Dexec.args="${appName}"
-}
-
-
 runHttpsQuickstart() {
     local appName=$1
-    local publicIp=$2
+    local routeName=$2
 
     echo "--> Run HTTPs quickstart for '${appName}'"
 
-    rm -drf tls.crt
-    oc get secret service-certs -o jsonpath='{.data.tls\.crt}' | base64 -D > tls.crt
+    rm -drf service-ca.crt
+    oc rsync "${appName}-0:/var/run/secrets/kubernetes.io/serviceaccount/..data/service-ca.crt" .
 
     local curlCmd="curl"
     if [ -n "${DEBUG+1}" ]; then
         curlCmd="${curlCmd} -v"
     fi
 
+    local routeHost=`oc get route ${routeName} -o jsonpath="{.spec.host}"`
+
     echo "--> Store 'hola'/'mundo' key/value pair via HTTPs"
     ${curlCmd} -X PUT \
-        -k \
         -u test:changeme \
-        --cacert tls.crt \
+        --cacert service-ca.crt \
         -H 'Content-type: text/plain' \
         -d 'mundo' \
-        https://${appName}-https-route-myproject.${publicIp}.nip.io/rest/default/hola
+        https://${routeHost}/rest/default/hola
 
     echo "--> Retrieve value via HTTPs:"
     ${curlCmd} -X GET \
-        -k \
         -u test:changeme \
-        --cacert tls.crt \
-        https://${appName}-https-route-myproject.${publicIp}.nip.io/rest/default/hola
-}
-
-
-getIp() {
-    set +e
-    minishift ip
-    local result=$?
-    if [ ${result} -ne 0 ]; then
-        echo "127.0.0.1"
-    fi
-    set -e
+        --cacert service-ca.crt \
+        https://${routeHost}/rest/default/hola
 }
 
 
@@ -226,33 +196,27 @@ main() {
     local svcName=${SERVICE_NAME}
     local appName="${svcName}-external-access"
 
-    local hotRodRouteName="${appName}-hotrod-route"
-    local httpsRouteName="${appName}-https-route"
+    local routeName="${appName}-https-route"
 
     echo "--> Test params: service=${svcName},app=${appName}";
 
-    local publicIp=$(getIp)
-    oc login ${publicIp}:8443 -u developer -p developer
+    # Assumes `oc login` has already been carried out and a project has been selected.
 
     if [ -n "${CLEAN+1}" ]; then
-        stopService ${svcName} ${hotRodRouteName} ${httpsRouteName}
+        stopService ${svcName} ${routeName}
     else
         if [ -z "${QUICKSTART_ONLY+1}" ]; then
             echo "--> Restart service";
 
-            stopService ${svcName} ${hotRodRouteName} ${httpsRouteName}
+            stopService ${svcName} ${routeName}
             startService ${svcName} ${appName}
-            createRoutes ${appName} ${hotRodRouteName} ${httpsRouteName}
+            createRoutes ${appName} ${routeName}
             waitForService ${appName}
         fi
 
         echo "--> Run quickstart";
 
-        buildQuickstart
-
-        startQuickstart ${appName}
-
-        runHttpsQuickstart ${appName} ${publicIp}
+        runHttpsQuickstart ${appName} ${routeName}
     fi
 
 }
