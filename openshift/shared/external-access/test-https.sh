@@ -162,9 +162,6 @@ runHttpsQuickstart() {
 
     echo "--> Run HTTPs quickstart for '${appName}'"
 
-    rm -drf service-ca.crt
-    oc rsync "${appName}-0:/var/run/secrets/kubernetes.io/serviceaccount/..data/service-ca.crt" .
-
     local curlCmd="curl"
     if [ -n "${DEBUG+1}" ]; then
         curlCmd="${curlCmd} -v"
@@ -175,7 +172,6 @@ runHttpsQuickstart() {
     echo "--> Store 'hola'/'mundo' key/value pair via HTTPs"
     ${curlCmd} -X PUT \
         -u test:changeme \
-        --cacert service-ca.crt \
         -H 'Content-type: text/plain' \
         -d 'mundo' \
         https://${routeHost}/rest/default/hola
@@ -183,7 +179,6 @@ runHttpsQuickstart() {
     echo "--> Retrieve value via HTTPs:"
     ${curlCmd} -X GET \
         -u test:changeme \
-        --cacert service-ca.crt \
         https://${routeHost}/rest/default/hola
 }
 
