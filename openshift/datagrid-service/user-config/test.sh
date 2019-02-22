@@ -256,9 +256,7 @@ getIp() {
     set +e
     minishift ip
     local result=$?
-    if [ ${result} -eq 0 ]; then
-        echo result
-    else
+    if [ ${result} -ne 0 ]; then
         echo "127.0.0.1"
     fi
     set -e
