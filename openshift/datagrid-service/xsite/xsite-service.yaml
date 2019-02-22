@@ -4,7 +4,7 @@ metadata:
   annotations:
     description: Provides a service for cross-site replication.
   labels:
-    application: datagrid-service
+    application: datagrid-service-xsite-hello-world
   name: datagrid-service-xsite
 spec:
   ports:
@@ -13,5 +13,5 @@ spec:
     # Fixed nodePort for easier debugging (could be removed)
     nodePort: 32660
   selector:
-    deploymentConfig: datagrid-service
+    deploymentConfig: datagrid-service-xsite-hello-world
   type: NodePort

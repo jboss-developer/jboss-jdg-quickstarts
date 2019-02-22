@@ -40,7 +40,7 @@ public class XSite {
 
       System.out.printf("--- Value is '%s' ---%n", value);
 
-      assert VALUE.equals(value) : "Expected value to be '" + value + "' but was: " + value;
+      assert VALUE.equals(value) : "Expected value to be '" + VALUE + "' but was: " + value;
    }
 
    private static void putData(RemoteCacheManager remote) {
