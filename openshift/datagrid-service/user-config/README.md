@@ -10,6 +10,8 @@ About This Quickstart
 ---------------------
 This quickstart demonstrates how to deploy Data Grid clusters with custom configuration on OpenShift.
 
+**Before You Begin:** Complete the steps in the [OpenShift Quickstart README](../../README.md) to set up an OpenShift cluster.
+
 Evaluating the Custom Template
 ------------------------------
 Open `user-datagrid-service-template.yaml` with any text editor and look for modifications in the template between lines commented with `# user config mod "start|end"`.  

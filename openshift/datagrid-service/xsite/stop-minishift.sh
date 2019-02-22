@@ -2,7 +2,6 @@
 
 set -e
 
-
 minishift profile set xsite-a
 minishift stop
 

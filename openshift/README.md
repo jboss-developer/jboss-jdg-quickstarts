@@ -9,14 +9,12 @@ System Requirements
 -------------------
 * Java 8.0 (Java SDK 1.8) or later.
 * Maven 3.0 or later. You must also [configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts).
-* OpenShift Container Platform 3.11 or later.
+* minishift with OpenShift Container Platform 3.10 or later. Use minishift to create local OpenShift clusters to work with these quickstart tutorials.
 * An `oc` client in your `$PATH`.
 * Red Hat customer account. You must have valid credentials to pull resources from _registry.redhat.io_.
 
 Setting Up Minishift
 --------------------
-Install and configure minishift to create a local OpenShift cluster for working with these quickstart tutorials.
-
 1. Download and install minishift.  
 >The [Red Hat Container Development Kit](https://developers.redhat.com/products/cdk/overview/) includes minishift.
 
@@ -26,20 +24,25 @@ Install and configure minishift to create a local OpenShift cluster for working 
 $ export REDHAT_REGISTRY_USER=username@redhat.com
 $ export REDHAT_REGISTRY_PASSWORD=password
 ```
-4. Run the following script to create a `datagrid-quickstart` profile and configure minishift (only once per host):
+
+Running Minishift
+-----------------
+1. Run the following script to create a `datagrid-quickstart` profile and configure minishift (only once per host):
 ```bash
 $ ./setup-minishift.sh
 ```
-5. Run the following script to start minishift and create a pull secret with your Red Hat credentials:
+> Pass the `VMDRIVER` variable to set the hypervisor that minishift uses (`vm-driver`). Default is virtualbox.
+
+2. Run the following script to start minishift and create a pull secret with your Red Hat credentials:
 ```bash
 $ ./start-minishift.sh
 ```
+  You should now have a locally running OpenShift cluster and can start using the quickstart tutorials.
 
-6. Add the `oc` binary to your `PATH`. This configures your shell to use the `oc` binary that Minishift copies to your host.
-```bash
-$ eval $(minishift oc-env)
-```
-You should now have a locally running OpenShift cluster and can start using the quickstart tutorials.
+  **NOTE:** Run the following command in any new terminal windows to ensure you use the correct `oc` binary:
+  ```bash
+  $ eval $(minishift oc-env)
+  ```
 
 Running the Data Grid for OpenShift Quickstarts
 -----------------------------------------------
