@@ -6,6 +6,20 @@ Red Hat Data Grid (RHDG) for OpenShift
 **Target Product:** Red Hat Data Grid  
 **Product Versions:** RHDG 7.3 or later
 
+Available Quickstarts
+---------------------
+Data Grid for OpenShift quickstart tutorials:
+
+| **Quickstart Name** | **Shows you how to...** |
+|:-----------|:-----------|
+| [Hello World](shared/hello-world/README.md) | Quickly verify `cache-service` and `datagrid-service` deployments. |
+| [External Access](shared/external-access/README.md) | Access `cache-service` and `datagrid-service` pods outside OpenShift. |
+| [Monitoring](shared/prometheus-monitoring/README.md) | Monitor Data Grid for OpenShift with Prometheus and Grafana. |
+| [Cache Service: Creating Caches](cache-service/create-cache/README.md) | Connect to `cache-service` over Hot Rod and create permanent caches. |
+| [Data Grid Service: Creating Caches](datagrid-service/create-cache/README.md) | Connect to `datagrid-service` over Hot Rod and create permanent caches. |
+| [Data Grid Service: Custom Configuration](datagrid-service/user-config/README.md) | Deploy Data Grid clusters with custom configuration. |
+| [Data Grid Service: Cross-Site Replication](datagrid-service/xsite/README.md) | Configure Data Grid clusters to replicate data between sites. |
+
 System Requirements
 -------------------
 * Java 8.0 (Java SDK 1.8) or later.
@@ -47,6 +61,8 @@ $ ./start-minishift.sh
 
 Running the Data Grid for OpenShift Quickstarts
 -----------------------------------------------
+**NOTE:** Steps to run the Data Grid for OpenShift quickstarts vary between tutorials. The following procedure is a high-level outline to help you get started. You should always refer to the instructions for each quickstart before you run it.
+
 1. Clone this repository and navigate to the quickstart directory, for example:
 ```bash
 $ cd ${repoHome}/openshift/shared/hello-world
