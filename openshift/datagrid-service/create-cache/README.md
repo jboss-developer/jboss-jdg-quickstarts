@@ -1,7 +1,7 @@
-Creating Caches with the Data Grid Service: Red Hat Data Grid for OpenShift
-===========================================================================
-**Author:** Galder Zamarreno  
-**Technologies:** Infinispan, Data Grid, OpenShift  
+Creating Caches with Data Grid Service: Red Hat Data Grid for OpenShift
+=======================================================================
+**Authors:** Galder Zamarreno, Don Naro  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
 **Summary:** Learn how to create permanent caches with the Data Grid Service.
 **Target Product:** Data Grid for OpenShift  
 **Product Versions:** RHDG 7.3 or later
