@@ -112,8 +112,6 @@ startService() {
 
     oc new-app datagrid-service \
         -p APPLICATION_NAME=${appName} \
-        -p APPLICATION_USER=test \
-        -p APPLICATION_PASSWORD=changeme \
         -e USER_CONFIG_MAP=true \
         -e SCRIPT_DEBUG=true \
         -e JAVA_OPTS_APPEND="-Djboss.bind.ext_address=${extAddr} -Djboss.bind.ext_port=${extPort} -Djboss.relay.site=${siteName} -Djboss.relay.global_cluster=${discovery}"
