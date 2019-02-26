@@ -15,9 +15,9 @@ Data Grid for OpenShift quickstart tutorials:
 | [Hello World](shared/hello-world/README.md) | Quickly verify `cache-service` and `datagrid-service` deployments. |
 | [External Access](shared/external-access/README.md) | Access `cache-service` and `datagrid-service` pods outside OpenShift. |
 | [Monitoring](shared/prometheus-monitoring/README.md) | Monitor Data Grid for OpenShift with Prometheus and Grafana. |
-| [Cache Service: Creating Caches](cache-service/create-cache/README.md) | Connect to `cache-service` over Hot Rod and create permanent caches. |
-| [Data Grid Service: Creating Caches](datagrid-service/create-cache/README.md) | Connect to `datagrid-service` over Hot Rod and create permanent caches. |
-| [Data Grid Service: Custom Configuration](datagrid-service/user-config/README.md) | Deploy Data Grid clusters with custom configuration. |
+| [Cache Service: Creating Caches](cache-service/create-cache/README.md) | Connect to `cache-service` over Hot Rod and create permanent caches. With `cache-service` you can create new caches only as copies of the default cache definition. |
+| [Data Grid Service: Creating Caches](datagrid-service/create-cache/README.md) | Connect to `datagrid-service` over Hot Rod and create permanent caches. With `datagrid-service` you can create multiple, different custom caches. |
+| [Data Grid Service: Custom Configuration](datagrid-service/user-config/README.md) | Deploy Data Grid clusters with custom server configuration. |
 | [Data Grid Service: Cross-Site Replication](datagrid-service/xsite/README.md) | Configure Data Grid clusters to replicate data between sites. |
 
 System Requirements

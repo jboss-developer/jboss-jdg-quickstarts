@@ -60,6 +60,8 @@ $ oc new-app datagrid-service \
 
 You do not specify credentials with the `APPLICATION_USER` and `APPLICATION_PASSWORD` parameters because the custom template disables mandatory authentication.
 
+**NOTE:** Even though this quickstart disables authentication, the launch script does not generate keystores when you create Data Grid with custom configuration. If you want to use authentication with custom configuration, you must set up keystores for `datagrid-service` manually.
+
 After you successfully deploy `datagrid-service`, export the template to verify the custom modifications.
 
 ```bash
