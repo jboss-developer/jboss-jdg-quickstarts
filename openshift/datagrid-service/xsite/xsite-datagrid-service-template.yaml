@@ -201,7 +201,9 @@ parameters:
 - description: Specifies a username to authenticate client applications
   displayName: Client User
   name: APPLICATION_USER
-  required: true
+  # [xsite mod / Application user not required : start]
+  required: false
+  # [xsite mod  / Application user not required : end]
 - description: Sets a password to authenticate client applications
   displayName: Client Password
   from: '[a-zA-Z0-9]{16}'
