@@ -8,7 +8,7 @@
     <artifactId>openshift-cache-service-create-cache</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Creating Caches with the Cache Service: Red Hat Data Grid for OpenShift</name>
+    <name>Creating Caches with Cache Service: Red Hat Data Grid for OpenShift</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

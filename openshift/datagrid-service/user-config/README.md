@@ -1,7 +1,7 @@
 Customizing Data Grid Service Deployments: Red Hat Data Grid for OpenShift
 ==========================================================================
-**Author:** Galder Zamarreno  
-**Technologies:** Infinispan, Data Grid, OpenShift  
+**Authors:** Galder Zamarreno, Don Naro  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
 **Summary:** Learn how to use the OpenShift `ConfigMap` API to customize Data Grid service deployments.
 **Target Product:** Data Grid for OpenShift  
 **Product Versions:** RHDG 7.3 or later

@@ -2,7 +2,7 @@
 
 set -e -x
 
-VMDRIVER=${1-virtualbox}
+VMDRIVER=$1
 
 if [ -n "${VMDRIVER}" ]; then
     echo "Using VM driver '$VMDRIVER'"
@@ -15,10 +15,11 @@ minishift config set disk-size 25g
 minishift config set image-caching true
 
 if [ -n "${VMDRIVER}" ]; then
+    # Set virtual machine drivers.
     minishift config set vm-driver ${VMDRIVER}
 fi
 
-# Enable admin-user addon to be able to remove projects
+# Enable admin-user to delete projects.
 minishift addon enable admin-user
 
 minishift profile set xsite-b
@@ -28,8 +29,9 @@ minishift config set disk-size 25g
 minishift config set image-caching true
 
 if [ -n "${VMDRIVER}" ]; then
+    # Set virtual machine drivers.
     minishift config set vm-driver ${VMDRIVER}
 fi
 
-# Enable admin-user addon to be able to remove projects
+# Enable admin-user to delete projects.
 minishift addon enable admin-user

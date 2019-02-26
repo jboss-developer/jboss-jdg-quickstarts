@@ -1,7 +1,7 @@
 External Access: Red Hat Data Grid for OpenShift
 ============================================
-**Author:** Galder Zamarreno  
-**Technologies:** Infinispan, Data Grid, OpenShift  
+**Authors:** Galder Zamarreno, Don Naro  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
 **Summary:** Learn how to access Data Grid pods externally.  
 **Target Product:** Data Grid for OpenShift  
 **Product Versions:** RHDG 7.3 or later
