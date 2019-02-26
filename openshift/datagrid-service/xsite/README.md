@@ -119,8 +119,6 @@ Create a new `datagrid-service` application on the active site.
 ```bash
 $ oc new-app datagrid-service \
   -p APPLICATION_NAME=datagrid-service-xsite-hello-world \
-  -p APPLICATION_USER=${username} \
-  -p APPLICATION_PASSWORD=${password} \
   -e USER_CONFIG_MAP=true \
   -e SCRIPT_DEBUG=true \
   -e JAVA_OPTS_APPEND="-Djboss.bind.ext_address=${extAddr}
@@ -138,6 +136,13 @@ $ oc new-app datagrid-service \
   `${extAddr-SiteA}[${extPort-SiteB}],${extAddr-SiteB}[${extPort-SiteA}]`
     For example: `192.0.2.0[32660],192.0.2.1[32660]`
 
+  **NOTE:** The launch script does not generate keystores when you create Data Grid with custom configuration. To enable authentication, you must set up keystores for `datagrid-service` manually and include the following parameters:
+
+  ```
+  -p APPLICATION_USER=${username}
+  -p APPLICATION_PASSWORD=${password}
+  ```
+
   The command output is similar to the following:
 
   ```
@@ -153,8 +158,6 @@ $ oc new-app datagrid-service \
         * Number of Instances=1
         * Total Memory=512
         * Storage Capacity=1
-        * Client User=
-        * Client Password=
 
   --> Creating resources ...
       secret "datagrid-service-xsite-hello-world" created
