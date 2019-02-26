@@ -1,7 +1,7 @@
 Monitoring Red Hat Data Grid (RHDG) for OpenShift
 =================================================
-**Author:** Vladimir Blagojevic, Don Naro  
-**Technologies:** Infinispan, Data Grid, OpenShift  
+**Authors:** Vladimir Blagojevic, Don Naro  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
 **Summary:** Learn how to integrate Data Grid with the Prometheus Operator to get advanced monitoring capabilities on OpenShift.  
 **Target Product:** Data Grid for OpenShift  
 **Product Versions:** RHDG 7.3 or later

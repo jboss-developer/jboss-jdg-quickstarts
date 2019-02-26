@@ -1,7 +1,8 @@
 Red Hat Data Grid (RHDG) for OpenShift
 ======================================
-**Technologies:** Infinispan, Data Grid, OpenShift  
-**Summary:** Learn how to run Data Grid on OpenShift. This directory contains several quickstart tutorials from simple "Hello World" demonstrations to more advanced use cases.  
+**Authors:** Galder Zamarreno, Don Naro, Vladimir Blagojevic  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
+**Summary:** Learn about running Data Grid on OpenShift by completing these quickstart tutorials that guide you through simple "Hello World" demonstrations to more complex scenarios like cross-site replication.  
 **Target Product:** Red Hat Data Grid  
 **Product Versions:** RHDG 7.3 or later
 
@@ -31,7 +32,7 @@ Running Minishift
 ```bash
 $ ./setup-minishift.sh
 ```
-> Pass the `VMDRIVER` variable to set the hypervisor that minishift uses (`vm-driver`). Default is virtualbox.
+> **Hint:** Pass the `VMDRIVER` variable to set the hypervisor that minishift uses (`vm-driver`). For example, if you want to use VirtualBox embedded drivers
 
 2. Run the following script to start minishift and create a pull secret with your Red Hat credentials:
 ```bash
