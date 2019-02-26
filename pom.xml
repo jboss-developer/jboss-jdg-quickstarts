@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-jdg-quickstarts</artifactId>
-    <version>7.3.1-SNAPSHOT</version>
+    <version>7.3.1.CD20190226-redhat-00001</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: parent</name>
 
@@ -64,7 +64,7 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <product.version>7.3.1-SNAPSHOT</product.version>
+        <product.version>7.3.1</product.version>
     </properties>
 
     <profiles>

@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-datagrid-subsystem</artifactId>
-        <version>7.3.1-SNAPSHOT</version>
+        <version>7.3.1.CD20190226-redhat-00001</version>
     </parent>
     <licenses>
         <license>
