@@ -1,7 +1,7 @@
 Cross-Site Replication: Red Hat Data Grid (RHDG) for OpenShift
 ==============================================================
-**Author:** Galder Zamarreno  
-**Technologies:** Infinispan, Data Grid, OpenShift  
+**Authors:** Galder Zamarreno, Don Naro  
+**Technologies:** Infinispan, Red Hat Data Grid, Red Hat OpenShift  
 **Summary:** Learn how to run back up data from one Data Grid cluster to another.  
 **Target Product:** Red Hat Data Grid  
 **Product Versions:** RHDG 7.3 or later
@@ -14,6 +14,8 @@ In this quickstart you use two minishift profiles, `xsite-a` (**Site A**) and `x
 
 To demonstrate how Data Grid replicates data between sites, you run a simple Java application to store a sample key/value entry in **Site A** and then retrieve the entry from **Site B**.
 
+When you're finished, review the [Configuration Reference](#config_ref) for details on how Data Grid uses the JGroups RELAY2 protocol for cross-site replication.
+
 Setting Up Sites in Minishift
 -----------------------------
 **Before You Begin:** Review the system requirements and complete the procedures in _Setting Up Minishift_ in the [OpenShift Quickstart README](../../README.md).
@@ -22,7 +24,7 @@ Setting Up Sites in Minishift
 ```bash
 $ ./setup-minishift.sh
 ```
-> Pass the `VMDRIVER` variable to set the hypervisor that minishift uses (`vm-driver`). Default is virtualbox.
+> **Hint:** Pass the `VMDRIVER` variable to set the hypervisor that minishift uses (`vm-driver`). For example, if you want to use VirtualBox embedded drivers.
 
 2. Run the following script to start minishift and create a pull secret with your Red Hat credentials:
 ```bash
@@ -168,7 +170,7 @@ $ oc new-app datagrid-service \
 
   `datagrid-service` should now be configuring and running.
 
-  **Next Step:** Switch your active profile to the other site and create a new `datagrid-service` application on it.
+  **Next Step:** Switch your active profile to the other site and create a new `datagrid-service` application.
 
 Confirming a Cross-Site View is Formed
 --------------------------------------
@@ -299,6 +301,7 @@ $ oc delete imagestream quickstart || true
 $ oc delete buildconfig quickstart || true
 ```
 
+<a name="config_ref"></a>
 Examining the Custom Template and Configuration
 -----------------------------------------------
 1. Open `xsite-datagrid-service-template.yaml` with any text editor.

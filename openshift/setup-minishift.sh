@@ -5,7 +5,6 @@ set -e -x
 VMDRIVER=$1
 
 minishift profile set datagrid-quickstart
-
 minishift config set memory 8GB
 minishift config set cpus 4
 minishift config set disk-size 50g

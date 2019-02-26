@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -e -x
-
 VMDRIVER=${1-virtualbox}
 
 if [ -n "${VMDRIVER}" ]; then
