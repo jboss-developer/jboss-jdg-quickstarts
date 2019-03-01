@@ -24,12 +24,14 @@ System Requirements
 -------------------
 * Java 8.0 (Java SDK 1.8) or later.
 * Maven 3.0 or later. You must also [configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts).
-* minishift with OpenShift Container Platform 3.10 or later. Use minishift to create local OpenShift clusters to work with these quickstart tutorials.
+* A running OpenShift 3.10 or later cluster.
 * An `oc` client in your `$PATH`.
 * Red Hat customer account. You must have valid credentials to pull resources from _registry.redhat.io_.
 
 Setting Up Minishift
 --------------------
+**NOTE:** These tutorials use minishift to create local OpenShift clusters. However you can run the tutorials on OpenShift Container Platform 3.10 or later or any other OpenShift environment.
+
 1. Download and install minishift.  
 >The [Red Hat Container Development Kit](https://developers.redhat.com/products/cdk/overview/) includes minishift.
 
