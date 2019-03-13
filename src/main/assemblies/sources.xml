@@ -56,6 +56,7 @@
                 <include>hotrod-secured/**</include>
                 <include>hotrod-transactions/**</include>
                 <include>memcached-endpoint/**</include>
+                <include>openshift/**</include>
                 <include>rapid-stock-market/**</include>
                 <include>remote-query/**</include>
                 <include>remote-tasks-with-streams/**</include>
