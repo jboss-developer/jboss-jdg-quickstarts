@@ -63,8 +63,10 @@
                 <include>rest-endpoint/**</include>
                 <include>secure-embedded-cache/**</include>
                 <include>spark/**</include>
-                <include>spring/**</include>
-                <include>spring-session/**</include>
+                <include>spring4/**</include>
+                <include>spring4-session/**</include>
+                <include>spring5/**</include>
+                <include>spring5-session/**</include>
                 <include>settings.xml</include>
                 <include>README.md</include>
                 <include>LICENSE.txt</include>
