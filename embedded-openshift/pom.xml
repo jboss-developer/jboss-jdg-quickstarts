@@ -6,7 +6,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-embedded-openshift-quickstart</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <name>JBoss JDG Quickstart: Embedded Openshift</name>
     <description>Create an OpenShift deployment that uses Red Hat Data Grid in Library mode.</description>
 
@@ -25,7 +25,7 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <!-- Set properties for the maven-compiler-plugin. -->
         <maven.compiler.target>1.8</maven.compiler.target>

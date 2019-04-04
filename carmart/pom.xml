@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart</name>
     <description>CarMart Single Node (No Cluster)</description>
@@ -34,7 +34,7 @@
             can deploy this quickstart on EWS/Tomcat through this URL -->
         <tomcat.management.url>http://localhost:8080/manager/text</tomcat.management.url>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>

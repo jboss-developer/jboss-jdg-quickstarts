@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart-tx</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart-tx</name>
     <description>Transactional CarMart</description>
@@ -30,7 +30,7 @@
         <version.jboss.weld>2.2.6.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.2.12</version.com.sun.faces.jsf.impl>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 

@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-eap-application</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: jboss-eap-application - parent</name>
     <description>eap cluster application: An example that demonstrates how to use a JDG cache inside of an EAP application.
@@ -53,7 +53,7 @@
 
         <version.jboss.spec.javaee.6.0>3.0.3.Final</version.jboss.spec.javaee.6.0>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <!-- maven-compiler-plugin -->
         <compiler.plugin.version>3.1</compiler.plugin.version>

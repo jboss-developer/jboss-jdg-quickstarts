@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring5-jdg</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring5-jdg</name>
@@ -19,7 +19,7 @@
         <version.spring-boot-starter-parent>2.1.1.RELEASE</version.spring-boot-starter-parent>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
     </properties>
 
     <dependencyManagement>

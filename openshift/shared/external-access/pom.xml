@@ -18,7 +18,7 @@
         <exec-maven-plugin.main.class>org.infinispan.quickstart.openshift.shared.external.ExternalAccess</exec-maven-plugin.main.class>
 
         <!-- TODO move to product when released -->
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <openshift-client.version>4.1.0</openshift-client.version>
         <slf4j-simple.version>1.7.13</slf4j-simple.version>

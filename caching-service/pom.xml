@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>caching-service</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
 
     <name>JBoss JDG Quickstart: Caching Service</name>
 
@@ -22,7 +22,7 @@
         <fabric8-maven-plugin.image.name>%g/%a:%v</fabric8-maven-plugin.image.name>
         <shade-maven-plugin.main.class>org.infinispan.demo.online.DeployedOpenShiftClient</shade-maven-plugin.main.class>
         <exec-java.main.class>org.infinispan.demo.online.ExternalOpenShiftClient</exec-java.main.class>
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
     </properties>
 
     <dependencyManagement>

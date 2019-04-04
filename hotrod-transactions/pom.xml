@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-hotrod-transactions-quickstart</artifactId>
-    <version>7.3.1.CD20190404-redhat-00001</version>
+    <version>7.3.1.Final-redhat-00001</version>
     <name>JBoss JDG Quickstart: hotrod-transactions</name>
 
     <licenses>
@@ -43,7 +43,7 @@
             command -->
         <main.class.hotrod-endpoint>org.jboss.as.quickstarts.datagrid.hotrod.FootballManager</main.class.hotrod-endpoint>
 
-        <version.org.infinispan>9.4.12.CD20190404-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.12.Final-redhat-00001</version.org.infinispan>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
