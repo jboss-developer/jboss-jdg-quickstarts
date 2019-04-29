@@ -46,7 +46,7 @@ Start the JDG Server
 Start Apache Flink
 --------------------
 
-1. Download and unpack v1.7 of [Apache Flink with Hadoop](https://www-eu.apache.org/dist/flink/flink-1.7.1/flink-1.7.1-bin-hadoop28-scala_2.11.tgz). On Windows, you can use 7-zip to extract the .tgz file.
+1. Download and unpack v1.7 of [Apache Flink with Hadoop](https://www-eu.apache.org/dist/flink/). On Windows, you can use 7-zip to extract the .tgz file.
 The extract location will be referred as `FLINK_HOME`.
 
 2. Start Apache Flink
