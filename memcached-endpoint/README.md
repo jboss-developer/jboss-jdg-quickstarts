@@ -67,7 +67,7 @@ Configure JDG
 
 * Infinispan subsystem definition:
 
-        <subsystem xmlns="urn:infinispan:server:core:8.5" default-cache-container="local">
+        <subsystem xmlns="urn:infinispan:server:core:9.4" default-cache-container="local">
             <cache-container name="local" default-cache="default">
                 <local-cache name="default" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
@@ -105,6 +105,12 @@ Configure JDG
 
             </cache-container>
             <cache-container name="security"/>
+        </subsystem>
+
+* Memcached connector definition
+
+        <subsystem xmlns="urn:infinispan:server:endpoint:9.4">
+            <memcached-connector socket-binding="memcached" cache-container="local"/>
         </subsystem>
     
 
