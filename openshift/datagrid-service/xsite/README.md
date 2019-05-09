@@ -6,11 +6,11 @@ Cross-Site Replication: Red Hat Data Grid (RHDG) for OpenShift
 **Target Product:** Red Hat Data Grid  
 **Product Versions:** RHDG 7.3 or later
 
-Experimental Capabilities
--------------------------
-**IMPORTANT:** Cross-site replication with Data Grid 7.3 on OpenShift is currently experimental and is not intended for use in production environments.
+Technical Preview
+-----------------
+**IMPORTANT:** Cross-site replication with Data Grid 7.3 on OpenShift is a Technical Preview feature and is not intended for use in production environments.
 
-Data Grid support for cross-site replication on OpenShift is in the testing phase and planned for a future release.
+Data Grid support for cross-site replication on OpenShift is in the testing phase and planned for a future release. For more information, see the [Data Grid 7.3 Release Notes](https://access.redhat.com/documentation/en-us/red_hat_data_grid/7.3/html-single/red_hat_data_grid_7.3_release_notes/).
 
 About This Quickstart
 ---------------------
