@@ -22,8 +22,6 @@ Prerequisites
 
 In order to run this project one needs to have an access to local OpenShift installation with JDG Caching Service installed. Follow [the documentation](https://github.com/jboss-container-images/jboss-dataservices-image) how to do it.
 
-You can use local OpenShift all-in-one cluster. To prepare you local OpenShift cluster follow [the documentation](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md).
-
 Furthermore, if you are using the ExternalOpenshiftClient quickstart, you must ensure that you expose the caching-service-app-hotrod
 service via a route which has passthrough encryption, e.g. `oc create route passthrough caching-service-endpoint-hotrod --port=11222 --service caching-service-app-hotrod`
 

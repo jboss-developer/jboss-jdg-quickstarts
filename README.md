@@ -49,7 +49,7 @@ You need the following to build and run the quickstarts:
 * JBoss EAP server distribution. Available from the [Red Hat Customer Portal](https://access.redhat.com/downloads).
 * RHDG server distribution for _Remote Client-Server Mode_. Available from the [Red Hat Customer Portal](https://access.redhat.com/downloads).
 
-You can also run the quickstarts with [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
+You can also run the quickstarts with [JBoss Developer Studio or Eclipse](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
 
 ### Configuring Maven
 

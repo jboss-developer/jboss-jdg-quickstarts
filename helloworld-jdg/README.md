@@ -19,7 +19,7 @@ and are removed from the cache after 60 seconds since last update.
 
 The `helloworld-jdg` example works in _Library mode_. In this mode, the application and the data grid are running in the same
 JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform.
-The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also 
+The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also
 enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.
 
 
@@ -30,7 +30,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
- 
+
 Configure Maven
 ---------------
 
@@ -56,11 +56,11 @@ Start second instance of EAP
         For Linux:   $JBOSS_HOME2/bin/standalone.sh -Djboss.socket.binding.port-offset=100
         For Windows: %JBOSS_HOME2%\bin\standalone.bat -Djboss.socket.binding.port-offset=100
 
- 
+
 Build and Deploy the Quickstart
 -------------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. 
+_NOTE: The following build command assumes you have configured your Maven user settings.
 
 1. Make sure you have started both instances of EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -76,7 +76,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 6. This will deploy `target/jboss-helloworld-jdg.war` to the second running instance of the server.
 
 
-Access the application 
+Access the application
 ----------------------
 
 The application will be running at the following URLs:
@@ -119,7 +119,7 @@ Undeploy the Archive
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------------------------
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information,
-see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
+see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 Debug the Application
@@ -147,4 +147,3 @@ To run these tests on EAP:
 4. Type this command to run the tests (server paths can be the same):
 
         mvn test -Puitests-clustered -DeapHome=/path/to/first/server -DeapHome2=/path/to/second/server
-

@@ -33,7 +33,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
- 
+
 Configure Maven
 ---------------
 
@@ -53,16 +53,16 @@ Start EAP
 Build and Deploy the Application in Library Mode
 ------------------------------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-        
+
 4. This will deploy `target/jboss-carmart-tx.war` to the running instance of the server.
- 
+
 
 Access the application
 ---------------------
@@ -104,4 +104,3 @@ To run these tests on EAP:
 4. Type this command to run the tests:
 
         mvn test -Puitests-eap -DeapHome=/path/to/server
-

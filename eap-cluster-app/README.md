@@ -37,7 +37,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.0 or later.
 
- 
+
 Configure Maven
 ---------------
 
@@ -57,19 +57,19 @@ Setup/Run the quickstart with automated script
 3. While in the root folder of the eap-cluster-app quickstart, run the following commands:
 
 For Linux:
- 
+
            ./build.sh --setup or ./build.sh --setup-domain for setting up servers and running them either in standalone or domain mode;
-           
+
            ./build.sh --run for running the quickstart;
-           
+
            ./build.sh --teardown for stopping the started servers as well as deleting the created directories;
 
  For Windows:
- 
+
             build.bat --setup or build.bat --setup-domain for setting up servers and running them either in standalone or domain mode;
-            
+
             build.bat --run for running the quickstart;
-            
+
             build.bat --teardown for stopping the started servers as well as deleting the created directories;
 
 You can also perform all setups manually with the following steps:
@@ -133,7 +133,7 @@ Configure and Start the Servers in standalone mode
                      $EAP_HOME2/bin/standalone.sh -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
                      $EAP_HOME3/bin/standalone.sh -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
                      $EAP_HOME4/bin/standalone.sh -Djboss.node.name=node4 -Djboss.socket.binding.port-offset=300 -c standalone-ha.xml
-                     
+
         For Windows: %EAP_HOME1%\bin\standalone.bat -Djboss.node.name=node1
                      %EAP_HOME2%\bin\standalone.bat -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=100
                      %EAP_HOME3%\bin\standalone.bat -Djboss.node.name=node3 -Djboss.socket.binding.port-offset=200 -c standalone-ha.xml
@@ -175,25 +175,25 @@ Configure and Start the Servers in domain mode
 Build the Application
 ---------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Open a command line and navigate to the root directory of this quickstart.
 2. Type this command to build the archive:
 
         mvn clean install
-        
+
 3. Copy the application to the appropriate server
-        
+
         For Linux:   cp adminApp/ear/target/jboss-eap-application-adminApp.ear $EAP_HOME1/standalone/deployments
                      cp appOne/ear/target/jboss-eap-application-AppOne.ear $EAP_HOME2/standalone/deployments
                      cp appTwo/ear/target/jboss-eap-application-AppTwo.ear $EAP_HOME3/standalone/deployments
                      cp appTwo/ear/target/jboss-eap-application-AppTwo.ear $EAP_HOME4/standalone/deployments
-                                    
+
         For Windows: copy adminApp\ear\target\jboss-eap-application-adminApp.ear %EAP_HOME1%\standalone\deployments
                      copy appOne\ear\target\jboss-eap-application-AppOne.ear %EAP_HOME2%\standalone\deployments
                      copy appTwo\ear\target\jboss-eap-application-AppTwo.ear %EAP_HOME3%\standalone\deployments
                      copy appTwo\ear\target\jboss-eap-application-AppTwo.ear %EAP_HOME4%\standalone\deployments
- 
+
 4. When domain mode is used, deploy the applications in the following way:
 
         For Linux:   $EAP_HOME/bin/jboss-cli.sh -c --file=$QUICKSTART_HOME/deploy-domain.cli
@@ -248,4 +248,3 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
         mvn dependency:sources
         mvn dependency:resolve -Dclassifier=javadoc
-
