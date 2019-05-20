@@ -59,9 +59,9 @@ Configure JDG
             </security-realm>
             ...
         </management>
-   
+
 * Enpoint subsystem definition:
-  The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism: 
+  The following configuration enables authentication against ApplicationRealm, using the DIGEST-MD5 SASL mechanism:
 
         <subsystem xmlns="urn:infinispan:server:endpoint:8.1">
             <hotrod-connector socket-binding="hotrod" cache-container="local">
@@ -77,7 +77,7 @@ Configure JDG
             </hotrod-connector>
             ...
         </subsystem>
-          
+
   Notice! The server-name attribute: it is the name that the server declares to incoming clients and therefore the client configuration must match.
 
 * Infinispan subsystem definition:
@@ -119,7 +119,7 @@ Add new users to ApplicationRealm
 Hot Rod client configuration
 ----------------------------
   Once you have configured a secured Hot Rod connector, you can connect to it using the Hot Rod client:
-  
+
     public class LoginHandler implements CallbackHandler {
         final private String login;
         final private char[] password;
@@ -165,23 +165,23 @@ Hot Rod client configuration
 Build and Run the Quickstart
 ----------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Make sure you have started the JDG as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package 
-                
+        mvn clean package
+
 4. This will create a file at `target/jboss-hotrod-secured-quickstart.jar`
 
 5. Run the example application in its directory:
 
-        mvn exec:java 
+        mvn exec:java
 
 Using the application
 ---------------------
-Basic usage scenarios can look like this (keyboard shortcuts will be shown to you upon 
+Basic usage scenarios can look like this (keyboard shortcuts will be shown to you upon
 
         at  -  add a team
         ap  -  add a player to a team
@@ -189,7 +189,7 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
         rp  -  remove a player from a team
         p   -  print all teams and players
         q   -  quit
-        
+
 Type `q` one more time to exit the application.
 
 Run application with different classpath

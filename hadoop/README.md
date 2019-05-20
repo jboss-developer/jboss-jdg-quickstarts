@@ -1,4 +1,4 @@
-hadoop: Example using the JBoss Data Grid Hadoop connector 
+hadoop: Example using the JBoss Data Grid Hadoop connector
 =========================================
 
 Authors: Gustavo Fernandes  
@@ -12,10 +12,10 @@ Source: <https://github.com/infinispan/jdg-quickstart>
 What is it?
 -----------
 
-The `hadoop` quickstart will populate a cache with football match results for a given championship. 
-Each match has a home team, an away team, and the number of goals each scored. 
-An Apache Flink job will process that data and generate the championship standings, where each winning 
-team gets 3 points, loosing teams get none, and if there's no winner, each team gets 1 point. 
+The `hadoop` quickstart will populate a cache with football match results for a given championship.
+Each match has a home team, an away team, and the number of goals each scored.
+An Apache Flink job will process that data and generate the championship standings, where each winning
+team gets 3 points, loosing teams get none, and if there's no winner, each team gets 1 point.
 This sample demonstrate access to the Data Grid data using standard Hadoop `InputFormat` and `OutputFormat` interfaces.
 
 System requirements
@@ -25,10 +25,10 @@ System requirements
  * Maven 3+
  * JBoss Data Grid 7.3
  * Apache Flink v1.7
- 
+
 Configure Maven
 ---------------
- 
+
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 Start the JDG Server
@@ -38,11 +38,11 @@ Start the JDG Server
 2. Start JDG
     * Open a command line and navigate to the root of the JDG directory.
     * The following shows the command line to start the server:
-    
-            For Linux:   $JDG_HOME/bin/standalone.sh -c clustered.xml 
-            
-            For Windows: %JDG_HOME%\bin\standalone.bat -c clustered.xml 
-            
+
+            For Linux:   $JDG_HOME/bin/standalone.sh -c clustered.xml
+
+            For Windows: %JDG_HOME%\bin\standalone.bat -c clustered.xml
+
 Start Apache Flink
 --------------------
 
@@ -52,24 +52,24 @@ The extract location will be referred as `FLINK_HOME`.
 2. Start Apache Flink
     * Open a command line and navigate to `FLINK_HOME`
     * The following shows the command line to start the server:
-    
+
             For Linux:   bin/start-cluster.sh
-            
-            For Windows: bin\start-cluster.bat 
-            
+
+            For Windows: bin\start-cluster.bat
+
 The Flink dashboard will be visible at <http://localhost:8081>
 
 Build the Quickstart
 ----------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Make sure you have started the JDG and Flink as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
                mvn clean package
-               
+
 Load Data in the cache
 ------------------------------
 
@@ -77,22 +77,22 @@ To load the matches contained in the `matches.txt` file:
 
    * Open a command line and navigate to the `hadoop` quickstart directory.
    * Run the following command to populate the cache:
-   
+
         java -cp target/jboss-hadoop-quickstart-jar-with-dependencies.jar org.infinispan.quickstart.hadoop.DataLoader
 
 Run the analysis job
 ----------------------------
 
-The `ChampionshipStandings` job will process the matches and calculate the classification table. 
+The `ChampionshipStandings` job will process the matches and calculate the classification table.
 
 To run the job:  
 
  * Open a command line and navigate to the root directory of this quickstart.
  * Run the following command to run the job:
- 
+
          For Linux:   
              $FLINK_HOME/bin/flink run target/jboss-hadoop-quickstart-jar-with-dependencies.jar
-                  
+
          For Windows:
              set FLINK_CONF_DIR=%FLINK_HOME%\conf
              %FLINK_HOME%\bin\flink run target\jboss-hadoop-quickstart-jar-with-dependencies.jar

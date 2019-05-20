@@ -43,7 +43,7 @@ _REMINDER:_ To successfully build and run the application, you must either:
 * Copy the `settings.xml` file from the root directory of this repository into your Maven installation directory.
 * Pass it on the command line with `-s $QUICKSTART_HOME/settings.xml` for each `mvn` command.
 
-  See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts).
+  See [the main README](../../README.md) for more information.
 
 To run the *Football Manager* application, do the following:
 

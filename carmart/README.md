@@ -1,4 +1,4 @@
-carmart: Example Using Local and Remote Infinispan Cache 
+carmart: Example Using Local and Remote Infinispan Cache
 ===================================
 Author: Martin Gencur, Tristan Tarrant
 Level: Intermediate
@@ -15,7 +15,7 @@ CarMart is a simple web application that uses Infinispan Cache instead of a rela
 
 Users can list cars, add new cars, or remove them from the CarMart. Information about each car is stored in a cache. The application also shows cache statistics like stores, hits, retrievals, and more.
 
-The CarMart quickstart can work in two modes: 
+The CarMart quickstart can work in two modes:
 
 * _Library mode_  - In this mode, the application and the data grid are running in the same JVM. All libraries (JAR files) are bundled with the application and deployed to Red Hat JBoss Enterprise Application Platform. The library mode enables fastest (local) access to the entries stored on the same node as the application instance, but also enables access to data stored in remote nodes (JVMs) that comprise the embedded distributed cluster.
 
@@ -29,7 +29,7 @@ All you need to build this project is Java SDK 1.8 or better, Maven 3.0 or bette
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (EAP) 7.0 or later.
 
- 
+
 Configure Maven
 ---------------
 
@@ -49,16 +49,16 @@ Start EAP
 Build and Deploy the Application in Library Mode
 ------------------------------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Make sure you have started EAP as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-        
+
 4. This will deploy `target/jboss-carmart.war` to the running instance of the server.
- 
+
 
 Access the application
 ---------------------
@@ -109,11 +109,11 @@ NOTE: The application must be deployed to Red Hat JBoss Enterprise Application P
 1. Obtain the JDG server distribution. See the following for more information: <http://www.redhat.com/products/jbossenterprisemiddleware/data-grid/>
 
 2. Configure the remote datagrid in the `$JDG_HOME/standalone/configuration/standalone.xml` file. Copy the following XML into the Infinispan subsystem before the ending </cache-container> tag. If you have an existing `carcache` element, be sure to replace it with this one.
-       
+
             <local-cache name="carcache" start="EAGER"/>
-   
-3. Start the JDG server on localhost using port offset: 
-    
+
+3. Start the JDG server on localhost using port offset:
+
         $JDG_HOME/bin/standalone.sh -Djboss.socket.binding.port-offset=100
 
 4. Start EAP into which you want to deploy your application
@@ -153,5 +153,3 @@ Test the Application in Client-Server mode (using HotRod client)
 5. Type this command to run the tests:
 
         mvn test -Puitests-remote -DeapHome=/path/to/eap/server -DjdgHome=/path/to/jdg/server
-
-

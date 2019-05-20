@@ -23,7 +23,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or better, Maven 3
 
 The application this project produces is designed to be run on Red Hat JBoss Data Grid 7.x
 
- 
+
 Configure Maven
 ---------------
 
@@ -38,10 +38,10 @@ Configure JDG
 2. Install a JDBC driver into JDG (since JDG includes H2 by default, this step may be skipped for the scope of this example). More information can be found in the DataSource Management chapter of the Administration and Configuration Guide for JBoss Enterprise Application Platform on the Customer Portal at <https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/> . _NOTE: JDG does not support deploying applications so one cannot install it as a deployment._
 
 3. This Quickstart uses JDBC to store the cache. To permit this, it's necessary to alter JDG configuration file (`JDG_HOME/standalone/configuration/standalone.xml`) to contain the following definitions:
-   
+
 * Datasource subsystem definition:
 
-    
+
         <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <!-- Define this Datasource with jndi name  java:jboss/datasources/ExampleDS -->
             <datasources>
@@ -76,20 +76,20 @@ Configure JDG
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
                 </local-cache>
                 <local-cache name="namedCache" start="EAGER"/>
-                
+
                 <!-- ADD a local cache called 'teams' -->
-               
-                <local-cache 
+
+                <local-cache
                     name="teams"
                     start="EAGER"
                     batching="false">
-                    
+
                     <!-- Define the locking isolation of this cache -->
                     <locking
                         acquire-timeout="20000"
                         concurrency-level="500"
                         striping="false" />
-                        
+
                     <!-- Define the JdbcBinaryCacheStores to point to the ExampleDS previously defined -->
                     <string-keyed-jdbc-store datasource="java:jboss/datasources/ExampleDS" passivation="false" preload="false" purge="false">
 
@@ -112,7 +112,7 @@ Configure JDG
         <subsystem xmlns="urn:infinispan:server:endpoint:9.4">
             <memcached-connector socket-binding="memcached" cache-container="local"/>
         </subsystem>
-    
+
 
 Start JDG
 ---------
@@ -127,20 +127,20 @@ Start JDG
 Build and Run the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
 
 1. Make sure you have started the JDG as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package 
-                
-4. This will create a file at `target/memcached-endpoint-quickstart.jar` 
+        mvn clean package
+
+4. This will create a file at `target/memcached-endpoint-quickstart.jar`
 
 5. Run the example application in its directory:
 
         mvn exec:java
- 
+
 
 Using the application
 ---------------------
@@ -152,7 +152,7 @@ Basic usage scenarios can look like this (keyboard shortcuts will be shown to yo
         rp  -  remove a player from a team
         p   -  print all teams and players
         q   -  quit
-        
+
 Type `q` one more time to exit the application.    
 
 
@@ -163,4 +163,3 @@ If you want to debug the source code or look at the Javadocs of any library in t
 
     mvn dependency:sources
     mvn dependency:resolve -Dclassifier=javadoc
-

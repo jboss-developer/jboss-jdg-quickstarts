@@ -17,7 +17,7 @@ System Requirements
 * Java 8.0 (Java SDK 1.8) or later.
 * Maven 3.0 or later. You must also [configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts).
 * OpenShift 3 client.
-* A local OpenShift installation. You can use the OpenShift [all-in-one cluster](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md).
+* A local OpenShift installation.
 * A version of Docker that is compatible with your local OpenShift installation.
 
 Setting Up the OpenShift Environment
