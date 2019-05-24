@@ -5,7 +5,7 @@
    <parent>
       <groupId>org.jboss.quickstarts.jdg</groupId>
       <artifactId>camel-jbossdatagrid-fuse</artifactId>
-      <version>7.3.2.CD20190524-redhat-00001</version>
+      <version>7.3.2.ER1-redhat-00001</version>
    </parent>
    <artifactId>pojos</artifactId>
    <packaging>bundle</packaging>
