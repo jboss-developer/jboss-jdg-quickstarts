@@ -43,7 +43,7 @@
         <version.org.infinispan>9.4.13.Final-redhat-00002</version.org.infinispan>
         <version.spark.connector>0.10.0.Final-redhat-00004</version.spark.connector>
 
-        <version.spark>2.2.0</version.spark>
+        <version.spark>2.3.3</version.spark>
 
         <!-- maven-compiler-plugin -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

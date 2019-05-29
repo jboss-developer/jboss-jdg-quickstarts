@@ -1,5 +1,11 @@
 package org.infinispan.quickstart.spark;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.annotation.ClientCacheEntryCreated;
@@ -10,19 +16,15 @@ import org.infinispan.client.hotrod.event.ClientCacheEntryCreatedEvent;
 import org.infinispan.client.hotrod.event.ClientCacheEntryModifiedEvent;
 import org.infinispan.client.hotrod.impl.ConfigurationProperties;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * <p>
- * Simulates client application, which is interested on most up-to-date average
- * temperature in specified places. It uses Data Grid {@link ClientListener}
- * for obtaining notifications that the average temperature has changed for the subscribed cities.
+ * Simulates client application, which is interested on most up-to-date average temperature in specified places. It uses
+ * Data Grid {@link ClientListener} for obtaining notifications that the average temperature has changed for the
+ * subscribed cities.
  * </p>
  * <p>
- * The TemperatureClient needs at least one argument - place where we are interested in
- * average temperature changes. In can be also a comma separated list of places.
+ * The TemperatureClient needs at least one argument - place where we are interested in average temperature changes. In
+ * can be also a comma separated list of places.
  * </p>
  *
  * @author vjuranek
@@ -61,8 +63,8 @@ public class TemperatureClient {
    }
 
    /**
-    * Listens for updates in avg. temperature cache and takes action (printing
-    * to std. out) when avg. temperature in watched place has changed.
+    * Listens for updates in avg. temperature cache and takes action (printing to std. out) when avg. temperature in
+    * watched place has changed.
     *
     * @author vjuranek
     */
@@ -71,10 +73,12 @@ public class TemperatureClient {
    public static class AvgTemperatureListener {
       private final RemoteCache<String, Double> cache;
       private final Set<String> watchedPlaces;
+      private final ExecutorService executorService;
 
       public AvgTemperatureListener(RemoteCache<String, Double> cache, Set<String> watchedPlaces) {
          this.cache = cache;
          this.watchedPlaces = watchedPlaces;
+         this.executorService = Executors.newSingleThreadExecutor();
       }
 
       @ClientCacheEntryCreated
@@ -90,7 +94,7 @@ public class TemperatureClient {
       }
 
       private void updateAction(String key) {
-         System.out.printf("[%s] avg. temperature is now %.1f \u00B0C%n", key, cache.get(key));
+         executorService.submit(() -> System.out.printf("[%s] avg. temperature is now %.1f \u00B0C%n", key, cache.get(key)));
       }
    }
 }
