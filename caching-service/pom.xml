@@ -22,7 +22,7 @@
         <fabric8-maven-plugin.image.name>%g/%a:%v</fabric8-maven-plugin.image.name>
         <shade-maven-plugin.main.class>org.infinispan.demo.online.DeployedOpenShiftClient</shade-maven-plugin.main.class>
         <exec-java.main.class>org.infinispan.demo.online.ExternalOpenShiftClient</exec-java.main.class>
-        <version.org.infinispan>9.4.6.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.13.Final-redhat-00002</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
