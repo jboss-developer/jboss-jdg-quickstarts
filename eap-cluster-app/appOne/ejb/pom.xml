@@ -61,6 +61,12 @@
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <scope>provided</scope>
+            <version>1.3.2</version>
+        </dependency>
     </dependencies>
 
     <build>
