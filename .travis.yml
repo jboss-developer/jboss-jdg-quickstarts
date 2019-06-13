@@ -1,0 +1,8 @@
+language: java
+jdk:
+  - openjdk11 
+script: mvn clean install -s settings.xml
+install: true
+cache:
+  directories:
+  - $HOME/.m2
