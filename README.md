@@ -1,5 +1,8 @@
+[![Build Status](https://travis-ci.org/jboss-developer/jboss-jdg-quickstarts.svg?branch=jdg-7.3.x)](https://travis-ci.org/jboss-developer/jboss-jdg-quickstarts)
+
 Red Hat Data Grid Quickstarts
 =============================
+
 Red Hat Data Grid (RHDG) is an elastically scalable in-memory data store built on the open source Infinispan project.
 
 ## RHDG Modes
