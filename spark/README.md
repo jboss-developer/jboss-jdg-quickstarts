@@ -22,10 +22,10 @@ to get notified when a temperature average changed.
 System requirements
 -------------------
 
- * JDK 8+
+ * JDK 8, since Spark does not work yet with java 9+
  * Maven 3+
  * JBoss Data Grid 7.3.x
- * Apache Spark 2.0.2+
+ * Apache Spark 2.3
 
 Configure Maven
 ---------------
