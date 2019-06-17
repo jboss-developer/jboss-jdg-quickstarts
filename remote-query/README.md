@@ -141,7 +141,7 @@ Start Data Grid NODES
 Build and Run the Quickstart
 ----------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../../README.md) for more information._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [the main README](../README.md) for more information._
 
 1. Make sure you have started the Data Grid as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
