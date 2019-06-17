@@ -35,8 +35,10 @@ This distribution contains the following quickstarts:
 | [memcached-endpoint](memcached-endpoint/README.md) | Data Grid, Memcached | Access Data Grid remotely through the Memcached protocol. |
 | [openshift](openshift/README.md) | Data Grid, OpenShift | Complete tutorials for Data Grid on OpenShift that range from simple "Hello World" demonstrations to more advanced use cases. |
 | [rapid-stock-market](rapid-stock-market/README.md) | Data Grid, Hot Rod, REST | Use compatibility mode to access data with multiple protocols. |
-| [spring](spring/README.md) | Data Grid, Spring | Use Spring integration modules. |
-| [spring](spring-session/README.md) | Data Grid, Spring Boot, Spring Session | Use of Spring Boot and Spring Session with RHDG. |
+| [spring 4](spring4/README.md) | Data Grid, Spring | Use Spring 4 integration modules. |
+| [spring 5](spring5/README.md) | Data Grid, Spring | Use Spring 5 integration modules. |
+| [spring 4 session](spring4-session/README.md) | Data Grid, Spring Boot, Spring Session | Use of Spring Boot and Spring Session with RHDG. |
+| [spring 5 session](spring5-session/README.md) | Data Grid, Spring Boot, Spring Session | Use of Spring Boot and Spring Session with RHDG. |
 | [remote-query](remote-query/README.md) | Data Grid, Hot Rod, Remote Query | Query Data Grid remotely through the Hot Rod protocol. |
 | [rest-endpoint](rest-endpoint/README.md) | Data Grid, REST | Access Data Grid remotely through the REST protocol. |
 | [secure-embedded-cache](secure-embedded-cache/README.md) | Data Grid, CDI, REST | Secure Data Grid in Library (embedded) mode. |
