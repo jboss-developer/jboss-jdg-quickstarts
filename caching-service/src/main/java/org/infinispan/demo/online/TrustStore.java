@@ -24,6 +24,10 @@ import io.fabric8.openshift.client.OpenShiftConfig;
 import io.fabric8.openshift.client.OpenShiftConfigBuilder;
 
 /**
+ * DEPRECATED. Use the OpenShift quickstarts for Data Grid 7.3 instead. 
+ */
+
+/**
  * This is a helper class for parsing a CRT file and creating a java truststore
  */
 public class TrustStore {

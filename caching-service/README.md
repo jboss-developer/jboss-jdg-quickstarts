@@ -3,12 +3,12 @@ online-services: Example of using JDG Caching Service on OpenShift
 Author: Sebastian Łaskawiec  
 Level: Intermediate  
 Technologies: Infinispan, Red Hat Data Grid, Red Hat OpenShift  
-Summary: The `online-services` quickstart demonstrates how to connect to a deployed JDG Online Services  
+Summary: The `online-services` quickstart demonstrates how to connect to a deployed JDG Online Services. **DEPRECATED**  
 Target Product: Data Grid
 
-7.3 OpenShift Quickstarts
--------------------------
-**DEPRECATION NOTICE:** This quickstart tutorial for the Red Hat Data Grid Cache Service is deprecated with version 7.3.
+Deprecation Notice
+------------------
+**This quickstart tutorial for the Red Hat Data Grid Cache Service is deprecated with version 7.3.**
 
 Use the [7.3 OpenShift Quickstart Tutorials](../openshift/README.md).
 
@@ -16,6 +16,8 @@ What is it?
 -----------
 
 The `online-services` quickstart demonstrates how to connect to a deployed JDG Online Services.
+
+This quickstart is now **DEPRECATED**. Use the [7.3 OpenShift Quickstart Tutorials](../openshift/README.md).
 
 Prerequisites
 -------------

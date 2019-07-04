@@ -13,6 +13,10 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.configuration.SaslQop;
 
 /**
+ * DEPRECATED. Use the OpenShift quickstarts for Data Grid 7.3 instead.
+ */
+
+/**
  * An openshift client which is executed locally to connect to an external openshift instance
  */
 public class ExternalOpenShiftClient {
