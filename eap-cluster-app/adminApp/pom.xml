@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application</artifactId>
-        <version>7.3.3-SNAPSHOT</version>
+        <version>7.3.3.CD20190808-redhat-00001</version>
     </parent>
     <artifactId>jboss-eap-application-adminApp</artifactId>
     <packaging>pom</packaging>
