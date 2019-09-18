@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-rest-endpoint-quickstart</artifactId>
-    <version>7.3.3.CD20190918-redhat-00001</version>
+    <version>7.3.3.Final-redhat-00002</version>
     <name>JBoss JDG Quickstart: rest-endpoint</name>
 
     <licenses>
