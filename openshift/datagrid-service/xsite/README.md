@@ -139,7 +139,7 @@ $ oc new-app datagrid-service \
   - `${siteName}` is either `SiteA` or `SiteB`.
   - `${discovery}` maps external IPs to node ports as follows:
 
-  `${extAddr-SiteA}[${extPort-SiteB}],${extAddr-SiteB}[${extPort-SiteA}]`
+  `${extAddr-SiteA}[${extPort-SiteA}],${extAddr-SiteB}[${extPort-SiteB}]`
     For example: `192.0.2.0[32660],192.0.2.1[32660]`
 
   **NOTE:** The launch script does not generate keystores when you create Data Grid with custom configuration. To enable authentication, you must set up keystores for `datagrid-service` manually and include the following parameters:
