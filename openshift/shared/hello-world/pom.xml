@@ -20,7 +20,7 @@
         <shade-maven-plugin.main.class>org.infinispan.quickstart.openshift.shared.helloworld.HelloWorld</shade-maven-plugin.main.class>
 
         <!-- TODO move to product when released -->
-        <version.org.infinispan>9.4.16.CD20191017-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.16.ER1-redhat-00002</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
