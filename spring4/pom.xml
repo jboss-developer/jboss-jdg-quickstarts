@@ -5,7 +5,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring4-jdg</artifactId>
-    <version>7.3.4-SNAPSHOT</version>
+    <version>7.3.5-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring4-jdg</name>
