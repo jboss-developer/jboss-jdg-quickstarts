@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application-AppOne</artifactId>
-        <version>7.3.5-SNAPSHOT</version>
+        <version>7.3.5.CD20200115-redhat-00001</version>
     </parent>
     <licenses>
         <license>
