@@ -1,11 +1,11 @@
 
 # adding the necessary modules to the EAP configuration
-# remember to add the datagrid library modules of JDG 7.2 before !
-/extension=org.infinispan.extension\:jdg-7.2:add
+# remember to add the datagrid library modules of JDG 7.3 before !
+/extension=org.infinispan.extension\:jdg-7.3:add
 
 batch
 /subsystem=datagrid-infinispan:add
-/subsystem=datagrid-infinispan/cache-container=jdg-container:add(module="org.infinispan.extension:jdg-7.2", default-cache="default"
+/subsystem=datagrid-infinispan/cache-container=jdg-container:add(module="org.infinispan.extension:jdg-7.3", default-cache="default"
 
 # add a configuration as this is needed if the CLI is used to add a cache
 /subsystem=datagrid-infinispan/cache-container=jdg-container/configurations=CONFIGURATIONS:add

@@ -1,12 +1,12 @@
 
 # adding the necessary modules to the EAP configuration
-# remember to add the datagrid library modules of JDG 7.2 before !
-/extension=org.infinispan.extension\:jdg-7.2:add
-/extension=org.jgroups.extension\:jdg-7.2:add
+# remember to add the datagrid library modules of JDG 7.3 before !
+/extension=org.infinispan.extension\:jdg-7.3:add
+/extension=org.jgroups.extension\:jdg-7.3:add
 
 batch
 /subsystem=datagrid-infinispan:add
-/subsystem=datagrid-infinispan/cache-container=jdg-container:add(module="org.infinispan.extension:jdg-7.2", default-cache="default"
+/subsystem=datagrid-infinispan/cache-container=jdg-container:add(module="org.infinispan.extension:jdg-7.3", default-cache="default"
 /subsystem=datagrid-infinispan/cache-container=jdg-container/transport=TRANSPORT:add(channel=jdg-cluster)
 /subsystem=datagrid-infinispan/cache-container=jdg-container/global-state=GLOBAL_STATE:add
 
@@ -21,19 +21,19 @@ batch
 # adding the datagrid JGroups subsystem with UDP stack
 /subsystem=datagrid-jgroups:add()
 /subsystem=datagrid-jgroups/stack=udp:add
-/subsystem=datagrid-jgroups/stack=udp/transport=UDP:add(socket-binding=jdg-jgroups-udp, module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=PING:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=MERGE3:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=FD_SOCK:add(module="org.jgroups:jdg-7.2", socket-binding=jdg-jgroups-udp-fd)
-/subsystem=datagrid-jgroups/stack=udp/protocol=FD_ALL:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=VERIFY_SUSPECT:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.NAKACK2:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=UNICAST3:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.STABLE:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.GMS:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=UFC:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=MFC:add(module="org.jgroups:jdg-7.2")
-/subsystem=datagrid-jgroups/stack=udp/protocol=FRAG3:add(module="org.jgroups:jdg-7.2")
+/subsystem=datagrid-jgroups/stack=udp/transport=UDP:add(socket-binding=jdg-jgroups-udp, module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=PING:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=MERGE3:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=FD_SOCK:add(module="org.jgroups:jdg-7.3", socket-binding=jdg-jgroups-udp-fd)
+/subsystem=datagrid-jgroups/stack=udp/protocol=FD_ALL:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=VERIFY_SUSPECT:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.NAKACK2:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=UNICAST3:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.STABLE:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=pbcast.GMS:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=UFC:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=MFC:add(module="org.jgroups:jdg-7.3")
+/subsystem=datagrid-jgroups/stack=udp/protocol=FRAG3:add(module="org.jgroups:jdg-7.3")
 /subsystem=datagrid-jgroups/channel=jdg-cluster:add(stack=udp)
 
 # add a configuration as this is needed if the CLI is used to add a cache
