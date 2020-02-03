@@ -86,7 +86,7 @@
                              in this example the jboss-deployment-structure.xml is added
                              and this is not needed
                         <manifestEntries>
-                            <Dependencies>org.infinispan:jdg-7.2 services</Dependencies>
+                            <Dependencies>org.infinispan:jdg-7.3 services</Dependencies>
                         </manifestEntries>
                         -->
                     </archive>
