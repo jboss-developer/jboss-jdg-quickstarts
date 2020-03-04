@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-remote-tasks-with-streams-quickstart</artifactId>
-    <version>7.3.6.CD20200304-redhat-00001</version>
+    <version>7.3.6.ER1-redhat-00001</version>
     <name>JBoss JDG Quickstart: remote-tasks-with-streams</name>
 
     <licenses>
@@ -34,7 +34,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.org.infinispan>9.4.19.CD20200304-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.19.ER1-redhat-00001</version.org.infinispan>
         <exec.plugin.version>1.2.1</exec.plugin.version>
         <main.class>org.jboss.as.quickstarts.datagrid.remotetasks.LibraryManager</main.class>
 
