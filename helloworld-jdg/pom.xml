@@ -32,6 +32,7 @@
         <version.buildhelper.maven.plugin>1.7</version.buildhelper.maven.plugin>
         <war.plugin.version>2.2</war.plugin.version>
         <version.jboss.spec.jsf.version>2.2.12</version.jboss.spec.jsf.version>
+        <version.commons.codec>1.11</version.commons.codec>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -68,6 +69,11 @@
                 <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${version.commons.codec}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

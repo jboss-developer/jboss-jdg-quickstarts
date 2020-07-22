@@ -44,6 +44,7 @@
         <version.spark.connector>0.10.0.Final-redhat-00004</version.spark.connector>
 
         <version.spark>2.3.3</version.spark>
+        <version.commons.codec>1.11</version.commons.codec>
 
         <!-- maven-compiler-plugin -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,6 +74,11 @@
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-spark</artifactId>
                 <version>${version.spark.connector}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${version.commons.codec}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -40,7 +40,7 @@
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
 
         <version.commons.logging>1.1.1</version.commons.logging>
-        <version.commons.codec>1.10</version.commons.codec>
+        <version.commons.codec>1.11</version.commons.codec>
 
         <!-- other plugin versions -->
         <version.tomcat.maven.plugin>1.1</version.tomcat.maven.plugin>
