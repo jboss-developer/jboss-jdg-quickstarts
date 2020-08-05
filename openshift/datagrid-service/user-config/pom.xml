@@ -19,7 +19,7 @@
 
         <shade-maven-plugin.main.class>org.infinispan.quickstart.openshift.datagrid.userconfig.UserConfig</shade-maven-plugin.main.class>
 
-        <version.org.infinispan>9.4.20.CD20200805-redhat-00001</version.org.infinispan>
+        <version.org.infinispan>9.4.20.Final-redhat-00001</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
