@@ -9,7 +9,7 @@
   "author": "Galder Zamarreño",
   "license": "Apache-2.0",
   "dependencies": {
-    "infinispan": "0.7.0-CD20200805-redhat-00001",
+    "infinispan": "0.7.0-Final-redhat-00002",
     "vorpal": "^1.10.10"
   }
 }
