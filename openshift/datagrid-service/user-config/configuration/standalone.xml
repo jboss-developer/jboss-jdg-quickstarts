@@ -14,6 +14,7 @@
         <extension module="org.jboss.as.security"/>
         <extension module="org.jboss.as.transactions"/>
         <extension module="org.jgroups.extension"/>
+        <extension module="org.wildfly.extension.elytron"/>
         <extension module="org.wildfly.extension.io"/>
     </extensions>
     <management>
@@ -69,7 +70,7 @@
         </access-control>
     </management>
     <profile>
-        <subsystem xmlns="urn:jboss:domain:logging:3.0">
+        <subsystem xmlns="urn:jboss:domain:logging:6.0">
             <console-handler name="CONSOLE">
                 <formatter>
                     <named-formatter name="##CONSOLE-FORMATTER##"/>
@@ -77,7 +78,7 @@
             </console-handler>
             <periodic-rotating-file-handler name="FILE" autoflush="true">
                 <formatter>
-                    <named-formatter name="PATTERN"/>
+                    <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
                 <file relative-to="jboss.server.log.dir" path="server.log"/>
                 <suffix value=".yyyy-MM-dd"/>
@@ -117,22 +118,23 @@
                     <handler name="HR-ACCESS-FILE"/>
                 </handlers>
             </logger>
+            <!-- ##LOGGER_CONFIGURATION## -->
             <!-- ##ACCESS_LOG_HANDLER## -->
             <root-logger>
                 <level name="INFO"/>
                 <handlers>
                     <handler name="CONSOLE"/>
+                    <handler name="FILE"/>
                 </handlers>
             </root-logger>
             <formatter name="OPENSHIFT">
-                <custom-formatter module="org.jboss.logmanager.ext" class="org.jboss.logmanager.ext.formatters.LogstashFormatter">
-                    <properties>
-                        <property name="metaData" value="log-handler=CONSOLE"/>
-                    </properties>
-                </custom-formatter>
-            </formatter>
-            <formatter name="PATTERN">
-                <pattern-formatter pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
+                <json-formatter>
+                    <exception-output-type value="formatted"/>
+                    <key-overrides timestamp="@timestamp"/>
+                    <meta-data>
+                        <property name="@version" value="1"/>
+                    </meta-data>
+                </json-formatter>
             </formatter>
             <formatter name="COLOR-PATTERN">
                 <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
