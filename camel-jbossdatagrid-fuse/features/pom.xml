@@ -7,7 +7,7 @@
    <parent>
       <groupId>org.jboss.quickstarts.jdg</groupId>
       <artifactId>camel-jbossdatagrid-fuse</artifactId>
-      <version>7.3.7-SNAPSHOT</version>
+      <version>7.3.7.CD20201020-redhat-00001</version>
    </parent>
    <artifactId>features</artifactId>
    <name>JBoss JDG Quickstart: camel-jbossdatagrid-fuse: features</name>
