@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.jdg</groupId>
         <artifactId>jboss-eap-application-adminApp</artifactId>
-        <version>7.3.7.CD20201020-redhat-00001</version>
+        <version>7.3.7.Final</version>
     </parent>
     <licenses>
         <license>
