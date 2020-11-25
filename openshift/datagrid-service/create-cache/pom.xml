@@ -19,7 +19,7 @@
 
         <shade-maven-plugin.main.class>org.infinispan.quickstart.openshift.datagrid.createcache.CreateCache</shade-maven-plugin.main.class>
 
-        <version.org.infinispan>8.5.3.Final-redhat-00002</version.org.infinispan>
+        <version.org.infinispan>9.4.21.CD20201125-redhat-00001</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
