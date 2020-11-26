@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <profiles>
+    <profile>
+      <repositories>
+        <repository>
+          <releases>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>fuse-release</id>
+          <name>jboss Release Repository</name>
+          <url>http://repo.fusesource.com/nexus/content/groups/public/</url>
+        </repository>
+      </repositories>
+      <id>removed-by-pme</id>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>removed-by-pme</activeProfile>
+  </activeProfiles>
+</settings>

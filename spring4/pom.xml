@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spring4-jdg</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.Final-redhat-00001</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: spring4-jdg</name>
@@ -17,9 +16,9 @@
         <start-class>org.jboss.as.quickstarts.datagrid.spring.bootstrap.Application</start-class>
 
         <version.spring-boot-starter-parent>1.5.16.RELEASE</version.spring-boot-starter-parent>
-        <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
+        <version.jboss-transaction-api_1.1_spec>1.0.1.Final-redhat-3</version.jboss-transaction-api_1.1_spec>
 
-        <version.org.infinispan>9.4.21.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.21.Final-redhat-00002</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
@@ -78,7 +77,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>18.0</version>
+            <version>18.0.0.redhat-1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -121,6 +120,7 @@
                 <version>7.7.Final</version>
             </plugin>
         </plugins>
+        <pluginManagement />
     </build>
 
 </project>

@@ -15,13 +15,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
    -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-jdg-quickstarts</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.Final-redhat-00001</version>
     <packaging>pom</packaging>
     <name>JBoss JDG Quickstart: parent</name>
 
@@ -67,11 +66,14 @@
         <product.version>7.3.8</product.version>
     </properties>
 
+    <build>
+    <pluginManagement />
+  </build>
+
     <profiles>
         <profile>
             <id>distribution</id>
 		    <activation>
-		       <activeByDefault>false</activeByDefault>
 		    </activation>
 		    <build>
 		       <plugins>
@@ -100,3 +102,6 @@
 		</profile>
     </profiles>
 </project>
+<!--
+Modified by POM Manipulation Extension for Maven 4.1 ( SHA: 2574c551 )
+-->
