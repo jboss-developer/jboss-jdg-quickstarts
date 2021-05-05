@@ -15,13 +15,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-remote-query-quickstart</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.CD20210505-redhat-00001</version>
     <name>JBoss JDG Quickstart: remote-query</name>
 
     <licenses>
@@ -39,7 +38,7 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.org.infinispan>9.4.23.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.23.CD20210505-redhat-00001</version.org.infinispan>
 
         <!-- other plugin versions -->
         <exec.plugin.version>1.2.1</exec.plugin.version>
@@ -81,6 +80,7 @@
     <build>
         <!-- Maven will append the version to the finalName (which is the name given to the generated jar) -->
         <finalName>${project.artifactId}</finalName>
+        <pluginManagement />
     </build>
 
     <profiles>
@@ -160,9 +160,9 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        <echo message="Build create lib/ directory"/>
-                                        <delete dir="${project.build.directory}/lib"/>
-                                        <mkdir dir="${project.build.directory}/lib"/>
+                                        <echo message="Build create lib/ directory" />
+                                        <delete dir="${project.build.directory}/lib" />
+                                        <mkdir dir="${project.build.directory}/lib" />
                                     </tasks>
                                 </configuration>
                             </execution>
@@ -174,25 +174,24 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        <echo message="Copying libraries from server distribution to lib/ directory"/>
+                                        <echo message="Copying libraries from server distribution to lib/ directory" />
                                         <copy todir="${project.build.directory}/lib">
-                                            <fileset
-                                                    dir="${classpath}">
-                                                <include name="**/*.jar"/>
+                                            <fileset dir="${classpath}">
+                                                <include name="**/*.jar" />
                                             </fileset>
-                                            <mapper type="flatten"/>
+                                            <mapper type="flatten" />
                                         </copy>
                                         <pathconvert pathsep=" " property="jar.classpath">
-                                            <fileset dir="${project.build.directory}/lib"/>
+                                            <fileset dir="${project.build.directory}/lib" />
                                             <chainedmapper>
-                                                <flattenmapper/>
+                                                <flattenmapper />
                                                 <filtermapper>
-                                                    <replacestring from=" " to="%20"/>
+                                                    <replacestring from=" " to="%20" />
                                                 </filtermapper>
-                                                <globmapper from="*" to="lib/*"/>
+                                                <globmapper from="*" to="lib/*" />
                                             </chainedmapper>
                                         </pathconvert>
-                                        <echo message="CLASSPATH= ${jar.classpath}"/>
+                                        <echo message="CLASSPATH= ${jar.classpath}" />
                                     </tasks>
                                     <exportAntProperties>true</exportAntProperties>
                                 </configuration>
