@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-embedded-openshift-quickstart</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.CD20210506-redhat-00001</version>
     <name>JBoss JDG Quickstart: Embedded Openshift</name>
     <description>Create an OpenShift deployment that uses Red Hat Data Grid in Library mode.</description>
 
@@ -25,7 +23,7 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.org.infinispan>9.4.23.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.23.CD20210506-redhat-00001</version.org.infinispan>
 
         <!-- Set properties for the maven-compiler-plugin. -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -64,7 +62,6 @@
         <profile>
             <id>docker</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
