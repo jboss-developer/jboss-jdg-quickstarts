@@ -14,14 +14,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
    -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-cdi-jdg</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.CD20210507-redhat-00001</version>
     <packaging>war</packaging>
 
     <name>JBoss JDG Quickstart: CDI</name>
@@ -34,9 +33,9 @@
         <maven.test.skip>true</maven.test.skip>
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
         <version.war.plugin>2.6</version.war.plugin>
-        <version.org.infinispan>9.4.23.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.23.CD20210507-redhat-00001</version.org.infinispan>
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
-        <version.javax.annotation>1.3.2</version.javax.annotation>
+        <version.javax.annotation>1.3.2.redhat-00001</version.javax.annotation>
     </properties>
 
     <developers>
@@ -151,6 +150,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <pluginManagement />
     </build>
 
     <profiles>
