@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <groupId>org.jboss.quickstarts.jdg</groupId>
    <artifactId>jboss-secure-embedded-cache-quickstart</artifactId>
    <packaging>war</packaging>
-   <version>7.3.8.Final</version>
+   <version>7.3.8.CD20210509-redhat-00001</version>
 
    <name>JBoss JDG Quickstart: secure-embedded-cache</name>
    <description>This quickstart demonstrates authentication and authorization for an embedded cache running in a webapp.</description>
@@ -25,7 +24,7 @@
       <maven.compiler.target>1.8</maven.compiler.target>
 
       <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
-      <version.org.infinispan>9.4.23.Final</version.org.infinispan>
+      <version.org.infinispan>9.4.23.CD20210509-redhat-00001</version.org.infinispan>
    </properties>
 
    <dependencyManagement>
@@ -66,13 +65,13 @@
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-client</artifactId>
-         <version>3.0.24.Final</version>
+         <version>3.0.24.Final-redhat-1</version>
          <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-jaxrs</artifactId>
-         <version>3.0.24.Final</version>
+         <version>3.0.24.Final-redhat-1</version>
          <scope>provided</scope>
          <exclusions>
             <exclusion>
@@ -99,13 +98,13 @@
       <dependency>
          <groupId>org.codehaus.jackson</groupId>
          <artifactId>jackson-mapper-asl</artifactId>
-         <version>1.9.9</version>
+         <version>1.9.9.redhat-7</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
          <groupId>org.jboss.resteasy</groupId>
          <artifactId>resteasy-jackson2-provider</artifactId>
-         <version>3.0.24.Final</version>
+         <version>3.0.24.Final-redhat-1</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -143,7 +142,7 @@
       <dependency>
          <groupId>org.keycloak</groupId>
          <artifactId>keycloak-test-helper</artifactId>
-         <version>4.0.0.Beta3</version>
+         <version>4.0.0.Beta3-redhat-2</version>
          <scope>test</scope>
       </dependency>
    </dependencies>
@@ -176,6 +175,7 @@
             </configuration>
          </plugin>
       </plugins>
+      <pluginManagement />
    </build>
 
    <profiles>
