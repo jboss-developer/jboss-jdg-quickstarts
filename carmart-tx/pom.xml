@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-carmart-tx</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.CD20210510-redhat-00001</version>
     <packaging>war</packaging>
     <name>JBoss JDG Quickstart: carmart-tx</name>
     <description>Transactional CarMart</description>
@@ -30,19 +29,19 @@
         <version.jboss.weld>2.2.6.Final</version.jboss.weld>
         <version.com.sun.faces.jsf.impl>2.2.12</version.com.sun.faces.jsf.impl>
 
-        <version.org.infinispan>9.4.23.Final</version.org.infinispan>
+        <version.org.infinispan>9.4.23.CD20210510-redhat-00001</version.org.infinispan>
 
         <version.jboss.spec.javaee.7.0>9.0.1.Final</version.jboss.spec.javaee.7.0>
 
-        <version.org.jboss.jbossts.jta.narayana-jta>4.17.24.Final</version.org.jboss.jbossts.jta.narayana-jta>
-        <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
+        <version.org.jboss.jbossts.jta.narayana-jta>4.17.24.Final-redhat-1</version.org.jboss.jbossts.jta.narayana-jta>
+        <version.jboss-transaction-api_1.1_spec>1.0.1.Final-redhat-3</version.jboss-transaction-api_1.1_spec>
 
         <!-- This is the Management URL of EWS/Tomcat, so tomcat-maven-plugin 
             can deploy this quickstart on EWS/Tomcat through this URL -->
         <tomcat.management.url>http://localhost:8080/manager/text</tomcat.management.url>
 
-        <version.commons.logging>1.1.1</version.commons.logging>
-        <version.commons.codec>1.11</version.commons.codec>
+        <version.commons.logging>1.1.1.redhat-3</version.commons.logging>
+        <version.commons.codec>1.11.0.redhat-00001</version.commons.codec>
 
         <!-- other plugin versions -->
         <version.tomcat.maven.plugin>1.1</version.tomcat.maven.plugin>
@@ -59,7 +58,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <browser>phantomjs</browser>
 
-        <version.javax.annotation>1.3.2</version.javax.annotation>
+        <version.javax.annotation>1.3.2.redhat-00001</version.javax.annotation>
 
     </properties>
 
@@ -247,6 +246,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement />
     </build>
 
     <profiles>
