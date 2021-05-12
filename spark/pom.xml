@@ -15,13 +15,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.jdg</groupId>
     <artifactId>jboss-spark-quickstart</artifactId>
-    <version>7.3.8.Final</version>
+    <version>7.3.8.CD20210512-redhat-00001</version>
     <name>JBoss JDG Quickstart: spark - parent</name>
     <packaging>pom</packaging>
 
@@ -40,11 +39,11 @@
     </modules>
 
     <properties>
-        <version.org.infinispan>9.4.23.Final</version.org.infinispan>
-        <version.spark.connector>0.9.1.Final</version.spark.connector>
+        <version.org.infinispan>9.4.23.CD20210512-redhat-00001</version.org.infinispan>
+        <version.spark.connector>0.9.1.CD20210512-redhat-00001</version.spark.connector>
 
         <version.spark>2.3.3</version.spark>
-        <version.commons.codec>1.11</version.commons.codec>
+        <version.commons.codec>1.11.0.redhat-00001</version.commons.codec>
 
         <!-- maven-compiler-plugin -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -99,6 +98,7 @@
                 <version>${version.maven.scala}</version>
             </plugin>
         </plugins>
+        <pluginManagement />
     </build>
 
 </project>
