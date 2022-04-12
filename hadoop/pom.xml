@@ -36,7 +36,7 @@
         <version.org.infinispan>9.4.13.Final-redhat-00002</version.org.infinispan>
         <version.jdg.hadoop>0.4.0.Final-redhat-00001</version.jdg.hadoop>
         <version.org.apache.flink>1.7.1</version.org.apache.flink>
-        <version.org.apache.hadoop>3.1.1.redhat-00002</version.org.apache.hadoop>
+        <version.org.apache.hadoop>3.2.3</version.org.apache.hadoop>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- maven-compiler-plugin -->
