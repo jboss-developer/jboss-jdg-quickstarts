@@ -19,7 +19,7 @@
         <version.spring-boot-starter-parent>1.5.16.RELEASE</version.spring-boot-starter-parent>
         <version.jboss-transaction-api_1.1_spec>1.0.1.Final</version.jboss-transaction-api_1.1_spec>
 
-        <version.org.infinispan>9.4.13.Final-redhat-00002</version.org.infinispan>
+        <version.org.infinispan>11.0.6.Final</version.org.infinispan>
     </properties>
 
     <dependencyManagement>
